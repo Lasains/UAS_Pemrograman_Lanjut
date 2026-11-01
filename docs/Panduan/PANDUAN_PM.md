@@ -14,14 +14,15 @@ Dokumen ini adalah pegangan Anda sebagai Project Manager (PM) sekaligus Lead Int
 
 ## 2. Checklist Kerja Mingguan PM
 
-### 📌 Minggu 1: Setup & Kickoff
+### 📌 Minggu 1: Setup, Kickoff & Review Mockup UI
 - [x] Inisialisasi Laravel 11 + Inertia React + TypeScript.
 - [x] Siapkan kontrak tipe awal di `resources/js/types/inventory.d.ts`.
 - [x] Instal dependensi UI (`lucide-react`, `recharts`, `clsx`, `tailwind-merge`).
 - [ ] Buat repository di GitHub dan undang 4 anggota tim sebagai kolaborator.
 - [ ] Push branch `main` dan branch `develop` ke GitHub.
 - [ ] Set `develop` sebagai *Default Branch* di pengaturan repository GitHub.
-- [ ] Bagikan dokumen `docs/PANDUAN_GIT_DAN_SETUP.md` serta panduan masing-masing role ke anggota tim.
+- [ ] Bagikan dokumen `docs/Panduan/PANDUAN_GIT_DAN_SETUP.md` serta panduan masing-masing role ke anggota tim.
+- [ ] **Review Mockup UI Google Stitch**: Tinjau hasil generasi mockup dari FE 1 (Layout, Login, Monitoring, Analytics) dan FE 2 (FEFO, Master, Waste) sebelum tim masuk ke tahap koding di Minggu 2.
 
 ### 📌 Minggu 2: Pengawalan Fitur Core & FEFO
 - [ ] Pantau PR dari BE1 (Migrations & Batch Restock). Segera merge jika lolos test.

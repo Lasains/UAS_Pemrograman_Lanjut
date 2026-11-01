@@ -14,17 +14,17 @@ Dokumen ini merupakan **Design Contract** resmi untuk seluruh tim pengembang (kh
 
 ### 1.2 Palet Warna & Token (Tailwind Color Tokens)
 
-| Peruntukan | Token Kelas Tailwind | Kode Hex | Contoh Penggunaan |
-| :--- | :--- | :--- | :--- |
-| **Latar Belakang Utama** | `bg-slate-50` / `bg-zinc-50` | `#F8FAFC` | Background halaman dashboard |
-| **Kartu & Kontainer** | `bg-white` | `#FFFFFF` | Permukaan card, modal dialog, tabel |
-| **Teks Utama (Headings)** | `text-slate-900` | `#0F172A` | Judul halaman, nominal metrik, nama bahan |
-| **Teks Sekunder (Muted)** | `text-slate-500` | `#64748B` | Label satuan (ml/gram), nomor batch, tanggal |
-| **Garis Batas (Borders)** | `border-slate-200` | `#E2E8F0` | Border tabel, pemisah card, garis input |
-| **Brand / Kafe Primer** | `bg-emerald-600` / `hover:bg-emerald-700` | `#059669` | Tombol aksi utama (Restock, Simpan, Submit) |
-| **Badge Status: AMAN 🟢** | `bg-emerald-50 text-emerald-700 border-emerald-200` | `#ECFDF5` | Sisa masa simpan > 7 hari |
-| **Badge Status: WARNING 🟡** | `bg-amber-50 text-amber-700 border-amber-200` | `#FFFBEB` | Sisa masa simpan 3 – 7 hari (Segera Pakai) |
-| **Badge Status: KRITIS 🔴** | `bg-rose-50 text-rose-700 border-rose-200` | `#FFF1F2` | Sisa masa simpan < 3 hari / Sudah Basi |
+| Peruntukan                   | Token Kelas Tailwind                                | Kode Hex  | Contoh Penggunaan                            |
+| :--------------------------- | :-------------------------------------------------- | :-------- | :------------------------------------------- |
+| **Latar Belakang Utama**     | `bg-slate-50` / `bg-zinc-50`                        | `#F8FAFC` | Background halaman dashboard                 |
+| **Kartu & Kontainer**        | `bg-white`                                          | `#FFFFFF` | Permukaan card, modal dialog, tabel          |
+| **Teks Utama (Headings)**    | `text-slate-900`                                    | `#0F172A` | Judul halaman, nominal metrik, nama bahan    |
+| **Teks Sekunder (Muted)**    | `text-slate-500`                                    | `#64748B` | Label satuan (ml/gram), nomor batch, tanggal |
+| **Garis Batas (Borders)**    | `border-slate-200`                                  | `#E2E8F0` | Border tabel, pemisah card, garis input      |
+| **Brand / Kafe Primer**      | `bg-emerald-600` / `hover:bg-emerald-700`           | `#059669` | Tombol aksi utama (Restock, Simpan, Submit)  |
+| **Badge Status: AMAN 🟢**    | `bg-emerald-50 text-emerald-700 border-emerald-200` | `#ECFDF5` | Sisa masa simpan > 7 hari                    |
+| **Badge Status: WARNING 🟡** | `bg-amber-50 text-amber-700 border-amber-200`       | `#FFFBEB` | Sisa masa simpan 3 – 7 hari (Segera Pakai)   |
+| **Badge Status: KRITIS 🔴**  | `bg-rose-50 text-rose-700 border-rose-200`          | `#FFF1F2` | Sisa masa simpan < 3 hari / Sudah Basi       |
 
 ### 1.3 Tipografi & Hierarki Skala Teks
 Menggunakan font sans-serif modern (Inter / font default Tailwind):
