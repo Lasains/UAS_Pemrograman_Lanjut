@@ -16,15 +16,54 @@ Dokumen ini merupakan **Design Contract** resmi untuk seluruh tim pengembang (kh
 
 | Peruntukan                   | Token Kelas Tailwind                                | Kode Hex  | Contoh Penggunaan                            |
 | :--------------------------- | :-------------------------------------------------- | :-------- | :------------------------------------------- |
-| **Latar Belakang Utama**     | `bg-slate-50` / `bg-zinc-50`                        | `#F8FAFC` | Background halaman dashboard                 |
-| **Kartu & Kontainer**        | `bg-white`                                          | `#FFFFFF` | Permukaan card, modal dialog, tabel          |
-| **Teks Utama (Headings)**    | `text-slate-900`                                    | `#0F172A` | Judul halaman, nominal metrik, nama bahan    |
-| **Teks Sekunder (Muted)**    | `text-slate-500`                                    | `#64748B` | Label satuan (ml/gram), nomor batch, tanggal |
-| **Garis Batas (Borders)**    | `border-slate-200`                                  | `#E2E8F0` | Border tabel, pemisah card, garis input      |
-| **Brand / Kafe Primer**      | `bg-emerald-600` / `hover:bg-emerald-700`           | `#059669` | Tombol aksi utama (Restock, Simpan, Submit)  |
-| **Badge Status: AMAN 🟢**    | `bg-emerald-50 text-emerald-700 border-emerald-200` | `#ECFDF5` | Sisa masa simpan > 7 hari                    |
-| **Badge Status: WARNING 🟡** | `bg-amber-50 text-amber-700 border-amber-200`       | `#FFFBEB` | Sisa masa simpan 3 – 7 hari (Segera Pakai)   |
-| **Badge Status: KRITIS 🔴**  | `bg-rose-50 text-rose-700 border-rose-200`          | `#FFF1F2` | Sisa masa simpan < 3 hari / Sudah Basi       |
+colors:
+  surface: '#fef8f4'
+  surface-dim: '#dfd9d5'
+  surface-bright: '#fef8f4'
+  surface-container-lowest: '#ffffff'
+  surface-container-low: '#f8f2ee'
+  surface-container: '#f3ede9'
+  surface-container-high: '#ede7e3'
+  surface-container-highest: '#e7e1dd'
+  on-surface: '#1d1b19'
+  on-surface-variant: '#50453d'
+  inverse-surface: '#32302e'
+  inverse-on-surface: '#f6f0ec'
+  outline: '#82746b'
+  outline-variant: '#d4c3b9'
+  surface-tint: '#7b5638'
+  primary: '#311701'
+  on-primary: '#ffffff'
+  primary-container: '#4a2c11'
+  on-primary-container: '#bf926f'
+  inverse-primary: '#edbd97'
+  secondary: '#8b5013'
+  on-secondary: '#ffffff'
+  secondary-container: '#feb06b'
+  on-secondary-container: '#784102'
+  tertiary: '#410700'
+  on-tertiary: '#ffffff'
+  tertiary-container: '#5f1c0d'
+  on-tertiary-container: '#e2806a'
+  error: '#ba1a1a'
+  on-error: '#ffffff'
+  error-container: '#ffdad6'
+  on-error-container: '#93000a'
+  primary-fixed: '#ffdcc2'
+  primary-fixed-dim: '#edbd97'
+  on-primary-fixed: '#2e1500'
+  on-primary-fixed-variant: '#613f23'
+  secondary-fixed: '#ffdcc2'
+  secondary-fixed-dim: '#ffb77a'
+  on-secondary-fixed: '#2e1500'
+  on-secondary-fixed-variant: '#6d3a00'
+  tertiary-fixed: '#ffdad2'
+  tertiary-fixed-dim: '#ffb4a3'
+  on-tertiary-fixed: '#3d0600'
+  on-tertiary-fixed-variant: '#792f1e'
+  background: '#fef8f4'
+  on-background: '#1d1b19'
+  surface-variant: '#e7e1dd'
 
 ### 1.3 Tipografi & Hierarki Skala Teks
 Menggunakan font sans-serif modern (Inter / font default Tailwind):
