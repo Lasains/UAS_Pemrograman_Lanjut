@@ -16,54 +16,18 @@ Dokumen ini merupakan **Design Contract** resmi untuk seluruh tim pengembang (kh
 
 | Peruntukan                   | Token Kelas Tailwind                                | Kode Hex  | Contoh Penggunaan                            |
 | :--------------------------- | :-------------------------------------------------- | :-------- | :------------------------------------------- |
-colors:
-  surface: '#fef8f4'
-  surface-dim: '#dfd9d5'
-  surface-bright: '#fef8f4'
-  surface-container-lowest: '#ffffff'
-  surface-container-low: '#f8f2ee'
-  surface-container: '#f3ede9'
-  surface-container-high: '#ede7e3'
-  surface-container-highest: '#e7e1dd'
-  on-surface: '#1d1b19'
-  on-surface-variant: '#50453d'
-  inverse-surface: '#32302e'
-  inverse-on-surface: '#f6f0ec'
-  outline: '#82746b'
-  outline-variant: '#d4c3b9'
-  surface-tint: '#7b5638'
-  primary: '#311701'
-  on-primary: '#ffffff'
-  primary-container: '#4a2c11'
-  on-primary-container: '#bf926f'
-  inverse-primary: '#edbd97'
-  secondary: '#8b5013'
-  on-secondary: '#ffffff'
-  secondary-container: '#feb06b'
-  on-secondary-container: '#784102'
-  tertiary: '#410700'
-  on-tertiary: '#ffffff'
-  tertiary-container: '#5f1c0d'
-  on-tertiary-container: '#e2806a'
-  error: '#ba1a1a'
-  on-error: '#ffffff'
-  error-container: '#ffdad6'
-  on-error-container: '#93000a'
-  primary-fixed: '#ffdcc2'
-  primary-fixed-dim: '#edbd97'
-  on-primary-fixed: '#2e1500'
-  on-primary-fixed-variant: '#613f23'
-  secondary-fixed: '#ffdcc2'
-  secondary-fixed-dim: '#ffb77a'
-  on-secondary-fixed: '#2e1500'
-  on-secondary-fixed-variant: '#6d3a00'
-  tertiary-fixed: '#ffdad2'
-  tertiary-fixed-dim: '#ffb4a3'
-  on-tertiary-fixed: '#3d0600'
-  on-tertiary-fixed-variant: '#792f1e'
-  background: '#fef8f4'
-  on-background: '#1d1b19'
-  surface-variant: '#e7e1dd'
+The palette draws directly from the roasting spectrum, from green-bean sorting to first crack and extraction:
+
+- **Primary (`#4A2C11`)**: Deep roasted espresso bean. Used for high-emphasis typography, critical interactive triggers, and anchoring UI chrome.
+- **Secondary (`#C88242`)**: Spun amber and warm caramel. Utilized for interactive active states, progress indicators, cupping score highlights, and badge accents.
+- **Tertiary (`#8C3D2B`)**: Terracotta and roasted coffee cherry. Reserved for critical warnings, batch shelf-life alerts, and heat-profile anomalies.
+- **Neutral Surface Canvas (`#FAF7F2`)**: Warm steamed milk and porcelain base.
+- **Neutral Container Surfaces (`#F5EFEB`, `#EDE4DC`)**: Oat latte and unbleached parchment tiers that group data cards and operational panels without reliance on stark dividers.
+- **Text & Foreground Hierarchy**:
+  - High Emphasis: Deep Espresso (`#241408`)
+  - Medium Emphasis: Muted Mocha (`#5C3A21`)
+  - Subtle / Disabled: Crema Umber (`#9C8474`)
+
 
 ### 1.3 Tipografi & Hierarki Skala Teks
 Menggunakan font sans-serif modern (Inter / font default Tailwind):
