@@ -53,7 +53,7 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
 ### 2.1 Identitas Modul Layar
 * **Screen Title**: Specialty Coffee Waste Write-Off & Supervisor Approval Center
 * **Target Viewport**: Desktop (1440x900) & Supervisor Tablet (1024x768)
-* **Visual Identity**: Slate-50 Background, Amber (Pending), Rose/Red (Financial Loss & Critical), Emerald (Approved).
+* **Visual Identity**: Warm Steamed Milk Canvas (`#FAF7F2`), Containers `#F5EFEB` & `#EDE4DC`, Amber `#C88242` (Pending & Warning), Terracotta `#8C3D2B` (Financial Loss & Critical Disposal), Espresso `#4A2C11` (Approval Action Triggers).
 
 ---
 
@@ -61,14 +61,14 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
 
 #### Layar 1: Modal Form Lapor Bahan Rusak untuk Barista (`Pages/Waste/ReportModal.tsx`)
 1. **Kontainer Dialog**:
-   - Modal pop-up putih terpusat (`max-w-lg bg-white rounded-xl shadow-xl border border-slate-200 p-6`).
-   - Judul: *"Lapor Bahan Baku Rusak / Basi (Disposal Ticket)"*.
-   - Subjudul: *"Tiket akan ditinjau dan diverifikasi oleh Supervisor sebelum stok dihapusbukukan."*
+   - Modal pop-up oat latte terpusat (`max-w-lg bg-surface-container rounded-xl shadow-xl border border-surface-border p-6`).
+   - Judul: *"Lapor Bahan Baku Rusak / Basi (Disposal Ticket)"* (`text-content-high`).
+   - Subjudul: *"Tiket akan ditinjau dan diverifikasi oleh Supervisor sebelum stok dihapusbukukan."* (`text-content-medium`).
 2. **Elemen Form Input**:
    - **Pilih Batch Bahan Baku (`ingredient_batch_id`)**:
      * Dropdown yang menampilkan batch aktif dengan sisa stok dan tanggal kedaluwarsa (misal: *Fresh Milk Diamond 1L - Batch #BM-20261025 (Exp: 03 Nov 2026, Sisa: 1.000 ml)*).
    - **Kuantitas Rusak (`waste_quantity`)**:
-     * Input angka besar dengan satuan unit dinamis (misal: `[ 1000 ] ml`).
+     * Input angka besar dengan satuan unit dinamis (`bg-surface-canvas border-surface-border text-content-high`, misal: `[ 1000 ] ml`).
      * Validasi instan: Angka tidak boleh melebihi sisa stok fisik batch terpilih.
    - **Alasan Pemusnahan (`reason`)**:
      * Select dropdown dengan opsi standar kafe:
@@ -80,15 +80,15 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
    - **Catatan Detail Kondisi Fisik (`notes`)**:
      * Textarea: *"Contoh: Susu terasa asam saat di-steam pagi ini, sudah berbusa kasar di dalam chiller."*
 3. **Footer Tombol**:
-   - Tombol Batal (`variant="outline"`).
-   - Tombol Amber/Red: `[Kirim Tiket ke Supervisor]`.
+   - Tombol Batal (`variant="outline"` border-surface-border text-content-medium).
+   - Tombol Amber Karamel: `[Kirim Tiket ke Supervisor]` (`bg-brand-secondary hover:bg-brand-secondary-hover text-white`).
 
 ---
 
 #### Layar 2: Approval Center DataTable untuk Supervisor (`Pages/Waste/Index.tsx`)
 1. **Header & Ringkasan Metrik Kerugian (3 Kartu Metrik Atas)**:
    - **Kartu 1 (Tiket Menunggu Approval 🟡)**: Angka tebal (misal: *4 Tiket Pending*), label *Menunggu Verifikasi Fisik*.
-   - **Kartu 2 (Estimasi Kerugian Pending 🔴)**: Nilai rupiah tebal warna merah (`text-rose-600 font-bold font-mono text-xl`, misal: *Rp 148.000*), label *Potensi Beban Kerugian*.
+   - **Kartu 2 (Estimasi Kerugian Pending 🔴)**: Nilai rupiah tebal warna terracotta cherry (`text-[#8C3D2B] font-bold font-mono text-xl`, misal: *Rp 148.000*), label *Potensi Beban Kerugian*.
    - **Kartu 3 (Total Kerugian Terverifikasi Bulan Ini)**: Nilai rupiah (misal: *Rp 420.500*), label *Total Bahan Rusak Disetujui*.
 2. **Toolbar & Filter Tab Status**:
    - Filter Tabs:
@@ -102,26 +102,26 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
      * **Bahan & Batch**: Nama bahan baku + nomor batch (misal: *Fresh Milk Diamond 1L - #BM-20261025*).
      * **Kuantitas Rusak**: Angka + satuan (misal: *1.000 ml*).
      * **Alasan Kerusakan**: Kapsul badge alasan (misal: *Bau Asam / Menggumpal*).
-     * **Estimasi Kerugian Finansial**: Nilai rupiah tebal merah mono (misal: `Rp 24.000`), dihitung otomatis dari harga beli per unit.
-     * **Status Tiket**: Badge `Pending` (Kuning amber), `Approved` (Hijau emerald), atau `Rejected` (Abu-abu netral).
+     * **Estimasi Kerugian Finansial**: Nilai rupiah tebal terakota mono (`text-[#8C3D2B] font-bold font-mono`, misal: `Rp 24.000`), dihitung otomatis dari harga beli per unit.
+     * **Status Tiket**: Badge `Pending` (`bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]`), `Approved` (`bg-emerald-50 text-emerald-800 border-emerald-300`), atau `Rejected` (Abu-abu parchment netral).
      * **Tombol Aksi**:
-       - Tombol Hijau: `[✓ Setujui]` (Membuka dialog konfirmasi approval).
-       - Tombol Abu-abu: `[✕ Tolak]` (Membuka modal input alasan penolakan).
+       - Tombol Espresso: `[✓ Setujui]` (`bg-brand-primary hover:bg-brand-primary-hover text-white`, membuka dialog konfirmasi approval).
+       - Tombol Abu-abu: `[✕ Tolak]` (border-surface-border text-content-medium, membuka modal input alasan penolakan).
 
 ---
 
 #### Layar 3: Dialog Konfirmasi Persetujuan Pemusnahan (`Components/WasteApprovalDialog.tsx`)
 1. **Kontainer Dialog**:
-   - AlertDialog terpusat (`max-w-md bg-white rounded-xl border border-rose-200 p-6`).
+   - AlertDialog terpusat (`max-w-md bg-surface-container rounded-xl border border-[#F8C6BF] p-6`).
 2. **Header Peringatan Tegas**:
-   - Ikon lingkaran merah `AlertOctagon` (`text-rose-600 bg-rose-50 p-2.5 rounded-full`).
-   - Judul: `text-rose-950 font-bold text-lg` (*"Konfirmasi Pemusnahan Bahan Baku"*).
+   - Ikon lingkaran terakota `AlertOctagon` (`text-[#8C3D2B] bg-[#FDF2F0] p-2.5 rounded-full`).
+   - Judul: `text-[#8C3D2B] font-bold text-lg` (*"Konfirmasi Pemusnahan Bahan Baku"*).
 3. **Ringkasan Dampak Finansial**:
-   - Kotak ringkasan berlatar kemerahan tipis:
+   - Kotak ringkasan berlatar terracotta lembut:
      > *"Anda akan menyetujui pemusnahan **1.000 ml Fresh Milk Diamond 1L** (Batch #BM-20261025). Tindakan ini akan **memotong stok fisik batch menjadi 0** dan mencatatkan kerugian finansial sebesar **Rp 24.000** ke buku kas kafe."*
 4. **Footer Aksi**:
-   - Tombol Batal (`variant="outline"`).
-   - Tombol Merah/Hijau Tegas: `[Ya, Setujui Pemusnahan Stok]`.
+   - Tombol Batal (`variant="outline"` border-surface-border text-content-medium).
+   - Tombol Espresso Tegas: `[Ya, Setujui Pemusnahan Stok]` (`bg-brand-primary hover:bg-brand-primary-hover text-white`).
 
 ---
 
@@ -129,35 +129,35 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
 
 #### Prompt Bahasa Indonesia (Terstruktur & Kontekstual)
 ```text
-Buatkan 3 antarmuka layar web untuk modul "Pelaporan & Approval Pemusnahan Bahan Basi (Waste Write-Off Center)" pada aplikasi kafe "BeanFlow":
+Buatkan 3 antarmuka layar web untuk modul "Pelaporan & Approval Pemusnahan Bahan Basi (Waste Write-Off Center)" pada aplikasi kafe "BeanFlow" dengan tema warna warm artisan coffee:
 
 Layar 1 (Modal Barista - Lapor Bahan Rusak):
-Modal pop-up putih terpusat (rounded-xl, border slate-200, shadow-lg). Berisi formulir pelaporan:
+Modal pop-up oat latte #F5EFEB terpusat (rounded-xl, border #EDE4DC, shadow-lg). Berisi formulir pelaporan:
 - Dropdown pilih batch bahan yang bermasalah (menampilkan nama bahan, nomor batch, sisa stok, dan tanggal kedaluwarsa).
 - Input kuantitas rusak dengan satuan ml/gram (misal: 1000 ml).
 - Dropdown alasan pemusnahan: "Masa Simpan Kedaluwarsa (Expired)", "Kemasan Bocor/Rusak", "Bau Asam/Menggumpal", "Terkontaminasi Fisik".
 - Textarea catatan detail kondisi fisik bahan baku.
-- Tombol Batal dan tombol amber "+ Ajukan Tiket Pemusnahan".
+- Tombol Batal dan tombol karamel amber "+ Ajukan Tiket Pemusnahan" (#C88242).
 
 Layar 2 (Halaman Supervisor - Waste Approval Center):
-Latar belakang bersih slate-50. Bagian atas memuat 3 kartu ringkasan:
+Latar belakang kanvas susu hangat #FAF7F2. Bagian atas memuat 3 kartu ringkasan berlatar oat latte:
 - Kartu 1: Tiket Pending Menunggu Verifikasi (4 Tiket).
-- Kartu 2: Potensi Kerugian Finansial Pending beraksen teks merah monospaced tebal "Rp 148.000".
+- Kartu 2: Potensi Kerugian Finansial Pending beraksen teks terracotta cherry tebal font-mono "Rp 148.000" (#8C3D2B).
 - Kartu 3: Total Kerugian Disetujui Bulan Ini "Rp 420.500".
 Di bawahnya terdapat filter tabs status ("Menunggu Approval", "Disetujui", "Ditolak").
-Tabel daftar tiket memuat kolom: Tanggal/Jam, Nama Barista Pelapor, Bahan & Kode Batch, Kuantitas Dibuang, Badge Alasan, Estimasi Kerugian Finansial (teks merah tebal font-mono), Badge Status Pending kuning, serta tombol aksi hijau "✓ Setujui" dan tombol outline "✕ Tolak".
+Tabel daftar tiket memuat kolom: Tanggal/Jam, Nama Barista Pelapor, Bahan & Kode Batch, Kuantitas Dibuang, Badge Alasan, Estimasi Kerugian Finansial (teks terracotta tebal font-mono #8C3D2B), Badge Status Pending amber (#C88242), serta tombol aksi espresso "✓ Setujui" (#4A2C11) dan tombol outline perkamen "✕ Tolak".
 
 Layar 3 (Dialog Konfirmasi Persetujuan Supervisor):
-Modal AlertDialog peringatan dengan ikon tanda seru merah. Berisi penjelasan tegas bahwa persetujuan akan memotong stok batch fisik menjadi 0 dan membukukan kerugian finansial sebesar Rp 24.000 secara permanen. Tombol batal dan tombol hijau "Ya, Setujui Pemusnahan".
-Desain bersih, modern SaaS specialty coffee, kontras tinggi, dan ramah tablet.
+Modal AlertDialog peringatan berlatar oat latte #F5EFEB dengan aksen terracotta #8C3D2B. Berisi penjelasan tegas bahwa persetujuan akan memotong stok batch fisik menjadi 0 dan membukukan kerugian finansial sebesar Rp 24.000 secara permanen. Tombol batal dan tombol espresso "Ya, Setujui Pemusnahan" (#4A2C11).
+Desain hangat, modern SaaS specialty coffee, kontras tinggi, dan ramah tablet.
 ```
 
 #### English Prompt (High-Fidelity for Stitch AI)
 ```text
-A comprehensive 3-screen UI set for a specialty coffee waste management module named "BeanFlow Waste Write-Off Center":
-1. Screen 1 (Barista Waste Report Modal): Centered clean white dialog card (rounded-xl, shadow-xl). Contains fields: batch selector showing ingredient name, batch code, and remaining stock; quantity wasted numeric input with unit badge (ml/gram); disposal reason select dropdown (Expired, Leaking Packaging, Sour/Curdled Odor, Contamination); descriptive notes textarea; secondary cancel button and primary amber button "+ Submit Waste Ticket".
-2. Screen 2 (Supervisor Approval Dashboard): Neutral slate-50 canvas. Top section features 3 metric cards: Pending Waste Tickets count (4), Potential Financial Loss highlighted in bold red monospace font "Rp 148,000", and Total Approved Waste this Month. Below are segmented status filter tabs ("Pending Approval", "Approved History", "Rejected"). Crisp data table with columns: Timestamp, Barista Reporter Name, Ingredient & Batch Code, Wasted Quantity, Reason Badge, Financial Loss in red bold monospace, Amber Pending Badge, and quick action buttons: emerald "✓ Approve" and outline "✕ Reject".
-3. Screen 3 (Approval Confirmation Alert Dialog): Prominent confirmation alert dialog with a red warning hexagon icon. Summary warning box explaining that approval will irreversibly set physical batch stock to 0 and record a financial loss of Rp 24,000 to the cafe's ledger. Cancel button and solid primary confirmation button "Confirm Waste Write-Off". Polished SaaS aesthetic, high typography contrast.
+A comprehensive 3-screen UI set for a specialty coffee waste management module named "BeanFlow Waste Write-Off Center" with warm coffee aesthetics:
+1. Screen 1 (Barista Waste Report Modal): Centered warm oat latte dialog card (#F5EFEB, rounded-xl, shadow-xl, border #EDE4DC). Contains fields: batch selector showing ingredient name, batch code, and remaining stock; quantity wasted numeric input with unit badge (ml/gram); disposal reason select dropdown (Expired, Leaking Packaging, Sour/Curdled Odor, Contamination); descriptive notes textarea; secondary cancel button and primary spun amber button "+ Submit Waste Ticket" (#C88242).
+2. Screen 2 (Supervisor Approval Dashboard): Warm steamed milk canvas (#FAF7F2). Top section features 3 metric cards on oat latte (#F5EFEB): Pending Waste Tickets count (4), Potential Financial Loss highlighted in bold terracotta monospace font "Rp 148,000" (#8C3D2B), and Total Approved Waste this Month. Below are segmented status filter tabs ("Pending Approval", "Approved History", "Rejected"). Crisp data table with columns: Timestamp, Barista Reporter Name, Ingredient & Batch Code, Wasted Quantity, Reason Badge, Financial Loss in terracotta bold monospace (#8C3D2B), Amber Pending Badge (#C88242), and quick action buttons: deep espresso "✓ Approve" (#4A2C11) and parchment outline "✕ Reject".
+3. Screen 3 (Approval Confirmation Alert Dialog): Prominent confirmation alert dialog with a terracotta warning hexagon icon (#8C3D2B). Summary warning box explaining that approval will irreversibly set physical batch stock to 0 and record a financial loss of Rp 24,000 to the cafe's ledger. Cancel button and solid deep espresso confirmation button "Confirm Waste Write-Off" (#4A2C11). Polished coffee aesthetic, high typography contrast.
 ```
 
 ---
@@ -267,9 +267,9 @@ export function ReportModal({ isOpen, onClose, activeBatches }: Props) {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="max-w-lg bg-white rounded-xl">
+            <DialogContent className="max-w-lg bg-surface-container border-surface-border rounded-xl">
                 <DialogHeader>
-                    <DialogTitle className="text-slate-900 font-semibold text-lg">
+                    <DialogTitle className="text-content-high font-semibold text-lg">
                         Lapor Bahan Baku Rusak / Basi
                     </DialogTitle>
                 </DialogHeader>
@@ -430,17 +430,17 @@ export function WasteApprovalDialog({ ticket, isOpen, onClose }: Props) {
 
     return (
         <AlertDialog open={isOpen}>
-            <AlertDialogContent className="max-w-md border-rose-200 bg-white">
+            <AlertDialogContent className="max-w-md border-[#F8C6BF] bg-surface-container">
                 <AlertDialogHeader>
                     <div className="flex items-center gap-3">
-                        <div className="rounded-full bg-rose-100 p-2 text-rose-600">
+                        <div className="rounded-full bg-[#FDF2F0] p-2 text-[#8C3D2B]">
                             <AlertOctagon className="h-6 w-6" />
                         </div>
-                        <AlertDialogTitle className="text-slate-900 font-bold text-lg">
+                        <AlertDialogTitle className="text-content-high font-bold text-lg">
                             Setujui Pemusnahan Stok?
                         </AlertDialogTitle>
                     </div>
-                    <AlertDialogDescription className="text-slate-600 text-sm pt-2">
+                    <AlertDialogDescription className="text-content-medium text-sm pt-2">
                         Anda akan menyetujui pemusnahan:{' '}
                         <strong>
                             {ticket.waste_quantity} {ticket.batch.ingredient.unit} {ticket.batch.ingredient.name}
@@ -449,12 +449,12 @@ export function WasteApprovalDialog({ ticket, isOpen, onClose }: Props) {
                     </AlertDialogDescription>
                 </AlertDialogHeader>
 
-                <div className="my-3 rounded-lg border border-rose-200 bg-rose-50/60 p-3 text-xs text-rose-900 space-y-1">
-                    <p className="font-semibold text-rose-950">⚠️ Peringatan Dampak Finansial:</p>
+                <div className="my-3 rounded-lg border border-[#F8C6BF] bg-[#FDF2F0]/80 p-3 text-xs text-[#8C3D2B] space-y-1">
+                    <p className="font-semibold text-[#8C3D2B]">⚠️ Peringatan Dampak Finansial:</p>
                     <p>
                         Stok fisik batch akan langsung dipotong menjadi <strong>0</strong> dan kerugian finansial
                         sebesar{' '}
-                        <strong className="text-rose-700 font-mono">
+                        <strong className="text-[#8C3D2B] font-mono">
                             Rp {ticket.financial_loss.toLocaleString('id-ID')}
                         </strong>{' '}
                         akan dibukukan ke laporan kerugian kafe secara permanen.
@@ -462,13 +462,13 @@ export function WasteApprovalDialog({ ticket, isOpen, onClose }: Props) {
                 </div>
 
                 <AlertDialogFooter className="gap-2 sm:gap-0">
-                    <Button variant="outline" onClick={onClose} disabled={isSubmitting}>
+                    <Button variant="outline" onClick={onClose} disabled={isSubmitting} className="border-surface-border text-content-medium hover:bg-surface-container-high">
                         Batal
                     </Button>
                     <Button
                         onClick={handleApprove}
                         disabled={isSubmitting}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+                        className="bg-brand-primary hover:bg-brand-primary-hover text-white font-semibold"
                     >
                         {isSubmitting ? 'Memproses...' : 'Ya, Setujui & Hapusbukukan Stok'}
                     </Button>

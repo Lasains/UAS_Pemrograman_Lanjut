@@ -61,7 +61,7 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch untuk mengha
 ### 2.1 Identitas Modul Layar
 * **Screen Title**: Specialty Coffee Inventory Early Warning & Batch Monitoring Hub
 * **Target Viewport**: Desktop (1440x900) & Supervisor POS Tablet (1024x768)
-* **Design Philosophy**: Glanceable, High-Contrast Indicators, Minimalist Slate Background (`bg-slate-50`), Emerald Accents, High Traffic-Light Alertness.
+* **Design Philosophy**: Glanceable, High-Contrast Indicators, Warm Steamed Milk Canvas (`bg-surface-canvas` `#FAF7F2`), Containers `#F5EFEB` & `#EDE4DC`, Espresso `#4A2C11`, Amber `#C88242`, Terracotta `#8C3D2B`, High Traffic-Light Alertness.
 
 ---
 
@@ -69,48 +69,48 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch untuk mengha
 
 #### Layar 1: Tabel Utama Monitoring Inventaris (`Pages/Inventory/Index.tsx`)
 1. **Header Metrik Status Cepat (4 Kartu Ringkasan Atas)**:
-   - **Kartu 1 (Total Batch Aktif)**: Ikon `Boxes`, angka tebal (misal: *38 Batch*), label *Total Batch Berjalan*.
-   - **Kartu 2 (Batch Aman 🟢)**: Border hijau tipis, latar `bg-emerald-50/50`, angka hijau (misal: *28 Batch*), label *Masa Simpan > 7 Hari*.
-   - **Kartu 3 (Peringatan Segera Pakai 🟡)**: Border kuning tipis, latar `bg-amber-50/50`, angka amber (misal: *7 Batch*), label *Kedaluwarsa 3-7 Hari*.
-   - **Kartu 4 (Kritis / Basi 🔴)**: Border merah tipis, latar `bg-rose-50/50`, angka merah tebal (misal: *3 Batch*), label *Kritis (< 3 Hari / Basi)*.
+   - **Kartu 1 (Total Batch Aktif)**: Ikon `Boxes`, angka tebal `text-content-high` (misal: *38 Batch*), label *Total Batch Berjalan* `text-content-medium`.
+   - **Kartu 2 (Batch Aman 🟢)**: Border hijau botani tipis, latar `bg-emerald-50`, teks hijau botani (misal: *28 Batch*), label *Masa Simpan > 7 Hari*.
+   - **Kartu 3 (Peringatan Segera Pakai 🟡)**: Border amber tipis, latar `bg-[#FFF7ED] border-[#FED7AA]`, angka amber `text-[#C88242]` (misal: *7 Batch*), label *Kedaluwarsa 3-7 Hari*.
+   - **Kartu 4 (Kritis / Basi 🔴)**: Border terracotta tipis, latar `bg-[#FDF2F0] border-[#F8C6BF]`, angka merah terakota tebal `text-[#8C3D2B]` (misal: *3 Batch*), label *Kritis (< 3 Hari / Basi)*.
 2. **Toolbar Pencarian & Filter Cepat**:
-   - **Search Bar**: Input pencarian bahan atau kode batch (*"Cari nama bahan baku / kode batch..."*).
+   - **Search Bar**: Input pencarian bahan atau kode batch (`bg-surface-canvas border-surface-border text-content-high`).
    - **Filter Tabs Status Lampu Lalu Lintas**:
      * `[Semua Batch (38)]`
      * `[🟢 Aman (28)]`
      * `[🟡 Segera Pakai (7)]`
      * `[🔴 Kritis (3)]`
-   - **Tombol Utama Hijau**: `[+ Restock Batch Baru]` (`bg-emerald-600 hover:bg-emerald-700 text-white font-medium shadow-sm flex items-center gap-2`).
+   - **Tombol Utama Espresso**: `[+ Restock Batch Baru]` (`bg-brand-primary hover:bg-brand-primary-hover text-white font-medium shadow-sm flex items-center gap-2`).
 3. **Tabel Hierarki Bahan & Batch (Expandable Table)**:
    - **Baris Induk (Bahan Baku)**:
      * Tombol Chevron panah (`ChevronRight` / `ChevronDown`) untuk membuka daftar batch fisik di bawahnya.
      * Nama Bahan (misal: *Fresh Milk Diamond 1L*), Kategori (Badge *Dairy*).
      * Total Saldo Stok Fisik saat ini (misal: *4.200 ml*).
-     * Status Stok Minimum: Jika di bawah ambang, muncul badge merah `[Restock Segera]`.
+     * Status Stok Minimum: Jika di bawah ambang, muncul badge terakota `[Restock Segera]`.
      * Urgensi Terdekat: Badge batch yang paling mendesak dari bahan tersebut.
    - **Sub-Tabel Anak (Daftar Batch Fisik Saat Baris Diexpand)**:
-     * Latar belakang baris: `bg-slate-50/80` (atau `bg-rose-50/40` jika batch berstatus kritis).
+     * Latar belakang baris: `bg-surface-container-high/60` (atau `bg-[#FDF2F0]/80` jika batch berstatus kritis).
      * Kode Batch (misal: `#BM-20261025`).
      * Tanggal Penerimaan (misal: *25 Okt 2026*).
      * Tanggal Kedaluwarsa (misal: *03 Nov 2026*).
      * Sisa Stok / Stok Awal (misal: *1.000 / 2.000 ml* dengan visual *progress bar* stok tipis).
      * Badge Status Kedaluwarsa (`ExpiryBadge`):
-       - 🟢 Aman: `bg-emerald-50 text-emerald-700 border-emerald-200` (*"12 hari lagi"*).
-       - 🟡 Segera Pakai: `bg-amber-50 text-amber-700 border-amber-200` (*"4 hari lagi"*).
-       - 🔴 Kritis: `bg-rose-50 text-rose-700 border-rose-200 animate-pulse font-semibold` (*"BESOK"* atau *"Kedaluwarsa!"*).
+       - 🟢 Aman: `bg-emerald-50 text-emerald-800 border-emerald-300` (*"12 hari lagi"*).
+       - 🟡 Segera Pakai: `bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]` (*"4 hari lagi"*).
+       - 🔴 Kritis: `bg-[#FDF2F0] text-[#8C3D2B] border-[#F8C6BF] animate-pulse font-semibold` (*"BESOK"* atau *"Kedaluwarsa!"*).
      * Kolom Aksi Cepat: Tombol pintas `[Pakai]` atau `[Lapor Rusak]`.
 
 ---
 
 #### Layar 2: Modal Form Penerimaan Batch Baru (`Pages/Inventory/RestockModal.tsx`)
 1. **Kontainer Dialog**:
-   - Modal pop-up putih bersih terpusat (`max-w-lg bg-white rounded-xl shadow-xl border border-slate-200 p-6`).
-   - Judul: *"Penerimaan Batch Bahan Baku Baru (Restock)"*.
-   - Subjudul: *"Catat faktur masuk dari pemasok untuk pemantauan masa kedaluwarsa presisi."*
+   - Modal pop-up oat latte bersih terpusat (`max-w-lg bg-surface-container rounded-xl shadow-xl border border-surface-border p-6`).
+   - Judul: *"Penerimaan Batch Bahan Baku Baru (Restock)"* (`text-content-high`).
+   - Subjudul: *"Catat faktur masuk dari pemasok untuk pemantauan masa kedaluwarsa presisi."* (`text-content-medium`).
 2. **Elemen Form Input**:
    - **Pilih Bahan Baku (`ingredient_id`)**: Select dropdown dinamis lengkap dengan satuan unit (misal: *Fresh Milk Diamond 1L (ml)*).
    - **Kode Batch (`batch_code`)**:
-     * Input teks dengan tombol bantu `[Generate Otomatis]`.
+     * Input teks dengan tombol bantu `[Generate Otomatis]` (`text-brand-secondary hover:underline`).
      * Format otomatis: `BATCH-YYYYMMDD-[KODE]` (contoh: `BM-20261031-001`).
    - **Tanggal Terima (`received_date`)**: Datepicker kalender, otomatis terisi tanggal hari ini.
    - **Tanggal Kedaluwarsa (`expiry_date`)**:
@@ -121,11 +121,11 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch untuk mengha
    - **Harga Beli Satuan (`cost_per_unit`)**:
      * Input angka berformat rupiah (misal: `Rp 24.000` per kemasan/unit).
 3. **Kalkulator Nilai Total Faktur (Live Calculator Banner)**:
-   - Box ringkasan abu-abu lembut di bawah form:
-     > *"Estimasi Nilai Belanja Batch: **Rp 120.000** (5 x Rp 24.000)"*
+   - Box ringkasan parchment di bawah form:
+     > *"Estimasi Nilai Belanja Batch: **Rp 120.000** (5 x Rp 24.000)"* (`border-surface-border bg-surface-container-high`).
 4. **Footer Aksi**:
-   - Tombol Batal (`variant="outline"`).
-   - Tombol Hijau: `[Simpan & Terbitkan Batch]`.
+   - Tombol Batal (`variant="outline"` border-surface-border text-content-medium).
+   - Tombol Espresso: `[Simpan & Terbitkan Batch]` (`bg-brand-primary hover:bg-brand-primary-hover text-white`).
 
 ---
 
@@ -133,40 +133,40 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch untuk mengha
 
 #### Prompt Bahasa Indonesia (Terstruktur & Deskriptif)
 ```text
-Buatkan 2 antarmuka layar manajemen inventaris untuk modul "Monitoring Inventaris & Early Warning Kedaluwarsa" pada aplikasi kafe "BeanFlow":
+Buatkan 2 antarmuka layar manajemen inventaris untuk modul "Monitoring Inventaris & Early Warning Kedaluwarsa" pada aplikasi kafe "BeanFlow" bernuansa hangat artisan coffee:
 
 Layar 1 (Tabel Utama Monitoring Inventaris):
-Latar belakang bersih slate-50. Di bagian atas terdapat 4 kartu metrik statistik ringkas:
+Latar belakang bersih kanvas susu #FAF7F2. Di bagian atas terdapat 4 kartu metrik statistik ringkas berlatar oat latte #F5EFEB:
 - Kartu 1: Total Batch Aktif (38 Batch).
-- Kartu 2: Batch Aman beraksen hijau (28 Batch, sisa > 7 hari).
-- Kartu 3: Peringatan Segera Pakai beraksen kuning (7 Batch, sisa 3-7 hari).
-- Kartu 4: Kritis / Basi beraksen merah muda (3 Batch, sisa < 3 hari).
-Di bawah kartu terdapat toolbar pencarian, filter tab status berbentuk pills ("Semua Batch", "🟢 Aman", "🟡 Segera Pakai", "🔴 Kritis"), dan tombol hijau utama "+ Restock Batch Baru".
-Tabel inventaris hierarki: baris induk bahan (Fresh Milk Diamond 1L, Espresso Beans House) memiliki ikon chevron untuk membuka daftar batch fisik di bawahnya. Sub-tabel batch menampilkan: Kode Batch (#BM-20261025), Tanggal Masuk, Tanggal Expired, Progress Bar sisa stok (1.000 / 2.000 ml), dan Badge Lampu Lalu Lintas:
+- Kartu 2: Batch Aman beraksen hijau botani (28 Batch, sisa > 7 hari).
+- Kartu 3: Peringatan Segera Pakai beraksen amber karamel #C88242 (7 Batch, sisa 3-7 hari).
+- Kartu 4: Kritis / Basi beraksen terracotta cherry #8C3D2B (3 Batch, sisa < 3 hari).
+Di bawah kartu terdapat toolbar pencarian, filter tab status berbentuk pills ("Semua Batch", "🟢 Aman", "🟡 Segera Pakai", "🔴 Kritis"), dan tombol espresso utama "+ Restock Batch Baru" (#4A2C11).
+Tabel inventaris hierarki berborder #EDE4DC: baris induk bahan (Fresh Milk Diamond 1L, Espresso Beans House) memiliki ikon chevron untuk membuka daftar batch fisik di bawahnya. Sub-tabel batch menampilkan: Kode Batch (#BM-20261025), Tanggal Masuk, Tanggal Expired, Progress Bar sisa stok (1.000 / 2.000 ml), dan Badge Lampu Lalu Lintas:
 - Badge Hijau: "Aman (12 hari lagi)"
-- Badge Kuning: "Segera Pakai (4 hari lagi)"
-- Badge Merah Berkedip: "Kritis (Besok!)" dengan highlight baris merah lembut.
+- Badge Kuning Amber: "Segera Pakai (4 hari lagi)" (#FFF7ED / #C88242)
+- Badge Terracotta Berkedip: "Kritis (Besok!)" (#FDF2F0 / #8C3D2B) dengan highlight baris kemerahan lembut.
 
 Layar 2 (Modal Form Restock Batch Baru):
-Dialog pop-up putih terpusat (rounded-xl, border slate-200). Berisi:
+Dialog pop-up oat latte #F5EFEB terpusat (rounded-xl, border #EDE4DC). Berisi:
 - Dropdown pilih bahan baku kafe.
-- Input kode batch faktur dengan tombol kecil "Otomatis".
+- Input kode batch faktur dengan tombol kecil aksen karamel "Otomatis".
 - Baris tanggal bersebelahan: Tanggal Terima (hari ini) dan Tanggal Expired (kalender).
 - Input kuantitas masuk angka besar dengan satuan ml/gram.
 - Input harga beli satuan rupiah.
-- Banner ringkasan kalkulasi otomatis: "Total Nilai Belanja: Rp 120.000".
-- Tombol batal dan tombol hijau "Simpan & Terbitkan Batch".
-Desain minimalis modern SaaS, kontras tinggi, sangat rapi.
+- Banner ringkasan kalkulasi otomatis berlatar parchment #EDE4DC: "Total Nilai Belanja: Rp 120.000".
+- Tombol batal dan tombol espresso #4A2C11 "Simpan & Terbitkan Batch".
+Desain minimalis modern SaaS kafe, kontras tinggi, sangat rapi.
 ```
 
 #### English Prompt (High-Fidelity for Stitch AI)
 ```text
-A high-fidelity 2-screen UI set for a specialty coffee inventory monitoring system named "BeanFlow":
-1. Screen 1 (Inventory Expiry Monitoring Table): Clean slate-50 background. Top section features 4 summary metric cards: Total Active Batches (38), Safe Batches in soft emerald tint (>7 days, 28), Warning Batches in soft amber tint (3-7 days, 7), and Critical Batches in soft rose tint (<3 days / expired, 3). Below is a search bar, segmented status filter tabs ("All", "Safe", "Warning", "Critical"), and an emerald-600 action button "+ Restock New Batch". An expandable data table where parent ingredient rows can be clicked to reveal child batch sub-rows. Batch rows show: Batch Code (#BM-20261025), Inbound Date, Expiry Date, Stock Progress Bar (1,000 / 2,000 ml), and Traffic-Light Badges:
+A high-fidelity 2-screen UI set for a specialty coffee inventory monitoring system named "BeanFlow" with warm artisan coffee aesthetics:
+1. Screen 1 (Inventory Expiry Monitoring Table): Warm steamed milk canvas (#FAF7F2) background. Top section features 4 summary metric cards on oat latte (#F5EFEB): Total Active Batches (38), Safe Batches in soft emerald tint (>7 days, 28), Warning Batches in warm caramel amber (#C88242, 3-7 days, 7), and Critical Batches in terracotta cherry (#8C3D2B, <3 days / expired, 3). Below is a search bar, segmented status filter tabs ("All", "Safe", "Warning", "Critical"), and a deep roasted espresso action button "+ Restock New Batch" (#4A2C11). An expandable data table where parent ingredient rows can be clicked to reveal child batch sub-rows with parchment borders (#EDE4DC). Batch rows show: Batch Code (#BM-20261025), Inbound Date, Expiry Date, Stock Progress Bar (1,000 / 2,000 ml), and Traffic-Light Badges:
 - Green Badge: "Safe (12d left)"
-- Yellow Badge: "Use Soon (4d left)"
-- Red Pulsing Badge: "Critical (Tomorrow!)" with subtle rose-50 row tint.
-2. Screen 2 (Inbound Restock Batch Modal): Centered clean white modal (rounded-xl, shadow-xl). Contains fields: ingredient selector, batch number with "Auto-generate" button, two-column dates (Received Date and Expiry Date with datepicker), quantity input with unit badge, unit cost in Rupiah, and a summary card calculating "Total Inbound Value: Rp 120,000". Emerald primary submit button. Clean typography, high contrast, polished SaaS layout.
+- Amber Caramel Badge: "Use Soon (4d left)"
+- Terracotta Pulsing Badge: "Critical (Tomorrow!)" with subtle terracotta #FDF2F0 row tint.
+2. Screen 2 (Inbound Restock Batch Modal): Centered warm oat latte modal (#F5EFEB, rounded-xl, shadow-xl, border #EDE4DC). Contains fields: ingredient selector, batch number with "Auto-generate" button in amber #C88242, two-column dates (Received Date and Expiry Date with datepicker), quantity input with unit badge, unit cost in Rupiah, and a parchment summary card calculating "Total Inbound Value: Rp 120,000". Deep espresso primary submit button (#4A2C11). Clean typography, high contrast, polished SaaS layout.
 ```
 
 ---
@@ -260,7 +260,7 @@ export function ExpiryBadge({ daysUntilExpiry = 0, urgencyStatus = 'safe', class
         return (
             <span
                 className={cn(
-                    'inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700 animate-pulse',
+                    'inline-flex items-center gap-1.5 rounded-full border border-[#F8C6BF] bg-[#FDF2F0] px-2.5 py-1 text-xs font-semibold text-[#8C3D2B] animate-pulse',
                     className
                 )}
             >
@@ -360,9 +360,9 @@ export function RestockModal({ isOpen, onClose, ingredients }: Props) {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="max-w-lg bg-white rounded-xl">
+            <DialogContent className="max-w-lg bg-surface-container border-surface-border rounded-xl">
                 <DialogHeader>
-                    <DialogTitle className="text-slate-900 font-semibold text-lg">
+                    <DialogTitle className="text-content-high font-semibold text-lg">
                         Penerimaan Batch Baru (Restock)
                     </DialogTitle>
                 </DialogHeader>
@@ -396,7 +396,7 @@ export function RestockModal({ isOpen, onClose, ingredients }: Props) {
                             <button
                                 type="button"
                                 onClick={handleGenerateBatchCode}
-                                className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
+                                className="text-xs text-brand-secondary hover:underline font-medium"
                             >
                                 + Generate Otomatis
                             </button>
@@ -406,7 +406,7 @@ export function RestockModal({ isOpen, onClose, ingredients }: Props) {
                             value={data.batch_code}
                             onChange={(e) => setData('batch_code', e.target.value)}
                             placeholder="Contoh: BATCH-20261031-01"
-                            className="mt-1"
+                            className="mt-1 bg-surface-canvas border-surface-border text-content-high"
                         />
                         <InputError message={errors.batch_code} className="mt-1" />
                     </div>
@@ -420,7 +420,7 @@ export function RestockModal({ isOpen, onClose, ingredients }: Props) {
                                 type="date"
                                 value={data.received_date}
                                 onChange={(e) => setData('received_date', e.target.value)}
-                                className="mt-1"
+                                className="mt-1 bg-surface-canvas border-surface-border text-content-high"
                             />
                             <InputError message={errors.received_date} className="mt-1" />
                         </div>
@@ -432,7 +432,7 @@ export function RestockModal({ isOpen, onClose, ingredients }: Props) {
                                 min={data.received_date || today}
                                 value={data.expiry_date}
                                 onChange={(e) => setData('expiry_date', e.target.value)}
-                                className="mt-1"
+                                className="mt-1 bg-surface-canvas border-surface-border text-content-high"
                             />
                             <InputError message={errors.expiry_date} className="mt-1" />
                         </div>
@@ -450,9 +450,9 @@ export function RestockModal({ isOpen, onClose, ingredients }: Props) {
                                     value={data.initial_stock}
                                     onChange={(e) => setData('initial_stock', Number(e.target.value))}
                                     placeholder="0"
-                                    className="pr-12"
+                                    className="pr-12 bg-surface-canvas border-surface-border text-content-high"
                                 />
-                                <span className="absolute right-3 top-2.5 text-xs font-semibold text-slate-400 uppercase">
+                                <span className="absolute right-3 top-2.5 text-xs font-semibold text-content-subtle uppercase">
                                     {selectedIngredient?.unit || 'unit'}
                                 </span>
                             </div>
@@ -467,25 +467,25 @@ export function RestockModal({ isOpen, onClose, ingredients }: Props) {
                                 value={data.cost_per_unit}
                                 onChange={(e) => setData('cost_per_unit', Number(e.target.value))}
                                 placeholder="Rp 0"
-                                className="mt-1"
+                                className="mt-1 bg-surface-canvas border-surface-border text-content-high"
                             />
                             <InputError message={errors.cost_per_unit} className="mt-1" />
                         </div>
                     </div>
 
                     {/* Live Calculator Total Nilai Faktur */}
-                    <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 flex justify-between items-center text-sm">
-                        <span className="text-slate-600 font-medium">Total Nilai Faktur Batch:</span>
-                        <span className="text-slate-900 font-bold text-base">
+                    <div className="rounded-lg border border-surface-border bg-surface-container-high p-3 flex justify-between items-center text-sm">
+                        <span className="text-content-medium font-medium">Total Nilai Faktur Batch:</span>
+                        <span className="text-content-high font-bold text-base">
                             Rp {totalBatchCost.toLocaleString('id-ID')}
                         </span>
                     </div>
 
                     <DialogFooter className="pt-2">
-                        <Button type="button" variant="outline" onClick={onClose} disabled={processing}>
+                        <Button type="button" variant="outline" onClick={onClose} disabled={processing} className="border-surface-border text-content-medium hover:bg-surface-container-high">
                             Batal
                         </Button>
-                        <Button type="submit" disabled={processing} className="bg-emerald-600 hover:bg-emerald-700">
+                        <Button type="submit" disabled={processing} className="bg-brand-primary hover:bg-brand-primary-hover text-white">
                             {processing ? 'Menyimpan...' : 'Simpan & Terbitkan Batch'}
                         </Button>
                     </DialogFooter>

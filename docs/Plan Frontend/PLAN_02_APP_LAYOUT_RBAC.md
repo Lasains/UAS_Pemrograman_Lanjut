@@ -15,7 +15,7 @@
 Aplikasi Sistem Inventaris & Pemantauan Kedaluwarsa Kafe menggunakan arsitektur **Application Shell Pattern** satu pintu yang membungkus seluruh halaman terautentikasi. Struktur shell terdiri dari:
 1. **Sidebar Navigasi Kiri (Fixed 260px)**: Navigasi vertikal terisolasi yang hanya menampilkan menu sesuai izin peran (*role*) user yang aktif.
 2. **Top Header Bar (Sticky 64px / `h-16`)**: Area informasi status sistem, breadcrumb judul halaman, penanda peran (*Role Capsule Badge*), dan menu profil pengguna.
-3. **Dynamic Main Content Canvas (`bg-slate-50`)**: Area render halaman utama Inertia dengan scrolling independen dan padding konsisten.
+3. **Dynamic Main Content Canvas (`bg-surface-canvas`)**: Area render halaman utama Inertia dengan latar kanvas susu hangat (`#FAF7F2`), scrolling independen, dan padding konsisten.
 
 ```mermaid
 flowchart TD
@@ -84,29 +84,29 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke tool **Google Stitch** (`g
 
 ### 2.2 Tata Letak Desktop & Komposisi
 * **Sidebar Kiri (Fixed Desktop)**:
-  - Lebar: `w-64` (260px), tinggi penuh `h-screen`, `bg-white border-r border-slate-200 flex flex-col justify-between`.
-  - **Header Sidebar**: Logo modern specialty coffee monogram daun kopi berwarna `emerald-600`, teks merk `"BeanFlow"`, dan sub-label `"Specialty Inventory"`.
-  - **Navigasi Tengah (Scrollable)**: Navigasi dikelompokkan dengan *Group Header* berukuran `text-xs font-semibold text-slate-500 uppercase tracking-wider px-3 mb-2 mt-4`.
+  - Lebar: `w-64` (260px), tinggi penuh `h-screen`, `bg-surface-container border-r border-surface-border flex flex-col justify-between`.
+  - **Header Sidebar**: Logo modern specialty coffee monogram cangkir & daun kopi berwarna `text-brand-primary` (`#4A2C11`), teks merk `"BeanFlow"`, dan sub-label `"Specialty Inventory"`.
+  - **Navigasi Tengah (Scrollable)**: Navigasi dikelompokkan dengan *Group Header* berukuran `text-xs font-semibold text-content-subtle uppercase tracking-wider px-3 mb-2 mt-4`.
   - **Item Navigasi**:
-    * **State Aktif**: `bg-emerald-50 text-emerald-700 font-semibold rounded-lg flex items-center gap-3 px-3.5 py-2.5 transition-colors shadow-xs`.
-    * **State Inaktif**: `text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-lg flex items-center gap-3 px-3.5 py-2.5 transition-colors font-medium text-sm`.
-  - **Footer Sidebar**: Kartu informasi shift kafe aktif (*"Shift Pagi: 07:00 - 15:00"*) dan tombol bantuan/dokumentasi cepat.
+    * **State Aktif**: `bg-surface-container-high text-brand-primary font-semibold rounded-lg flex items-center gap-3 px-3.5 py-2.5 transition-colors shadow-xs`.
+    * **State Inaktif**: `text-content-medium hover:bg-surface-container-high hover:text-content-high rounded-lg flex items-center gap-3 px-3.5 py-2.5 transition-colors font-medium text-sm`.
+  - **Footer Sidebar**: Kartu informasi shift kafe aktif (*"Shift Pagi: 07:00 - 15:00"*) bernuansa parchment `bg-surface-container-high text-content-medium` dan tombol bantuan/dokumentasi cepat.
 
 * **Top Header Bar (Sticky Desktop & Mobile)**:
-  - Tinggi: `h-16` (64px), posisi `sticky top-0 z-30`, `bg-white/95 backdrop-blur-sm border-b border-slate-200 px-6 flex items-center justify-between`.
+  - Tinggi: `h-16` (64px), posisi `sticky top-0 z-30`, `bg-surface-container/95 backdrop-blur-sm border-b border-surface-border px-6 flex items-center justify-between`.
   - **Sisi Kiri**:
     * Tombol hamburger drawer (khusus tablet/mobile: `lg:hidden`).
-    * Breadcrumb / Judul Kontekstual Halaman Aktif (`text-base font-semibold text-slate-900`).
+    * Breadcrumb / Judul Kontekstual Halaman Aktif (`text-base font-semibold text-content-high`).
   - **Sisi Kanan**:
     * **Status Koneksi Online**: Indikator lampu hijau berkedip halus (*pulse green dot*) dengan label `"Sistem Sinkron"`.
     * **Role Capsule Badge**:
-      - Barista: `bg-slate-100 text-slate-700 border-slate-200` (*"Barista Shift"*)
-      - Supervisor: `bg-indigo-50 text-indigo-700 border-indigo-200` (*"Supervisor Gudang"*)
-      - Owner: `bg-emerald-50 text-emerald-700 border-emerald-200` (*"Owner Kafe"*)
-    * **User Profile Dropdown**: Avatar inisial lingkaran dengan outline halus, nama pengguna, dan menu dropdown (Pengaturan Akun, Panduan SOP, dan Logout berwarna merah).
+      - Barista: `bg-emerald-50 text-emerald-800 border-emerald-300` (*"Barista Shift"*)
+      - Supervisor: `bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]` (*"Supervisor Gudang"*)
+      - Owner: `bg-[#EDE4DC] text-content-high border-surface-border` (*"Owner Kafe"*)
+    * **User Profile Dropdown**: Avatar inisial lingkaran dengan outline halus, nama pengguna, dan menu dropdown (Pengaturan Akun, Panduan SOP, dan Logout berwarna terakota `text-brand-tertiary`).
 
 * **Dynamic Main Content Canvas**:
-  - Background: `bg-slate-50 min-h-[calc(100vh-4rem)] p-6 lg:p-8`.
+  - Background: `bg-surface-canvas min-h-[calc(100vh-4rem)] p-6 lg:p-8`.
   - Lebar maksimal kontainer: `max-w-7xl mx-auto`.
   - Flash notification banner menempel di bagian paling atas konten jika ada pesan status dari Laravel.
 
@@ -116,7 +116,7 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke tool **Google Stitch** (`g
 - Pada viewport layar sentuh `< 1024px` (iPad bar / smartphone kasir):
   - Sidebar samping desktop disembunyikan otomatis (`hidden lg:flex`).
   - Top header memunculkan tombol menu hamburger di sebelah kiri logo.
-  - Saat tombol hamburger ditekan, muncul **Sheet Drawer modal slide-out dari sisi kiri** (`w-72 bg-white shadow-xl`) yang menampilkan seluruh daftar menu navigasi dengan target sentuh jari yang lega (tinggi tombol minimal `44px`).
+  - Saat tombol hamburger ditekan, muncul **Sheet Drawer modal slide-out dari sisi kiri** (`w-72 bg-surface-container shadow-xl border-r border-surface-border`) yang menampilkan seluruh daftar menu navigasi dengan target sentuh jari yang lega (tinggi tombol minimal `44px`).
 
 ---
 
@@ -124,29 +124,29 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke tool **Google Stitch** (`g
 
 #### Prompt Bahasa Indonesia (Terstruktur & Deskriptif)
 ```text
-Buatkan desain antarmuka Web App Layout Shell untuk aplikasi manajemen kafe modern "BeanFlow Inventory" berbasis Tailwind CSS dan shadcn/ui.
+Buatkan desain antarmuka Web App Layout Shell untuk aplikasi manajemen kafe modern "BeanFlow Inventory" berbasis Tailwind CSS dan shadcn/ui bernuansa palet kafe artisan.
 
 Layout terbagi menjadi:
-1. Fixed Left Sidebar (lebar 260px, latar belakang putih, border-r slate-200):
-   - Bagian atas: Logo cangkir kopi monogram warna emerald-600 dengan tulisan brand "BeanFlow" dan label "Specialty Coffee Inventory".
+1. Fixed Left Sidebar (lebar 260px, latar belakang oat latte #F5EFEB, border-r parchment #EDE4DC):
+   - Bagian atas: Logo cangkir kopi monogram warna espresso #4A2C11 dengan tulisan brand "BeanFlow" dan label "Specialty Coffee Inventory".
    - Navigasi tengah: Terdapat judul kelompok "OPERASIONAL BAR" dan item menu:
-     * "Dasbor Barista" (status aktif: latar emerald-50, teks emerald-700, ikon Coffee).
-     * "Catat Pemakaian (FEFO)" (ikon Flame, teks slate-600).
-     * "Penerimaan Batch" (ikon PackagePlus, teks slate-600).
-     * "Lapor Bahan Rusak" (ikon AlertTriangle, teks slate-600).
+     * "Dasbor Barista" (status aktif: latar parchment #EDE4DC, teks espresso #4A2C11, ikon Coffee).
+     * "Catat Pemakaian (FEFO)" (ikon Flame, teks moka #5C3A21).
+     * "Penerimaan Batch" (ikon PackagePlus, teks moka #5C3A21).
+     * "Lapor Bahan Rusak" (ikon AlertTriangle, teks moka #5C3A21).
    - Bagian bawah sidebar: Kotak info status shift kafe "Shift Pagi: 07.00 - 15.00" dan avatar singkat user.
 
-2. Sticky Top Header (tinggi 64px, latar belakang putih semi-transparan dengan border-b slate-200):
-   - Kiri: Judul halaman aktif "Dasbor Operasional Barista".
-   - Kanan: Indikator titik hijau berkedip "Online Sinkron", kapsul role badge bertuliskan "Barista Shift" (latar slate-100 border slate-200), serta avatar profil user dengan panah dropdown.
+2. Sticky Top Header (tinggi 64px, latar belakang oat latte semi-transparan dengan border-b #EDE4DC):
+   - Kiri: Judul halaman aktif "Dasbor Operasional Barista" (warna #241408).
+   - Kanan: Indikator titik hijau berkedip "Online Sinkron", kapsul role badge bertuliskan "Barista Shift" (latar emerald botani border emerald-300), serta avatar profil user dengan panah dropdown.
 
-3. Area Konten Utama (Main Canvas): Latar belakang bersih slate-50 (#F8FAFC) dengan padding luas, menampilkan kartu selamat datang ringkas dan notifikasi banner sukses berwarna hijau emerald muda.
-Desain clean, enterprise SaaS specialty coffee, kontras tinggi, modern, dan sangat rapi.
+3. Area Konten Utama (Main Canvas): Latar belakang hangat kanvas susu #FAF7F2 dengan padding luas, menampilkan kartu selamat datang ringkas dan notifikasi banner sukses bernuansa botani hijau segar.
+Desain clean, warm specialty coffee artisan, kontras tinggi, modern, dan sangat rapi.
 ```
 
 #### English Prompt (High-Fidelity for Stitch AI)
 ```text
-A modern specialty coffee inventory SaaS app shell layout called "BeanFlow". Features a 260px fixed left sidebar with crisp white background (#FFFFFF) and right border slate-200. Sidebar top displays an emerald-600 coffee leaf logo with typography "BeanFlow - Specialty Inventory". Sidebar body has clean navigation items with Lucide-style coffee icons: active item has a soft emerald-50 background, emerald-700 text, and emerald indicator; inactive items are slate-600. Navigation groups include "BAR OPERATIONS" and "INVENTORY MANAGEMENT". The top header is 64px tall, white, sticky, featuring a breadcrumb page title "Barista Operations", a live pulsing green status dot "System Live", a rounded-full role badge ("Barista Shift"), and a circular user profile dropdown. The main content background is neutral slate-50 (#F8FAFC) with a soft green flash alert banner at the top. Polished, minimalist, high contrast, clean typography.
+A modern specialty coffee inventory SaaS app shell layout called "BeanFlow". Features a 260px fixed left sidebar with warm oat latte background (#F5EFEB) and right border unbleached parchment (#EDE4DC). Sidebar top displays a deep roasted espresso (#4A2C11) coffee leaf logo with typography "BeanFlow - Specialty Inventory". Sidebar body has clean navigation items with Lucide-style coffee icons: active item has a parchment background (#EDE4DC), deep espresso (#4A2C11) text, and active indicator; inactive items are muted mocha (#5C3A21). Navigation groups include "BAR OPERATIONS" and "INVENTORY MANAGEMENT". The top header is 64px tall, oat latte, sticky, featuring a breadcrumb page title "Barista Operations", a live pulsing green status dot "System Live", a rounded-full role badge ("Barista Shift"), and a circular user profile dropdown. The main content background is warm steamed milk canvas (#FAF7F2) with a soft flash alert banner at the top. Polished, warm artisan coffee aesthetic, high contrast, clean typography.
 ```
 
 ---
@@ -315,7 +315,7 @@ export function SidebarContent() {
         <nav className="flex-1 space-y-6 px-3 py-4">
             {groups.map((groupName) => (
                 <div key={groupName} className="space-y-1">
-                    <h3 className="px-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <h3 className="px-3 text-xs font-semibold uppercase tracking-wider text-content-subtle">
                         {groupName}
                     </h3>
                     <div className="space-y-1 pt-1">
@@ -331,14 +331,14 @@ export function SidebarContent() {
                                         className={cn(
                                             'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                                             isActive
-                                                ? 'bg-emerald-50 text-emerald-700 font-semibold shadow-xs'
-                                                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                                                ? 'bg-surface-container-high text-brand-primary font-semibold shadow-xs'
+                                                : 'text-content-medium hover:bg-surface-container-high hover:text-content-high'
                                         )}
                                     >
-                                        <Icon className={cn('h-4 w-4', isActive ? 'text-emerald-600' : 'text-slate-500')} />
+                                        <Icon className={cn('h-4 w-4', isActive ? 'text-brand-primary' : 'text-content-subtle')} />
                                         <span>{item.title}</span>
                                         {item.badge && (
-                                            <span className="ml-auto rounded-full bg-rose-100 px-2 py-0.5 text-xs font-semibold text-rose-700">
+                                            <span className="ml-auto rounded-full bg-[#FDF2F0] px-2 py-0.5 text-xs font-semibold text-[#8C3D2B]">
                                                 {item.badge}
                                             </span>
                                         )}
@@ -388,23 +388,23 @@ export function FlashBanner() {
     return (
         <div className="mb-6">
             {flash.success && (
-                <div className="flex items-center justify-between rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
+                <div className="flex items-center justify-between rounded-lg border border-emerald-300 bg-emerald-50 p-4 text-sm text-emerald-800">
                     <div className="flex items-center gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                        <CheckCircle2 className="h-5 w-5 text-emerald-700" />
                         <span>{flash.success}</span>
                     </div>
-                    <button onClick={() => setVisible(false)} className="text-emerald-700 hover:text-emerald-900">
+                    <button onClick={() => setVisible(false)} className="text-emerald-800 hover:text-emerald-950">
                         <X className="h-4 w-4" />
                     </button>
                 </div>
             )}
             {flash.error && (
-                <div className="flex items-center justify-between rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm text-rose-800">
+                <div className="flex items-center justify-between rounded-lg border border-[#F8C6BF] bg-[#FDF2F0] p-4 text-sm text-[#8C3D2B]">
                     <div className="flex items-center gap-3">
-                        <AlertCircle className="h-5 w-5 text-rose-600" />
+                        <AlertCircle className="h-5 w-5 text-[#8C3D2B]" />
                         <span>{flash.error}</span>
                     </div>
-                    <button onClick={() => setVisible(false)} className="text-rose-700 hover:text-rose-900">
+                    <button onClick={() => setVisible(false)} className="text-[#8C3D2B] hover:text-[#5C3A21]">
                         <X className="h-4 w-4" />
                     </button>
                 </div>

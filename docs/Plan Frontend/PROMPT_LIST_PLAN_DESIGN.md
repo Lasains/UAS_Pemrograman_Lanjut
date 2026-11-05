@@ -59,11 +59,11 @@ KONTEKS BISNIS & PERSONA:
 
 DESIGN CONTRACT & ATURAN VISUAL:
 - Ikuti panduan visual dari Desain.md:
-  * Background: Slate/Zinc neutral (`bg-slate-50`).
-  * Card form: `bg-white`, border `border-slate-200`, radius `rounded-xl`, shadow halus `shadow-sm`.
-  * Brand Accent: Emerald Green (`bg-emerald-600`, `hover:bg-emerald-700`).
-  * Tipografi: Clean sans-serif, judul form `text-xl font-semibold text-slate-900`.
-  * Logo & Identitas: Nuansa modern specialty coffee house.
+  * Background: Steamed Milk Canvas (`bg-surface-canvas` `#FAF7F2`).
+  * Card form: `bg-surface-container` (`#F5EFEB`), border `border-surface-border` (`#EDE4DC`), radius `rounded-xl`, shadow halus `shadow-sm`.
+  * Brand Accent: Deep Roasted Espresso (`bg-brand-primary` `#4A2C11`, `hover:bg-brand-primary-hover`) & Warm Caramel Amber (`bg-brand-secondary` `#C88242`).
+  * Tipografi: Sans-serif modern, judul form `text-xl font-semibold text-content-high` (`#241408`).
+  * Logo & Identitas: Nuansa warm artisan specialty coffee house.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
 Dokumen `docs/Plan Frontend/PLAN_01_AUTH_LOGIN.md` harus memiliki bab-bab berikut:
@@ -111,9 +111,9 @@ KONTEKS BISNIS & PERSONA:
 
 DESIGN CONTRACT & ATURAN VISUAL:
 - Ikuti Desain.md:
-  * Sidebar: `bg-white` dengan border kanan `border-slate-200`. Item aktif menggunakan latar `bg-emerald-50 text-emerald-700 font-semibold`, item inaktif `text-slate-600 hover:bg-slate-100`.
-  * Header: `bg-white border-b border-slate-200`, sticky di bagian atas, tinggi 64px (`h-16`).
-  * Badge Role: Capsule rounded-full (Barista: Biru/Slate, Supervisor: Ungu/Indigo, Owner: Emerald).
+  * Sidebar: `bg-surface-container` (`#F5EFEB`) dengan border kanan `border-surface-border` (`#EDE4DC`). Item aktif menggunakan latar `bg-surface-container-high text-brand-primary font-semibold`, item inaktif `text-content-medium hover:bg-surface-container-high`.
+  * Header: `bg-surface-container/95 border-b border-surface-border`, sticky di bagian atas, tinggi 64px (`h-16`).
+  * Badge Role: Capsule rounded-full (Barista: Hijau Botani, Supervisor: Karamel Amber `#C88242`, Owner: Perkamen `#EDE4DC`).
   * Lucide Icons untuk setiap menu navigasi.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
@@ -164,10 +164,10 @@ KONTEKS BISNIS & PERSONA BARISTA:
 
 DESIGN CONTRACT & ATURAN VISUAL:
 - Ikuti Desain.md:
-  * RadioGroup kartu batch: Kartu terpilih memiliki border `border-emerald-600 bg-emerald-50/30`.
-  * Rekomendasi FEFO Badge: `bg-emerald-600 text-white font-semibold`.
-  * Dialog Smart Warning: Aksentuasi warna Amber/Kuning (`border-amber-300 bg-amber-50`), tombol aksi amber tegas.
-  * Form modal: Dialog shadcn/ui dengan animasi mulus dan tombol simpan yang responsif.
+  * RadioGroup kartu batch: Kartu terpilih memiliki border `border-brand-primary bg-surface-container-high`.
+  * Rekomendasi FEFO Badge: `bg-brand-primary text-surface-canvas font-semibold`.
+  * Dialog Smart Warning: Aksentuasi warna Karamel Amber (`border-[#FED7AA] bg-[#FFF7ED]`), tombol aksi amber tegas (`bg-brand-secondary text-white`).
+  * Form modal: Dialog shadcn/ui dengan latar `bg-surface-container` dan tombol simpan espresso responsif.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
 Dokumen `docs/Plan Frontend/PLAN_03_BARISTA_OPERASIONAL_FEFO.md` harus memiliki bab-bab berikut:
@@ -214,8 +214,8 @@ KONTEKS BISNIS & PERSONA SUPERVISOR:
 
 DESIGN CONTRACT & ATURAN VISUAL:
 - Ikuti Desain.md:
-  * Table: shadcn/ui Table dengan header `bg-slate-50 text-slate-700 font-semibold`, border `border-slate-200`.
-  * Dialog/Modal Form Tambah & Edit Bahan: Form bersih dengan label jelas, helper text ramah pemula, dan pesan error validasi di bawah setiap input.
+  * Table: shadcn/ui Table dengan header `bg-surface-container-high text-content-high font-semibold`, border `border-surface-border`.
+  * Dialog/Modal Form Tambah & Edit Bahan: Form bersih berlatar `bg-surface-container` dengan label jelas, helper text ramah pemula, dan tombol espresso `bg-brand-primary`.
   * Aksi baris tabel: Dropdown Menu / Tombol Edit & Nonaktifkan.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
@@ -266,11 +266,11 @@ KONTEKS BISNIS & LOGIKA LAMPU LALU LINTAS:
 DESIGN CONTRACT & ATURAN VISUAL:
 - Ikuti Desain.md:
   * Komponen `ExpiryBadge`:
-    - Safe: `bg-emerald-50 text-emerald-700 border-emerald-200`.
-    - Warning: `bg-amber-50 text-amber-700 border-amber-200`.
-    - Critical: `bg-rose-50 text-rose-700 border-rose-200 font-medium animate-pulse`.
-  * Highlight baris tabel: Batch yang kritis mendapatkan warna latar kemerahan tipis (`bg-rose-50/40`).
-  * Modal Restock: Dialog bersih dengan datepicker validasi minimal hari ini.
+    - Safe: `bg-emerald-50 text-emerald-800 border-emerald-300`.
+    - Warning: `bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]`.
+    - Critical: `bg-[#FDF2F0] text-[#8C3D2B] border-[#F8C6BF] font-medium animate-pulse`.
+  * Highlight baris tabel: Batch yang kritis mendapatkan warna latar kemerahan terracotta tipis (`bg-[#FDF2F0]/80`).
+  * Modal Restock: Dialog oat latte `bg-surface-container` dengan datepicker validasi minimal hari ini.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
 Dokumen `docs/Plan Frontend/PLAN_05_SUPERVISOR_MONITORING_INVENTARIS.md` harus memiliki bab-bab berikut:
@@ -320,8 +320,8 @@ KONTEKS BISNIS & ALUR KERJA 2-FAKTOR (BARISTA & SUPERVISOR):
 
 DESIGN CONTRACT & ATURAN VISUAL:
 - Ikuti Desain.md:
-  * Badge Tiket: `pending` (Kuning/Amber), `approved` (Hijau/Emerald), `rejected` (Abu/Rose).
-  * Kartu Kalkulasi Kerugian: Highlight nominal kerugian finansial dengan warna Rose/Merah tebal (`text-rose-600 font-bold font-mono`).
+  * Badge Tiket: `pending` (Kuning Amber `#FFF7ED` text `#C88242`), `approved` (Hijau Botani `bg-emerald-50 text-emerald-800`), `rejected` (Perkamen).
+  * Kartu Kalkulasi Kerugian: Highlight nominal kerugian finansial dengan warna Terracotta Cherry tebal (`text-[#8C3D2B] font-bold font-mono`).
   * Modal Konfirmasi Approval: AlertDialog dengan penjelasan tegas bahwa aksi persetujuan akan memotong stok menjadi 0 dan membukukan kerugian finansial.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
@@ -373,9 +373,9 @@ KONTEKS BISNIS & PERSONA OWNER:
 
 DESIGN CONTRACT & ATURAN VISUAL:
 - Ikuti Desain.md:
-  * Metric Cards: `bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between`. Nominal besar `text-2xl sm:text-3xl font-bold tracking-tight text-slate-900`.
-  * Chart Container: Recharts ResponsiveContainer, warna batang `fill-emerald-600` dan `fill-rose-500`, grid garis halus `stroke-slate-100`.
-  * Top Waste Table: Simple clean table dengan persentase bar progres visual di samping nominal rupiah.
+  * Metric Cards: `bg-surface-container p-5 rounded-xl border border-surface-border shadow-sm flex flex-col justify-between`. Nominal besar `text-2xl sm:text-3xl font-bold tracking-tight text-content-high`.
+  * Chart Container: Recharts ResponsiveContainer, warna batang `fill-emerald-600` dan `fill-[#8C3D2B]`, grid garis halus `stroke-[#EDE4DC]`.
+  * Top Waste Table: Simple clean table dengan persentase bar progres visual di samping nominal rupiah bertema terracotta `#8C3D2B`.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
 Dokumen `docs/Plan Frontend/PLAN_07_OWNER_ANALYTICS_DASHBOARD.md` harus memiliki bab-bab berikut:

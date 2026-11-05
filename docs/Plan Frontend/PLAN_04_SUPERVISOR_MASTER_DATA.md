@@ -47,7 +47,7 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
 ### 2.1 Identitas Modul Layar
 * **Screen Title**: Specialty Coffee Master Ingredient & Category Catalog
 * **Target Viewport**: Responsive Desktop (1440x900) & Supervisor Tablet (1024x768)
-* **Tone & Palette**: Clean Professional Enterprise SaaS, Slate-50 background, Emerald-600 accents, high-contrast borders (`border-slate-200`).
+* **Tone & Palette**: Clean Warm Specialty Coffee House, Canvas `#FAF7F2`, Containers `#F5EFEB` / `#EDE4DC`, Espresso `#4A2C11`, Amber `#C88242`, Terracotta `#8C3D2B`, borders `border-surface-border` (`#EDE4DC`).
 
 ---
 
@@ -55,18 +55,18 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
 
 #### Layar 1: Tabel Utama Master Data Bahan (`Master/Ingredients/Index.tsx`)
 1. **Header Halaman**:
-   - Judul: `text-xl font-semibold text-slate-900` (*"Katalog Master Bahan Baku"*).
-   - Subjudul: `text-sm text-slate-500` (*"Kelola nama bahan, kategori, satuan standar, dan parameter kedaluwarsa"*).
+   - Judul: `text-xl font-semibold text-content-high` (*"Katalog Master Bahan Baku"*).
+   - Subjudul: `text-sm text-content-medium` (*"Kelola nama bahan, kategori, satuan standar, dan parameter kedaluwarsa"*).
 2. **Bilah Filter & Aksi Cepat (*Toolbar*)**:
-   - **Search Input**: Input pencarian dengan ikon `Search` di kiri dan tombol reset (*"Cari nama bahan baku..."*).
+   - **Search Input**: Input pencarian dengan ikon `Search` di kiri dan tombol reset (`bg-surface-canvas border-surface-border text-content-high`).
    - **Filter Kategori (Dropdown / Tabs)**: Filter cepat (*Semua Kategori*, *Dairy*, *Beans*, *Syrup*, *Bakery*, *Packaging*).
-   - **Tombol Sekunder**: `[+ Kelola Kategori]` (border slate-200, membuka modal manajemen kategori).
-   - **Tombol Utama Hijau**: `[+ Tambah Bahan Baku Baru]` (`bg-emerald-600 hover:bg-emerald-700 text-white font-medium shadow-sm`).
+   - **Tombol Sekunder**: `[+ Kelola Kategori]` (`border border-surface-border bg-surface-container-high text-content-high hover:bg-[#E3D5C8]`).
+   - **Tombol Utama Espresso**: `[+ Tambah Bahan Baku Baru]` (`bg-brand-primary hover:bg-brand-primary-hover text-white font-medium shadow-sm`).
 3. **Data Table Master Bahan (shadcn/ui Table)**:
-   - Header Tabel (`bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-700 uppercase tracking-wider`):
+   - Header Tabel (`bg-surface-container-high border-b border-surface-border text-xs font-semibold text-content-high uppercase tracking-wider`):
      * **Nama Bahan Baku**: Nama bahan + teks kecil ID / slug.
-     * **Kategori**: Badge kategori (contoh: *Dairy* berlatar biru muda, *Beans* berlatar cokelat/amber muda).
-     * **Satuan**: Badge netral kapsul (`ml`, `gram`, `pcs`).
+     * **Kategori**: Badge kategori (contoh: *Dairy* berlatar biru lembut, *Beans* berlatar karamel amber `#FFF7ED` text `#C88242`).
+     * **Satuan**: Badge netral kapsul parchment (`ml`, `gram`, `pcs`).
      * **Total Saldo Stok**: Nilai agregat seluruh batch aktif (contoh: `4.500 ml`).
      * **Ambang Restock**: Angka batas minimum (contoh: `1.000 ml`).
      * **Warning Days**: Ambang hari peringatan dini (contoh: `3 hari`).
@@ -79,11 +79,11 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
 
 #### Layar 2: Modal Form Tambah/Ubah Bahan Baku (`Master/Ingredients/IngredientModal.tsx`)
 1. **Kontainer Dialog**:
-   - Modal pop-up putih terpusat (`max-w-lg bg-white rounded-xl shadow-xl border border-slate-200 p-6`).
-   - Judul dinamis: *"Tambah Bahan Baku Baru"* atau *"Ubah Data: Fresh Milk Diamond 1L"*.
+   - Modal pop-up oat latte terpusat (`max-w-lg bg-surface-container rounded-xl shadow-xl border border-surface-border p-6`).
+   - Judul dinamis: *"Tambah Bahan Baku Baru"* atau *"Ubah Data: Fresh Milk Diamond 1L"* (`text-content-high`).
 2. **Komponen Form Input**:
-   - **Nama Bahan Baku (`name`)**: Input teks wajib (contoh: *"Fresh Milk Diamond 1L"*).
-   - **Kategori (`category_id`)**: Select dropdown yang memuat opsi kategori aktif (*Dairy / Susu*, *Coffee Beans*, dll.).
+   - **Nama Bahan Baku (`name`)**: Input teks wajib (`bg-surface-canvas border-surface-border text-content-high`).
+   - **Kategori (`category_id`)**: Select dropdown yang memuat opsi kategori aktif.
    - **Satuan Standar (`unit`)**: Radio button atau Select pilihan tunggal yang tegas:
      * `ml` (Mililiter - Cairan)
      * `gram` (Gram - Bubuk / Biji)
@@ -96,17 +96,17 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
      * Input angka (hari). Default diset ke `3`.
      * *Helper text*: *"Lampu kuning (Segera Pakai) akan menyala sekian hari sebelum tanggal kedaluwarsa batch."*
 3. **Footer Tombol**:
-   - Tombol Batal (`variant="outline"`).
-   - Tombol Simpan Hijau: `[Simpan Bahan Baku]`.
+   - Tombol Batal (`variant="outline"` border-surface-border text-content-medium).
+   - Tombol Simpan Espresso: `[Simpan Bahan Baku]` (`bg-brand-primary hover:bg-brand-primary-hover text-white`).
 
 ---
 
 #### Layar 3: Modal Kelola Kategori Bahan (`Master/Categories/CategoryModal.tsx`)
 1. **Kontainer Dialog**:
-   - Dialog ukuran sedang (`max-w-md bg-white rounded-xl p-6`).
-   - Judul: *"Kelola Kategori Bahan Baku"*.
+   - Dialog ukuran sedang (`max-w-md bg-surface-container rounded-xl border border-surface-border p-6`).
+   - Judul: *"Kelola Kategori Bahan Baku"* (`text-content-high`).
 2. **Form Cepat Tambah Kategori**:
-   - Baris horizontal: Input teks *"Nama Kategori Baru"* + Tombol `[+ Tambah]`.
+   - Baris horizontal: Input teks *"Nama Kategori Baru"* + Tombol `[+ Tambah]` (`bg-brand-primary text-white`).
 3. **Daftar Kategori Saat Ini (List Table)**:
    - Baris daftar kategori (Dairy, Beans, Syrup, Bakery, Packaging).
    - Setiap baris memiliki: Nama kategori, jumlah bahan terdaftar (misal: *"6 bahan"*), tombol edit nama, dan tombol hapus (ikon tempat sampah, dinonaktifkan jika kategori masih memiliki bahan terdaftar).
@@ -117,13 +117,13 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
 
 #### Prompt Bahasa Indonesia (Terstruktur & Kontekstual)
 ```text
-Buatkan 3 antarmuka layar manajemen data master untuk modul "Katalog Master Bahan Baku & Kategori" pada aplikasi kafe "BeanFlow":
+Buatkan 3 antarmuka layar manajemen data master untuk modul "Katalog Master Bahan Baku & Kategori" pada aplikasi kafe "BeanFlow" bernuansa hangat artisan coffee shop:
 
 Layar 1 (Tabel Utama Master Bahan):
-Latar belakang bersih slate-50. Header memuat judul "Katalog Master Bahan Baku" dan subjudul penjelasan. Toolbar di atas tabel memiliki input pencarian dengan ikon search, dropdown filter kategori bahan, tombol outline "+ Kelola Kategori", dan tombol hijau emerald utama "+ Tambah Bahan Baku Baru".
-Tabel data bergaya modern shadcn/ui dengan border slate-200. Kolom tabel memuat:
+Latar belakang bersih kanvas susu #FAF7F2. Header memuat judul "Katalog Master Bahan Baku" dan subjudul penjelasan. Toolbar di atas tabel memiliki input pencarian dengan ikon search, dropdown filter kategori bahan, tombol outline perkamen "+ Kelola Kategori", dan tombol espresso utama "+ Tambah Bahan Baku Baru" (#4A2C11).
+Tabel data bergaya modern shadcn/ui dengan border perkamen #EDE4DC dan header oat latte #EDE4DC. Kolom tabel memuat:
 - Nama Bahan (misal: Fresh Milk Diamond 1L, Espresso Blend House, Karamel Sirup Monin).
-- Badge Kategori (Dairy berlatar biru, Beans berlatar amber, Syrup berlatar ungu).
+- Badge Kategori (Dairy berlatar biru, Beans berlatar karamel amber #FFF7ED, Syrup berlatar ungu).
 - Badge Satuan Unit (ml, gram, pcs).
 - Total Saldo Stok (angka tebal, misal: 4.500 ml).
 - Ambang Batas Stok Minimum (misal: Min 1.000 ml).
@@ -132,13 +132,13 @@ Tabel data bergaya modern shadcn/ui dengan border slate-200. Kolom tabel memuat:
 - Tombol Aksi (ikon pensil Edit dan titik tiga).
 
 Layar 2 (Modal Form Tambah/Edit Bahan Baku):
-Modal dialog putih terpusat (rounded-xl, border slate-200). Form input berisi:
+Modal dialog oat latte #F5EFEB terpusat (rounded-xl, border #EDE4DC). Form input berisi:
 - Input teks "Nama Bahan Baku" (placeholder: misal Fresh Milk Diamond 1L).
 - Dropdown select "Kategori Bahan" (pilihan: Dairy, Beans, Syrup, Bakery).
 - Pilihan segmented "Satuan Standar" (pilihan eksklusif: ml, gram, pcs) dengan catatan panduan kecil.
 - Input angka "Ambang Batas Stok Minimum" dengan label satuan di sebelahnya.
 - Input angka "Ambang Hari Peringatan Kedaluwarsa" (default 3 hari) dengan penjelasan lampu kuning.
-- Footer tombol Batal dan tombol hijau emerald "Simpan Bahan Baku".
+- Footer tombol Batal dan tombol espresso #4A2C11 "Simpan Bahan Baku".
 
 Layar 3 (Modal Cepat Kelola Kategori):
 Dialog ringkas untuk menambah kategori baru dan melihat daftar kategori yang ada (Dairy, Coffee Beans, Flavoring Syrup, Bakery, Cup & Packaging) lengkap dengan jumlah bahan per kategori.
@@ -146,10 +146,10 @@ Dialog ringkas untuk menambah kategori baru dan melihat daftar kategori yang ada
 
 #### English Prompt (High-Fidelity for Stitch AI)
 ```text
-A modern specialty coffee web app UI set for "Master Ingredients & Categories Management" in the BeanFlow app:
-1. Screen 1 (Master Ingredients Table): Clean neutral slate-50 background. Top action toolbar features a search input with magnifying glass icon, category filter dropdown, secondary button "+ Manage Categories", and a prominent emerald-600 button "+ Add New Ingredient". A crisp data table with subtle slate-200 borders displaying columns: Ingredient Name with subtitle, Category Badge (Dairy in soft blue, Beans in soft amber, Syrup in purple), Unit Capsule (ml, gram, pcs), Total Stock (bold text), Minimum Threshold, Warning Days threshold, Active Batches count, and row action icons (Edit pencil & dropdown menu).
-2. Screen 2 (Add/Edit Ingredient Modal): Centered clean white dialog card (rounded-xl, shadow-xl). Contains fields: text input "Ingredient Name", category select dropdown, segmented unit selector (ml, gram, pcs) with descriptive helper text, numeric input "Minimum Reorder Stock" with dynamic unit suffix, and numeric input "Expiry Warning Days" (default 3 days) explaining the early warning trigger. Bottom actions: neutral "Cancel" and primary emerald "Save Ingredient".
-3. Screen 3 (Category Manager Modal): Compact dialog with an inline quick-add input for new categories and a neat list of existing categories showing assigned ingredient counts and subtle edit/delete icons. Polished, minimalist, high contrast, typography hierarchy.
+A modern specialty coffee web app UI set for "Master Ingredients & Categories Management" in the BeanFlow app with warm coffee tones:
+1. Screen 1 (Master Ingredients Table): Warm steamed milk canvas background (#FAF7F2). Top action toolbar features a search input, category filter dropdown, secondary parchment button "+ Manage Categories", and a prominent deep roasted espresso button "+ Add New Ingredient" (#4A2C11). A crisp data table with subtle parchment borders (#EDE4DC) and header (#EDE4DC) displaying columns: Ingredient Name with subtitle, Category Badge (Dairy in soft blue, Beans in soft caramel amber, Syrup in purple), Unit Capsule (ml, gram, pcs), Total Stock (bold text #241408), Minimum Threshold, Warning Days threshold, Active Batches count, and row action icons (Edit pencil & dropdown menu).
+2. Screen 2 (Add/Edit Ingredient Modal): Centered warm oat latte dialog card (#F5EFEB, rounded-xl, shadow-xl, border #EDE4DC). Contains fields: text input "Ingredient Name", category select dropdown, segmented unit selector (ml, gram, pcs) with descriptive helper text, numeric input "Minimum Reorder Stock" with dynamic unit suffix, and numeric input "Expiry Warning Days" (default 3 days) explaining the early warning trigger. Bottom actions: neutral "Cancel" and primary espresso "Save Ingredient".
+3. Screen 3 (Category Manager Modal): Compact dialog with an inline quick-add input for new categories and a neat list of existing categories showing assigned ingredient counts and subtle edit/delete icons. Polished, warm coffee palette, high contrast, typography hierarchy.
 ```
 
 ---
@@ -289,9 +289,9 @@ export function IngredientModal({ isOpen, onClose, categories, ingredientToEdit 
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="max-w-lg bg-white rounded-xl">
+            <DialogContent className="max-w-lg bg-surface-container border-surface-border rounded-xl">
                 <DialogHeader>
-                    <DialogTitle className="text-slate-900 text-lg font-semibold">
+                    <DialogTitle className="text-content-high text-lg font-semibold">
                         {isEditMode ? `Ubah Bahan: ${ingredientToEdit?.name}` : 'Tambah Bahan Baku Baru'}
                     </DialogTitle>
                 </DialogHeader>
@@ -398,10 +398,10 @@ export function IngredientModal({ isOpen, onClose, categories, ingredientToEdit 
                     </div>
 
                     <DialogFooter className="pt-4">
-                        <Button type="button" variant="outline" onClick={onClose} disabled={processing}>
+                        <Button type="button" variant="outline" onClick={onClose} disabled={processing} className="border-surface-border text-content-medium hover:bg-surface-container-high">
                             Batal
                         </Button>
-                        <Button type="submit" disabled={processing} className="bg-emerald-600 hover:bg-emerald-700">
+                        <Button type="submit" disabled={processing} className="bg-brand-primary hover:bg-brand-primary-hover text-white">
                             {processing ? 'Menyimpan...' : isEditMode ? 'Simpan Perubahan' : 'Tambah Bahan'}
                         </Button>
                     </DialogFooter>

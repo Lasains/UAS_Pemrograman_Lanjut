@@ -70,49 +70,53 @@ Spesifikasi berikut dirancang agar siap disalin langsung ke tool **Google Stitch
 ### 2.2 Tata Letak & Komposisi (*Layout & Composition*)
 * **Gaya Split-Screen (Desktop & Landscape Tablet)**:
   - **Sisi Kiri (Hero Brand Showcase - 45% Lebar)**:
-    * Background: Gradien halus `from-slate-900 via-emerald-950 to-slate-950` dengan overlay pola geometris kopi halus (*subtle coffee bean line-art*).
-    * Elemen Visual: Tipografi editorial modern *"Preserve Freshness, Eliminate Waste"*, ringkasan statistik mikro kafe (*Real-time FEFO Tracking, 99.4% Expiry Accuracy*), dan label identitas kafe artisan.
+    * Background: Gradien hangat mewah `from-[#241408] via-[#4A2C11] to-[#38210D]` dengan overlay pola garis biji kopi artisan (*subtle coffee bean line-art*).
+    * Elemen Visual: Tipografi editorial modern *"Preserve Freshness, Eliminate Waste"*, ringkasan statistik mikro kafe (*Real-time FEFO Tracking, 99.4% Expiry Accuracy*), dan label identitas kafe artisan bernuansa karamel hangat (`text-brand-secondary`).
   - **Sisi Kanan (Form & Demo Hub - 55% Lebar)**:
-    * Background: `bg-slate-50`.
-    * Kontainer Utama: Kartu putih terpusat (`bg-white`, `border border-slate-200`, `rounded-xl`, `shadow-sm`) dengan padding longgar (`p-8 sm:p-10`).
+    * Background: Kanvas susu hangat `bg-surface-canvas` (`#FAF7F2`).
+    * Kontainer Utama: Kartu terpusat ramah kafe (`bg-surface-container` `#F5EFEB`, `border border-surface-border` `#EDE4DC`, `rounded-xl`, `shadow-sm`) dengan padding longgar (`p-8 sm:p-10`).
 * **Gaya Single Card (Mobile & Portrait Tablet)**:
   - Hero sisi kiri disembunyikan (`hidden lg:flex`). Seluruh fokus diarahkan ke kontainer form di tengah layar dengan header logo kompak.
 
 ### 2.3 Rincian Komponen Visual (*Component Breakdown*)
 1. **Brand Header**:
-   - Ikon cangkir kopi modern beraksen daun (*coffee leaf*) berukuran `w-10 h-10` berwarna `text-emerald-600`.
+   - Ikon cangkir kopi modern beraksen hangat berukuran `w-10 h-10` berwarna `text-brand-primary` (`#4A2C11`).
    - Nama Sistem: `BeanFlow` / `CafePulse Monitor`.
-   - Judul Form: `text-xl font-semibold text-slate-900` (*"Masuk ke Akun Anda"*).
-   - Subjudul: `text-sm text-slate-500` (*"Pantau stok bahan baku & rekomendasi kedaluwarsa FEFO"*).
+   - Judul Form: `text-xl font-semibold text-content-high` (*"Masuk ke Akun Anda"*).
+   - Subjudul: `text-sm text-content-medium` (*"Pantau stok bahan baku & rekomendasi kedaluwarsa FEFO"*).
 2. **Flash Alert Banner**:
-   - Wadah bersyarat `bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg p-3 text-sm` untuk notifikasi sukses/status.
+   - Wadah bersyarat `bg-emerald-50 border border-emerald-300 text-emerald-800 rounded-lg p-3 text-sm` untuk notifikasi sukses/status.
 3. **Form Input Standar**:
-   - **Email Input**: Label `"Alamat Email"`, field dengan ikon pembantu `Mail` di sisi kiri, border `border-slate-200`, fokus `ring-2 ring-emerald-600`.
-   - **Password Input**: Label `"Kata Sandi"`, field dengan ikon `Lock` di sisi kiri dan tombol toggle intip kata sandi `Eye`/`EyeOff` di sisi kanan.
-   - **Opsi Form**: Baris horizontal fleksibel berisi checkbox `"Ingat saya di perangkat ini"` dan tautan sekunder `"Lupa kata sandi?"` (`text-sm text-emerald-600 hover:text-emerald-700`).
+   - **Email Input**: Label `"Alamat Email"` (`text-content-medium`), field dengan ikon pembantu `Mail` di sisi kiri, border `border-surface-border bg-surface-canvas`, fokus `ring-2 ring-brand-primary`.
+   - **Password Input**: Label `"Kata Sandi"` (`text-content-medium`), field dengan ikon `Lock` di sisi kiri dan tombol toggle intip kata sandi `Eye`/`EyeOff` di sisi kanan.
+   - **Opsi Form**: Baris horizontal fleksibel berisi checkbox `"Ingat saya di perangkat ini"` dan tautan sekunder `"Lupa kata sandi?"` (`text-sm text-brand-secondary hover:underline`).
 4. **Tombol Aksi Utama**:
-   - Tombol lebar penuh (*full-width*) `bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg py-2.5 shadow-sm transition-all flex items-center justify-center gap-2`.
+   - Tombol lebar penuh (*full-width*) `bg-brand-primary hover:bg-brand-primary-hover text-white font-medium rounded-lg py-2.5 shadow-sm transition-all flex items-center justify-center gap-2`.
    - State aktif: Menampilkan teks `"Masuk ke Sistem"`.
    - State proses: Menampilkan ikon spinner berputar (`Loader2`) dan teks `"Memverifikasi..."` dengan atribut `disabled`.
 5. **Pemisah Ornamen (*Visual Divider*)**:
-   - Garis tipis dengan badge tengah: `border-t border-slate-200` dengan label tengah `"Atau Masuk Cepat Akun Demo (1-Klik Tanpa Password)"` warna `text-xs text-slate-500 uppercase tracking-wider bg-white px-3`.
+   - Garis tipis dengan badge tengah: `border-t border-surface-border` dengan label tengah `"Atau Masuk Cepat Akun Demo (1-Klik Tanpa Password)"` warna `text-xs text-content-subtle uppercase tracking-wider bg-surface-container px-3`.
 6. **Kartu Pemilih Cepat Peran (*Quick Demo Switcher Cards*)**:
    - Grid 3 kolom horizontal (`grid grid-cols-1 sm:grid-cols-3 gap-3`).
-   - Setiap kartu memiliki efek hover interaktif (`border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 rounded-lg p-3 cursor-pointer transition-all text-left`):
-     * **Kartu Barista**: Ikon cangkir `Coffee`, badge hijau muda `Barista`, deskripsi singkat *"Operasional Bar & FEFO"*.
-     * **Kartu Supervisor**: Ikon `ClipboardCheck`, badge amber muda `Supervisor`, deskripsi singkat *"Gudang & Approval"*.
-     * **Kartu Owner**: Ikon `BarChart3`, badge indigo/slate muda `Owner`, deskripsi singkat *"Analisis & Finansial"*.
+   - Setiap kartu memiliki efek hover interaktif (`border border-surface-border bg-surface-canvas hover:border-brand-primary hover:bg-surface-container-high rounded-lg p-3 cursor-pointer transition-all text-left`):
+     * **Kartu Barista**: Ikon cangkir `Coffee`, badge hijau botani `Barista` (`bg-emerald-50 text-emerald-800 border-emerald-300`), deskripsi singkat *"Operasional Bar & FEFO"*.
+     * **Kartu Supervisor**: Ikon `ClipboardCheck`, badge amber karamel `Supervisor` (`bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]`), deskripsi singkat *"Gudang & Approval"*.
+     * **Kartu Owner**: Ikon `BarChart3`, badge perkamen `Owner` (`bg-[#EDE4DC] text-content-high border-surface-border`), deskripsi singkat *"Analisis & Finansial"*.
 
 ### 2.4 Token Warna & Gaya (Mengacu pada Desain.md)
-* Canvas Background: `bg-slate-50` (`#F8FAFC`)
-* Card Surface: `bg-white` (`#FFFFFF`)
-* Primary Text: `text-slate-900` (`#0F172A`)
-* Secondary/Muted Text: `text-slate-500` (`#64748B`)
-* Form Borders: `border-slate-200` (`#E2E8F0`)
-* Brand Action Button: `bg-emerald-600` (`#059669`), hover `bg-emerald-700` (`#047857`)
-* Badge Barista (Aman/Operasional): `bg-emerald-50 text-emerald-700 border-emerald-200`
-* Badge Supervisor (Warning/Kontrol): `bg-amber-50 text-amber-700 border-amber-200`
-* Badge Owner (Eksekutif): `bg-slate-100 text-slate-800 border-slate-200`
+* Canvas Background: `bg-surface-canvas` (`#FAF7F2`)
+* Container Surface Base: `bg-surface-container` (`#F5EFEB`)
+* Container Surface Elevated: `bg-surface-container-high` (`#EDE4DC`)
+* Primary Text: `text-content-high` (`#241408`)
+* Secondary/Muted Text: `text-content-medium` (`#5C3A21`)
+* Subtle/Disabled Text: `text-content-subtle` (`#9C8474`)
+* Form Borders: `border-surface-border` (`#EDE4DC`)
+* Brand Action Button: `bg-brand-primary` (`#4A2C11`), hover `bg-brand-primary-hover` (`#38210D`)
+* Brand Secondary Accent: `bg-brand-secondary` (`#C88242`)
+* Brand Tertiary Alert: `bg-brand-tertiary` (`#8C3D2B`)
+* Badge Barista (Aman/Operasional): `bg-emerald-50 text-emerald-800 border-emerald-300`
+* Badge Supervisor (Warning/Kontrol): `bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]`
+* Badge Owner (Eksekutif): `bg-[#EDE4DC] text-content-high border-surface-border`
 
 ---
 
@@ -120,26 +124,26 @@ Spesifikasi berikut dirancang agar siap disalin langsung ke tool **Google Stitch
 
 #### Prompt Bahasa Indonesia (Terstruktur & Kontekstual)
 ```text
-Buatkan desain antarmuka layar login modern untuk aplikasi web "Sistem Inventaris & Pemantauan Kedaluwarsa Kafe (BeanFlow)" berbasis Tailwind CSS dan shadcn/ui.
+Buatkan desain antarmuka layar login modern untuk aplikasi web "Sistem Inventaris & Pemantauan Kedaluwarsa Kafe (BeanFlow)" berbasis Tailwind CSS dan shadcn/ui dengan nuansa palet kafe artisan.
 
 Layout split-screen responsif:
-1. Sisi kiri (40% lebar desktop): Latar belakang dark slate hijau zamrud (#064E3B ke #0F172A) bernuansa specialty coffee roastery, memuat logo minimalis cangkir kopi, teks headline "Preserve Freshness, Eliminate Waste", dan kartu metrik statistik mikro FEFO.
-2. Sisi kanan (60% lebar desktop): Latar belakang bersih slate-50 (#F8FAFC) dengan kartu login putih terpusat (rounded-xl, border slate-200, shadow-sm).
+1. Sisi kiri (40% lebar desktop): Latar belakang gradien biji kopi sangrai (#241408 ke #4A2C11) bernuansa specialty coffee roastery, memuat logo minimalis cangkir kopi, teks headline "Preserve Freshness, Eliminate Waste", dan kartu metrik statistik mikro FEFO beraksen karamel (#C88242).
+2. Sisi kanan (60% lebar desktop): Latar belakang hangat canvas susu (#FAF7F2) dengan kartu login oat latte (#F5EFEB) terpusat (rounded-xl, border #EDE4DC, shadow-sm).
 
 Di dalam kartu login terdapat:
-- Header: Logo monogram kafe warna emerald-600, judul "Masuk ke Sistem Inventaris", subjudul "Kelola masa simpan bahan baku kafe secara presisi".
-- Form Login: Input email dengan ikon surat, input password dengan tombol intip mata (show/hide), checkbox "Ingat Saya", dan tombol submit hijau zamrud (emerald-600) bertuliskan "Masuk ke Sistem".
+- Header: Logo monogram kafe warna espresso (#4A2C11), judul "Masuk ke Sistem Inventaris" (warna #241408), subjudul "Kelola masa simpan bahan baku kafe secara presisi" (#5C3A21).
+- Form Login: Input email dengan ikon surat, input password dengan tombol intip mata (show/hide), checkbox "Ingat Saya", dan tombol submit espresso (#4A2C11) bertuliskan "Masuk ke Sistem".
 - Pemisah visual: Garis tipis berlabel "AKUN DEMO UJI COBA DOSEN / OPERASIONAL (1-KLIK)".
 - Bagian Demo Cepat: Tiga kartu tombol horizontal kecil interaktif:
-  * Tombol 1 (Barista): Ikon kopi, label "Barista", email "barista@kafe.com", keterangan "Akses Bar & FEFO".
-  * Tombol 2 (Supervisor): Ikon checklist, label "Supervisor", email "spv@kafe.com", keterangan "Gudang & Approval".
-  * Tombol 3 (Owner): Ikon grafik analitik, label "Owner", email "owner@kafe.com", keterangan "Analitik Finansial".
-Tampilan bersih, profesional, kontras tinggi, dan ramah layar sentuh tablet kasir.
+  * Tombol 1 (Barista): Ikon kopi, label "Barista", email "barista@kafe.com", keterangan "Akses Bar & FEFO", badge hijau botani.
+  * Tombol 2 (Supervisor): Ikon checklist, label "Supervisor", email "spv@kafe.com", keterangan "Gudang & Approval", badge karamel amber (#C88242).
+  * Tombol 3 (Owner): Ikon grafik analitik, label "Owner", email "owner@kafe.com", keterangan "Analitik Finansial", badge perkamen (#EDE4DC).
+Tampilan bersih, hangat, kontras tinggi, dan ramah layar sentuh tablet kasir.
 ```
 
 #### English Prompt (Concise & High-Fidelity for Stitch AI)
 ```text
-A modern, minimalist authentication web app screen for a specialty coffee inventory and expiry tracking system named "BeanFlow". Split-screen responsive layout on desktop: Left panel features a rich deep emerald and slate gradient (#064e3b to #0f172a) with artisanal coffee typography "Preserve Freshness, Eliminate Waste" and subtle inventory stats. Right panel features an ultra-clean white card on neutral slate-50 background. The card contains an emerald-600 coffee leaf logo, title "Sign in to BeanFlow", email input with mail icon, password input with toggle visibility eye icon, "Remember me" checkbox, and a solid emerald-600 submit button. Below the form, a divider leads to a "One-Click Demo Switcher" with three distinct interactive role cards: "Barista" (coffee cup icon, emerald badge), "Supervisor" (clipboard icon, amber badge), and "Owner" (analytics chart icon, dark slate badge). Tailwind CSS styling, rounded-xl cards, high contrast, clean typography, polished SaaS aesthetic.
+A modern, warm artisan coffee authentication web app screen for a specialty coffee inventory and expiry tracking system named "BeanFlow". Split-screen responsive layout on desktop: Left panel features a rich deep roasted espresso gradient (#241408 to #4A2C11) with artisanal coffee typography "Preserve Freshness, Eliminate Waste" and warm amber (#C88242) inventory stats. Right panel features a warm steamed milk canvas (#FAF7F2) with an oat latte container card (#F5EFEB) with border #EDE4DC. The card contains a deep roasted espresso (#4A2C11) coffee logo, title "Sign in to BeanFlow" (#241408), email input with mail icon, password input with toggle visibility eye icon, "Remember me" checkbox, and a solid deep espresso (#4A2C11) submit button. Below the form, a divider leads to a "One-Click Demo Switcher" with three distinct interactive role cards: "Barista" (coffee cup icon, botanical green badge), "Supervisor" (clipboard icon, warm caramel amber badge #C88242), and "Owner" (analytics chart icon, parchment badge #EDE4DC). Tailwind CSS styling, rounded-xl cards, high contrast, clean coffee typography, polished SaaS aesthetic.
 ```
 
 ---
@@ -218,7 +222,7 @@ const DEMO_ACCOUNTS: DemoRoleAccount[] = [
         email: 'barista@kafe.com',
         title: 'Barista',
         description: 'Operasional Bar & Pakai Stok FEFO',
-        badgeStyle: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+        badgeStyle: 'bg-emerald-50 text-emerald-800 border-emerald-300',
         icon: Coffee,
         redirectTarget: '/dashboard/barista',
     },
@@ -228,7 +232,7 @@ const DEMO_ACCOUNTS: DemoRoleAccount[] = [
         email: 'supervisor@kafe.com',
         title: 'Supervisor',
         description: 'Kelola Gudang, Restock & Approval',
-        badgeStyle: 'bg-amber-50 text-amber-700 border-amber-200',
+        badgeStyle: 'bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]',
         icon: ClipboardCheck,
         redirectTarget: '/inventory',
     },
@@ -238,7 +242,7 @@ const DEMO_ACCOUNTS: DemoRoleAccount[] = [
         email: 'owner@kafe.com',
         title: 'Owner',
         description: 'Analitik Finansial & Laporan Kerugian',
-        badgeStyle: 'bg-slate-100 text-slate-800 border-slate-200',
+        badgeStyle: 'bg-[#EDE4DC] text-content-high border-surface-border',
         icon: BarChart3,
         redirectTarget: '/dashboard/owner',
     },
@@ -294,11 +298,11 @@ export default function Login({ status, canResetPassword }: LoginPageProps) {
 
 ### 3.4 Penanganan Validasi & Error Kredensial
 1. **Error Spesifik Per Field**:
-   - Jika `errors.email` ada, border input email berubah menjadi `border-rose-300 focus:ring-rose-500` dan teks merah muncul di bawah input: `text-xs text-rose-600 mt-1`.
+   - Jika `errors.email` ada, border input email berubah menjadi `border-brand-tertiary focus:ring-brand-tertiary` dan teks merah muncul di bawah input: `text-xs text-brand-tertiary mt-1`.
    - Jika `errors.password` ada, indikator error serupa ditampilkan di bawah input password.
 2. **Peringatan Rate Limiting (Too Many Requests)**:
    - Jika pengguna salah memasukkan password > 5 kali, Laravel mengirimkan pesan throttle pada `errors.email` (misal: *"Too many login attempts. Please try again in 54 seconds."*).
-   - Ditampilkan dalam komponen Alert bertipe destructive (`bg-rose-50 border-rose-200 text-rose-800`).
+   - Ditampilkan dalam komponen Alert bertipe destructive (`bg-[#FDF2F0] border border-[#F8C6BF] text-[#8C3D2B]`).
 
 ---
 
@@ -319,10 +323,10 @@ export default function Login({ status, canResetPassword }: LoginPageProps) {
   - Kartu pemilih demo berganti susunan dari 3 kolom horizontal menjadi 1 kolom vertikal bertumpuk agar tidak terpotong.
 
 ### 4.3 Standar Aksesibilitas (WCAG 2.1 Level AA)
-- **Kontras Warna**: Teks slate-900 di atas latar putih memiliki rasio kontras 14.5:1 (melampaui batas minimal 4.5:1). Aksen brand hijau emerald-600 di atas putih memiliki rasio kontras 4.54:1.
+- **Kontras Warna**: Teks `text-content-high` (#241408) di atas kanvas `bg-surface-canvas` (#FAF7F2) memiliki rasio kontras > 14:1 (jauh melampaui batas minimal 4.5:1). Aksen brand espresso `#4A2C11` dengan teks putih memiliki rasio kontras 10.2:1.
 - **Navigasi Keyboard**:
   - Semua elemen input dan tombol demo dapat diakses penuh melalui tombol `Tab`.
-  - Fokus aktif ditandai secara tegas dengan outline `focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2`.
+  - Fokus aktif ditandai secara tegas dengan outline `focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2`.
 - **Screen Reader Support**:
   - Tombol intip kata sandi dilengkapi atribut `aria-label={showPassword ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}`.
   - Form dibungkus dalam tag semantik `<form onSubmit={...} aria-label="Formulir Masuk Sistem">`.

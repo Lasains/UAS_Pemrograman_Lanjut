@@ -450,10 +450,10 @@
     "semantic_hash": "f1b87a997a10757ec6f579e585f0ab0e"
   },
   "tailwind.config.js": {
-    "mtime": 1793323811.6998909,
-    "seen": 1793445295.1358428,
-    "ast_hash": "a145df1beeb3421b38fd18986611a207",
-    "semantic_hash": "a145df1beeb3421b38fd18986611a207"
+    "mtime": 1793916436.039676,
+    "seen": 1793916839.408295,
+    "ast_hash": "b463f6ee1f1c67d0a45674f5b1a943c1",
+    "semantic_hash": ""
   },
   "tests/Feature/Auth/AuthenticationTest.php": {
     "mtime": 1793323811.7028675,
@@ -534,10 +534,10 @@
     "semantic_hash": "38376509fd80176b670360b11db407f1"
   },
   "Desain.md": {
-    "mtime": 1793327674.0431864,
-    "seen": 1793445295.1359315,
-    "ast_hash": "66da46534ff3ac6c38eaea75f570a6b6",
-    "semantic_hash": "66da46534ff3ac6c38eaea75f570a6b6"
+    "mtime": 1793916758.1310508,
+    "seen": 1793916839.4084146,
+    "ast_hash": "15ae37e5de4f32f9ac4a3105be3fae95",
+    "semantic_hash": ""
   },
   "LATAR_BELAKANG.md": {
     "mtime": 1793186045.3300436,
@@ -552,9 +552,9 @@
     "semantic_hash": "5c988fe6ec96959779266413cd409629"
   },
   "README.md": {
-    "mtime": 1793450825.4258325,
-    "seen": 1793453646.0317452,
-    "ast_hash": "1d6f430f924b922b9ee4da786d4f28b5",
+    "mtime": 1793487603.7063324,
+    "seen": 1793916839.4084384,
+    "ast_hash": "faa90fd30dbba66494fe2283f3bfac2b",
     "semantic_hash": ""
   },
   "docs/Panduan/PANDUAN_BACKEND_1.md": {
@@ -648,52 +648,52 @@
     "semantic_hash": "f27744a59ee8dacf4f2db2982a544e1b"
   },
   "docs/Plan Frontend/PLAN_01_AUTH_LOGIN.md": {
-    "mtime": 1793401739.9666975,
-    "seen": 1793445295.1360407,
-    "ast_hash": "0f44c315e3245e5067e2f06d44fb5b67",
-    "semantic_hash": "0f44c315e3245e5067e2f06d44fb5b67"
+    "mtime": 1793917129.3986094,
+    "seen": 1793918059.2852194,
+    "ast_hash": "152b3802aba42c4ae6b89ee2a9742662",
+    "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_02_APP_LAYOUT_RBAC.md": {
-    "mtime": 1793403858.7896779,
-    "seen": 1793445295.1360474,
-    "ast_hash": "890ea32a67a7b8755ffcb0d7c38d27b2",
-    "semantic_hash": "890ea32a67a7b8755ffcb0d7c38d27b2"
+    "mtime": 1793917233.6917384,
+    "seen": 1793918059.2852306,
+    "ast_hash": "2a8f664f8463083c77c7dfe925274d36",
+    "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_03_BARISTA_OPERASIONAL_FEFO.md": {
-    "mtime": 1793404000.6539934,
-    "seen": 1793445295.136053,
-    "ast_hash": "4fe08d35140dd4122b00a250ea2ab4ed",
-    "semantic_hash": "4fe08d35140dd4122b00a250ea2ab4ed"
+    "mtime": 1793917298.312709,
+    "seen": 1793918059.2852383,
+    "ast_hash": "057095149577f3d58b65ddb0d97aa831",
+    "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_04_SUPERVISOR_MASTER_DATA.md": {
-    "mtime": 1793405508.3952641,
-    "seen": 1793445295.1360583,
-    "ast_hash": "f790aaa5fd803d47351e67ae3344f2fd",
-    "semantic_hash": "f790aaa5fd803d47351e67ae3344f2fd"
+    "mtime": 1793917391.6731093,
+    "seen": 1793918059.2852457,
+    "ast_hash": "a1784ade12514c4be0a4821aa4d2d3c8",
+    "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_05_SUPERVISOR_MONITORING_INVENTARIS.md": {
-    "mtime": 1793405632.7646089,
-    "seen": 1793445295.1360638,
-    "ast_hash": "b3b84814028bb88a53b8e31bd2116f5f",
-    "semantic_hash": "b3b84814028bb88a53b8e31bd2116f5f"
+    "mtime": 1793917900.5331705,
+    "seen": 1793918059.2852535,
+    "ast_hash": "424180f5575baebba59795280b3f86aa",
+    "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_06_WASTE_APPROVAL_CENTER.md": {
-    "mtime": 1793405992.367872,
-    "seen": 1793445295.1360693,
-    "ast_hash": "7b34f3c678d43366f4d69b7e1d152bc7",
-    "semantic_hash": "7b34f3c678d43366f4d69b7e1d152bc7"
+    "mtime": 1793917939.1015034,
+    "seen": 1793918059.2852614,
+    "ast_hash": "30cee142933feb58f2c466403d5056b1",
+    "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_07_OWNER_ANALYTICS_DASHBOARD.md": {
-    "mtime": 1793428011.3795063,
-    "seen": 1793445295.1360748,
-    "ast_hash": "8dcca1573803265c37dbf54432a934a6",
-    "semantic_hash": "8dcca1573803265c37dbf54432a934a6"
+    "mtime": 1793917967.4994552,
+    "seen": 1793918059.2852688,
+    "ast_hash": "e82d2dd8e49a99006c980388460a639c",
+    "semantic_hash": ""
   },
   "docs/Plan Frontend/PROMPT_LIST_PLAN_DESIGN.md": {
-    "mtime": 1793401328.542332,
-    "seen": 1793445295.1360803,
-    "ast_hash": "2471b94822cad27a80123c1f00a41874",
-    "semantic_hash": "2471b94822cad27a80123c1f00a41874"
+    "mtime": 1793917834.8047829,
+    "seen": 1793918059.2852762,
+    "ast_hash": "0875fd9d35c45d295c076270907e0336",
+    "semantic_hash": ""
   },
   "docs/explanations/01_migrations_schema.md": {
     "mtime": 1793435843.0215175,
@@ -748,5 +748,11 @@
     "seen": 1793445295.1361306,
     "ast_hash": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "semantic_hash": "b6216d61c03e6ce0c9aea6ca7808f7ca"
+  },
+  "docs/explanations/09_design_system_color_tokens.md": {
+    "mtime": 1793918010.2918458,
+    "seen": 1793918059.2853599,
+    "ast_hash": "195fecb4e7fd4ce3549bd047926ba895",
+    "semantic_hash": ""
   }
 }

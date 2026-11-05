@@ -91,28 +91,28 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
 
 #### Layar 2: Modal Form Pemakaian Bahan FEFO (`Pages/Usage/CreateUsageModal.tsx`)
 1. **Dialog Container**:
-   - Modal pop-up lebar sedang (`max-w-xl bg-white rounded-xl shadow-xl border border-slate-200 p-6`).
-   - Judul: *"Catat Pemakaian Bahan Baku (FEFO)"*.
-   - Subjudul: *"Pastikan fisik bahan yang diambil sesuai urutan kedaluwarsa terdekat."*
+   - Modal pop-up lebar sedang (`max-w-xl bg-surface-container rounded-xl shadow-xl border border-surface-border p-6`).
+   - Judul: *"Catat Pemakaian Bahan Baku (FEFO)"* (`text-content-high`).
+   - Subjudul: *"Pastikan fisik bahan yang diambil sesuai urutan kedaluwarsa terdekat."* (`text-content-medium`).
 2. **Dropdown Pemilih Bahan (`Select`)**:
    - Pilihan nama bahan baku (dilengkapi sisa stok total dan satuan).
 3. **RadioGroup Kartu Batch Interaktif (FEFO Batch Cards)**:
    - Menampilkan daftar batch aktif dari bahan yang dipilih:
      * **Kartu Batch Teratas (FEFO Recommended)**:
-       - Border tebal `border-emerald-600 bg-emerald-50/40 ring-1 ring-emerald-600`.
-       - Badge kapsul mencolok: `[★ REKOMENDASI FEFO - Prioritas Pakai]` warna hijau emerald pekat teks putih.
+       - Border tebal `border-brand-primary bg-surface-container-high ring-1 ring-brand-primary`.
+       - Badge kapsul mencolok: `[★ REKOMENDASI FEFO - Prioritas Pakai]` warna deep espresso (`bg-brand-primary text-surface-canvas font-semibold`).
        - Kode batch, tanggal kedaluwarsa, dan sisa stok fisik (contoh: *"Batch #BM-20261025 • Exp: 03 Nov 2026 (3 hari lagi) • Sisa: 1.000 ml"*).
      * **Kartu Batch Lainnya**:
-       - Border normal `border-slate-200 bg-white hover:border-slate-300`.
+       - Border normal `border-surface-border bg-surface-canvas hover:border-brand-secondary`.
        - Menampilkan kode batch dan tanggal kedaluwarsa yang lebih lama (contoh: *"Batch #BM-20261028 • Exp: 12 Nov 2026 (12 hari lagi) • Sisa: 2.000 ml"*).
 4. **Input Kuantitas Pemakaian**:
-   - Field input angka besar (`h-12 text-lg font-semibold`) dengan suffix satuan di dalam kotak (contoh: `[ 250 ] ml`).
+   - Field input angka besar (`h-12 text-lg font-semibold bg-surface-canvas border-surface-border text-content-high`) dengan suffix satuan di dalam kotak (contoh: `[ 250 ] ml`).
    - Keterangan pembantu: *"Sisa stok setelah pemakaian: 750 ml"*.
 5. **Catatan Operasional (Opsional)**:
    - Textarea singkat untuk keterangan racikan menu (contoh: *"Untuk 8 cup Iced Latte shift pagi"*).
 6. **Footer Aksi**:
-   - Tombol Batal (`text-slate-600 hover:bg-slate-100`).
-   - Tombol Submit Hijau: `[Konfirmasi & Kurangi Stok]`.
+   - Tombol Batal (`text-content-medium hover:bg-surface-container-high`).
+   - Tombol Submit Espresso: `[Konfirmasi & Kurangi Stok]` (`bg-brand-primary hover:bg-brand-primary-hover text-white`).
 
 ---
 
@@ -120,18 +120,18 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
 1. **Pemicu Dialog**:
    - Terbuka otomatis saat barista mengklik radio card batch yang bukan nomor 1 (batch dengan kedaluwarsa lebih lama).
 2. **Visual Warning Box**:
-   - Header warna amber/kuning hangat (`bg-amber-50 border border-amber-200 rounded-lg p-4 flex gap-3 items-start`).
-   - Ikon segitiga peringatan `AlertTriangle` warna amber-600.
-   - Judul peringatan: `text-amber-900 font-semibold` (*"Peringatan Deviasi FEFO"*).
+   - Header warna amber/kuning karamel hangat (`bg-[#FFF7ED] border border-[#FED7AA] rounded-lg p-4 flex gap-3 items-start`).
+   - Ikon segitiga peringatan `AlertTriangle` warna karamel `text-[#C88242]`.
+   - Judul peringatan: `text-[#5C3A21] font-semibold` (*"Peringatan Deviasi FEFO"*).
    - Teks penjelasan komparasi:
      > *"Anda memilih batch **#BM-20261028** (Exp: 12 Nov 2026), padahal terdapat batch **#BM-20261025** yang kedaluwarsa lebih cepat (**3 hari lagi**)."*
 3. **Kotak Input Wajib: Alasan Deviasi**:
    - Label: *"Alasan tidak menggunakan batch kedaluwarsa terdekat (Wajib diisi):"*
    - Textarea dengan placeholder: *"Contoh: Kemasan batch ini sudah terlanjur terbuka di chiller bar..."*
-   - Indikator validasi: Penanda panjang karakter `(Karakter: 0/5 minimal)` berwarna merah jika belum 5 karakter.
+   - Indikator validasi: Penanda panjang karakter `(Karakter: 0/5 minimal)` berwarna terakota (`text-brand-tertiary`) jika belum 5 karakter.
 4. **Tombol Keputusan**:
    - Tombol Abu-abu Netral: `[Batal & Gunakan Rekomendasi FEFO]` (Mengembalikan pilihan ke batch #1).
-   - Tombol Amber Tegas: `[Tetap Gunakan Batch Ini]` (Hanya aktif jika alasan >= 5 karakter).
+   - Tombol Amber Tegas: `[Tetap Gunakan Batch Ini]` (`bg-brand-secondary hover:bg-brand-secondary-hover text-white`, hanya aktif jika alasan >= 5 karakter).
 
 ---
 
@@ -139,27 +139,27 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghas
 
 #### Prompt Bahasa Indonesia (Terstruktur untuk Stitch)
 ```text
-Buatkan 3 antarmuka layar operasional bar modern untuk modul "FEFO Inventory Barista" pada aplikasi kafe "BeanFlow":
+Buatkan 3 antarmuka layar operasional bar modern untuk modul "FEFO Inventory Barista" pada aplikasi kafe "BeanFlow" dengan tema warna warm artisan coffee:
 
 Layar 1 (Dasbor Barista):
-Latar belakang slate-50. Di atas terdapat bar sambutan shift barista dengan indikator online. Di bawahnya ada 3 kartu aksi cepat besar: tombol hijau emerald "+ Catat Pemakaian Bahan", tombol slate "+ Penerimaan Restock Baru", dan tombol amber "! Lapor Bahan Rusak". Di bawahnya terdapat grid 4 kartu "Bahan Cepat Bar" (Fresh Milk Diamond, Espresso Blend, Sirup Karamel, Oat Milk) lengkap dengan sisa stok ml/gram, badge lampu lalu lintas kedaluwarsa (Merah Kritis, Kuning Segera Pakai, Hijau Aman), dan tombol "Pakai Cepat".
+Latar belakang kanvas susu hangat #FAF7F2. Di atas terdapat bar sambutan shift barista dengan indikator online. Di bawahnya ada 3 kartu aksi cepat besar: tombol espresso "+ Catat Pemakaian Bahan" (#4A2C11), tombol kontainer parchment "+ Penerimaan Restock Baru" (#EDE4DC), dan tombol amber karamel "! Lapor Bahan Rusak" (#C88242). Di bawahnya terdapat grid 4 kartu "Bahan Cepat Bar" (Fresh Milk Diamond, Espresso Blend, Sirup Karamel, Oat Milk) lengkap dengan sisa stok ml/gram, badge lampu lalu lintas kedaluwarsa (Merah Terracotta #8C3D2B, Kuning Amber #C88242, Hijau Segar #059669), dan tombol "Pakai Cepat".
 
 Layar 2 (Modal Form Pemakaian Bahan FEFO):
-Modal pop-up putih terpusat (rounded-xl, shadow-lg). Berisi dropdown pilih bahan, diikuti daftar pilihan batch kartu interaktif (RadioGroup):
-- Kartu batch teratas (Rekomendasi FEFO) memiliki border hijau emerald-600, latar emerald-50 muda, dan badge hijau pekat bertuliskan "[★ REKOMENDASI FEFO - Prioritas Pakai]".
-- Kartu batch kedua memiliki border abu-abu slate-200 biasa dengan tanggal expired lebih lama.
-Di bawah daftar batch terdapat input kuantitas angka besar dengan label satuan "ml", teks sisa stok otomatis, dan tombol hijau "Konfirmasi & Kurangi Stok".
+Modal pop-up oat latte #F5EFEB terpusat (rounded-xl, border #EDE4DC, shadow-lg). Berisi dropdown pilih bahan, diikuti daftar pilihan batch kartu interaktif (RadioGroup):
+- Kartu batch teratas (Rekomendasi FEFO) memiliki border espresso tebal #4A2C11, latar parchment #EDE4DC, dan badge espresso pekat bertuliskan "[★ REKOMENDASI FEFO - Prioritas Pakai]".
+- Kartu batch kedua memiliki border parchment biasa dengan tanggal expired lebih lama.
+Di bawah daftar batch terdapat input kuantitas angka besar dengan label satuan "ml", teks sisa stok otomatis, dan tombol espresso #4A2C11 "Konfirmasi & Kurangi Stok".
 
 Layar 3 (AlertDialog Smart Warning Deviasi FEFO):
-Modal dialog peringatan bernuansa amber (#FFFBEB) dengan border amber-300. Menampilkan ikon segitiga peringatan, teks peringatan "Peringatan Deviasi FEFO: Ada batch yang kedaluwarsa lebih cepat!", kotak textarea wajib untuk mengisi "Alasan Deviasi" (dengan counter minimal 5 karakter), tombol batal "Kembali ke Rekomendasi FEFO", dan tombol amber tegas "Tetap Gunakan Batch Ini".
+Modal dialog peringatan bernuansa karamel hangat (#FFF7ED) dengan border amber (#FED7AA). Menampilkan ikon segitiga peringatan, teks peringatan "Peringatan Deviasi FEFO: Ada batch yang kedaluwarsa lebih cepat!", kotak textarea wajib untuk mengisi "Alasan Deviasi" (dengan counter minimal 5 karakter), tombol batal "Kembali ke Rekomendasi FEFO", dan tombol amber karamel tegas "Tetap Gunakan Batch Ini".
 ```
 
 #### English Prompt (High-Fidelity for Stitch AI)
 ```text
-A high-fidelity 3-screen UI set for a specialty coffee inventory app named "BeanFlow", focusing on Barista FEFO Operations:
-1. Screen 1 (Barista Dashboard): Clean slate-50 background. Top greeting banner "Shift Barista Console • Morning Shift". Three prominent quick-action touch buttons: emerald "+ Record Ingredient Usage", slate "+ Receive Restock", and amber "! Report Spoiled Material". Below is a grid of 4 quick-bar ingredient cards (Fresh Milk, Espresso Beans, Caramel Syrup, Oat Milk) showing stock numbers, traffic-light expiry badges (Green Safe, Yellow Warning, Red Critical), and an instant "Use Now" button.
-2. Screen 2 (FEFO Stock Usage Modal): Clean white modal dialog (rounded-xl, shadow-xl). Contains an ingredient selector, followed by an interactive RadioGroup of batch cards. The top card has an active emerald-600 border, soft emerald-50 tint, and a bold capsule badge "[★ FEFO RECOMMENDATION - Use First]". The other batch card has a neutral slate-200 border with a later expiry date. Below is a large numeric quantity input with "ml" suffix, preview of remaining stock, and a full-width emerald submit button.
-3. Screen 3 (Smart Warning Deviation Dialog): A prominent amber alert modal (#FFFBEB background, amber-300 border). Warning triangle icon, headline "FEFO Deviation Warning: Older batch available!", comparison summary of dates, required textarea for "Reason for Deviation" with a 5-character validation counter, secondary button "Revert to FEFO", and a solid amber confirmation button "Confirm Non-FEFO Selection". Tailwind CSS styling, touch-friendly, high contrast.
+A high-fidelity 3-screen UI set for a specialty coffee inventory app named "BeanFlow", focusing on Barista FEFO Operations with warm coffee aesthetics:
+1. Screen 1 (Barista Dashboard): Warm steamed milk canvas (#FAF7F2) background. Top greeting banner "Shift Barista Console • Morning Shift". Three prominent quick-action touch buttons: deep espresso "#4A2C11" "+ Record Ingredient Usage", parchment "#EDE4DC" "+ Receive Restock", and amber caramel "#C88242" "! Report Spoiled Material". Below is a grid of 4 quick-bar ingredient cards (Fresh Milk, Espresso Beans, Caramel Syrup, Oat Milk) showing stock numbers, traffic-light expiry badges (Botanical Green Safe, Amber Caramel Warning, Terracotta Critical), and an instant "Use Now" button.
+2. Screen 2 (FEFO Stock Usage Modal): Warm oat latte modal dialog (#F5EFEB, rounded-xl, shadow-xl). Contains an ingredient selector, followed by an interactive RadioGroup of batch cards. The top card has an active deep espresso border (#4A2C11), parchment tint (#EDE4DC), and a bold capsule badge "[★ FEFO RECOMMENDATION - Use First]". The other batch card has a neutral parchment border with a later expiry date. Below is a large numeric quantity input with "ml" suffix, preview of remaining stock, and a full-width deep roasted espresso submit button.
+3. Screen 3 (Smart Warning Deviation Dialog): A prominent amber alert modal (#FFF7ED background, #FED7AA border). Warning triangle icon, headline "FEFO Deviation Warning: Older batch available!", comparison summary of dates, required textarea for "Reason for Deviation" with a 5-character validation counter, secondary button "Revert to FEFO", and a solid spun amber confirmation button "Confirm Non-FEFO Selection". Tailwind CSS styling, touch-friendly, high contrast.
 ```
 
 ---
@@ -377,14 +377,14 @@ export function SmartWarningDialog({
             <AlertDialogContent className="max-w-md border-amber-300 bg-amber-50/70">
                 <AlertDialogHeader>
                     <div className="flex items-center gap-3">
-                        <div className="rounded-full bg-amber-100 p-2 text-amber-600">
+                        <div className="rounded-full bg-[#FFF7ED] p-2 text-[#C88242]">
                             <AlertTriangle className="h-6 w-6" />
                         </div>
-                        <AlertDialogTitle className="text-amber-950 font-bold text-lg">
+                        <AlertDialogTitle className="text-content-high font-bold text-lg">
                             Peringatan Deviasi FEFO
                         </AlertDialogTitle>
                     </div>
-                    <AlertDialogDescription className="text-slate-700 text-sm pt-2">
+                    <AlertDialogDescription className="text-content-medium text-sm pt-2">
                         Anda memilih batch <strong>{selectedBatch?.batch_code}</strong> (Exp: {selectedBatch?.expiry_date}), 
                         padahal ada batch <strong>{fefoBatch?.batch_code}</strong> yang kedaluwarsa lebih dekat 
                         (<strong>Exp: {fefoBatch?.expiry_date}</strong>).
@@ -392,32 +392,32 @@ export function SmartWarningDialog({
                 </AlertDialogHeader>
 
                 <div className="my-3 space-y-2">
-                    <label className="text-xs font-semibold text-slate-800 uppercase tracking-wide">
+                    <label className="text-xs font-semibold text-content-high uppercase tracking-wide">
                         Alasan Deviasi Fisik (Wajib):
                     </label>
                     <Textarea
                         value={reason}
                         onChange={(e) => setReason(e.target.value)}
                         placeholder="Contoh: Kemasan batch ini sudah terlanjur dibuka di bar chiller..."
-                        className="bg-white border-slate-300 text-sm focus:ring-amber-500"
+                        className="bg-surface-canvas border-surface-border text-content-high text-sm focus:ring-brand-secondary"
                         rows={3}
                     />
                     <div className="flex justify-between text-xs">
-                        <span className={isValidReason ? 'text-emerald-700 font-medium' : 'text-rose-600 font-medium'}>
+                        <span className={isValidReason ? 'text-emerald-800 font-medium' : 'text-brand-tertiary font-medium'}>
                             {isValidReason ? '✓ Alasan valid' : '* Minimal 5 karakter'}
                         </span>
-                        <span className="text-slate-500">{reason.trim().length}/5 min</span>
+                        <span className="text-content-subtle">{reason.trim().length}/5 min</span>
                     </div>
                 </div>
 
                 <AlertDialogFooter className="gap-2 sm:gap-0">
-                    <Button variant="outline" onClick={onCancel} className="text-slate-700">
+                    <Button variant="outline" onClick={onCancel} className="text-content-medium border-surface-border hover:bg-surface-container-high">
                         Batal & Gunakan FEFO
                     </Button>
                     <Button
                         disabled={!isValidReason}
                         onClick={() => onConfirm(reason)}
-                        className="bg-amber-600 hover:bg-amber-700 text-white font-semibold disabled:opacity-50"
+                        className="bg-brand-secondary hover:bg-brand-secondary-hover text-white font-semibold disabled:opacity-50"
                     >
                         Tetap Gunakan Batch Ini
                     </Button>
@@ -440,8 +440,8 @@ export function SmartWarningDialog({
   const isOverStock = Number(data.quantity_used) > (selectedBatch?.current_stock ?? 0);
   ```
   Jika `isOverStock === true`:
-  - Input border menjadi merah tebal (`border-rose-500 focus:ring-rose-500`).
-  - Muncul teks peringatan: *"Kuantitas (xxx) melebihi stok fisik batch yang tersedia (yyy)"*.
+  - Input border menjadi terakota tebal (`border-brand-tertiary focus:ring-brand-tertiary`).
+  - Muncul teks peringatan: *"Kuantitas (xxx) melebihi stok fisik batch yang tersedia (yyy)"* (`text-brand-tertiary`).
   - Tombol Submit dinonaktifkan (`disabled={isOverStock || processing}`).
 
 ### 4.2 Kasus Bahan Tanpa Batch Aktif (Stok Habis Total)

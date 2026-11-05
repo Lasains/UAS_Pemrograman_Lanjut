@@ -49,7 +49,7 @@ flowchart TD
         Card1["Metric Card: Total Nilai Aset"]
         Card2["Metric Card: Nilai Bahan Kritis (3 Hari)"]
         Card3["Metric Card: Total Kerugian Bulan Ini"]
-        Chart["Grafik Batang Recharts (Emerald vs Rose)"]
+        Chart["Grafik Batang Recharts (Emerald Harvest vs Terracotta Cherry)"]
         Table["Tabel Top 5 Bahan Paling Boros + Progress Bar"]
     end
 
@@ -69,7 +69,7 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch untuk mengha
 ### 2.1 Identitas Modul Layar
 * **Screen Title**: Executive Specialty Coffee Inventory & Financial Analytics Dashboard
 * **Target Viewport**: Desktop (1440x900) & iPad Pro / Tablet Owner (1024x768)
-* **Visual Tone**: Clean Modern SaaS Enterprise, Slate-50 Background, Emerald (Aset & Terpakai), Rose (Kerugian & Kritis), Slate-900 Bold Typography.
+* **Visual Tone**: Warm Modern Artisan SaaS, Canvas `#FAF7F2`, Containers `#F5EFEB` & `#EDE4DC`, Emerald Harvest (Aset & Terpakai), Terracotta Cherry `#8C3D2B` (Kerugian & Kritis), Deep Espresso `#241408` Bold Typography.
 
 ---
 
@@ -77,60 +77,60 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch untuk mengha
 
 #### Blok 1: Toolbar Header & 3 Executive Metric Cards
 1. **Header Dasbor & Filter Rentang Waktu**:
-   - Judul: `text-2xl font-bold tracking-tight text-slate-900` (*"Dasbor Analitik & Finansial"*).
-   - Subjudul: `text-sm text-slate-500` (*"Ringkasan nilai aset bahan, evaluasi masa kedaluwarsa, dan efisiensi modal kafe"*).
+   - Judul: `text-2xl font-bold tracking-tight text-content-high` (*"Dasbor Analitik & Finansial"*).
+   - Subjudul: `text-sm text-content-medium` (*"Ringkasan nilai aset bahan, evaluasi masa kedaluwarsa, dan efisiensi modal kafe"*).
    - Filter Bar Kanan:
      * Select Dropdown Bulan (Januari – Desember, default bulan aktif).
      * Select Dropdown Tahun (2026).
-     * Tombol Sekunder: `[Unduh Laporan Finansial]` dengan ikon `Download`.
+     * Tombol Sekunder: `[Unduh Laporan Finansial]` dengan ikon `Download` (`border-surface-border bg-surface-container-high text-content-high`).
 2. **Grid 3 Kartu Metrik Utama (`grid grid-cols-1 md:grid-cols-3 gap-6`)**:
    - **Kartu 1 (Total Nilai Aset Bahan Baku)**:
-     * Container: `bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between`.
-     * Baris Atas: Label `text-xs font-semibold uppercase tracking-wider text-slate-500` (*Total Nilai Aset Persediaan*) dan ikon koin/dompet `Wallet` berlatar `p-2 bg-emerald-50 text-emerald-600 rounded-lg`.
-     * Nilai Utama: `text-3xl font-bold tracking-tight text-slate-900 font-mono` (misal: `Rp 48.250.000`).
+     * Container: `bg-surface-container p-6 rounded-xl border border-surface-border shadow-sm flex flex-col justify-between`.
+     * Baris Atas: Label `text-xs font-semibold uppercase tracking-wider text-content-subtle` (*Total Nilai Aset Persediaan*) dan ikon koin/dompet `Wallet` berlatar `p-2 bg-emerald-50 text-emerald-800 rounded-lg`.
+     * Nilai Utama: `text-3xl font-bold tracking-tight text-content-high font-mono` (misal: `Rp 48.250.000`).
      * Baris Bawah: Badge hijau halus (*"Aktif di 38 Batch Gudang & Bar"*).
    - **Kartu 2 (Nilai Bahan Kritis < 3 Hari)**:
-     * Container: `bg-white p-6 rounded-xl border border-rose-200 shadow-sm flex flex-col justify-between relative overflow-hidden`.
-     * Aksen: Garis batas atas merah tipis (`border-t-4 border-rose-500`).
-     * Baris Atas: Label (*Modal Bahan Kritis*) dan ikon `AlertOctagon` berlatar `p-2 bg-rose-50 text-rose-600 rounded-lg`.
-     * Nilai Utama: `text-3xl font-bold tracking-tight text-rose-700 font-mono` (misal: `Rp 1.450.000`).
+     * Container: `bg-surface-container p-6 rounded-xl border border-[#F8C6BF] shadow-sm flex flex-col justify-between relative overflow-hidden`.
+     * Aksen: Garis batas atas terracotta tipis (`border-t-4 border-[#8C3D2B]`).
+     * Baris Atas: Label (*Modal Bahan Kritis*) dan ikon `AlertOctagon` berlatar `p-2 bg-[#FDF2F0] text-[#8C3D2B] rounded-lg`.
+     * Nilai Utama: `text-3xl font-bold tracking-tight text-[#8C3D2B] font-mono` (misal: `Rp 1.450.000`).
      * Baris Bawah: Keterangan urgensi (*"Beresiko basi dalam 3 hari ke depan"*).
    - **Kartu 3 (Total Beban Kerugian Limbah Bulan Ini)**:
-     * Container: `bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between`.
-     * Baris Atas: Label (*Total Kerugian Bahan Rusak*) dan ikon `TrendingDown` berlatar `p-2 bg-rose-50 text-rose-600 rounded-lg`.
-     * Nilai Utama: `text-3xl font-bold tracking-tight text-rose-600 font-mono` (misal: `Rp 420.500`).
+     * Container: `bg-surface-container p-6 rounded-xl border border-surface-border shadow-sm flex flex-col justify-between`.
+     * Baris Atas: Label (*Total Kerugian Bahan Rusak*) dan ikon `TrendingDown` berlatar `p-2 bg-[#FDF2F0] text-[#8C3D2B] rounded-lg`.
+     * Nilai Utama: `text-3xl font-bold tracking-tight text-[#8C3D2B] font-mono` (misal: `Rp 420.500`).
      * Baris Bawah: Rasio pemborosan (*"0.87% dari total perputaran bahan bulan ini"*).
 
 ---
 
 #### Blok 2: Grafik Batang Komparasi Bulanan (Recharts)
 - Grid layout: 60% lebar layar desktop (`lg:col-span-3`).
-- Container: `bg-white p-6 rounded-xl border border-slate-200 shadow-sm`.
+- Container: `bg-surface-container p-6 rounded-xl border border-surface-border shadow-sm`.
 - Header Grafik:
-  * Judul: `text-base font-semibold text-slate-900` (*"Komparasi Biaya Bahan: Terpakai vs Terbuang Sia-sia"*).
+  * Judul: `text-base font-semibold text-content-high` (*"Komparasi Biaya Bahan: Terpakai vs Terbuang Sia-sia"*).
   * Legend Interaktif:
-    * Kotak Hijau Emerald: *"Nilai Bahan Terpakai Efektif (COGS)"*
-    * Kotak Merah Rose: *"Nilai Bahan Terbuang Sia-sia (Waste Loss)"*
+    * Kotak Hijau Emerald Harvest: *"Nilai Bahan Terpakai Efektif (COGS)"*
+    * Kotak Terracotta Cherry: *"Nilai Bahan Terbuang Sia-sia (Waste Loss)"*
 - Visual Grafik Batang Ganda (*Dual Bar Chart*):
   * Sumbu X: Nama-nama bulan (Jan, Feb, Mar, Apr, Mei, Jun, ...).
   * Sumbu Y: Nominal Rupiah (Rp 0, Rp 10Jt, Rp 20Jt, Rp 30Jt, Rp 40Jt).
-  * Batang Hijau (`fill="#059669"`, radius atas `rounded-t-sm`).
-  * Batang Merah (`fill="#F43F5E"`, radius atas `rounded-t-sm`).
+  * Batang Hijau Harvest (`fill="#059669"`, radius atas `rounded-t-sm`).
+  * Batang Terracotta Cherry (`fill="#8C3D2B"`, radius atas `rounded-t-sm`).
   * Tooltip Melayang Interaktif (*Floating Custom Tooltip*):
-    - Background putih, border slate-200, shadow-lg, padding 12px.
+    - Background oat latte `bg-surface-container`, border parchment `border-surface-border`, shadow-lg, padding 12px.
     - Menampilkan nama bulan, nominal bahan terpakai, nominal bahan rusak, dan indikator persentase efisiensi (misal: *"Efisiensi Pemakaian: 98.4%"*).
 
 ---
 
 #### Blok 3: Peringkat 5 Bahan Paling Boros (Top 5 Waste Ingredients)
 - Grid layout: 40% lebar layar desktop (`lg:col-span-2`).
-- Container: `bg-white p-6 rounded-xl border border-slate-200 shadow-sm`.
+- Container: `bg-surface-container p-6 rounded-xl border border-surface-border shadow-sm`.
 - Header:
-  * Judul: `text-base font-semibold text-slate-900` (*"5 Bahan Penyumbang Kerugian Terbesar"*).
-  * Subjudul: `text-xs text-slate-500` (*"Evaluasi kuantitas restock dan durasi simpan bahan berikut"*).
+  * Judul: `text-base font-semibold text-content-high` (*"5 Bahan Penyumbang Kerugian Terbesar"*).
+  * Subjudul: `text-xs text-content-subtle` (*"Evaluasi kuantitas restock dan durasi simpan bahan berikut"*).
 - Tabel Sederhana Bersih:
   * Kolom: Nomor urut (1-5), Nama Bahan & Kategori, Kuantitas Dibuang, dan Total Kerugian Rupiah.
-  * Setiap baris memiliki **Visual Progress Bar Tipis** di bawah nominal rupiah yang menggambarkan persentase kontribusi bahan tersebut terhadap total kerugian (misal: *Fresh Milk Diamond 1L* menyumbang 52% dari seluruh kerugian kafe).
+  * Setiap baris memiliki **Visual Progress Bar Tipis** di bawah nominal rupiah yang menggambarkan persentase kontribusi bahan tersebut terhadap total kerugian (misal: *Fresh Milk Diamond 1L* menyumbang 52% dari seluruh kerugian kafe) menggunakan aksen terracotta `#8C3D2B`.
 
 ---
 
@@ -138,41 +138,41 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch untuk mengha
 
 #### Prompt Bahasa Indonesia (Terstruktur & Deskriptif)
 ```text
-Buatkan desain antarmuka layar dasbor eksekutif untuk modul "Dasbor Analitik & Finansial Kafe" pada aplikasi "BeanFlow" khusus persona Owner:
+Buatkan desain antarmuka layar dasbor eksekutif untuk modul "Dasbor Analitik & Finansial Kafe" pada aplikasi "BeanFlow" khusus persona Owner bernuansa hangat artisan coffee:
 
-Latar belakang kanvas bersih slate-50 (#F8FAFC).
+Latar belakang kanvas susu hangat #FAF7F2.
 Bagian Header:
-- Judul halaman tebal "Dasbor Analitik & Finansial Eksekutif" dan subjudul penjelasan.
-- Toolbar kanan: dropdown pilihan bulan ("Oktober 2026") dan tombol outline dengan ikon download "Unduh Laporan Keuangan".
+- Judul halaman tebal "Dasbor Analitik & Finansial Eksekutif" (#241408) dan subjudul penjelasan (#5C3A21).
+- Toolbar kanan: dropdown pilihan bulan ("Oktober 2026") dan tombol outline perkamen dengan ikon download "Unduh Laporan Keuangan".
 
-Bagian Atas (3 Kartu Metrik Eksekutif):
-- Kartu 1: Total Nilai Aset Bahan Baku (Angka besar monospaced "Rp 48.250.000", ikon dompet hijau emerald, label persediaan aktif di 38 batch).
-- Kartu 2: Modal Bahan Kritis Berisiko (Border atas merah tipis, angka monospaced "Rp 1.450.000" warna merah rose, ikon peringatan, label "Expired dalam < 3 hari").
-- Kartu 3: Beban Kerugian Limbah Bulan Ini (Angka monospaced "Rp 420.500" warna merah rose, ikon tren turun, label rasio limbah 0.87%).
+Bagian Atas (3 Kartu Metrik Eksekutif berlatar oat latte #F5EFEB, border #EDE4DC):
+- Kartu 1: Total Nilai Aset Bahan Baku (Angka besar monospaced "Rp 48.250.000", ikon dompet hijau botani, label persediaan aktif di 38 batch).
+- Kartu 2: Modal Bahan Kritis Berisiko (Border atas terracotta tipis #8C3D2B, angka monospaced "Rp 1.450.000" warna terracotta #8C3D2B, ikon peringatan, label "Expired dalam < 3 hari").
+- Kartu 3: Beban Kerugian Limbah Bulan Ini (Angka monospaced "Rp 420.500" warna terracotta #8C3D2B, ikon tren turun, label rasio limbah 0.87%).
 
 Bagian Bawah (Layout 2 Kolom Berdampingan):
-1. Kolom Kiri (60% lebar): Card grafik batang ganda Recharts "Komparasi Biaya: Terpakai vs Limbah Terbuang". Batang hijau emerald untuk bahan terpakai dan batang merah rose untuk bahan basi per bulan (Januari - Oktober). Terdapat legenda warna yang rapi dan garis grid latar belakang yang sangat halus.
+1. Kolom Kiri (60% lebar): Card grafik batang ganda Recharts "Komparasi Biaya: Terpakai vs Limbah Terbuang". Batang hijau harvest (#059669) untuk bahan terpakai dan batang terracotta cherry (#8C3D2B) untuk bahan basi per bulan (Januari - Oktober). Terdapat legenda warna yang rapi dan garis grid latar belakang yang sangat halus.
 2. Kolom Kanan (40% lebar): Card tabel "5 Bahan Paling Boros Bulan Ini". Daftar 5 baris:
-   - Rank 1: Fresh Milk Diamond 1L (Terbuang 6.000 ml • Rugi Rp 144.000 • progress bar merah 34%)
-   - Rank 2: Croissant Butter Pastry (Terbuang 8 pcs • Rugi Rp 120.000 • progress bar merah 28%)
-   - Rank 3: Sirup Karamel Monin (Terbuang 400 ml • Rugi Rp 68.000 • progress bar merah 16%)
-   - Rank 4: Oat Milk Oatside (Terbuang 1.500 ml • Rugi Rp 52.500 • progress bar merah 12%)
-   - Rank 5: Whipping Cream Anchor (Terbuang 500 ml • Rugi Rp 36.000 • progress bar merah 10%)
-Tampilan sangat bersih, tipografi angka tajam, kontras tinggi, elegan ala dashboard SaaS finansial modern.
+   - Rank 1: Fresh Milk Diamond 1L (Terbuang 6.000 ml • Rugi Rp 144.000 • progress bar terracotta #8C3D2B 34%)
+   - Rank 2: Croissant Butter Pastry (Terbuang 8 pcs • Rugi Rp 120.000 • progress bar terracotta 28%)
+   - Rank 3: Sirup Karamel Monin (Terbuang 400 ml • Rugi Rp 68.000 • progress bar terracotta 16%)
+   - Rank 4: Oat Milk Oatside (Terbuang 1.500 ml • Rugi Rp 52.500 • progress bar terracotta 12%)
+   - Rank 5: Whipping Cream Anchor (Terbuang 500 ml • Rugi Rp 36.000 • progress bar terracotta 10%)
+Tampilan sangat bersih, bernuansa kafe mewah, tipografi tajam, kontras tinggi, elegan ala dashboard SaaS finansial modern.
 ```
 
 #### English Prompt (High-Fidelity for Stitch AI)
 ```text
-An executive financial analytics dashboard for a specialty coffee inventory system named "BeanFlow", tailored for the cafe Owner persona:
-Neutral slate-50 background. Top header features the page title "Executive Financial & Inventory Analytics" with month-picker dropdown and an "Export PDF Report" button.
-Top row features 3 bold executive metric cards:
-1. "Total Inventory Asset Value" with bold monospaced rupiah amount "Rp 48,250,000", emerald wallet icon badge, and active batch counter.
-2. "At-Risk Critical Asset Value" with subtle top rose border, red monospace "Rp 1,450,000", alert icon, subtext "Expiring in < 3 days".
-3. "Total Waste Loss This Month" with red monospace "Rp 420,500", trending down icon, and waste efficiency ratio subtext (0.87%).
+An executive financial analytics dashboard for a specialty coffee inventory system named "BeanFlow", tailored for the cafe Owner persona with warm coffee aesthetics:
+Warm steamed milk canvas (#FAF7F2) background. Top header features the page title "Executive Financial & Inventory Analytics" (#241408) with month-picker dropdown and an "Export PDF Report" button on parchment container.
+Top row features 3 bold executive metric cards on oat latte (#F5EFEB, border #EDE4DC):
+1. "Total Inventory Asset Value" with bold monospaced rupiah amount "Rp 48,250,000", botanical emerald wallet icon badge, and active batch counter.
+2. "At-Risk Critical Asset Value" with subtle top terracotta border (#8C3D2B), terracotta monospace "Rp 1,450,000" (#8C3D2B), alert icon, subtext "Expiring in < 3 days".
+3. "Total Waste Loss This Month" with terracotta monospace "Rp 420,500" (#8C3D2B), trending down icon, and waste efficiency ratio subtext (0.87%).
 
 Bottom section features a 2-column responsive layout:
-- Left Column (60% width): Recharts dual-bar comparison chart "Monthly Usage vs. Waste Loss". Emerald bars for effectively consumed ingredients vs soft rose bars for wasted/spoiled stock across Jan - Oct, with clean legends and subtle stroke-slate-100 gridlines.
-- Right Column (40% width): Clean card listing "Top 5 Wasted Ingredients". Shows 5 ranked rows (e.g. Fresh Milk Diamond, Butter Croissant, Caramel Syrup) with quantity wasted, rupiah loss amount, and a slim red progress bar showing percentage of total loss. High contrast, clean Inter typography, polished financial SaaS aesthetic.
+- Left Column (60% width): Recharts dual-bar comparison chart "Monthly Usage vs. Waste Loss". Emerald bars (#059669) for effectively consumed ingredients vs terracotta cherry bars (#8C3D2B) for wasted/spoiled stock across Jan - Oct, with clean legends and subtle parchment gridlines.
+- Right Column (40% width): Clean card listing "Top 5 Wasted Ingredients". Shows 5 ranked rows (e.g. Fresh Milk Diamond, Butter Croissant, Caramel Syrup) with quantity wasted, rupiah loss amount, and a slim terracotta progress bar (#8C3D2B) showing percentage of total loss. High contrast, warm coffee typography, polished financial SaaS aesthetic.
 ```
 
 ---
@@ -273,31 +273,31 @@ const CustomTooltip = ({ active, payload, label }: any) => {
         const efficiency = ((usage / (usage + waste)) * 100).toFixed(1);
 
         return (
-            <div className="rounded-xl border border-slate-200 bg-white p-3.5 shadow-lg text-xs space-y-2">
-                <p className="font-bold text-slate-900 border-b border-slate-100 pb-1 text-sm">
+            <div className="rounded-xl border border-surface-border bg-surface-container p-3.5 shadow-lg text-xs space-y-2">
+                <p className="font-bold text-content-high border-b border-surface-border pb-1 text-sm">
                     Periode: {label} 2026
                 </p>
                 <div className="flex items-center justify-between gap-4">
-                    <span className="flex items-center gap-1.5 text-emerald-700">
+                    <span className="flex items-center gap-1.5 text-emerald-800">
                         <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" />
                         Bahan Terpakai:
                     </span>
-                    <span className="font-semibold font-mono text-slate-900">
+                    <span className="font-semibold font-mono text-content-high">
                         Rp {usage.toLocaleString('id-ID')}
                     </span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                    <span className="flex items-center gap-1.5 text-rose-700">
-                        <span className="h-2.5 w-2.5 rounded-full bg-rose-500" />
+                    <span className="flex items-center gap-1.5 text-brand-tertiary">
+                        <span className="h-2.5 w-2.5 rounded-full bg-brand-tertiary" />
                         Limbah Terbuang:
                     </span>
-                    <span className="font-semibold font-mono text-rose-600">
+                    <span className="font-semibold font-mono text-brand-tertiary">
                         Rp {waste.toLocaleString('id-ID')}
                     </span>
                 </div>
-                <div className="pt-1 border-t border-slate-100 flex justify-between font-medium">
-                    <span className="text-slate-500">Efisiensi Bahan:</span>
-                    <span className="text-emerald-600 font-bold">{efficiency}%</span>
+                <div className="pt-1 border-t border-surface-border flex justify-between font-medium">
+                    <span className="text-content-medium">Efisiensi Bahan:</span>
+                    <span className="text-emerald-700 font-bold">{efficiency}%</span>
                 </div>
             </div>
         );
@@ -314,16 +314,16 @@ export function UsageVsWasteChart({ data }: Props) {
                     margin={{ top: 10, right: 10, left: -10, bottom: 0 }}
                     barGap={4}
                 >
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#EDE4DC" />
                     <XAxis
                         dataKey="month"
-                        stroke="#94A3B8"
+                        stroke="#9C8474"
                         fontSize={12}
                         tickLine={false}
-                        axisLine={{ stroke: '#E2E8F0' }}
+                        axisLine={{ stroke: '#EDE4DC' }}
                     />
                     <YAxis
-                        stroke="#94A3B8"
+                        stroke="#9C8474"
                         fontSize={11}
                         tickLine={false}
                         axisLine={false}
@@ -346,7 +346,7 @@ export function UsageVsWasteChart({ data }: Props) {
                     <Bar
                         name="Limbah Terbuang (Waste)"
                         dataKey="waste_cost"
-                        fill="#F43F5E"
+                        fill="#8C3D2B"
                         radius={[4, 4, 0, 0]}
                         maxBarSize={32}
                     />
@@ -384,29 +384,29 @@ export function TopWasteTable({ items }: Props) {
                 <div key={item.ingredient_name} className="py-3 flex flex-col gap-1.5">
                     <div className="flex items-center justify-between text-sm">
                         <div className="flex items-center gap-2.5">
-                            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-700">
+                            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-surface-container-high text-xs font-semibold text-content-high">
                                 {index + 1}
                             </span>
                             <div>
-                                <span className="font-semibold text-slate-900 block leading-tight">
+                                <span className="font-semibold text-content-high block leading-tight">
                                     {item.ingredient_name}
                                 </span>
-                                <span className="text-xs text-slate-500">
+                                <span className="text-xs text-content-subtle">
                                     {item.waste_quantity.toLocaleString('id-ID')} {item.unit} • {item.category_name}
                                 </span>
                             </div>
                         </div>
                         <div className="text-right">
-                            <span className="font-mono font-bold text-rose-600 block leading-tight">
+                            <span className="font-mono font-bold text-brand-tertiary block leading-tight">
                                 Rp {item.financial_loss.toLocaleString('id-ID')}
                             </span>
-                            <span className="text-xs text-slate-500">{item.loss_percentage}% dari total</span>
+                            <span className="text-xs text-content-subtle">{item.loss_percentage}% dari total</span>
                         </div>
                     </div>
                     {/* Visual Progress Bar Kontribusi Kerugian */}
-                    <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
                         <div
-                            className="h-full bg-rose-500 rounded-full"
+                            className="h-full bg-brand-tertiary rounded-full"
                             style={{ width: `${Math.min(item.loss_percentage, 100)}%` }}
                         />
                     </div>
