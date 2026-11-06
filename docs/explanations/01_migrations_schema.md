@@ -285,4 +285,165 @@ MALAM - Owner buka dashboard:
 
 ---
 
+## Dokumentasi Teknis Per Fungsi Migration (Sesuai Standar AGENTS.md)
+
+Bagian ini mendokumentasikan setiap fungsi `up()` dan `down()` dari ke-6 file migration yang telah dibuat, dengan struktur per-fungsi yang ramah pemula.
+
+---
+
+### Migration 1: `2026_01_01_000001_add_role_to_users_table.php`
+
+#### Fungsi: `up()`
+* **Tujuan**: Menambahkan kolom `role` ke tabel `users` bawaan Laravel tanpa menghapus atau mengganggu data pengguna yang sudah ada.
+* **Input / Parameter**: Tidak menerima parameter input dari luar; memanfaatkan instance `$table` dari class `Blueprint`.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer mengakses skema tabel `users` yang sudah ada di database MySQL.
+  2. Komputer mendefinisikan kolom `role` bertipe ENUM dengan opsi tetap: `'owner'`, `'supervisor'`, dan `'barista'`.
+  3. Komputer memasang nilai default `'barista'` sebagai pengaman hak akses dasar.
+  4. Komputer menata posisi fisik kolom agar diletakkan tepat setelah kolom `password`.
+* **Output / Return Value**: `void` (mengeksekusi perintah DDL `ALTER TABLE users ADD role ...`).
+* **Kaitan dengan Bagian Lain**: Menjadi penentu hak akses middleware, logika otorisasi dashboard, dan referensi siapa yang berhak meng-approve pemusnahan di tabel `waste_logs`.
+
+#### Fungsi: `down()`
+* **Tujuan**: Membatalkan penambahan kolom `role` saat developer menjalankan perintah rollback.
+* **Input / Parameter**: Instance `$table` dari class `Blueprint`.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer menargetkan kolom `role` pada tabel `users`.
+  2. Komputer mengeksekusi perintah drop kolom (`DROP COLUMN role`).
+* **Output / Return Value**: `void` (skema tabel `users` kembali bersih seperti bawaan Laravel).
+* **Kaitan dengan Bagian Lain**: Memastikan proses rollback database berjalan mulus tanpa meninggalkan residu kolom.
+
+---
+
+### Migration 2: `2026_01_01_000002_create_categories_table.php`
+
+#### Fungsi: `up()`
+* **Tujuan**: Membuat tabel master baru bernama `categories` untuk mengelompokkan bahan-bahan kafe (seperti Sirup, Susu, Biji Kopi).
+* **Input / Parameter**: Instance `$table` dari class `Blueprint`.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer membuat wadah tabel fisik baru bernama `categories`.
+  2. Komputer membuat primary key `id` (BigInt Unsigned Auto Increment).
+  3. Komputer membuat kolom `name` (varchar 100) untuk label nama kelompok bahan di layar kasir/gudang.
+  4. Komputer membuat kolom `slug` (varchar 120) berindeks UNIQUE agar URL web bersih dan tidak ada kategori duplikat.
+  5. Komputer melengkapi tabel dengan kolom audit otomatis `created_at` dan `updated_at`.
+* **Output / Return Value**: `void` (tabel fisik `categories` terdaftar di database MySQL).
+* **Kaitan dengan Bagian Lain**: Menjadi tabel rujukan induk (*parent table*) yang diacu oleh kolom `category_id` di tabel `ingredients`.
+
+#### Fungsi: `down()`
+* **Tujuan**: Menghapus tabel `categories` jika migrasi dibatalkan.
+* **Input / Parameter**: Tidak ada.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer memeriksa apakah tabel `categories` ada di database.
+  2. Jika ada, komputer menghapus tabel tersebut (`DROP TABLE IF EXISTS categories`).
+* **Output / Return Value**: `void`.
+* **Kaitan dengan Bagian Lain**: Rollback hanya bisa dieksekusi jika tabel turunan (`ingredients`) sudah dihapus lebih dahulu (karena proteksi Foreign Key).
+
+---
+
+### Migration 3: `2026_01_01_000003_create_ingredients_table.php`
+
+#### Fungsi: `up()`
+* **Tujuan**: Membuat tabel master `ingredients` yang mencatat definisi jenis bahan baku kafe beserta batasan stok minimum dan peringatan hari kedaluwarsa.
+* **Input / Parameter**: Instance `$table` dari class `Blueprint`.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer membuat tabel fisik `ingredients`.
+  2. Komputer memasang kolom `category_id` dan menghubungkannya sebagai Foreign Key ke tabel `categories` dengan aturan `restrictOnDelete()` agar kategori yang masih ada bahannya tidak bisa sembarangan terhapus.
+  3. Komputer menyiapkan kolom teks nama bahan (`name`, varchar 150) dan satuan ukur (`unit`, varchar 30, misal: Liter/Kg/Botol).
+  4. Komputer membuat kolom desimal `minimum_stock` (10,2) untuk ambang batas peringatan stok tipis.
+  5. Komputer membuat kolom integer positif `warning_days` dengan nilai standar 3 hari sebagai batas peringatan lampu kuning/merah FEFO.
+  6. Komputer menambahkan kolom timestamps otomatis.
+* **Output / Return Value**: `void` (tabel `ingredients` terdaftar di MySQL).
+* **Kaitan dengan Bagian Lain**: Diacu oleh antarmuka manajemen bahan baku (Master Data Ingredients) dan menjadi rujukan utama bagi tabel `ingredient_batches`.
+
+#### Fungsi: `down()`
+* **Tujuan**: Menghapus tabel `ingredients` saat rollback.
+* **Input / Parameter**: Tidak ada.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer mengecek keberadaan tabel `ingredients`.
+  2. Komputer menghapus tabel secara aman (`DROP TABLE IF EXISTS ingredients`).
+* **Output / Return Value**: `void`.
+* **Kaitan dengan Bagian Lain**: Menjamin konsistensi pembongkaran skema sebelum tabel kategori dihapus.
+
+---
+
+### Migration 4: `2026_01_01_000004_create_ingredient_batches_table.php`
+
+#### Fungsi: `up()`
+* **Tujuan**: Membuat tabel inti sistem `ingredient_batches` yang menyimpan data aktual fisik setiap kiriman stok supplier dan menjadi fondasi algoritma FEFO (*First Expired, First Out*).
+* **Input / Parameter**: Instance `$table` dari class `Blueprint`.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer membuat tabel fisik `ingredient_batches`.
+  2. Komputer memasang relasi Foreign Key `ingredient_id` merujuk ke tabel `ingredients` dengan proteksi `restrictOnDelete()`.
+  3. Komputer membuat kolom unik `batch_code` (varchar 50) untuk mencegah duplikasi kode faktur/batch barang.
+  4. Komputer mencatat stok awal (`initial_stock`, decimal 10,2) dan stok berjalan saat ini (`current_stock`, decimal 10,2).
+  5. Komputer merekam tanggal penerimaan bahan (`received_date`) dan tanggal kedaluwarsa fisik pada kemasan (`expiry_date`).
+  6. Komputer mencatat harga beli satuan (`cost_per_unit`, decimal 12,2) untuk kalkulasi kerugian jika rusak.
+  7. Komputer membuat status siklus hidup batch (`status`) dengan ENUM: `'active'`, `'exhausted'`, `'expired'`, `'disposed'` (default `'active'`).
+  8. Komputer membangun 2 indeks performa khusus:
+     - Composite Index `idx_fefo_query` pada `(ingredient_id, status, expiry_date)` untuk pencarian super-cepat batch prioritas FEFO.
+     - Single Index `idx_expiry_date` pada `(expiry_date)` untuk pemantauan peringatan dini di dashboard owner/supervisor.
+* **Output / Return Value**: `void` (tabel batch dan indeks teroptimasi di database).
+* **Kaitan dengan Bagian Lain**: Menjadi jantung sistem yang dibaca saat barista membuat racikan kopi (`stock_usages`), dipotong saat ada susu basi (`waste_logs`), dan divisualisasikan pada grafik kedaluwarsa.
+
+#### Fungsi: `down()`
+* **Tujuan**: Menghapus tabel `ingredient_batches` saat rollback.
+* **Input / Parameter**: Tidak ada.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer mendeteksi dan menghapus tabel `ingredient_batches` beserta seluruh indeksnya.
+* **Output / Return Value**: `void`.
+* **Kaitan dengan Bagian Lain**: Mengembalikan skema penyimpanan batch sebelum tabel master bahan disentuh.
+
+---
+
+### Migration 5: `2026_01_01_000005_create_stock_usages_table.php`
+
+#### Fungsi: `up()`
+* **Tujuan**: Membuat tabel `stock_usages` untuk mencatat riwayat pemakaian bahan harian oleh barista, termasuk kepatuhan atau deviasi terhadap rekomendasi batch FEFO.
+* **Input / Parameter**: Instance `$table` dari class `Blueprint`.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer membuat tabel fisik `stock_usages`.
+  2. Komputer memasang Foreign Key `ingredient_batch_id` ke tabel `ingredient_batches` dan `user_id` ke tabel `users` (keduanya `restrictOnDelete()`).
+  3. Komputer menyiapkan kolom jumlah terpakai (`quantity_used`, decimal 10,2) dan tanggal pemakaian (`usage_date`).
+  4. Komputer menambahkan kolom kepatuhan FEFO: flag boolean `is_fefo_compliant` (default `true`) dan kolom penjelasan `deviation_reason` (varchar 500, nullable) jika barista terpaksa memakai wadah lain.
+  5. Komputer menambahkan kolom `notes` (text, nullable) untuk catatan bebas operasional.
+  6. Komputer membuat composite index `idx_usage_batch_date` pada `(ingredient_batch_id, usage_date)` untuk laporan riwayat pemakaian cepat per rentang tanggal.
+* **Output / Return Value**: `void` (tabel audit pemakaian bahan aktif).
+* **Kaitan dengan Bagian Lain**: Menjadi catatan audit operasional yang memotong `current_stock` pada batch terkait dan memberi laporan transparansi ke supervisor/owner.
+
+#### Fungsi: `down()`
+* **Tujuan**: Menghapus tabel `stock_usages` saat rollback.
+* **Input / Parameter**: Tidak ada.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer menghapus tabel `stock_usages` dari database.
+* **Output / Return Value**: `void`.
+* **Kaitan dengan Bagian Lain**: Menjamin penghapusan log pemakaian sebelum tabel batch dihapus saat pembersihan skema.
+
+---
+
+### Migration 6: `2026_01_01_000006_create_waste_logs_table.php`
+
+#### Fungsi: `up()`
+* **Tujuan**: Membuat tabel `waste_logs` untuk mencatat berita acara pemusnahan bahan rusak/basi dengan alur persetujuan dua tahap (laporan barista → persetujuan supervisor).
+* **Input / Parameter**: Instance `$table` dari class `Blueprint`.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer membuat tabel fisik `waste_logs`.
+  2. Komputer memasang Foreign Key `ingredient_batch_id` ke batch yang rusak (`restrictOnDelete()`).
+  3. Komputer mendefinisikan Foreign Key manual `reported_by` ke `users.id` (`restrictOnDelete()`) untuk merekam barista/staf yang melaporkan.
+  4. Komputer mendefinisikan Foreign Key manual `approved_by` (nullable) ke `users.id` dengan aturan `nullOnDelete()` agar riwayat pemusnahan tetap aman jika akun supervisor di kemudian hari dihapus.
+  5. Komputer mencatat jumlah barang rusak (`waste_quantity`, decimal 10,2), kolom nilai kerugian finansial (`financial_loss`, decimal 12,2, nullable), dan alasan tertulis (`reason`, varchar 500).
+  6. Komputer membuat status workflow persetujuan (`status`) ENUM: `'pending'`, `'approved'`, `'rejected'` (default `'pending'`).
+  7. Komputer membuat composite index `idx_waste_status_reporter` pada `(status, reported_by)` untuk mempercepat antrian review supervisor di dashboard.
+* **Output / Return Value**: `void` (tabel log pemusnahan siap melayani alur approval).
+* **Kaitan dengan Bagian Lain**: Terhubung langsung ke modal dialog pelaporan barista di UI, tombol approval supervisor, dan kartu ringkasan kerugian finansial (Financial Loss Card) pada dashboard Owner.
+
+#### Fungsi: `down()`
+* **Tujuan**: Menghapus tabel `waste_logs` saat rollback.
+* **Input / Parameter**: Tidak ada.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer menghapus tabel `waste_logs` dari database.
+* **Output / Return Value**: `void`.
+* **Kaitan dengan Bagian Lain**: Menuntaskan rollback log sebelum tabel batch dan user dibersihkan.
+
+---
+
 *Dokumen ini dibuat untuk mendukung pemahaman tim sebelum mengeksekusi migration. Untuk spesifikasi teknis lengkap dengan kode PHP, lihat [`PLAN_01_MIGRATIONS_SCHEMA.md`](../Plan%20Backend/PLAN_01_MIGRATIONS_SCHEMA.md).*
