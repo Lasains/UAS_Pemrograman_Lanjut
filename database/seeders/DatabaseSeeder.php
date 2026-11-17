@@ -2,22 +2,30 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Menjalankan semua seeder dalam urutan yang benar.
+     *
+     * URUTAN WAJIB (karena foreign key dependency):
+     * 1. Users             → tidak ada FK, jalan pertama
+     * 2. Categories        → tidak ada FK, jalan kedua
+     * 3. Ingredients       → FK ke categories → harus setelah CategorySeeder
+     * 4. IngredientBatches → FK ke ingredients → harus setelah IngredientSeeder
+     * 5. StockUsages       → FK ke batches DAN users → harus setelah keduanya
+     * 6. WasteLogs         → FK ke batches DAN users → harus setelah keduanya
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            UserSeeder::class,
+            CategorySeeder::class,
+            IngredientSeeder::class,
+            IngredientBatchSeeder::class,
+            StockUsageSeeder::class,
+            WasteLogSeeder::class,
         ]);
     }
 }
