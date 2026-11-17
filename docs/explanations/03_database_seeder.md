@@ -304,4 +304,117 @@ php artisan tinker
 
 ---
 
+## Dokumentasi Teknis Per Fungsi Seeder (Sesuai Konvensi AGENTS.md)
+
+Berikut dokumentasi terstruktur untuk fungsi `run()` pada masing-masing seeder:
+
+---
+
+### 1. Seeder: `DatabaseSeeder` (`database/seeders/DatabaseSeeder.php`)
+
+#### Fungsi: `run()`
+* **Tujuan**: Sebagai dirigen utama (*master orchestrator*) yang memanggil seluruh seeder lain secara berurutan sesuai dependensi Foreign Key agar tidak terjadi galat *integrity constraint*.
+* **Input / Parameter**: Tidak menerima parameter langsung.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer menyiapkan array daftar class seeder: `UserSeeder`, `CategorySeeder`, `IngredientSeeder`, `IngredientBatchSeeder`, `StockUsageSeeder`, `WasteLogSeeder`.
+  2. Komputer memanggil `$this->call(...)` untuk mengeksekusi seeder satu per satu secara berurutan.
+* **Output / Return Value**: `void`.
+* **Kaitan dengan Bagian Lain**: Dijalankan secara otomatis saat developer mengetik `php artisan db:seed` atau `php artisan migrate:fresh --seed`.
+
+---
+
+### 2. Seeder: `UserSeeder` (`database/seeders/UserSeeder.php`)
+
+#### Fungsi: `run()`
+* **Tujuan**: Mempersiapkan 3 akun demo dasar dengan hak akses berbeda (Owner, Supervisor, Barista) agar aplikasi langsung dapat diuji login tanpa perlu registrasi manual.
+* **Input / Parameter**: Tidak menerima parameter langsung.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer memeriksa apakah email `owner@kafe.com` sudah ada di tabel `users`.
+  2. Jika belum, komputer membuat user baru dengan nama `'Pak Budi (Owner)'`, hash password `'password'`, dan role `'owner'`.
+  3. Komputer mengulangi pengecekan dan pembuatan untuk `supervisor@kafe.com` (`'Ibu Sari (Supervisor)'`, role `'supervisor'`).
+  4. Komputer mengulangi pengecekan dan pembuatan untuk `barista@kafe.com` (`'Andi (Barista)'`, role `'barista'`).
+* **Output / Return Value**: `void` (3 record akun tersimpan di tabel `users`).
+* **Kaitan dengan Bagian Lain**: Digunakan pada modul autentikasi dan otorisasi menu dashboard berbasis RBAC.
+
+---
+
+### 3. Seeder: `CategorySeeder` (`database/seeders/CategorySeeder.php`)
+
+#### Fungsi: `run()`
+* **Tujuan**: Mengisi master kategori bahan baku kafe (rak gudang) yang dibutuhkan sebelum bahan baku dapat didaftarkan.
+* **Input / Parameter**: Tidak menerima parameter langsung.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer menyiapkan data 4 kategori: Dairy Products (`dairy`), Coffee Beans (`beans`), Syrups & Flavoring (`syrups`), Bakery & Food (`bakery`).
+  2. Mengiterasi setiap kategori dan mengecek kolom `slug` melalui `Category::firstOrCreate()`.
+  3. Jika slug belum ada, record disimpan ke database.
+* **Output / Return Value**: `void` (4 record di tabel `categories`).
+* **Kaitan dengan Bagian Lain**: Menjadi parent Foreign Key bagi tabel `ingredients`.
+
+---
+
+### 4. Seeder: `IngredientSeeder` (`database/seeders/IngredientSeeder.php`)
+
+#### Fungsi: `run()`
+* **Tujuan**: Mendaftarkan 6 master bahan baku kafe beserta ambang batas peringatan stok (`minimum_stock`) dan hari peringatan kedaluwarsa (`warning_days`).
+* **Input / Parameter**: Tidak menerima parameter langsung.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Komputer mengambil `id` kategori terkait dari tabel `categories` berdasarkan `slug`.
+  2. Komputer menyusun daftar 6 bahan: Susu Segar, Susu UHT, Biji Kopi Arabica, Sirup Karamel, Sirup Vanilla, dan Croissant Beku.
+  3. Menggunakan `Ingredient::firstOrCreate()` dengan kombinasi kunci `['name', 'category_id']`.
+* **Output / Return Value**: `void` (6 record di tabel `ingredients`).
+* **Kaitan dengan Bagian Lain**: Menjadi master katalog bahan untuk form restock dan dasar relasi batch fisik.
+
+---
+
+### 5. Seeder: `IngredientBatchSeeder` (`database/seeders/IngredientBatchSeeder.php`)
+
+#### Fungsi: `run()`
+* **Tujuan**: Menyediakan 10 variasi batch stok bahan dengan tanggal kedaluwarsa dinamis (`Carbon::now()->addDays(N)`) untuk mendemonstrasikan algoritma FEFO dan visualisasi indikator lampu lalu lintas (merah, kuning, hijau).
+* **Input / Parameter**: Tidak menerima parameter langsung.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Mengambil ID masing-masing bahan master dari tabel `ingredients`.
+  2. Menyiapkan daftar 10 batch dengan variasi:
+     - 🔴 **Kritis** (< 3 hari): `MILK-A-KRITIS` (+2 hari) dan `CROISSANT-A-EXPIRED` (-3 hari).
+     - 🟡 **Warning** (3-7 hari): `MILK-B-WARNING` (+5 hari) dan `CARAMEL-A-WARNING` (+4 hari).
+     - 🟢 **Aman** (> 7 hari): `MILK-C-AMAN` (+15 hari), `BEANS-A-AMAN` (+30 hari), `VANILLA-A-AMAN` (+20 hari), `UHT-A-AMAN` (+60 hari).
+     - 💨 **Exhausted** (stok habis): `CARAMEL-B-HABIS`.
+     - 🗑️ **Disposed** (dimusnahkan): `CROISSANT-B-DISPOSED`.
+  3. Menyimpan setiap batch via `IngredientBatch::firstOrCreate()` berdasarkan `batch_code`.
+* **Output / Return Value**: `void` (10 record di tabel `ingredient_batches`).
+* **Kaitan dengan Bagian Lain**: Diurutkan oleh `scopeFefoOrder()` untuk rekomendasi racikan barista dan dibaca oleh widget *Early Warning Dashboard*.
+
+---
+
+### 6. Seeder: `StockUsageSeeder` (`database/seeders/StockUsageSeeder.php`)
+
+#### Fungsi: `run()`
+* **Tujuan**: Menyediakan contoh data transaksi pemakaian harian untuk membuktikan transparansi audit kepatuhan FEFO (*compliance vs deviation*).
+* **Input / Parameter**: Tidak menerima parameter langsung.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Mengambil user barista dan supervisor, serta batch-batch terkait.
+  2. Menyiapkan 5 record transaksi:
+     - 4 pemakaian berstatus `is_fefo_compliant = true`.
+     - 1 pemakaian berstatus `is_fefo_compliant = false` lengkap dengan alasan operasional (`deviation_reason`) pada pemakaian batch `MILK-C-AMAN`.
+  3. Menyimpan data melalui `StockUsage::firstOrCreate()`.
+* **Output / Return Value**: `void` (5 record di tabel `stock_usages`).
+* **Kaitan dengan Bagian Lain**: Ditampilkan pada tabel riwayat pemakaian stok dan laporan kepatuhan FEFO untuk Owner.
+
+---
+
+### 7. Seeder: `WasteLogSeeder` (`database/seeders/WasteLogSeeder.php`)
+
+#### Fungsi: `run()`
+* **Tujuan**: Menyediakan data pengujian untuk 3 cabang status workflow persetujuan pemusnahan barang rusak/kedaluwarsa (*pending*, *approved*, *rejected*).
+* **Input / Parameter**: Tidak menerima parameter langsung.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Menyiapkan 3 tiket pemusnahan:
+     - Tiket 1 (`MILK-A-KRITIS`): status `pending`, belum ada approver dan nilai kerugian.
+     - Tiket 2 (`CROISSANT-B-DISPOSED`): status `approved`, diisi nilai `approved_by` (ID supervisor) dan `financial_loss` dihitung otomatis: `15 × Rp 14.000 = Rp 210.000`.
+     - Tiket 3 (`CARAMEL-A-WARNING`): status `rejected`, ditolak supervisor karena kualitas fisik masih dinilai baik.
+  2. Menyimpan data dengan penanganan khusus: kolom non-fillable (`approved_by`, `financial_loss`) diisi melalui *direct property assignment* lalu disimpan via `$approvedLog->save()`.
+* **Output / Return Value**: `void` (3 record di tabel `waste_logs`).
+* **Kaitan dengan Bagian Lain**: Tampil pada antrean *Approval Center* supervisor dan kartu metrik *Financial Spoilage Loss* dasbor Owner.
+
+---
+
 *Dokumen ini mendampingi spesifikasi teknis lengkap di [`PLAN_03_DATABASE_SEEDER.md`](../Plan%20Backend/PLAN_03_DATABASE_SEEDER.md). Untuk kode PHP lengkap setiap seeder, lihat dokumen teknis tersebut.*
