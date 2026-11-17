@@ -15,20 +15,27 @@
 | :---: | :--- | :--- | :--- |
 | **01** | Autentikasi & Login Multi-Role | Barista, Supervisor, Owner | `docs/Plan Frontend/PLAN_01_AUTH_LOGIN.md` |
 | **02** | Shell Layout Utama & Navigasi RBAC | Barista, Supervisor, Owner | `docs/Plan Frontend/PLAN_02_APP_LAYOUT_RBAC.md` |
-| **03** | Dasbor Barista & Pemakaian Stok FEFO | Barista | `docs/Plan Frontend/PLAN_03_BARISTA_OPERASIONAL_FEFO.md` |
-| **04** | Master Data Bahan Baku & Kategori | Supervisor | `docs/Plan Frontend/PLAN_04_SUPERVISOR_MASTER_DATA.md` |
-| **05** | Monitoring Inventaris & Kedaluwarsa | Supervisor & Barista | `docs/Plan Frontend/PLAN_05_SUPERVISOR_MONITORING_INVENTARIS.md` |
-| **06** | Pelaporan & Approval Pemusnahan (Waste) | Barista (Lapor) & Supervisor (Approve) | `docs/Plan Frontend/PLAN_06_WASTE_APPROVAL_CENTER.md` |
-| **07** | Dasbor Analitik & Finansial Eksekutif | Owner | `docs/Plan Frontend/PLAN_07_OWNER_ANALYTICS_DASHBOARD.md` |
+| **03** | Halaman Operasional Barista (4 Halaman: Dasbor, Catat Pemakaian, Penerimaan Batch, Lapor Rusak) | Barista | `docs/Plan Frontend/PLAN_03_BARISTA_OPERASIONAL_FEFO.md` |
+| **04** | Master Data & Kategori (2 Halaman: Katalog Bahan Baku, Kelola Kategori) | Supervisor | `docs/Plan Frontend/PLAN_04_SUPERVISOR_MASTER_DATA.md` |
+| **05** | Monitoring Inventaris & Audit FEFO (2 Halaman: Monitoring Kedaluwarsa, Riwayat Audit FEFO) | Supervisor & Barista | `docs/Plan Frontend/PLAN_05_SUPERVISOR_MONITORING_INVENTARIS.md` |
+| **06** | Pusat Approval Pemusnahan Limbah (Waste Write-Off Center) | Supervisor (Approve) & Barista | `docs/Plan Frontend/PLAN_06_WASTE_APPROVAL_CENTER.md` |
+| **07** | Halaman Eksekutif & Finansial Owner (3 Halaman: Dasbor Finansial, Laporan Waste, Evaluasi Pembelian) | Owner | `docs/Plan Frontend/PLAN_07_OWNER_ANALYTICS_DASHBOARD.md` |
 
 ---
 
-## PANDUAN PENGGUNAAN PROMPT
+## PANDUAN PENGGUNAAN PROMPT & ATURAN BAKU GOOGLE STITCH
 
-1. **Pilih Fitur yang Akan Dikerjakan**: Ambil salah satu prompt di bawah sesuai nomor modul yang ingin Anda buatkan perencanaannya.
-2. **Jalankan Prompt**: Salin (*copy*) seluruh blok teks prompt (mulai dari `### ROLE & OBJECTIVE` sampai akhir template) dan masukkan ke AI asisten Anda.
-3. **Simpan Hasilnya**: Pastikan AI menyimpan atau Anda menyimpan teks output ke direktori `docs/Plan Frontend/` dengan nama file yang telah ditentukan (contoh: `PLAN_01_AUTH_LOGIN.md`).
-4. **Alur ke Google Stitch**: Gunakan bagian **Stitch UI Prompt** yang ada di dalam dokumen plan hasil AI tersebut untuk membuat prototipe visual layar di Google Stitch.
+> [!IMPORTANT]
+> **IRON RULE: IN-SHELL CONTENT PROMPTING (HINDARI DUPLIKASI SHELL & MODAL CLUTTER)**:  
+> 1. **Satu Universal App Shell**: Layout aplikasi hanya memiliki 1 shell utama (`PLAN_02`). Seluruh layar fitur lainnya (`PLAN_03` s/d `PLAN_07`) adalah **In-Shell Content View** yang hanya merender area kerja di dalam `<slot />` kanvas susu hangat `#FAF7F2`.
+> 2. **Dilarang Men-generate Ulang Sidebar/Header**: Saat membuat prompt Stitch untuk halaman fitur, **WAJIB INSTRUKSIKAN STITCH UNTUK TIDAK MERENDER SIDEBAR DAN HEADER ATAS**. Ini menjamin konsistensi layout, font (Plus Jakarta Sans/Figtree), dan token warna `Desain.md`.
+> 3. **Slide-Over Drawers Menggantikan Tumpukan Modal**: Hindari modal pop-up bertumpuk (modal di atas modal). Gunakan **Slide-Over Panel (Drawer)** dari sisi kanan layar untuk pencatatan FEFO, restock, review waste, dan tambah bahan baku.
+> 4. **Glanceable UI untuk Rush Hour**: Antarmuka meja bar barista harus memprioritaskan keterbacaan dalam 1 detik dengan tombol sentuh besar (min 72px) dan badge lampu lalu lintas kedaluwarsa yang sangat kontras.
+
+1. **Pilih Fitur yang Akan Dikerjakan**: Ambil salah satu prompt di bawah sesuai nomor modul yang ingin Anda rencanakan.
+2. **Jalankan Prompt**: Salin (*copy*) seluruh blok teks prompt dan masukkan ke AI asisten Anda.
+3. **Simpan Hasilnya**: Pastikan teks output disimpan ke direktori `docs/Plan Frontend/` sesuai nama file (misal: `PLAN_03_BARISTA_OPERASIONAL_FEFO.md`).
+4. **Alur ke Google Stitch**: Gunakan bagian **Stitch UI Prompt (In-Shell Content View)** yang ada di dalam dokumen plan hasil AI tersebut untuk menghasilkan mockup antarmuka yang presisi dan rapi di Google Stitch.
 
 ---
 
@@ -142,50 +149,58 @@ Dokumen `docs/Plan Frontend/PLAN_02_APP_LAYOUT_RBAC.md` harus memiliki bab-bab b
 <!-- ============================================================================== -->
 ```
 
-### PROMPT 03: Dasbor Operasional Barista & Pemakaian Stok Berbasis FEFO Interaktif
+### PROMPT 03: Halaman Operasional Barista — 4 Halaman Tersendiri (Dasbor, Pemakaian FEFO, Penerimaan Batch, Lapor Rusak)
+
+> [!NOTE]
+> PLAN_03 kini mencakup **4 halaman tersendiri** (bukan modal terpisah). Setiap halaman memiliki Stitch prompt mandiri di dalam `PLAN_03_BARISTA_OPERASIONAL_FEFO.md`:
+> - **Section 2.2** → Halaman A: Dasbor Operasional Barista (dengan Slide-Over Drawer)
+> - **Section 2.4 / Halaman B** → `Pages/Usage/Index.tsx` — Catat Pemakaian & Riwayat FEFO
+> - **Section 2.4 / Halaman C** → `Pages/Batches/Create.tsx` — Penerimaan Batch Baru
+> - **Section 2.4 / Halaman D** → `Pages/Waste/Create.tsx` — Lapor Bahan Rusak & Status Tiket
 
 ```text
 Anda adalah seorang Senior UI/UX Designer dan Lead Frontend Architect yang ahli dalam ekosistem React 18, Inertia.js, Tailwind CSS, dan promptcrafting untuk Google Stitch.
 
 TUGAS ANDA:
-Buatlah dokumen spesifikasi desain komprehensif untuk "Modul 03: Dasbor Operasional Barista & Form Pemakaian Stok Berbasis FEFO Interaktif". Dokumen ini WAJIB disimpan di `docs/Plan Frontend/PLAN_03_BARISTA_OPERASIONAL_FEFO.md`.
+Buatlah dokumen spesifikasi desain komprehensif untuk "Modul 03: Halaman Operasional Bar Barista (4 Halaman Tersendiri)". Dokumen ini WAJIB disimpan di `docs/Plan Frontend/PLAN_03_BARISTA_OPERASIONAL_FEFO.md`.
 
 KONTEKS BISNIS & PERSONA BARISTA:
 1. Barista bekerja di bar yang sibuk (*rush hour*). Antarmuka harus *glanceable* (dapat dipahami dalam 1 detik) dan meminimalkan klik.
-2. Dasbor Barista menampilkan:
-   - Shortcut Aksi Cepat (*Quick Action Cards*): **[+ Catat Pemakaian Bahan]**, **[+ Penerimaan Restock Baru]**, **[! Lapor Bahan Rusak]**.
-   - Daftar "Bahan Sering Digunakan di Bar" (Fresh Milk, Espresso Beans, Karamel Sirup) beserta stok tersisa dan peringatan kadaluwarsa terdekat.
-3. **LOGIKA INTI FEFO (First Expired, First Out) & SMART WARNING**:
-   - Saat modal pencatatan pemakaian dibuka dan bahan dipilih:
-   - Sistem menampilkan daftar seluruh batch aktif terurut dari `expiry_date` paling dekat.
-   - Batch teratas otomatis diberi tanda badge mencolok `[★ REKOMENDASI FEFO - Prioritas Pakai]` dan otomatis terpilih secara *default* (`RadioGroup`).
-   - Jika barista sengaja memilih batch lain yang kedaluwarsanya lebih lama (misal: karena batch lain sudah terlanjur terbuka), sistem **TIDAK LANGSUNG MENOLAK**, melainkan memunculkan dialog peringatan (**Smart Warning Dialog**).
-   - Dialog peringatan mewajibkan pengisian `deviation_reason` (alasan deviasi, misal: "Kemasan batch ini sudah terlanjur terbuka di chiller"), dan tombol simpan dinonaktifkan jika alasan belum diisi minimal 5 karakter.
+2. Barista memiliki 4 halaman tersendiri (bukan modal overlay dari dasbor), masing-masing dapat diakses via sidebar menu:
+   - **Halaman A — Dasbor Barista** (`Pages/Barista/Dashboard.tsx`): Ringkasan bar, banner kritis FEFO, 3 Quick Action Cards besar, Grid bahan utama bar.
+   - **Halaman B — Catat Pemakaian FEFO** (`Pages/Usage/Index.tsx`, route: `usage.index`): Form pemakaian bahan 2 kolom — kiri: pilih bahan + batch FEFO + kuantitas; kanan: riwayat pemakaian hari ini.
+   - **Halaman C — Penerimaan Batch Baru** (`Pages/Batches/Create.tsx`, route: `batches.create`): Form restock 2 kolom — kiri: form lengkap batch baru + live total value; kanan: 5 batch terakhir diterima.
+   - **Halaman D — Lapor Bahan Rusak** (`Pages/Waste/Create.tsx`, route: `waste.create`): Form laporan 2 kolom — kiri: form laporan ke supervisor; kanan: status tiket milik barista.
+3. **LOGIKA INTI FEFO (First Expired, First Out) & SMART WARNING** (berlaku di Halaman A & B):
+   - Batch aktif diurutkan `expiry_date ASC`. Batch[0] otomatis terpilih dan diberi badge `[★ REKOMENDASI FEFO]`.
+   - Jika barista memilih batch lain (bukan [0]): tampilkan **Inline Warning Amber** (bukan modal baru!) langsung di dalam form/drawer, dengan textarea `deviation_reason` wajib diisi min 5 karakter.
 
 DESIGN CONTRACT & ATURAN VISUAL:
-- Ikuti Desain.md:
-  * RadioGroup kartu batch: Kartu terpilih memiliki border `border-brand-primary bg-surface-container-high`.
+- Ikuti Desain.md (IN-SHELL CONTENT RULE: Semua halaman hanya merender kanvas, JANGAN render ulang sidebar/header):
+  * RadioGroup kartu batch: Kartu terpilih border `border-brand-primary bg-surface-container-high`.
   * Rekomendasi FEFO Badge: `bg-brand-primary text-surface-canvas font-semibold`.
-  * Dialog Smart Warning: Aksentuasi warna Karamel Amber (`border-[#FED7AA] bg-[#FFF7ED]`), tombol aksi amber tegas (`bg-brand-secondary text-white`).
-  * Form modal: Dialog shadcn/ui dengan latar `bg-surface-container` dan tombol simpan espresso responsif.
+  * Inline Warning Deviasi: Box amber `bg-[#FFF7ED] border-[#FED7AA] rounded-lg p-3.5`.
+  * Tombol Submit Waste (Halaman D): Amber `bg-[#C88242]` (bukan espresso) untuk membedakan aksi "laporan/peringatan".
+  * Badge status tiket: Pending=Amber, Approved=Emerald, Rejected=Perkamen abu.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
 Dokumen `docs/Plan Frontend/PLAN_03_BARISTA_OPERASIONAL_FEFO.md` harus memiliki bab-bab berikut:
-1. Ringkasan Alur Kerja Barista & Logika Bisnis FEFO Semi-Otomatis.
-2. STITCH-READY SCREEN SPECIFICATION (Google Stitch Prompt):
-   - Layar 1: Dasbor Operasional Barista (Quick Action Buttons, Kartu Bahan Bar Populer).
-   - Layar 2: Modal Form Pemakaian Bahan FEFO (Dropdown bahan, RadioGroup list batch, input kuantitas dengan unit ml/gram).
-   - Layar 3: Pop-up AlertDialog Smart Warning Deviasi FEFO.
-   - Teks prompt visual siap pakai untuk Google Stitch.
+1. Ringkasan Alur Kerja Barista & Logika Bisnis FEFO Semi-Otomatis (dengan diagram Mermaid flowchart).
+2. STITCH-READY SCREEN SPECIFICATION — 4 bagian terpisah:
+   - 2.1 Identitas & Token Desain
+   - 2.2 Halaman A: Dasbor Barista (Slide-Over Drawer + Grid Bahan)
+   - 2.3 Stitch Prompt Halaman A (teks siap pakai Indonesia & Inggris)
+   - 2.4 Spesifikasi 3 Halaman Tersendiri (Halaman B, C, D) masing-masing dengan tata letak 2 kolom + Stitch prompt
 3. ARSITEKTUR TEKNIS FRONTEND (REACT + INERTIA):
-   - Path File: `resources/js/Pages/Barista/Dashboard.tsx`, `resources/js/Pages/Usage/CreateUsageModal.tsx`, `resources/js/Components/SmartWarningDialog.tsx`.
-   - Kontrak Props TypeScript: `Ingredient`, `IngredientBatch`, `StockUsage` dari `resources/js/types/inventory.d.ts`.
-   - Logika deteksi deviasi: Membandingkan ID batch terpilih vs ID batch FEFO rekomendasi teratas (`batches[0].id`).
-   - Form handling dengan Inertia `useForm`: fields `ingredient_batch_id`, `quantity_used`, `is_fefo_compliant`, `deviation_reason`, `notes`.
+   - Lokasi 4 halaman (Pages/) + komponen bersama (Components/Barista/)
+   - Kontrak Props TypeScript: `Ingredient`, `IngredientBatch`, `StockUsage`, `WasteLog` dari `resources/js/types/inventory.d.ts`
+   - Logika deteksi deviasi FEFO (bandingkan `selectedBatch.id` vs `activeBatches[0].id`)
+   - Form handling Inertia `useForm` untuk: usage.store, batches.store, waste.store
 4. EDGE CASES & ERROR HANDLING:
-   - Kuantitas melebihi `current_stock` dari batch terpilih.
-   - Bahan yang dipilih tidak memiliki batch aktif (Empty batch state).
-   - Barista menutup dialog peringatan tanpa mengisi alasan (revert pilihan ke batch rekomendasi FEFO).
+   - Kuantitas melebihi `current_stock` batch terpilih
+   - Bahan tanpa batch aktif (empty state + link ke Penerimaan Batch)
+   - Tanggal kedaluwarsa lebih awal dari tanggal terima (blokir di Halaman C)
+   - Barista menutup warning tanpa isi alasan → revert ke batch[0]
 ```
 
 ---
@@ -196,43 +211,46 @@ Dokumen `docs/Plan Frontend/PLAN_03_BARISTA_OPERASIONAL_FEFO.md` harus memiliki 
 <!-- ============================================================================== -->
 ```
 
-### PROMPT 04: Master Data Bahan Baku & Kategori (Persona Supervisor)
+### PROMPT 04: Master Data Bahan Baku & Kategori — 2 Halaman Tersendiri (Katalog Bahan, Kelola Kategori)
+
+> [!NOTE]
+> PLAN_04 mencakup **2 halaman tersendiri** bagi Supervisor:
+> - **Section 2.2 & 2.3 / Halaman A** → `Pages/Master/Ingredients/Index.tsx` — Katalog Master Bahan Baku (dengan Slide-Over Drawer Tambah/Ubah)
+> - **Section 2.4 / Halaman B** → `Pages/Master/Categories/Index.tsx` — Manajemen Kategori Bahan Baku
 
 ```text
 Anda adalah seorang Senior UI/UX Designer dan Lead Frontend Architect yang ahli dalam ekosistem React 18, Inertia.js, Tailwind CSS, dan promptcrafting untuk Google Stitch.
 
 TUGAS ANDA:
-Buatlah dokumen spesifikasi desain komprehensif untuk "Modul 04: Manajemen Master Data Bahan Baku & Kategori". Dokumen ini WAJIB disimpan di `docs/Plan Frontend/PLAN_04_SUPERVISOR_MASTER_DATA.md`.
+Buatlah dokumen spesifikasi desain komprehensif untuk "Modul 04: Manajemen Master Data Bahan Baku & Kategori (2 Halaman Tersendiri)". Dokumen ini WAJIB disimpan di `docs/Plan Frontend/PLAN_04_SUPERVISOR_MASTER_DATA.md`.
 
 KONTEKS BISNIS & PERSONA SUPERVISOR:
 1. Modul ini eksklusif untuk hak akses 'supervisor' (Role Barista dan Owner hanya memiliki izin View / No Access).
 2. Supervisor bertanggung jawab menjaga konsistensi katalog bahan kafe, satuan unit standar (*standard unit*), ambang batas restock (*minimum stock threshold*), dan ambang peringatan dini (*warning days threshold*).
-3. Modul terdiri dari:
-   - Pengelolaan Kategori (Dairy/Susu, Beans/Kopi, Syrup/Perisa, Bakery/Kue, Packaging).
-   - Master Bahan Baku: Nama Bahan, Kategori, Satuan (`ml`, `gram`, `pcs`), Ambang Batas Stok Minimum, dan Pengaturan Ambang Hari Kedaluwarsa (default 3 hari sebelum basi menyalakan lampu kuning).
-   - Tabel Master Bahan dilengkapi statistik total batch aktif dan kalkulasi total saldo stok.
+3. Modul terdiri dari 2 halaman tersendiri di sidebar:
+   - **Halaman A — Katalog Master Bahan Baku** (`Pages/Master/Ingredients/Index.tsx`, route: `ingredients.index`): Filter pills kategori, pencarian cepat, tabel master bahan baku dengan statistik total stok dan jumlah batch aktif, serta panel slide-over drawer tambah/ubah bahan.
+   - **Halaman B — Manajemen Kategori Bahan Baku** (`Pages/Master/Categories/Index.tsx`, route: `categories.index`): Form tambah kategori baru di sisi kiri dan grid kartu kategori aktif beserta total bahan terdaftar di sisi kanan.
 
 DESIGN CONTRACT & ATURAN VISUAL:
-- Ikuti Desain.md:
-  * Table: shadcn/ui Table dengan header `bg-surface-container-high text-content-high font-semibold`, border `border-surface-border`.
-  * Dialog/Modal Form Tambah & Edit Bahan: Form bersih berlatar `bg-surface-container` dengan label jelas, helper text ramah pemula, dan tombol espresso `bg-brand-primary`.
-  * Aksi baris tabel: Dropdown Menu / Tombol Edit & Nonaktifkan.
+- Ikuti Desain.md (IN-SHELL CONTENT RULE: Hanya merender isi kanvas di dalam slot utama):
+  * Table: Desain kontainer oat latte `bg-surface-container` dengan header `#EDE4DC`.
+  * Slide-Over Drawer: Panel kanan lebar 480px untuk tambah/ubah bahan (bukan modal pop-up kaku).
+  * Segmented Unit Buttons: `ml`, `gram`, `pcs`.
+  * Grid Kategori: Kartu rounded-xl dengan badge capsule berwarna khas per kelompok bahan.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
 Dokumen `docs/Plan Frontend/PLAN_04_SUPERVISOR_MASTER_DATA.md` harus memiliki bab-bab berikut:
 1. Ringkasan Fitur Master Data & Otorisasi Supervisor.
-2. STITCH-READY SCREEN SPECIFICATION (Google Stitch Prompt):
-   - Layar Utama: Master Data Bahan dengan Filter Kategori, Search Bar, dan Tombol [+ Tambah Bahan].
-   - Modal Form: Form Tambah/Ubah Bahan Baku (Input nama, select kategori, select unit, input number minimum_stock, input number warning_days).
-   - Modal Kategori: Quick manager untuk kategori bahan.
-   - Teks prompt visual terperinci untuk Google Stitch.
+2. STITCH-READY SCREEN SPECIFICATION:
+   - 2.1 Identitas Modul Layar
+   - 2.2 & 2.3 Halaman A: Katalog Master Bahan Baku (Stitch Prompt)
+   - 2.4 Halaman B: Manajemen Kategori Bahan Baku (Tata letak 2 kolom + Stitch Prompt)
 3. ARSITEKTUR TEKNIS FRONTEND (REACT + INERTIA):
-   - Path File: `resources/js/Pages/Master/Ingredients/Index.tsx`, `resources/js/Pages/Master/Ingredients/IngredientModal.tsx`, `resources/js/Pages/Master/Categories/CategoryModal.tsx`.
+   - Path File: `resources/js/Pages/Master/Ingredients/Index.tsx` dan `resources/js/Pages/Master/Categories/Index.tsx`
    - Kontrak Props TypeScript: `Ingredient`, `Category` dari `resources/js/types/inventory.d.ts`.
-   - Form handling dengan Inertia `useForm` (create & update mode).
-   - Validasi sisi klien & pemetaan pesan error dari Laravel Form Request.
+   - Form handling dengan Inertia `useForm`.
 4. EDGE CASES & PERLINDUNGAN DATA:
-   - Konfirmasi sebelum menghapus/menonaktifkan bahan yang masih memiliki batch aktif (mencegah broken relation).
+   - Pencegahan penghapusan kategori yang masih memiliki bahan baku aktif (*foreign key guard*).
    - Validasi angka negatif pada batas minimum stok atau hari warning.
 ```
 
@@ -244,50 +262,45 @@ Dokumen `docs/Plan Frontend/PLAN_04_SUPERVISOR_MASTER_DATA.md` harus memiliki ba
 <!-- ============================================================================== -->
 ```
 
-### PROMPT 05: Monitoring Inventaris & Sistem Peringatan Dini Kedaluwarsa
+### PROMPT 05: Monitoring Inventaris & Audit FEFO — 2 Halaman Tersendiri (Monitoring Batch, Riwayat Audit FEFO)
+
+> [!NOTE]
+> PLAN_05 kini mencakup **2 halaman tersendiri** bagi Supervisor:
+> - **Section 2.2 & 2.3 / Halaman A** → `Pages/Inventory/Index.tsx` — Monitoring Inventaris & Early Warning Kedaluwarsa
+> - **Section 2.4 / Halaman B** → `Pages/Audit/FefoLog.tsx` — Riwayat Audit Kepatuhan & Log Deviasi FEFO Barista
 
 ```text
 Anda adalah seorang Senior UI/UX Designer dan Lead Frontend Architect yang ahli dalam ekosistem React 18, Inertia.js, Tailwind CSS, dan promptcrafting untuk Google Stitch.
 
 TUGAS ANDA:
-Buatlah dokumen spesifikasi desain komprehensif untuk "Modul 05: Monitoring Inventaris Bahan & Sistem Peringatan Dini Kedaluwarsa (Early Warning System)". Dokumen ini WAJIB disimpan di `docs/Plan Frontend/PLAN_05_SUPERVISOR_MONITORING_INVENTARIS.md`.
+Buatlah dokumen spesifikasi desain komprehensif untuk "Modul 05: Monitoring Inventaris Bahan & Log Audit FEFO (2 Halaman Tersendiri)". Dokumen ini WAJIB disimpan di `docs/Plan Frontend/PLAN_05_SUPERVISOR_MONITORING_INVENTARIS.md`.
 
-KONTEKS BISNIS & LOGIKA LAMPU LALU LINTAS:
-1. Sistem ini adalah inti dari pencegahan kerugian bahan basi (*food safety & anti-waste*).
-2. Tiga level indikator urgensi kedaluwarsa (*Traffic Light System*):
-   - 🟢 **Aman (`safe`)**: Sisa hari kedaluwarsa > 7 hari.
-   - 🟡 **Peringatan Dini / Segera Pakai (`warning`)**: Sisa hari 3 hingga 7 hari.
-   - 🔴 **Kritis / Sudah Kedaluwarsa (`critical`)**: Sisa hari < 3 hari atau tanggal hari ini sudah melewati `expiry_date`.
-3. Indikator Stok Menipis (*Understock Warning*): Jika `total_current_stock < minimum_stock`, munculkan penanda `[Restock Segera]`.
-4. Fitur Interaktif pada Antarmuka:
-   - Filter Tab Cepat: `[Semua Batch]`, `[🟢 Aman]`, `[🟡 Mendekati Expired]`, `[🔴 Kritis / Expired]`.
-   - Fitur Penerimaan Batch Baru (*Restock Modal*): Modal pop-up untuk mencatat batch masuk saat faktur dari supplier tiba (Nama Bahan, Kode Batch unik otomatis/manual, Tanggal Terima, Tanggal Expired, Kuantitas, Harga Beli Satuan).
+KONTEKS BISNIS & PERSONA SUPERVISOR:
+1. Modul ini adalah inti dari pencegahan kerugian bahan basi (*food safety & anti-waste*) dan evaluasi kepatuhan SOP barista di meja bar.
+2. Modul terdiri dari 2 halaman tersendiri:
+   - **Halaman A — Monitoring Inventaris & Kedaluwarsa** (`Pages/Inventory/Index.tsx`, route: `inventory.index`): 4 Filter Tab status kedaluwarsa (Semua, 🟢 Aman, 🟡 Warning, 🔴 Kritis), tabel hierarki bahan dengan daftar batch aktif yang diurutkan FEFO ASC, dan tombol aksi restock.
+   - **Halaman B — Riwayat Audit & Deviasi FEFO** (`Pages/Audit/FefoLog.tsx`, route: `audit.fefo`): Skor kepatuhan SOP FEFO kafe (target > 90%), filter barista, dan tabel riwayat transaksi pemakaian bahan yang mencatat perbandingan batch terpilih vs rekomendasi sistem beserta alasan deviasi fisik barista.
 
 DESIGN CONTRACT & ATURAN VISUAL:
-- Ikuti Desain.md:
-  * Komponen `ExpiryBadge`:
-    - Safe: `bg-emerald-50 text-emerald-800 border-emerald-300`.
-    - Warning: `bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]`.
-    - Critical: `bg-[#FDF2F0] text-[#8C3D2B] border-[#F8C6BF] font-medium animate-pulse`.
-  * Highlight baris tabel: Batch yang kritis mendapatkan warna latar kemerahan terracotta tipis (`bg-[#FDF2F0]/80`).
-  * Modal Restock: Dialog oat latte `bg-surface-container` dengan datepicker validasi minimal hari ini.
+- Ikuti Desain.md (IN-SHELL CONTENT RULE: Hanya merender area kanvas kerja dalam slot utama):
+  * Traffic Light Badges: Safe (Hijau Emerald), Warning (Kuning Amber), Critical (Terracotta #8C3D2B animate-pulse).
+  * Baris Kritis: Highlight tipis terracotta #FDF2F0.
+  * Baris Deviasi: Highlight aksen kuning amber tipis.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
 Dokumen `docs/Plan Frontend/PLAN_05_SUPERVISOR_MONITORING_INVENTARIS.md` harus memiliki bab-bab berikut:
 1. Ringkasan Fitur Monitoring & Logika Perhitungan Hari Kedaluwarsa (`Carbon diffInDays`).
-2. STITCH-READY SCREEN SPECIFICATION (Google Stitch Prompt):
-   - Layar DataTable Inventaris: Header metrik ringkas status batch, filter tabs status kedaluwarsa, tabel hierarki (Bahan -> Expandable list batch aktif), badge warna, dan tombol aksi [+ Restock Batch].
-   - Modal Form Penerimaan Batch (Restock): Input data faktur, datepicker expiry date, kalkulator total nilai rupiah batch.
-   - Teks prompt visual komprehensif untuk Google Stitch.
+2. STITCH-READY SCREEN SPECIFICATION:
+   - 2.1 Identitas Modul Layar
+   - 2.2 & 2.3 Halaman A: Monitoring Inventaris & Early Warning Kedaluwarsa (Stitch Prompt)
+   - 2.4 Halaman B: Riwayat Audit & Deviasi FEFO (Tata letak + Stitch Prompt)
 3. ARSITEKTUR TEKNIS FRONTEND (REACT + INERTIA):
-   - Path File: `resources/js/Pages/Inventory/Index.tsx`, `resources/js/Components/ExpiryBadge.tsx`, `resources/js/Pages/Inventory/RestockModal.tsx`.
-   - Kontrak Props TypeScript: `Ingredient`, `IngredientBatch`, `UrgencyStatus` dari `resources/js/types/inventory.d.ts`.
-   - Logika rendering dinamis badge berdasarkan `days_until_expiry` dan `urgency_status`.
-   - Form handling restock batch menggunakan Inertia `useForm`.
+   - Path File: `resources/js/Pages/Inventory/Index.tsx` dan `resources/js/Pages/Audit/FefoLog.tsx`
+   - Kontrak Props TypeScript: `Ingredient`, `IngredientBatch`, `StockUsage`, `UrgencyStatus` dari `resources/js/types/inventory.d.ts`.
 4. EDGE CASES & PERFORMANCE:
-   - Penanganan batch dengan stok 0 (`exhausted`): disembunyikan secara default atau ada toggle filter.
-   - Input tanggal kedaluwarsa yang lebih lampau daripada tanggal terima (blokir dengan validasi form).
-   - Skeleton loading saat pencarian atau pergantian tab status.
+   - Penanganan batch dengan stok 0 (`exhausted`): disaring otomatis.
+   - Filter transaksi deviasi saja untuk mempermudah evaluasi shift bar.
+```
 ```
 
 ---
@@ -350,48 +363,50 @@ Dokumen `docs/Plan Frontend/PLAN_06_WASTE_APPROVAL_CENTER.md` harus memiliki bab
 <!-- ============================================================================== -->
 ```
 
-### PROMPT 07: Dasbor Analitik & Finansial Eksekutif (Persona Owner)
+### PROMPT 07: Halaman Eksekutif & Finansial Owner — 3 Halaman Tersendiri (Dasbor Finansial, Laporan Waste, Evaluasi Pembelian)
+
+> [!NOTE]
+> PLAN_07 kini mencakup **3 halaman tersendiri** bagi Persona Owner untuk mengakomodasi seluruh navigasi sidebar App Shell Owner:
+> - **Section 2.2 & 2.3 / Halaman A** → `Pages/Dashboard/OwnerDashboard.tsx` — Dasbor Analitik & Finansial Eksekutif
+> - **Section 2.4 / Halaman B** → `Pages/Reports/WasteReport.tsx` — Laporan Waste & Biaya Limbah
+> - **Section 2.4 / Halaman C** → `Pages/Reports/InventoryValuation.tsx` — Evaluasi Pembelian & Valuasi Aset
 
 ```text
 Anda adalah seorang Senior UI/UX Designer dan Lead Frontend Architect yang ahli dalam ekosistem React 18, Inertia.js, Tailwind CSS, Recharts, dan promptcrafting untuk Google Stitch.
 
 TUGAS ANDA:
-Buatlah dokumen spesifikasi desain komprehensif untuk "Modul 07: Dasbor Analitik & Finansial Eksekutif (Khusus Persona Owner)". Dokumen ini WAJIB disimpan di `docs/Plan Frontend/PLAN_07_OWNER_ANALYTICS_DASHBOARD.md`.
+Buatlah dokumen spesifikasi desain komprehensif untuk "Modul 07: Halaman Eksekutif & Finansial Owner (3 Halaman Tersendiri)". Dokumen ini WAJIB disimpan di `docs/Plan Frontend/PLAN_07_OWNER_ANALYTICS_DASHBOARD.md`.
 
 KONTEKS BISNIS & PERSONA OWNER:
-1. Owner kafe tidak berkutat pada detail teknis pencatatan bar harian, melainkan membutuhkan ringkasan eksekutif (*helicopter view*) mengenai kesehatan finansial inventaris kafe dan evaluasi kebocoran modal akibat bahan basi.
-2. Dasbor Owner terdiri dari 3 blok utama:
-   - **Blok 1: 3 Executive Metric Cards**:
-     * *Total Nilai Aset Bahan*: Akumulasi rupiah seluruh modal bahan yang saat ini tersimpan di gudang & chiller (`current_stock * cost_per_unit`).
-     * *Nilai Bahan Kritis*: Estimasi rupiah bahan yang akan kedaluwarsa dalam 3 hari ke depan jika tidak segera dipakai/dibuat promo penjualan.
-     * *Total Kerugian Limbah Bulan Ini*: Akumulasi kerugian rupiah akibat bahan basi/rusak yang telah disetujui pemusnahannya (`SUM(financial_loss)` dari `waste_logs`).
-   - **Blok 2: Grafik Batang Komparasi Bulanan (Recharts)**:
-     * Grafik batang ganda berdampingan: Batang Hijau Emerald (Nilai Biaya Bahan Terpakai Efektif) vs Batang Merah Rose (Nilai Biaya Bahan Terbuang Sia-sia / *Waste Loss*).
-     * Tooltip interaktif yang menampilkan rincian nominal rupiah dan persentase efisiensi bahan.
-   - **Blok 3: Peringkat 5 Bahan Paling Boros (Top 5 Waste Ingredients)**:
-     * Tabel daftar 5 bahan baku penyumbang kerugian terbesar agar Owner dapat mengevaluasi kuantitas pembelian ke vendor.
+1. Owner kafe tidak berkutat pada detail teknis operasional harian, melainkan membutuhkan ringkasan eksekutif (*helicopter view*) mengenai kesehatan kas, efisiensi modal bahan, pencegahan pembelian berlebih, dan evaluasi kebocoran modal akibat bahan basi.
+2. Owner memiliki 3 halaman mandiri yang dapat diakses langsung via sidebar navigasi:
+   - **Halaman A — Dasbor Analitik & Finansial** (`Pages/Dashboard/OwnerDashboard.tsx`, route: `dashboard.owner`): 3 KPI Card (Total Aset, Modal Kritis <3 Hari, Kerugian Waste Bulan Ini), Grafik Batang Recharts Bulanan (Terpakai vs Terbuang), dan Tabel Top 5 Bahan Paling Boros.
+   - **Halaman B — Laporan Waste & Biaya Limbah** (`Pages/Reports/WasteReport.tsx`, route: `reports.waste`): Filter rentang tanggal & kategori bahan, 3 kartu ringkas audit, visual breakdown kerugian per kategori bahan, dan tabel audit transaksi pemusnahan resmi (disetujui SPV) lengkap dengan nominal rupiah dan alasan kerusakan.
+   - **Halaman C — Evaluasi Pembelian & Valuasi Aset** (`Pages/Reports/InventoryValuation.tsx`, route: `reports.inventory`): Evaluasi perputaran stok, health check pengadaan (tingkat efisiensi modal vs rasio waste), dan tabel kecerdasan pembelian untuk mencegah over-purchasing bahan cepat basi.
 
 DESIGN CONTRACT & ATURAN VISUAL:
-- Ikuti Desain.md:
-  * Metric Cards: `bg-surface-container p-5 rounded-xl border border-surface-border shadow-sm flex flex-col justify-between`. Nominal besar `text-2xl sm:text-3xl font-bold tracking-tight text-content-high`.
-  * Chart Container: Recharts ResponsiveContainer, warna batang `fill-emerald-600` dan `fill-[#8C3D2B]`, grid garis halus `stroke-[#EDE4DC]`.
-  * Top Waste Table: Simple clean table dengan persentase bar progres visual di samping nominal rupiah bertema terracotta `#8C3D2B`.
+- Ikuti Desain.md (IN-SHELL CONTENT RULE: Hanya render area kanvas kerja, JANGAN buat ulang sidebar atau header atas):
+  * Latar Kanvas: `bg-surface-canvas` (`#FAF7F2`).
+  * Kontainer Kartu: `bg-surface-container` (`#F5EFEB`) dengan border halus `#EDE4DC`.
+  * Highlight Kerugian & Kritis: Terracotta Cherry (`#8C3D2B`).
+  * Highlight Efisiensi & Terpakai: Emerald Harvest (`#059669`).
+  * Grafik Recharts: ResponsiveContainer dengan dual-bar, tooltip nominal rupiah, dan legenda bersih.
 
 STRUKTUR DOKUMEN OUTPUT YANG WAJIB ANDA HASILKAN:
 Dokumen `docs/Plan Frontend/PLAN_07_OWNER_ANALYTICS_DASHBOARD.md` harus memiliki bab-bab berikut:
 1. Ringkasan Kebutuhan Informasi Eksekutif Owner & KPI Finansial Kafe.
-2. STITCH-READY SCREEN SPECIFICATION (Google Stitch Prompt):
-   - Layar Dasbor Eksekutif Owner (Header filter rentang waktu bulan/tahun, 3 Metric Cards, Grafik Recharts pemakaian vs waste, dan Tabel Top 5 Waste Ingredients).
-   - Spesifikasi detail tata letak grid responsif (Grid 3 kolom desktop, 1 kolom mobile).
-   - Teks prompt visual komprehensif untuk Google Stitch.
+2. STITCH-READY SCREEN SPECIFICATION:
+   - 2.1 Identitas Modul Layar
+   - 2.2 & 2.3 Halaman A: Dasbor Analitik & Finansial Eksekutif (Stitch Prompt)
+   - 2.4 Spesifikasi Lengkap Halaman B (Laporan Waste & Biaya) dan Halaman C (Evaluasi Pembelian & Valuasi Aset) masing-masing dengan Stitch Prompt mandiri
 3. ARSITEKTUR TEKNIS FRONTEND (REACT + RECHARTS + INERTIA):
-   - Path File: `resources/js/Pages/Dashboard/OwnerDashboard.tsx`, `resources/js/Components/MetricCard.tsx`, `resources/js/Components/Charts/UsageVsWasteChart.tsx`.
-   - Kontrak Props TypeScript: `DashboardMetrics`, `WasteLog` dari `resources/js/types/inventory.d.ts`.
-   - Konfigurasi Recharts (BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer).
-   - Formatter mata uang Rupiah Indonesia (`Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })`).
+   - Path File 3 Halaman (`Pages/Dashboard/` dan `Pages/Reports/`) serta sub-komponennya
+   - Kontrak Props TypeScript: `DashboardMetrics`, `WasteLog`, `MonthlyComparisonData`, `TopWasteItem` dari `inventory.d.ts`
+   - Formatter mata uang Rupiah Indonesia (`Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })`)
 4. EDGE CASES & DATA PRESENTATION:
-   - Tampilan jika data bulan ini masih kosong (Empty chart state dengan ilustrasi profesional).
-   - Nilai kerugian 0 (Tampilkan visual apresiasi efisiensi "Zero Food Waste").
+   - Tampilan jika data bulan ini masih kosong (Empty state dengan ilustrasi profesional)
+   - Nilai kerugian 0 (Visual apresiasi "Zero Food Waste")
+```
 ```
 
 ---

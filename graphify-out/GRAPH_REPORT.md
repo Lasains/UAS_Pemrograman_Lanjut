@@ -1,17 +1,17 @@
-# Graph Report - projek  (2026-11-06)
+# Graph Report - projek  (2026-11-17)
 
 ## Corpus Check
-- 125 files · ~91,750 words
+- 136 files · ~570,192 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 20 file(s) not represented in the graph (top: (none) 16, .example 1, .xml 1)
 
 ## Summary
-- 560 nodes · 880 edges · 54 communities (25 shown, 29 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 50 edges (avg confidence: 0.89)
+- 652 nodes · 983 edges · 54 communities (28 shown, 26 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 50 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `17622048`
+- Built from commit: `57c86203`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -31,16 +31,16 @@
 - require-dev
 - 09_design_system_color_tokens.md
 - require
-- global.d.ts
+- 2. Penjelasan Per Komponen Arsitektur Baru
 - AppServiceProvider
 - bootstrap/app.php
 - scripts
-- app.tsx
-- dependencies
-- utils.ts
-- tailwind.config.js
+- Penjelasan: 4 Halaman Tersendiri untuk Barista BeanFlow
+- Penjelasan: 3 Halaman Eksekutif untuk Owner BeanFlow
+- Penjelasan: Halaman Operasional & Pengawasan Supervisor BeanFlow
+- Illuminate\Database\Seeder
 - psr-4
-- scripts
+- 2. Penjelasan Per Komponen Utama Hasil Sinkronisasi
 - Custom RoleMiddleware RBAC Guard
 - ExampleTest
 - index.d.ts
@@ -58,7 +58,7 @@
 - Penjelasan Modul 09: Palet Warna & Token Desain Kafe (Tailwind CSS)
 
 ## God Nodes (most connected - your core abstractions)
-1. `User` - 35 edges
+1. `User` - 39 edges
 2. `react` - 22 edges
 3. `Controller` - 20 edges
 4. `@inertiajs/react` - 19 edges
@@ -72,14 +72,14 @@
 ## Surprising Connections (you probably didn't know these)
 - `Eloquent Model: IngredientBatch` --conceptually_related_to--> `Early Warning Traffic Light Expiration Logic`  [INFERRED]
   docs/Plan Backend/PLAN_02_MODELS_ELOQUENT.md → AGENTS.md
+- `FEFO Core Business Rules Specification` --implements--> `DeductStockAction Transaction Service`  [EXTRACTED]
+  AGENTS.md → docs/Plan Backend/PLAN_06_STOCK_USAGE_FEFO_CONTROLLER.md
 - `Incoming Restock Batch Ingestion Workflow` --implements--> `IngredientBatchController Restock Handler`  [EXTRACTED]
   PRD.md → docs/Plan Backend/PLAN_05_BATCH_RESTOCK_CONTROLLER.md
 - `Waste Write-Off Approval & No-Hard-Delete Policy` --rationale_for--> `ApproveWasteAction Write-Off Execution Action`  [EXTRACTED]
   AGENTS.md → docs/Plan Backend/PLAN_07_WASTE_DISPOSAL_CONTROLLER.md
 - `ApproveWasteAction Write-Off Execution Action` --semantically_similar_to--> `Financial Loss & Waste Aggregation Kueri Eloquent`  [INFERRED] [semantically similar]
   docs/Plan Backend/PLAN_07_WASTE_DISPOSAL_CONTROLLER.md → docs/Plan Backend/PLAN_08_DASHBOARD_ANALYTICS_CONTROLLER.md
-- `FEFO Core Business Rules Specification` --implements--> `DeductStockAction Transaction Service`  [EXTRACTED]
-  AGENTS.md → docs/Plan Backend/PLAN_06_STOCK_USAGE_FEFO_CONTROLLER.md
 
 ## Import Cycles
 - None detected.
@@ -92,15 +92,15 @@
 - **Multi-Role RBAC Authorization & Dynamic Shell System** — docs_plan_frontend_plan_01_auth_login_one_click_demo_login, docs_plan_frontend_plan_02_app_layout_rbac_rbac_menu_matrix, docs_explanations_04_auth_rbac_middleware_role_middleware_routing, docs_explanations_08_dashboard_analytics_controller_three_perspective_lenses_analogy [INFERRED 0.85]
 - **Two-Tier Waste Write-Off & Loss Settlement Architecture** — docs_plan_frontend_plan_06_waste_approval_center_no_hard_delete_waste_policy, docs_plan_frontend_plan_06_waste_approval_center_two_tier_waste_approval, docs_explanations_07_waste_disposal_controller_waste_ticket_analogy, docs_explanations_07_waste_disposal_controller_financial_loss_calculation [INFERRED 0.95]
 
-## Communities (54 total, 29 thin omitted)
+## Communities (54 total, 26 thin omitted)
 
 ### Community 0 - "Illuminate\Http\Request"
 Cohesion: 0.07
 Nodes (12): AuthenticatedSessionController, ConfirmablePasswordController, EmailVerificationNotificationController, EmailVerificationPromptController, NewPasswordController, PasswordController, PasswordResetLinkController, RegisteredUserController (+4 more)
 
 ### Community 1 - "User"
-Cohesion: 0.06
-Nodes (11): User, DatabaseSeeder, AuthenticationTest, EmailVerificationTest, PasswordConfirmationTest, PasswordResetTest, PasswordUpdateTest, RegistrationTest (+3 more)
+Cohesion: 0.07
+Nodes (10): User, AuthenticationTest, EmailVerificationTest, PasswordConfirmationTest, PasswordResetTest, PasswordUpdateTest, RegistrationTest, ExampleTest (+2 more)
 
 ### Community 2 - "react"
 Cohesion: 0.12
@@ -111,8 +111,8 @@ Cohesion: 0.05
 Nodes (45): Early Warning Traffic Light Expiration Logic, FEFO Core Business Rules Specification, FEFO Recommendation Badge UI Component, Smart Warning FEFO Deviation Modal UI, Tailwind Cafe Color Palette & Status Tokens, Backend Developer 1 Task Specification, FEFO Stock Deduction Engine Backend Task, Backend Developer 2 Task Specification (+37 more)
 
 ### Community 4 - "package.json"
-Cohesion: 0.14
-Nodes (14): private, type, autoprefixer, concurrently, laravel-vite-plugin, lucide-react, postcss, recharts (+6 more)
+Cohesion: 0.05
+Nodes (31): dependencies, clsx, lucide-react, recharts, tailwind-merge, private, scripts, build (+23 more)
 
 ### Community 5 - "LoginRequest"
 Cohesion: 0.10
@@ -154,25 +154,37 @@ Nodes (43): Penjelasan Modul 01: Database & Skema Tabel, Database Schema as Cafe
 Cohesion: 0.29
 Nodes (7): require, inertiajs/inertia-laravel, laravel/framework, laravel/sanctum, laravel/tinker, php, tightenco/ziggy
 
-### Community 15 - "global.d.ts"
-Cohesion: 0.29
-Nodes (3): @inertiajs/core, PageProps, Window
+### Community 15 - "2. Penjelasan Per Komponen Arsitektur Baru"
+Cohesion: 0.20
+Nodes (9): 1. Analogi Dunia Nyata Kafe: Kenapa Desain Sebelumnya "Berantakan"?, 2. Penjelasan Per Komponen Arsitektur Baru, 3. Rangkuman Standarisasi Token Warna (Anti-UI Slop), Komponen: `FefoUsageSlideOverDrawer` (Panel Geser Aksi FEFO), Komponen: `InShellContentView` (Pola Kanvas Konten Isi), Komponen: `UniversalAppShell` (`AppLayout.tsx`), Komponen: `WasteReviewSlideOverDrawer` (Panel Verifikasi Kerugian Bahan Rusak), Masalah Desain Sebelumnya di Google Stitch: (+1 more)
 
 ### Community 18 - "scripts"
 Cohesion: 0.33
 Nodes (6): scripts, dev, post-autoload-dump, post-create-project-cmd, post-root-package-install, post-update-cmd
 
-### Community 20 - "dependencies"
-Cohesion: 0.40
-Nodes (5): dependencies, clsx, lucide-react, recharts, tailwind-merge
+### Community 19 - "Penjelasan: 4 Halaman Tersendiri untuk Barista BeanFlow"
+Cohesion: 0.10
+Nodes (20): Halaman A: Dasbor Barista (`Pages/Barista/Dashboard.tsx`), Halaman B: Catat Pemakaian & Riwayat FEFO (`Pages/Usage/Index.tsx`), Halaman C: Penerimaan Batch Baru (`Pages/Batches/Create.tsx`), Halaman D: Lapor Bahan Rusak & Status Tiket (`Pages/Waste/Create.tsx`), Komponen: `BatchCodeInput` + Auto-Generate, Komponen: `BatchSelectorWithInfo`, Komponen: `DeviationInlineWarning`, Komponen: `ExpiryDatePickerWithPreview` (+12 more)
+
+### Community 20 - "Penjelasan: 3 Halaman Eksekutif untuk Owner BeanFlow"
+Cohesion: 0.14
+Nodes (13): Halaman A: Dasbor Analitik & Finansial Eksekutif (`Pages/Dashboard/OwnerDashboard.tsx`), Halaman B: Laporan Waste & Biaya Limbah (`Pages/Reports/WasteReport.tsx`), Halaman C: Evaluasi Pembelian & Valuasi Aset (`Pages/Reports/InventoryValuation.tsx`), Komponen: `CategoryLossBreakdown` (Kolom Kiri), Komponen: `ExecutiveMetricCards`, Komponen: `ProcurementHealthCards`, Komponen: `ProcurementRecommendationTable`, Komponen: `TopWasteTable` (+5 more)
+
+### Community 21 - "Penjelasan: Halaman Operasional & Pengawasan Supervisor BeanFlow"
+Cohesion: 0.14
+Nodes (13): 1. Modul Monitoring Inventaris & Kedaluwarsa (`Pages/Inventory/Index.tsx`), 2. Modul Master Bahan Baku (`Pages/Master/Ingredients/Index.tsx`), 3. Modul Manajemen Kategori (`Pages/Master/Categories/Index.tsx`), 4. Modul Approval Pemusnahan Limbah (`Pages/Waste/Index.tsx`), 5. Modul Riwayat Audit & Deviasi FEFO (`Pages/Audit/FefoLog.tsx`), Komponen: `CategoryCardGrid` & `CategoryFormCard`, Komponen: `ExpandableBatchRow`, Komponen: `ExpiryFilterTabs` (+5 more)
+
+### Community 22 - "Illuminate\Database\Seeder"
+Cohesion: 0.10
+Nodes (7): CategorySeeder, DatabaseSeeder, IngredientBatchSeeder, IngredientSeeder, StockUsageSeeder, UserSeeder, WasteLogSeeder
 
 ### Community 23 - "psr-4"
 Cohesion: 0.40
 Nodes (5): autoload, psr-4, App\\, Database\\Factories\\, Database\\Seeders\\
 
-### Community 25 - "scripts"
-Cohesion: 0.67
-Nodes (3): scripts, build, dev
+### Community 25 - "2. Penjelasan Per Komponen Utama Hasil Sinkronisasi"
+Cohesion: 0.22
+Nodes (8): 1. Analogi Dunia Nyata Kafe: Mengapa Plan Harus Disinkronkan dengan Mockup Stitch?, 2. Penjelasan Per Komponen Utama Hasil Sinkronisasi, Komponen: `DeviationWarningCard` (Peringatan Cerdas Deviasi FEFO), Komponen: `ExpandableBatchTable` (Tabel Monitoring Chiller Bertingkat), Komponen: `FefoBatchSelector` (Pemilih Batch FEFO di Meja Bar), Komponen: `UsageVsWasteChart` & Visualisasi Recharts Owner, Komponen: `WasteMasterDetailWorkspace` (Pusat Approval Pemusnahan Bahan), PANDUAN PENJELASAN SINKRONISASI PLAN FRONTEND & MOCKUP STITCH (UNTUK PEMULA)
 
 ### Community 26 - "Custom RoleMiddleware RBAC Guard"
 Cohesion: 0.40
@@ -196,23 +208,23 @@ Nodes (17): Contoh Integrasi Komponen React, Gambaran Besar: "Warna Bukan Sekada
 
 ## Knowledge Gaps
 - **57 isolated node(s):** `@types/node`, `@types/react`, `@types/react-dom`, `autoprefixer`, `concurrently` (+52 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 250 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **29 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 304 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **26 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `User` connect `User` to `Illuminate\Http\Request`, `LoginRequest`?**
-  _High betweenness centrality (0.040) - this node is a cross-community bridge._
+- **Why does `User` connect `User` to `Illuminate\Http\Request`, `LoginRequest`, `Illuminate\Database\Seeder`?**
+  _High betweenness centrality (0.044) - this node is a cross-community bridge._
 - **What connects `@types/node`, `@types/react`, `@types/react-dom` to the rest of the system?**
   _57 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Illuminate\Http\Request` be split into smaller, more focused modules?**
   _Cohesion score 0.0670807453416149 - nodes in this community are weakly interconnected._
-- **Why does `@inertiajs/react` connect `react` to `app.tsx`, `package.json`?**
-  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+- **Why does `@inertiajs/react` connect `react` to `package.json`?**
+  _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **Should `User` be split into smaller, more focused modules?**
-  _Cohesion score 0.060655737704918035 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06578947368421052 - nodes in this community are weakly interconnected._
 - **Why does `devDependencies` connect `devDependencies` to `package.json`?**
-  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+  _High betweenness centrality (0.009) - this node is a cross-community bridge._
 - **Should `react` be split into smaller, more focused modules?**
   _Cohesion score 0.11747516072472239 - nodes in this community are weakly interconnected._

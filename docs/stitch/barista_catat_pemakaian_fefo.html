@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catat Pemakaian Bahan FEFO - In-Shell Content View - BeanFlow</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Inter & JetBrains Mono Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              primary: '#4A2C11',
+              'primary-hover': '#38200B',
+              secondary: '#C88242',
+              'secondary-hover': '#B36F33',
+              tertiary: '#8C3D2B',
+            },
+            surface: {
+              canvas: '#FAF7F2',
+              container: '#F5EFEB',
+              'container-high': '#EDE4DC',
+              border: '#EDE4DC',
+            },
+            content: {
+              high: '#241408',
+              medium: '#5C3A21',
+              subtle: '#9C8474',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom radio styling & micro-interactions */
+    .radio-dot-selected {
+      box-shadow: inset 0 0 0 4px #F5EFEB;
+    }
+  </style>
+</head>
+<body class="bg-surface-canvas text-content-high font-sans min-h-screen antialiased p-6 sm:p-8 lg:p-10 selection:bg-brand-secondary/20 selection:text-brand-primary">
+
+  <main class="max-w-[1400px] mx-auto space-y-6">
+
+    <!-- PAGE HEADER (Inline, no card container) -->
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-surface-border/60">
+      <div class="flex items-center gap-3.5">
+        <!-- Flame Icon Container -->
+        <div class="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary shadow-sm flex-shrink-0">
+          <svg class="w-6 h-6 fill-current text-brand-primary" viewBox="0 0 24 24" stroke="none">
+            <path d="M12 2C11.5 2 11 2.3 10.8 2.7C9.3 5.4 7 8.3 7 11.5C7 14.5 9.2 17 12 17C14.8 17 17 14.5 17 11.5C17 9.8 16.1 8 15 6.6C14.8 6.4 14.5 6.2 14.2 6.2C13.9 6.2 13.6 6.4 13.5 6.7C13.2 7.3 12.8 8.1 12.3 8.7C12.1 9 11.8 9.1 11.5 9.1C11.2 9.1 10.9 9 10.7 8.8C10.4 8.4 10.4 7.9 10.6 7.5C11.3 6.1 12 4.2 12 2Z"/>
+            <path d="M12 18.5C10.1 18.5 8.5 17 8.5 15.1C8.5 13.8 9.2 12.4 10.2 11.4C10.5 11.1 10.9 11.1 11.2 11.3C11.5 11.5 11.6 11.9 11.4 12.2C10.9 13 10.7 13.9 10.7 14.7C10.7 15.4 11.3 16 12 16C12.7 16 13.3 15.4 13.3 14.7C13.3 14.2 13.1 13.6 12.8 13.1C12.6 12.8 12.7 12.4 13 12.2C13.3 12 13.7 12.1 13.9 12.4C14.6 13.4 15 14.4 15 15.5C15 17.1 13.7 18.5 12 18.5Z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-content-high flex items-center gap-3">
+            Catat Pemakaian Bahan
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-primary/10 text-brand-primary border border-brand-primary/20">
+              FEFO Smart Choice
+            </span>
+          </h1>
+          <p class="text-sm text-content-medium mt-0.5">Pilih bahan dan batch sesuai urutan FEFO</p>
+        </div>
+      </div>
+
+      <!-- Quick Status Badges -->
+      <div class="flex items-center gap-2.5 text-xs">
+        <div class="px-3 py-1.5 rounded-lg bg-surface-container border border-surface-border text-content-medium flex items-center gap-2 shadow-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+          <span class="font-medium">Shift Pagi • Bar Utama</span>
+        </div>
+        <div class="px-3 py-1.5 rounded-lg bg-surface-container border border-surface-border font-mono text-content-medium font-semibold">
+          10:24 WIB
+        </div>
+      </div>
+    </header>
+
+    <!-- TWO-COLUMN WORKSPACE GRID (60% / 40%) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- ================= LEFT COLUMN: FEFO USAGE FORM (60%) ================= -->
+      <section class="lg:col-span-7 bg-surface-container rounded-xl border border-surface-border p-6 shadow-sm space-y-6">
+        
+        <!-- SECTION 1: PILIH BAHAN -->
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-content-medium flex items-center justify-between">
+            <span>Pilih Bahan Baku <span class="text-brand-tertiary">*</span></span>
+            <span class="text-xs font-normal text-content-subtle normal-case">14 Bahan Aktif di Bar</span>
+          </label>
+          
+          <!-- Combobox / Select Input -->
+          <div class="relative flex items-center">
+            <div class="absolute left-3.5 text-content-subtle pointer-events-none">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" stroke-width="2"/>
+                <path d="M21 21L16.65 16.65" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            
+            <div class="w-full bg-white border border-surface-border rounded-lg pl-10 pr-28 py-3 text-sm font-semibold text-content-high shadow-xs flex items-center justify-between focus-within:ring-2 focus-within:ring-brand-primary focus-within:border-brand-primary transition-all">
+              <span>Fresh Milk Diamond</span>
+              
+              <!-- Category tag in small muted capsule -->
+              <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Dairy
+              </span>
+            </div>
+
+            <!-- Dropdown Chevron Icon -->
+            <div class="absolute right-3 text-content-subtle pointer-events-none">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between text-xs text-content-subtle pt-0.5">
+            <span>Total stok fisik di chiller: <strong class="text-content-high font-mono">8.700 ml</strong> (3 batch aktif)</span>
+            <span class="text-emerald-700 font-medium flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Suhu Chiller 3.8°C (Normal)
+            </span>
+          </div>
+        </div>
+
+        <!-- SECTION 2: PILIH BATCH (URUTAN FEFO) -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold uppercase tracking-wider text-content-medium">
+              Pilih Batch <span class="normal-case font-medium text-content-subtle">(Urutan FEFO — Terdekat Expired Dulu)</span>
+            </label>
+            <span class="text-xs text-brand-secondary font-medium flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              Algoritma FEFO Aktif
+            </span>
+          </div>
+
+          <!-- THREE STACKED RADIO-BUTTON BATCH CARDS -->
+          <div class="space-y-2.5">
+            
+            <!-- CARD 1 (SELECTED): Thick #4A2C11 border, background #F5EFEB -->
+            <label class="relative flex items-center justify-between p-4 rounded-lg border-2 border-brand-primary bg-surface-container shadow-xs cursor-pointer transition-all hover:bg-surface-container-high/40">
+              <input type="radio" name="batch_selection" value="BCH-20241026-A3F2" checked class="sr-only">
+              
+              <div class="flex items-center gap-3.5">
+                <!-- Radio filled dark -->
+                <div class="w-5 h-5 rounded-full border-2 border-brand-primary bg-brand-primary flex items-center justify-center flex-shrink-0">
+                  <div class="w-2 h-2 rounded-full bg-surface-container"></div>
+                </div>
+                
+                <!-- Center details -->
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono font-bold text-sm text-content-high">BCH-20241026-A3F2</span>
+                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#FDF2F0] text-brand-tertiary border border-[#F8C6BF]">
+                      Exp: 26 Okt 2024 (1 hari!)
+                    </span>
+                  </div>
+                  <p class="text-xs font-mono text-content-medium mt-0.5">
+                    Sisa: <strong class="text-content-high">2.500 ml</strong> <span class="text-content-subtle font-sans">(Karton Depan Chiller Utama)</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right: dark espresso capsule badge "★ REKOMENDASI FEFO" -->
+              <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-primary text-white shadow-xs">
+                ★ REKOMENDASI FEFO
+              </span>
+            </label>
+
+            <!-- CARD 2 (UNSELECTED): border #EDE4DC -->
+            <label class="relative flex items-center justify-between p-4 rounded-lg border border-surface-border bg-white/70 hover:bg-white shadow-2xs cursor-pointer transition-all">
+              <input type="radio" name="batch_selection" value="BCH-20241015-B1C9" class="sr-only">
+              
+              <div class="flex items-center gap-3.5">
+                <!-- Radio unselected -->
+                <div class="w-5 h-5 rounded-full border border-surface-border bg-white flex items-center justify-center flex-shrink-0"></div>
+                
+                <!-- Center details -->
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono font-medium text-sm text-content-high">BCH-20241015-B1C9</span>
+                    <span class="text-xs text-content-subtle">Exp: 2 Nov 2024 (8 hari)</span>
+                  </div>
+                  <p class="text-xs font-mono text-content-subtle mt-0.5">
+                    Sisa: <span class="text-content-medium">5.000 ml</span> <span class="text-content-subtle font-sans">(Chiller Cadangan)</span>
+                  </p>
+                </div>
+              </div>
+
+              <span class="text-xs font-medium text-content-subtle">Antrean Ke-2</span>
+            </label>
+
+            <!-- CARD 3 (UNSELECTED): border #EDE4DC -->
+            <label class="relative flex items-center justify-between p-4 rounded-lg border border-surface-border bg-white/70 hover:bg-white shadow-2xs cursor-pointer transition-all">
+              <input type="radio" name="batch_selection" value="BCH-20241008-D4E7" class="sr-only">
+              
+              <div class="flex items-center gap-3.5">
+                <!-- Radio unselected -->
+                <div class="w-5 h-5 rounded-full border border-surface-border bg-white flex items-center justify-center flex-shrink-0"></div>
+                
+                <!-- Center details -->
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono font-medium text-sm text-content-high">BCH-20241008-D4E7</span>
+                    <span class="text-xs text-content-subtle">Exp: 10 Nov 2024 (16 hari)</span>
+                  </div>
+                  <p class="text-xs font-mono text-content-subtle mt-0.5">
+                    Sisa: <span class="text-content-medium">1.200 ml</span> <span class="text-content-subtle font-sans">(Gudang Transit Bar)</span>
+                  </p>
+                </div>
+              </div>
+
+              <span class="text-xs font-medium text-content-subtle">Cadangan Fresh</span>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- SECTION 3: INLINE DEVIATION WARNING BOX -->
+        <!-- Shown because a non-FEFO batch is selected in demo / smart warning trigger -->
+        <div class="rounded-lg bg-[#FFF7ED] border border-[#FED7AA] p-3.5 space-y-2.5 shadow-xs">
+          <div class="flex items-start gap-2.5">
+            <svg class="w-5 h-5 text-brand-secondary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+            <div class="text-xs leading-relaxed text-content-high">
+              <strong class="text-brand-secondary font-bold block sm:inline">Deviasi FEFO Terdeteksi:</strong> 
+              Anda memilih batch yang bukan prioritas utama. Wajib isi alasan pengambilan fisik:
+            </div>
+          </div>
+          
+          <textarea 
+            rows="3" 
+            class="w-full bg-white border border-[#FED7AA] rounded-lg p-2.5 text-xs text-content-high placeholder:text-content-subtle focus:ring-2 focus:ring-brand-secondary focus:border-brand-secondary outline-none transition-all"
+            placeholder="Contoh: Kemasan batch ini sudah terlanjur dibuka di chiller bar stasiun espresso..."></textarea>
+          
+          <div class="flex items-center justify-between text-[11px] text-content-subtle">
+            <span>SOP Barista: Minimal 5 karakter penjelasan logis</span>
+            <span class="font-medium text-brand-secondary">Tercatat ke Log Audit Deviasi</span>
+          </div>
+        </div>
+
+        <!-- SECTION 4: JUMLAH PEMAKAIAN -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold uppercase tracking-wider text-content-medium">
+              Jumlah Pemakaian <span class="text-brand-tertiary">*</span>
+            </label>
+            <!-- Quick Chips -->
+            <div class="flex items-center gap-1.5 text-xs">
+              <button type="button" class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-border text-content-medium font-mono text-[11px] transition-colors">150</button>
+              <button type="button" class="px-2 py-0.5 rounded bg-brand-primary text-white font-mono text-[11px] font-bold shadow-xs">250</button>
+              <button type="button" class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-border text-content-medium font-mono text-[11px] transition-colors">500</button>
+              <button type="button" class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-border text-content-medium font-mono text-[11px] transition-colors">1.000</button>
+            </div>
+          </div>
+
+          <!-- Large Centered Number Input -->
+          <div class="relative flex items-center">
+            <input 
+              type="text" 
+              value="250" 
+              class="w-full h-12 bg-white border border-surface-border rounded-lg text-center text-xl font-bold font-mono text-content-high shadow-xs focus:ring-2 focus:ring-brand-primary focus:border-brand-primary transition-all pr-12"
+            />
+            <!-- Unit label "ml" on the right side -->
+            <span class="absolute right-4 font-mono font-semibold text-content-medium text-sm pointer-events-none">
+              ml
+            </span>
+          </div>
+
+          <!-- Below input: italic muted text -->
+          <div class="flex items-center justify-between pt-0.5">
+            <p class="text-xs italic text-content-subtle">
+              Sisa setelah pakai: <strong class="text-content-high font-mono not-italic">2.250 ml</strong>
+            </p>
+            <span class="text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+              Saldo Aman & Cukup
+            </span>
+          </div>
+        </div>
+
+        <!-- FULL-WIDTH ACTION BUTTON -->
+        <div class="pt-2">
+          <button 
+            type="button" 
+            class="w-full h-12 bg-brand-primary hover:bg-brand-primary-hover active:scale-[0.99] text-white rounded-xl font-bold text-sm tracking-wide shadow-md flex items-center justify-center gap-2 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            Konfirmasi &amp; Kurangi Stok
+          </button>
+          <p class="text-[11px] text-center text-content-subtle mt-2">
+            Pemotongan stok langsung sinkron ke seluruh stasiun POS bar dan tablet supervisor
+          </p>
+        </div>
+
+      </section>
+
+      <!-- ================= RIGHT COLUMN: TODAY'S USAGE LOG (40%) ================= -->
+      <section class="lg:col-span-5 bg-surface-container rounded-xl border border-surface-border p-6 shadow-sm flex flex-col justify-between h-full space-y-4">
+        
+        <div>
+          <!-- Title & Date Subtitle -->
+          <div class="flex items-center justify-between pb-3 border-b border-surface-border">
+            <div>
+              <h2 class="text-base font-semibold text-content-high">Pemakaian Hari Ini</h2>
+              <p class="text-xs text-content-subtle font-medium mt-0.5">Kamis, 26 Oktober 2024</p>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold font-mono bg-surface-container-high text-content-medium border border-surface-border">
+              5 Transaksi
+            </span>
+          </div>
+
+          <!-- SUMMARY CHIPS -->
+          <div class="grid grid-cols-2 gap-2.5 my-3.5">
+            <div class="bg-white/80 p-2.5 rounded-lg border border-surface-border">
+              <span class="text-[11px] text-content-subtle block">Total Susu Terpakai</span>
+              <span class="font-mono font-bold text-sm text-content-high">1.000 ml</span>
+            </div>
+            <div class="bg-white/80 p-2.5 rounded-lg border border-surface-border">
+              <span class="text-[11px] text-content-subtle block">Kepatuhan FEFO</span>
+              <span class="font-mono font-bold text-sm text-emerald-700">80% (4/5)</span>
+            </div>
+          </div>
+
+          <!-- USAGE TABLE -->
+          <div class="overflow-x-auto rounded-lg border border-surface-border shadow-2xs">
+            <table class="w-full text-xs text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-high text-content-high font-semibold text-[11px] border-b border-surface-border uppercase tracking-wider">
+                  <th class="py-2.5 px-3">Waktu</th>
+                  <th class="py-2.5 px-3">Bahan</th>
+                  <th class="py-2.5 px-2.5 font-mono">Batch</th>
+                  <th class="py-2.5 px-2.5 font-mono text-right">Qty</th>
+                  <th class="py-2.5 px-3 text-center">FEFO?</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-surface-border bg-white">
+                
+                <!-- ROW 1: 08:14 | Oat Milk | BCH-B2X1 | 500 ml | green capsule "✓ FEFO" -->
+                <tr class="hover:bg-surface-canvas/60 transition-colors">
+                  <td class="py-2.5 px-3 font-mono text-content-subtle">08:14</td>
+                  <td class="py-2.5 px-3 font-medium text-content-high">Oat Milk</td>
+                  <td class="py-2.5 px-2.5 font-mono text-content-medium">BCH-B2X1</td>
+                  <td class="py-2.5 px-2.5 font-mono font-semibold text-right text-content-high">500 ml</td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      ✓ FEFO
+                    </span>
+                  </td>
+                </tr>
+
+                <!-- ROW 2: 08:45 | Espresso Blend | BCH-A3F2 | 18.5 g | green capsule "✓ FEFO" -->
+                <tr class="bg-surface-container/30 hover:bg-surface-canvas/60 transition-colors">
+                  <td class="py-2.5 px-3 font-mono text-content-subtle">08:45</td>
+                  <td class="py-2.5 px-3 font-medium text-content-high">Espresso Blend</td>
+                  <td class="py-2.5 px-2.5 font-mono text-content-medium">BCH-A3F2</td>
+                  <td class="py-2.5 px-2.5 font-mono font-semibold text-right text-content-high">18.5 g</td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      ✓ FEFO
+                    </span>
+                  </td>
+                </tr>
+
+                <!-- ROW 3: 09:02 | Sirup Karamel | BCH-C9D3 | 30 ml | amber capsule "⚠ Deviasi" -->
+                <tr class="bg-[#FFF7ED]/30 hover:bg-[#FFF7ED]/60 transition-colors">
+                  <td class="py-2.5 px-3 font-mono text-content-subtle">09:02</td>
+                  <td class="py-2.5 px-3 font-medium text-content-high">Sirup Karamel</td>
+                  <td class="py-2.5 px-2.5 font-mono text-content-medium">BCH-C9D3</td>
+                  <td class="py-2.5 px-2.5 font-mono font-semibold text-right text-content-high">30 ml</td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FFF7ED] text-brand-secondary border border-[#FED7AA]">
+                      ⚠ Deviasi
+                    </span>
+                  </td>
+                </tr>
+
+                <!-- ROW 4: 09:30 | Fresh Milk | BCH-A3F2 | 200 ml | green capsule "✓ FEFO" -->
+                <tr class="hover:bg-surface-canvas/60 transition-colors">
+                  <td class="py-2.5 px-3 font-mono text-content-subtle">09:30</td>
+                  <td class="py-2.5 px-3 font-medium text-content-high">Fresh Milk</td>
+                  <td class="py-2.5 px-2.5 font-mono text-content-medium">BCH-A3F2</td>
+                  <td class="py-2.5 px-2.5 font-mono font-semibold text-right text-content-high">200 ml</td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      ✓ FEFO
+                    </span>
+                  </td>
+                </tr>
+
+                <!-- ROW 5: 10:15 | Oat Milk | BCH-B2X1 | 300 ml | green capsule "✓ FEFO" -->
+                <tr class="bg-surface-container/30 hover:bg-surface-canvas/60 transition-colors">
+                  <td class="py-2.5 px-3 font-mono text-content-subtle">10:15</td>
+                  <td class="py-2.5 px-3 font-medium text-content-high">Oat Milk</td>
+                  <td class="py-2.5 px-2.5 font-mono text-content-medium">BCH-B2X1</td>
+                  <td class="py-2.5 px-2.5 font-mono font-semibold text-right text-content-high">300 ml</td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      ✓ FEFO
+                    </span>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- AUDIT CALLOUT NOTE -->
+        <div class="p-3.5 rounded-lg bg-surface-canvas border border-surface-border text-xs text-content-medium space-y-1">
+          <div class="flex items-center gap-1.5 font-semibold text-content-high">
+            <svg class="w-4 h-4 text-brand-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Audit Log FEFO Otomatis
+          </div>
+          <p class="text-[11px] text-content-subtle leading-relaxed">
+            Setiap transaksi pengurangan batch diverifikasi silang dengan tanggal expired terdekat di database untuk laporan audit harian Supervisor &amp; Owner.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

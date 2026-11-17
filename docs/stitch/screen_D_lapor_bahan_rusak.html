@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lapor Bahan Rusak ke Supervisor - BeanFlow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      background-color: #FAF7F2;
+      color: #241408;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#FAF7F2] text-[#241408] p-6 lg:p-8 antialiased selection:bg-[#FED7AA] selection:text-[#4A2C11]">
+
+  <!-- Main Container (In-Shell Content Canvas) -->
+  <main class="max-w-[1440px] mx-auto space-y-6">
+
+    <!-- Top Header Bar (No App Sidebar or Top App Chrome) -->
+    <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-[#EDE4DC]">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-xl bg-[#FFF7ED] border border-[#FED7AA] flex items-center justify-center text-[#C88242] shadow-sm">
+          <!-- AlertTriangle Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-2xl font-bold tracking-tight text-[#241408]">Lapor Bahan Rusak</h1>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#C88242] animate-pulse"></span>
+              Tiket Write-Off Barista
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-[#5C3A21] mt-0.5">Pengajuan pemusnahan stok akibat kadaluwarsa, kemasan rusak, atau anomali rasa untuk verifikasi fisik Supervisor.</p>
+        </div>
+      </div>
+
+      <!-- Quick Shift Info Badge -->
+      <div class="flex items-center gap-2 self-start sm:self-auto bg-[#F5EFEB] border border-[#EDE4DC] px-3.5 py-2 rounded-xl text-xs text-[#5C3A21]">
+        <div class="flex items-center gap-1.5 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Station Bar Utama (Station A)</span>
+        </div>
+        <span class="text-[#9C8474]">•</span>
+        <span class="text-[#9C8474]">Shift Pagi: <strong>Rian Ardiansyah</strong></span>
+      </div>
+    </header>
+
+    <!-- 2 Column Layout (50% / 50%) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+
+      <!-- ============================================================== -->
+      <!-- KOLOM KIRI (50%) - Form Laporan Bahan Rusak                    -->
+      <!-- ============================================================== -->
+      <section class="rounded-xl bg-[#F5EFEB] border border-[#EDE4DC] p-6 shadow-sm flex flex-col justify-between">
+        <div>
+          <!-- Card Header -->
+          <div class="flex items-center justify-between pb-4 mb-5 border-b border-[#EDE4DC]">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-[#EDE4DC] text-[#4A2C11] flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-base font-bold text-[#241408]">Formulir Pelaporan Bahan Rusak</h2>
+                <p class="text-xs text-[#5C3A21]">Isi rincian kondisi bahan fisik sebelum dipisahkan dari chiller.</p>
+              </div>
+            </div>
+            <span class="text-[11px] font-mono text-[#9C8474] bg-[#EDE4DC] px-2 py-0.5 rounded">FORM-WO-04</span>
+          </div>
+
+          <form class="space-y-4" onsubmit="event.preventDefault();">
+            
+            <!-- 1. Pilih Batch Bahan -->
+            <div class="space-y-1.5">
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#5C3A21]">
+                Pilih Batch Bahan <span class="text-[#8C3D2B]">*</span>
+              </label>
+              
+              <!-- Combobox Input -->
+              <div class="relative">
+                <div class="w-full flex items-center justify-between bg-white border border-[#EDE4DC] rounded-lg px-3.5 py-2.5 text-sm text-[#241408] shadow-sm font-medium focus-within:ring-2 focus-within:ring-[#C88242] focus-within:border-[#C88242] cursor-pointer">
+                  <div class="flex items-center gap-2 overflow-hidden truncate">
+                    <span class="w-2 h-2 rounded-full bg-[#8C3D2B]"></span>
+                    <span class="truncate">Fresh Milk Diamond (BCH-20241026-A3F2)</span>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#9C8474] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Kartu Mini Info Batch -->
+              <div class="bg-[#EDE4DC] rounded-lg p-3 flex flex-wrap items-center justify-between gap-2 border border-[#E2D7CD]">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <div class="w-7 h-7 rounded-md bg-white/70 flex items-center justify-center text-[#4A2C11] flex-shrink-0">
+                    <!-- Package Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="m7.5 4.27 9 5.15"/>
+                      <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                      <path d="m3.3 7 8.7 5 8.7-5"/>
+                      <path d="M12 22V12"/>
+                    </svg>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="text-xs font-semibold text-[#241408] truncate">Fresh Milk Diamond 1L</div>
+                    <div class="text-[11px] text-[#5C3A21]">Sisa stok fisik: <span class="font-mono-num font-semibold text-[#241408]">2.500 ml</span> (3 btl aktif)</div>
+                  </div>
+                </div>
+                
+                <!-- Expiry Badge -->
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#FDF2F0] text-[#8C3D2B] border border-[#F8C6BF] shadow-xs">
+                  <span>🔴</span> Exp: 26 Okt (1 hari!)
+                </span>
+              </div>
+            </div>
+
+            <!-- 2. Jumlah Bahan Rusak -->
+            <div class="space-y-1.5 pt-1">
+              <div class="flex items-center justify-between">
+                <label class="block text-xs font-semibold uppercase tracking-wider text-[#5C3A21]">
+                  Jumlah Bahan Rusak <span class="text-[#8C3D2B]">*</span>
+                </label>
+                <span class="text-xs text-[#9C8474]">Maksimal penulisan saldo: 2.500 ml</span>
+              </div>
+              <div class="relative flex rounded-lg shadow-sm">
+                <input 
+                  type="number" 
+                  value="500" 
+                  max="2500" 
+                  min="1"
+                  class="w-full bg-white border border-[#EDE4DC] rounded-l-lg px-3.5 py-2.5 text-sm font-mono-num font-bold text-[#241408] focus:outline-none focus:ring-2 focus:ring-[#C88242] focus:border-[#C88242]"
+                >
+                <div class="inline-flex items-center px-4 rounded-r-lg border border-l-0 border-[#EDE4DC] bg-[#EDE4DC] text-[#4A2C11] font-semibold text-xs uppercase tracking-wider">
+                  ml
+                </div>
+              </div>
+              <p class="text-xs text-[#9C8474] flex items-center justify-between">
+                <span>Maks: 2.500 ml</span>
+                <span class="text-[#5C3A21] font-medium">Setara 0.5 botol liter</span>
+              </p>
+            </div>
+
+            <!-- 3. Alasan Kerusakan -->
+            <div class="space-y-1.5 pt-1">
+              <label class="block text-xs font-semibold uppercase tracking-wider text-[#5C3A21]">
+                Alasan Kerusakan <span class="text-[#8C3D2B]">*</span>
+              </label>
+              <div class="relative">
+                <select class="w-full bg-white border border-[#EDE4DC] rounded-lg px-3.5 py-2.5 text-sm text-[#241408] font-medium appearance-none focus:outline-none focus:ring-2 focus:ring-[#C88242] focus:border-[#C88242] cursor-pointer shadow-sm pr-10">
+                  <option value="Kadaluwarsa">Kadaluwarsa</option>
+                  <option value="Bocor-Kemasan Rusak">Bocor / Kemasan Rusak</option>
+                  <option value="Bau Asam-Rasa Berubah" selected>Bau Asam / Rasa Berubah</option>
+                  <option value="Kontaminasi">Kontaminasi</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-[#9C8474]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Catatan Kondisi Fisik -->
+            <div class="space-y-1.5 pt-1">
+              <div class="flex items-center justify-between">
+                <label class="block text-xs font-semibold uppercase tracking-wider text-[#5C3A21]">
+                  Catatan Kondisi Fisik <span class="text-[#9C8474] font-normal normal-case">(opsional)</span>
+                </label>
+                <span class="text-[11px] text-[#9C8474]">Faktual & deskriptif</span>
+              </div>
+              <textarea 
+                rows="4" 
+                class="w-full bg-white border border-[#EDE4DC] rounded-lg p-3 text-sm text-[#241408] leading-relaxed placeholder-[#9C8474] focus:outline-none focus:ring-2 focus:ring-[#C88242] focus:border-[#C88242] shadow-sm resize-none"
+              >Susu sudah menggumpal dan berbau asam saat dibuka pagi ini. Ditemukan di chiller kanan stasiun espresso.</textarea>
+            </div>
+
+            <!-- Estimasi Beban Kerugian Ringkas -->
+            <div class="bg-[#FFF7ED] border border-[#FED7AA] rounded-lg p-3 flex items-center justify-between text-xs text-[#5C3A21]">
+              <div class="flex items-center gap-2">
+                <span class="text-base">🏷️</span>
+                <span>Estimasi Beban HPP Barista:</span>
+              </div>
+              <span class="font-mono-num font-bold text-[#8C3D2B] text-sm">Rp 12.000</span>
+            </div>
+
+            <!-- Tombol Submit Amber Utama -->
+            <div class="pt-2 space-y-2">
+              <button 
+                type="submit" 
+                class="w-full h-12 bg-[#C88242] hover:bg-[#b77436] active:bg-[#a6672d] text-white rounded-xl font-bold text-sm tracking-wide shadow-sm hover:shadow transition-all duration-150 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C88242]"
+              >
+                <!-- Send Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"/>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+                <span>Kirim Laporan ke Supervisor</span>
+              </button>
+              
+              <p class="text-center text-[#9C8474] text-xs italic">
+                Laporan bersifat pending hingga supervisor memverifikasi fisik bahan.
+              </p>
+            </div>
+
+          </form>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- KOLOM KANAN (50%) - Status Tiket Laporan Saya                  -->
+      <!-- ============================================================== -->
+      <section class="rounded-xl bg-[#F5EFEB] border border-[#EDE4DC] p-6 shadow-sm flex flex-col justify-between">
+        <div>
+          <!-- Card Header -->
+          <div class="flex items-center justify-between pb-4 mb-5 border-b border-[#EDE4DC]">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-[#EDE4DC] text-[#4A2C11] flex items-center justify-center">
+                <!-- ClipboardList Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                  <path d="M12 11h4"/>
+                  <path d="M12 16h4"/>
+                  <path d="M8 11h.01"/>
+                  <path d="M8 16h.01"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-base font-semibold text-[#241408]">Status Laporan Saya</h2>
+                <p class="text-xs text-[#5C3A21]">Riwayat tiket write-off yang Anda ajukan pada shift berjalan.</p>
+              </div>
+            </div>
+            
+            <!-- Quick Filter Pill -->
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#EDE4DC] text-[#4A2C11]">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#C88242]"></span>
+              4 Tiket Aktif
+            </span>
+          </div>
+
+          <!-- Table Container -->
+          <div class="overflow-hidden rounded-lg border border-[#EDE4DC] bg-white shadow-xs">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead>
+                  <tr class="bg-[#EDE4DC] text-[#4A2C11] font-semibold text-xs tracking-wider border-b border-[#EDE4DC]">
+                    <th scope="col" class="py-3 px-3.5">Tanggal</th>
+                    <th scope="col" class="py-3 px-3">Bahan</th>
+                    <th scope="col" class="py-3 px-3">Qty</th>
+                    <th scope="col" class="py-3 px-3.5 text-right">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#EDE4DC]/80 text-[#241408]">
+                  
+                  <!-- Baris 1: Pending (25 Okt) -->
+                  <tr class="hover:bg-[#FAF7F2] transition-colors">
+                    <td class="py-3.5 px-3.5 whitespace-nowrap text-xs font-medium text-[#5C3A21]">
+                      25 Okt <span class="text-[10px] text-[#9C8474] block">08:15 WIB</span>
+                    </td>
+                    <td class="py-3.5 px-3 whitespace-nowrap">
+                      <div class="font-medium text-xs text-[#241408]">Oat Milk</div>
+                      <div class="text-[10px] text-[#9C8474]">Oatside Barista 1L</div>
+                    </td>
+                    <td class="py-3.5 px-3 whitespace-nowrap font-mono-num text-xs font-semibold text-[#241408]">
+                      300 ml
+                    </td>
+                    <td class="py-3.5 px-3.5 whitespace-nowrap text-right">
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+                        <span>🟡</span> Pending
+                      </span>
+                    </td>
+                  </tr>
+
+                  <!-- Baris 2: Disetujui (20 Okt) -->
+                  <tr class="hover:bg-[#FAF7F2] transition-colors">
+                    <td class="py-3.5 px-3.5 whitespace-nowrap text-xs font-medium text-[#5C3A21]">
+                      20 Okt <span class="text-[10px] text-[#9C8474] block">14:20 WIB</span>
+                    </td>
+                    <td class="py-3.5 px-3 whitespace-nowrap">
+                      <div class="font-medium text-xs text-[#241408]">Sirup Karamel</div>
+                      <div class="text-[10px] text-[#9C8474]">Monin 700ml</div>
+                    </td>
+                    <td class="py-3.5 px-3 whitespace-nowrap font-mono-num text-xs font-semibold text-[#241408]">
+                      100 ml
+                    </td>
+                    <td class="py-3.5 px-3.5 whitespace-nowrap text-right">
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                        <span>🟢</span> Disetujui
+                      </span>
+                    </td>
+                  </tr>
+
+                  <!-- Baris 3: Ditolak dengan Kolaps Alasan (18 Okt) -->
+                  <tr class="bg-[#FAF7F2]/60 hover:bg-[#FAF7F2] transition-colors">
+                    <td class="py-3.5 px-3.5 whitespace-nowrap text-xs font-medium text-[#5C3A21]">
+                      18 Okt <span class="text-[10px] text-[#9C8474] block">16:45 WIB</span>
+                    </td>
+                    <td class="py-3.5 px-3 whitespace-nowrap">
+                      <div class="font-medium text-xs text-[#241408] flex items-center gap-1">
+                        <span>Fresh Milk</span>
+                        <!-- Expand Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-[#9C8474]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                      </div>
+                      <div class="text-[10px] text-[#9C8474]">Diamond UHT Bar</div>
+                    </td>
+                    <td class="py-3.5 px-3 whitespace-nowrap font-mono-num text-xs font-semibold text-[#241408]">
+                      500 ml
+                    </td>
+                    <td class="py-3.5 px-3.5 whitespace-nowrap text-right">
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#EDE4DC] text-[#5C3A21] border border-[#DDD0C4]">
+                        <span>⚪</span> Ditolak
+                      </span>
+                    </td>
+                  </tr>
+
+                  <!-- Baris 3 Child: Alasan Supervisor -->
+                  <tr class="bg-[#FAF7F2] border-t-0">
+                    <td colspan="4" class="px-3.5 py-2 bg-[#F5EFEB]/90 border-t border-dashed border-[#EDE4DC]">
+                      <div class="flex items-start gap-2 text-xs">
+                        <span class="text-[#9C8474] flex-shrink-0">↳</span>
+                        <div class="text-[11px] text-[#5C3A21] italic leading-tight">
+                          <span class="font-medium text-[#4A2C11] not-italic">Catatan Supervisor:</span> "Stok masih layak konsumsi setelah cek fisik."
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Baris 4: Disetujui (15 Okt) -->
+                  <tr class="hover:bg-[#FAF7F2] transition-colors">
+                    <td class="py-3.5 px-3.5 whitespace-nowrap text-xs font-medium text-[#5C3A21]">
+                      15 Okt <span class="text-[10px] text-[#9C8474] block">10:05 WIB</span>
+                    </td>
+                    <td class="py-3.5 px-3 whitespace-nowrap">
+                      <div class="font-medium text-xs text-[#241408]">Espresso Blend</div>
+                      <div class="text-[10px] text-[#9C8474]">House Roast 1kg</div>
+                    </td>
+                    <td class="py-3.5 px-3 whitespace-nowrap font-mono-num text-xs font-semibold text-[#241408]">
+                      50 g
+                    </td>
+                    <td class="py-3.5 px-3.5 whitespace-nowrap text-right">
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                        <span>🟢</span> Disetujui
+                      </span>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Bottom Notice Card (Ketenangan & Transparansi Barista) -->
+          <div class="mt-4 p-3.5 rounded-lg bg-[#EDE4DC]/60 border border-[#EDE4DC] flex items-start gap-2.5">
+            <div class="w-5 h-5 rounded-full bg-[#C88242]/20 text-[#C88242] flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+            </div>
+            <div class="text-xs text-[#5C3A21] leading-relaxed">
+              <span class="font-semibold text-[#4A2C11]">Transparansi Audit Bar:</span> Setiap tiket yang disetujui langsung memotong kuantitas sistem ke 0 ml tanpa membebani HPP personal barista.
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -204,10 +204,10 @@
     "semantic_hash": "ead9cce2650b36345454f85e8c0214a0"
   },
   "database/seeders/DatabaseSeeder.php": {
-    "mtime": 1793323787.2178314,
-    "seen": 1793445295.135591,
-    "ast_hash": "203551b514520168139f67a8c8fb418f",
-    "semantic_hash": "203551b514520168139f67a8c8fb418f"
+    "mtime": 1794894658.0570636,
+    "seen": 1794897679.5726168,
+    "ast_hash": "20ef60bc95af7aa7e308b391743cbbf0",
+    "semantic_hash": ""
   },
   "package.json": {
     "mtime": 1793324062.6436858,
@@ -654,45 +654,45 @@
     "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_02_APP_LAYOUT_RBAC.md": {
-    "mtime": 1793917233.6917384,
-    "seen": 1793918059.2852306,
-    "ast_hash": "2a8f664f8463083c77c7dfe925274d36",
+    "mtime": 1794896374.1342354,
+    "seen": 1794897679.575105,
+    "ast_hash": "5e5b12ec7180831a1c5628928ed32955",
     "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_03_BARISTA_OPERASIONAL_FEFO.md": {
-    "mtime": 1793917298.312709,
-    "seen": 1793918059.2852383,
-    "ast_hash": "057095149577f3d58b65ddb0d97aa831",
+    "mtime": 1794896528.4746933,
+    "seen": 1794897679.5751147,
+    "ast_hash": "85b0a76bcbdcc423d7b601843a654748",
     "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_04_SUPERVISOR_MASTER_DATA.md": {
-    "mtime": 1793917391.6731093,
-    "seen": 1793918059.2852457,
-    "ast_hash": "a1784ade12514c4be0a4821aa4d2d3c8",
+    "mtime": 1794896685.271084,
+    "seen": 1794897679.5751226,
+    "ast_hash": "ad6ac74ce472e56967c184bce42bd2ba",
     "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_05_SUPERVISOR_MONITORING_INVENTARIS.md": {
-    "mtime": 1793917900.5331705,
-    "seen": 1793918059.2852535,
-    "ast_hash": "424180f5575baebba59795280b3f86aa",
+    "mtime": 1794896835.7723954,
+    "seen": 1794897679.5751305,
+    "ast_hash": "874838443a0dccb130a124bee3c7df25",
     "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_06_WASTE_APPROVAL_CENTER.md": {
-    "mtime": 1793917939.1015034,
-    "seen": 1793918059.2852614,
-    "ast_hash": "30cee142933feb58f2c466403d5056b1",
+    "mtime": 1794896945.515949,
+    "seen": 1794897679.575138,
+    "ast_hash": "f79fc32f06d6447e9e897d6a357d5d1e",
     "semantic_hash": ""
   },
   "docs/Plan Frontend/PLAN_07_OWNER_ANALYTICS_DASHBOARD.md": {
-    "mtime": 1793917967.4994552,
-    "seen": 1793918059.2852688,
-    "ast_hash": "e82d2dd8e49a99006c980388460a639c",
+    "mtime": 1794897480.6150973,
+    "seen": 1794897679.5751457,
+    "ast_hash": "a303d6c7eb8051942c70939854b80a0e",
     "semantic_hash": ""
   },
   "docs/Plan Frontend/PROMPT_LIST_PLAN_DESIGN.md": {
-    "mtime": 1793917834.8047829,
-    "seen": 1793918059.2852762,
-    "ast_hash": "0875fd9d35c45d295c076270907e0336",
+    "mtime": 1794494903.3262112,
+    "seen": 1794495032.0622363,
+    "ast_hash": "767f8deda39306debdc504402a8d76c9",
     "semantic_hash": ""
   },
   "docs/explanations/01_migrations_schema.md": {
@@ -708,10 +708,10 @@
     "semantic_hash": "a68855f833aa0867425f6623778948a1"
   },
   "docs/explanations/03_database_seeder.md": {
-    "mtime": 1793440333.2947776,
-    "seen": 1793445295.136097,
-    "ast_hash": "42e16dd29dd948d9b1206a8be869a9eb",
-    "semantic_hash": "42e16dd29dd948d9b1206a8be869a9eb"
+    "mtime": 1794894658.066064,
+    "seen": 1794897679.5751817,
+    "ast_hash": "5bb447c23622e1c9bda89eeb0db64954",
+    "semantic_hash": ""
   },
   "docs/explanations/04_auth_rbac_middleware.md": {
     "mtime": 1793440699.3702474,
@@ -753,6 +753,324 @@
     "mtime": 1793918010.2918458,
     "seen": 1793918059.2853599,
     "ast_hash": "195fecb4e7fd4ce3549bd047926ba895",
+    "semantic_hash": ""
+  },
+  "docs/explanations/arsitektur_app_shell_dan_perombakan_stitch.md": {
+    "mtime": 1794480864.0938601,
+    "seen": 1794480910.1099203,
+    "ast_hash": "0a8a2fae4ac5516d651f0bf6a41842c5",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_1_app_shell_barista.html": {
+    "mtime": 1794479789.1967587,
+    "seen": 1794480910.1099284,
+    "ast_hash": "201515966cc681395a5aad009b10e942",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_2_app_shell_owner.html": {
+    "mtime": 1794479789.216758,
+    "seen": 1794480910.1099362,
+    "ast_hash": "701e9b9baed06ec817ae339fc104d49b",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_3_app_shell_supervisor.html": {
+    "mtime": 1794479789.312179,
+    "seen": 1794480910.1099427,
+    "ast_hash": "517e9c4775d649241ba449f5ecbf565f",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_1_app_shell_barista.png": {
+    "mtime": 1794479789.2111592,
+    "seen": 1794480910.1099586,
+    "ast_hash": "b6cf22210989171bf3a2921e0705f5fd",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_2_app_shell_owner.png": {
+    "mtime": 1794479789.2993116,
+    "seen": 1794480910.1099663,
+    "ast_hash": "7e4379df10ab715bdf6498f0f6bddea1",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_3_app_shell_supervisor.png": {
+    "mtime": 1794479789.3277533,
+    "seen": 1794480910.1099732,
+    "ast_hash": "dae3fa86897b45215dc4f9d488644b78",
+    "semantic_hash": ""
+  },
+  "docs/explanations/barista_halaman_tersendiri.md": {
+    "mtime": 1794488751.8306658,
+    "seen": 1794492622.938991,
+    "ast_hash": "4a61fb460dbe8ca87f118a823214ecb8",
+    "semantic_hash": ""
+  },
+  "docs/explanations/owner_halaman_tersendiri.md": {
+    "mtime": 1794492524.1692781,
+    "seen": 1794492622.938999,
+    "ast_hash": "c5c363d24f7e28078ef07d31e8e1d533",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_B_catat_pemakaian_fefo.html": {
+    "mtime": 1794489862.014397,
+    "seen": 1794492622.939032,
+    "ast_hash": "2a29afbed32c5d69f2528c0b8d5aaa17",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_C_penerimaan_batch.html": {
+    "mtime": 1794489862.036441,
+    "seen": 1794492622.9390392,
+    "ast_hash": "ae5ccaaaec4db4303b2e3076e8872976",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_D_lapor_bahan_rusak.html": {
+    "mtime": 1794489862.0432832,
+    "seen": 1794492622.939046,
+    "ast_hash": "c9c2c250819d4bed861cb8ecc5c6fe5c",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_B_catat_pemakaian_fefo.png": {
+    "mtime": 1794489828.2795095,
+    "seen": 1794492622.9390867,
+    "ast_hash": "eebf09ef7489d52efc9fb84752b643c2",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_C_penerimaan_batch.png": {
+    "mtime": 1794489828.3231752,
+    "seen": 1794492622.9390934,
+    "ast_hash": "fe5826c282c3744cac4690a79899cea5",
+    "semantic_hash": ""
+  },
+  "docs/stitch/screen_D_lapor_bahan_rusak.png": {
+    "mtime": 1794489828.3624475,
+    "seen": 1794492622.9390993,
+    "ast_hash": "23d2f4a817430db6d841e69651a72dad",
+    "semantic_hash": ""
+  },
+  "docs/explanations/supervisor_halaman_tersendiri.md": {
+    "mtime": 1794494945.4280703,
+    "seen": 1794495032.0623412,
+    "ast_hash": "1563edd0fc0d544e9a0812cc5197ce65",
+    "semantic_hash": ""
+  },
+  "database/seeders/CategorySeeder.php": {
+    "mtime": 1794894658.0550637,
+    "seen": 1794897679.572607,
+    "ast_hash": "29169d454f4178405ff42904b07cbd6b",
+    "semantic_hash": ""
+  },
+  "database/seeders/IngredientBatchSeeder.php": {
+    "mtime": 1794894658.0570636,
+    "seen": 1794897679.5726237,
+    "ast_hash": "18a243a99664c0f51350d1513cd9474b",
+    "semantic_hash": ""
+  },
+  "database/seeders/IngredientSeeder.php": {
+    "mtime": 1794894658.0610638,
+    "seen": 1794897679.5726311,
+    "ast_hash": "b9eec64d4265ea930103339ef24d68c4",
+    "semantic_hash": ""
+  },
+  "database/seeders/StockUsageSeeder.php": {
+    "mtime": 1794894658.0610638,
+    "seen": 1794897679.572638,
+    "ast_hash": "f9700dbbb1dfa828f12ab54b35ff97b4",
+    "semantic_hash": ""
+  },
+  "database/seeders/UserSeeder.php": {
+    "mtime": 1794894658.0650637,
+    "seen": 1794897679.5726447,
+    "ast_hash": "faf536926bafa5c64b127479aa37eff5",
+    "semantic_hash": ""
+  },
+  "database/seeders/WasteLogSeeder.php": {
+    "mtime": 1794894658.0650637,
+    "seen": 1794897679.5726511,
+    "ast_hash": "f45dfb8a653dc60d87071596d4a0377e",
+    "semantic_hash": ""
+  },
+  "docs/explanations/10_sinkronisasi_frontend_plan_stitch.md": {
+    "mtime": 1794897610.9856076,
+    "seen": 1794897679.5781186,
+    "ast_hash": "e327d6d39ef6856b912269a6d01fe365",
+    "semantic_hash": ""
+  },
+  "docs/stitch/barista_app_shell.html": {
+    "mtime": 1794895314.2791407,
+    "seen": 1794897679.5781717,
+    "ast_hash": "201515966cc681395a5aad009b10e942",
+    "semantic_hash": ""
+  },
+  "docs/stitch/barista_catat_pemakaian_fefo.html": {
+    "mtime": 1794895327.2678776,
+    "seen": 1794897679.578222,
+    "ast_hash": "fe495fb152bc2e304cb6203efc0af3de",
+    "semantic_hash": ""
+  },
+  "docs/stitch/barista_dasbor_operasional.html": {
+    "mtime": 1794895333.63331,
+    "seen": 1794897679.578235,
+    "ast_hash": "e6b5c3b48a83c868ddb4967516cc1b5a",
+    "semantic_hash": ""
+  },
+  "docs/stitch/barista_lapor_bahan_rusak.html": {
+    "mtime": 1794895318.738817,
+    "seen": 1794897679.578242,
+    "ast_hash": "eb90b15fa103e93e984462778ed1c2a4",
+    "semantic_hash": ""
+  },
+  "docs/stitch/barista_penerimaan_batch.html": {
+    "mtime": 1794895322.9502287,
+    "seen": 1794897679.5782492,
+    "ast_hash": "d5ab89e732c97b9aa3a624d16b975d5e",
+    "semantic_hash": ""
+  },
+  "docs/stitch/owner_app_shell.html": {
+    "mtime": 1794895278.6258836,
+    "seen": 1794897679.5782564,
+    "ast_hash": "701e9b9baed06ec817ae339fc104d49b",
+    "semantic_hash": ""
+  },
+  "docs/stitch/owner_dasbor_finansial_analitik.html": {
+    "mtime": 1794895293.2161767,
+    "seen": 1794897679.578263,
+    "ast_hash": "8b90cc514ed284f93092ea95f32d1c5e",
+    "semantic_hash": ""
+  },
+  "docs/stitch/owner_evaluasi_pembelian.html": {
+    "mtime": 1794895283.7229238,
+    "seen": 1794897679.5782702,
+    "ast_hash": "f3afa2a3a5ba38f7494285a6494f4b9b",
+    "semantic_hash": ""
+  },
+  "docs/stitch/owner_laporan_waste_audit.html": {
+    "mtime": 1794895289.1579666,
+    "seen": 1794897679.5782766,
+    "ast_hash": "9b87a1fc07112b93ba80a05c806ad75f",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_app_shell.html": {
+    "mtime": 1794895297.0475397,
+    "seen": 1794897679.5783386,
+    "ast_hash": "517e9c4775d649241ba449f5ecbf565f",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_katalog_master_bahan.html": {
+    "mtime": 1794895833.6644425,
+    "seen": 1794897679.5783458,
+    "ast_hash": "427b351832d68491ffa7a13988865cd6",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_kategori_bahan.html": {
+    "mtime": 1794895306.4029286,
+    "seen": 1794897679.5783534,
+    "ast_hash": "cf3280b8b04ffb4ea39382601521d7f2",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_monitoring_inventaris.html": {
+    "mtime": 1794895310.1451302,
+    "seen": 1794897679.5783598,
+    "ast_hash": "858828224623066bc5707c58af690162",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_riwayat_audit_fefo.html": {
+    "mtime": 1794895393.9297583,
+    "seen": 1794897679.5783663,
+    "ast_hash": "49cbfe85a456088cb4018b28253accf6",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_waste_approval_center.html": {
+    "mtime": 1794895812.4313512,
+    "seen": 1794897679.5783722,
+    "ast_hash": "a353db3399d6cda5f9cfbee4d69f7e67",
+    "semantic_hash": ""
+  },
+  "docs/stitch/barista_app_shell.png": {
+    "mtime": 1794895414.3149054,
+    "seen": 1794897679.5783875,
+    "ast_hash": "b6cf22210989171bf3a2921e0705f5fd",
+    "semantic_hash": ""
+  },
+  "docs/stitch/barista_catat_pemakaian_fefo.png": {
+    "mtime": 1794895429.2710123,
+    "seen": 1794897679.578394,
+    "ast_hash": "253e91f4f73e13d2592ed27cdfe734be",
+    "semantic_hash": ""
+  },
+  "docs/stitch/barista_dasbor_operasional.png": {
+    "mtime": 1794895435.1831694,
+    "seen": 1794897679.5783997,
+    "ast_hash": "486f7f6f9e7250099d53ea5be8401168",
+    "semantic_hash": ""
+  },
+  "docs/stitch/barista_lapor_bahan_rusak.png": {
+    "mtime": 1794895420.3966153,
+    "seen": 1794897679.578406,
+    "ast_hash": "01bdfda38a6185a376c28543045659d9",
+    "semantic_hash": ""
+  },
+  "docs/stitch/barista_penerimaan_batch.png": {
+    "mtime": 1794895425.8899882,
+    "seen": 1794897679.5784123,
+    "ast_hash": "4318012876a8bc2e6fae1dba351ca5fe",
+    "semantic_hash": ""
+  },
+  "docs/stitch/owner_app_shell.png": {
+    "mtime": 1794895368.6759295,
+    "seen": 1794897679.5784183,
+    "ast_hash": "7e4379df10ab715bdf6498f0f6bddea1",
+    "semantic_hash": ""
+  },
+  "docs/stitch/owner_dasbor_finansial_analitik.png": {
+    "mtime": 1794895386.028806,
+    "seen": 1794897679.578425,
+    "ast_hash": "4178138d46a0c4605653568d7e93c45d",
+    "semantic_hash": ""
+  },
+  "docs/stitch/owner_evaluasi_pembelian.png": {
+    "mtime": 1794895376.8951426,
+    "seen": 1794897679.5784533,
+    "ast_hash": "87ef24f7ad473aadc1a277d0fe798842",
+    "semantic_hash": ""
+  },
+  "docs/stitch/owner_laporan_waste_audit.png": {
+    "mtime": 1794895381.5206676,
+    "seen": 1794897679.5784607,
+    "ast_hash": "fabcaeb7787cb305d26470f5238b8341",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_app_shell.png": {
+    "mtime": 1794895390.5604293,
+    "seen": 1794897679.5785167,
+    "ast_hash": "dae3fa86897b45215dc4f9d488644b78",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_katalog_master_bahan.png": {
+    "mtime": 1794895875.5961368,
+    "seen": 1794897679.5785234,
+    "ast_hash": "69ee0b69a9855fca63d0c4a2ad94fdef",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_kategori_bahan.png": {
+    "mtime": 1794895406.9748528,
+    "seen": 1794897679.5785298,
+    "ast_hash": "9ce951f0e2a8356b767e63180f081528",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_monitoring_inventaris.png": {
+    "mtime": 1794895410.6716847,
+    "seen": 1794897679.5785363,
+    "ast_hash": "8b9aeea05039906bac464490b7d77f23",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_riwayat_audit_fefo.png": {
+    "mtime": 1794895400.3158047,
+    "seen": 1794897679.5785427,
+    "ast_hash": "da880dcb2a1b714026ab906a57a22a2e",
+    "semantic_hash": ""
+  },
+  "docs/stitch/supervisor_waste_approval_center.png": {
+    "mtime": 1794895817.2909064,
+    "seen": 1794897679.5785487,
+    "ast_hash": "b608ec2aa4bbd384a4787b46ee7bc7e8",
     "semantic_hash": ""
   }
 }

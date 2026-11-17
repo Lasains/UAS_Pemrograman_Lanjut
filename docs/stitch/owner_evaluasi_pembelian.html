@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"status-warning-border":"#FED7AA","surface":"#fcf9f4","on-secondary":"#ffffff","surface-container-lowest":"#ffffff","on-background":"#1c1c19","primary-fixed-dim":"#edbd97","status-critical-text":"#8C3D2B","border-muted":"#EDE4DC","status-safe-border":"#6EE7B7","text-secondary":"#5C3A21","on-error-container":"#93000a","on-surface-variant":"#50453d","text-subtle":"#9C8474","tertiary-container":"#5f1c0d","on-primary-container":"#bf926f","container-base":"#F5EFEB","canvas-base":"#FAF7F2","status-warning-bg":"#FFF7ED","on-tertiary-fixed-variant":"#792f1e","text-primary":"#241408","surface-tint":"#7b5638","surface-bright":"#fcf9f4","tertiary-fixed-dim":"#ffb4a3","surface-dim":"#dcdad5","surface-container-highest":"#e5e2dd","error-container":"#ffdad6","status-critical-bg":"#FDF2F0","tertiary":"#410700","status-critical-border":"#F8C6BF","primary-fixed":"#ffdcc2","on-primary-fixed":"#2e1500","on-secondary-container":"#784102","primary":"#311701","on-secondary-fixed-variant":"#6d3a00","on-secondary-fixed":"#2e1500","outline-variant":"#d4c3b9","surface-container-high":"#ebe8e3","surface-container":"#f0ede9","status-safe-bg":"#ECFDF5","on-error":"#ffffff","secondary-container":"#feb06b","background":"#fcf9f4","on-tertiary":"#ffffff","tertiary-fixed":"#ffdad2","outline":"#82746b","status-safe-text":"#065F46","error":"#ba1a1a","inverse-primary":"#edbd97","on-primary":"#ffffff","on-tertiary-container":"#e2806a","status-warning-text":"#C88242","on-tertiary-fixed":"#3d0600","surface-variant":"#e5e2dd","surface-container-low":"#f6f3ee","inverse-surface":"#31302d","primary-container":"#4a2c11","on-surface":"#1c1c19","secondary-fixed":"#ffdcc2","secondary":"#8b5013","container-elevated":"#EDE4DC","inverse-on-surface":"#f3f0eb","secondary-fixed-dim":"#ffb77a","on-primary-fixed-variant":"#613f23"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin-lg":"3rem","space-lg":"1.5rem","space-md":"1rem","space-sm":"0.5rem","gutter-md":"1.5rem","margin":"1rem","space-xl":"2rem","margin-md":"2rem","space-xs":"0.25rem","gutter":"1rem"},"fontFamily":{"label-lg":["Inter"],"body-md":["Inter"],"display-lg":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"display-lg-mobile":["Inter"],"headline-sm":["Inter"],"label-md":["Inter"],"label-sm":["Inter"],"body-sm":["Inter"],"body-lg":["Inter"]},"fontSize":{"label-lg":["14px",{"lineHeight":"20px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"display-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}]}}}}</script></head><body class="bg-canvas-base text-text-primary antialiased font-body-md text-body-md"><aside class="fixed left-0 top-0 h-full w-[260px] bg-container-base border-r border-border-muted z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="p-space-md border-b border-border-muted flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-canvas-base shadow-sm"><span class="material-symbols-outlined text-[22px]">coffee</span></div><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm font-bold text-text-primary tracking-tight">BeanFlow</span><span class="bg-primary-container text-canvas-base font-label-sm text-label-sm px-1.5 py-0.5 rounded-full">FEFO</span></div><span class="font-label-sm text-label-sm text-text-subtle leading-tight">Specialty Coffee Inventory</span></div></div><div class="p-space-sm flex flex-col gap-space-md"><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-space-xs font-label-sm text-label-sm text-text-subtle uppercase tracking-wider font-semibold">Ringkasan Eksekutif</span><nav class="flex flex-col gap-space-xs" data-active-classes="bg-container-elevated text-primary-container font-semibold"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors group" data-path="dasbor-finansial-aset" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">analytics</span><span class="font-body-md text-body-md">Dasbor Finansial &amp; Aset</span></div><div class="w-1.5 h-1.5 rounded-full bg-primary-container"></div></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors" data-path="laporan-analitik-waste" href="#"><span class="material-symbols-outlined text-[20px]">pie_chart</span><span class="font-body-md text-body-md">Laporan Analitik &amp; Waste</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors" data-path="evaluasi-pembelian" href="#"><span class="material-symbols-outlined text-[20px]">shopping_bag</span><span class="font-body-md text-body-md">Evaluasi Pembelian</span></a></nav></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-space-xs font-label-sm text-label-sm text-text-subtle uppercase tracking-wider font-semibold">Audit &amp; Monitoring (View Only)</span><nav class="flex flex-col gap-space-xs" data-active-classes="bg-container-elevated text-primary-container font-semibold"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors" data-path="monitoring-kedaluwarsa" href="#"><span class="material-symbols-outlined text-[20px]">hourglass_bottom</span><span class="font-body-md text-body-md">Monitoring Kedaluwarsa</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors" data-path="katalog-master-bahan" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-body-md text-body-md">Katalog Master Bahan</span></div><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-container-elevated text-text-secondary font-medium">View</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors" data-path="log-pemusnahan-waste" href="#"><span class="material-symbols-outlined text-[20px]">delete_sweep</span><span class="font-body-md text-body-md">Log Pemusnahan &amp; Waste</span></a></nav></div></div></div><div class="p-space-sm border-t border-border-muted"><div class="p-space-sm bg-container-elevated rounded-xl border border-border-muted flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-md text-label-md font-semibold text-text-primary">Owner / Eksekutif</span><span class="material-symbols-outlined text-[16px] text-text-subtle">security</span></div><span class="font-body-sm text-body-sm text-text-secondary">Semua Outlet - Pusat</span><div class="flex items-center gap-1.5 mt-0.5"><div class="w-1.5 h-1.5 rounded-full bg-status-safe-text"></div><span class="font-label-sm text-label-sm text-status-safe-text font-medium">Akses Penuh Finansial</span></div></div></div></aside><div class="pl-[260px]"><header class="fixed top-0 left-[260px] right-0 h-16 bg-container-base/80 backdrop-blur-xl border-b border-border-muted z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-text-secondary text-[20px]">admin_panel_settings</span><span class="font-headline-sm text-headline-sm text-text-primary font-semibold tracking-tight">Owner Executive | Finansial &amp; Analitik Kedai</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-status-safe-bg border border-status-safe-border px-2.5 py-1 rounded-full"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-safe-text opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-status-safe-text"></span></span><span class="font-label-sm text-label-sm text-status-safe-text font-medium">Sistem Sinkron</span></div><div class="px-2.5 py-1 rounded-full bg-status-warning-bg border border-status-warning-border text-status-warning-text font-label-sm text-label-sm font-semibold">Owner / Pengelola</div><div class="flex items-center gap-space-xs pl-space-xs border-l border-border-muted cursor-pointer"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col text-left"><span class="font-label-md text-label-md font-semibold text-text-primary leading-tight">Hendrawan Kusuma</span><span class="font-label-sm text-label-sm text-text-subtle leading-tight">Owner</span></div><span class="material-symbols-outlined text-text-subtle text-[18px]">expand_more</span></div></div></header><main class="relative pt-16 bg-canvas-base min-h-screen"><div class="flex flex-col w-full">
+<div class="max-w-[1440px] w-full mx-auto p-space-md md:p-space-lg flex flex-col gap-space-lg">
+<!-- Header Toolbar -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm text-text-subtle uppercase tracking-widest font-semibold">
+        Manajemen Pengadaan &amp; Keuangan Owner • Evaluasi PO Bulanan
+      </span>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Title & Subtitle -->
+<div class="flex items-start sm:items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-canvas-base shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[26px]">shopping_bag</span>
+</div>
+<div class="flex flex-col">
+<h1 class="font-headline-lg text-headline-lg text-text-primary font-bold tracking-tight">
+              Evaluasi Pembelian &amp; Valuasi Aset
+            </h1>
+<p class="font-body-md text-body-md text-text-secondary">
+              Analisis efisiensi modal bahan baku dan pencegahan pembelian berlebih (anti over-purchasing).
+            </p>
+</div>
+</div>
+<!-- Right Action Controls -->
+<div class="flex flex-wrap items-center gap-space-sm self-start lg:self-auto">
+<div class="flex items-center gap-2.5 bg-container-elevated px-4 py-2.5 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-text-secondary">account_balance_wallet</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-body-sm text-body-sm text-text-secondary font-medium">Total Modal Gudang:</span>
+<span class="font-headline-sm text-headline-sm font-bold text-primary-container tracking-tight">Rp 48.250.000</span>
+</div>
+</div>
+<button class="flex items-center gap-2 bg-primary-container hover:bg-text-secondary text-canvas-base px-4 py-2.5 rounded-lg shadow-sm font-label-lg text-label-lg transition-colors cursor-pointer" id="btnCreatePO">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Buat Rencana PO Baru</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Row 1: Three Procurement Health Check Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Card 1: Efisiensi Modal -->
+<div class="bg-container-base rounded-xl p-5 shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-text-secondary uppercase tracking-wider">Tingkat Efisiensi Modal</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-display-lg text-display-lg font-bold text-text-primary tracking-tight">96.2%</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">Modal berubah menjadi penjualan (Sangat Optimal)</p>
+</div>
+<!-- Mini Circular Donut Meter -->
+<div class="relative w-14 h-14 shrink-0 flex items-center justify-center">
+<svg class="w-14 h-14 -rotate-90" viewbox="0 0 36 36">
+<path class="text-container-elevated stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3.5"></path>
+<path class="text-status-safe-text stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="96.2, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<span class="material-symbols-outlined absolute text-[18px] text-status-safe-text">check</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-safe-bg text-status-safe-text font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-safe-text"></span>
+            +1.4% vs bulan lalu
+          </span>
+<span class="font-label-sm text-label-sm text-text-subtle">Audit Siklus 30 Hari</span>
+</div>
+</div>
+<!-- Card 2: Rasio Bahan Terbuang -->
+<div class="bg-container-base rounded-xl p-5 shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-text-secondary uppercase tracking-wider">Rasio Bahan Terbuang Basi</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-display-lg text-display-lg font-bold text-status-warning-text font-mono">3.8%</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">Target batas toleransi kafe: &lt; 5.0%</p>
+</div>
+<div class="w-11 h-11 rounded-lg bg-status-warning-bg flex items-center justify-center text-status-warning-text shrink-0">
+<span class="material-symbols-outlined text-[22px]">delete_sweep</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-warning-bg text-status-warning-text font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning-text"></span>
+            Aman Terkendali
+          </span>
+<span class="font-label-sm text-label-sm text-text-subtle">Nilai: Rp 212.000</span>
+</div>
+</div>
+<!-- Card 3: Risiko Over-Stock -->
+<div class="bg-container-base rounded-xl p-5 shadow-sm flex flex-col justify-between relative">
+<div class="absolute top-0 left-0 right-0 h-1 bg-status-critical-text rounded-t-xl"></div>
+<div class="flex items-start justify-between mt-1">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-text-secondary uppercase tracking-wider">Bahan Berisiko Over-Stock</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-display-lg text-display-lg font-bold text-status-critical-text font-mono">2 Bahan</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">Perlu kurangi volume pesanan berikutnya agar tidak susut.</p>
+</div>
+<div class="w-11 h-11 rounded-lg bg-status-critical-bg flex items-center justify-center text-status-critical-text shrink-0">
+<span class="material-symbols-outlined text-[22px]">warning</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-critical-bg text-status-critical-text font-label-sm text-label-sm font-semibold truncate max-w-[210px]">
+<span class="w-1.5 h-1.5 rounded-full bg-status-critical-text shrink-0"></span>
+<span class="truncate">Fresh Milk &amp; Croissant</span>
+</span>
+<span class="font-label-sm text-label-sm text-status-critical-text font-semibold">Aksi Segera</span>
+</div>
+</div>
+</div>
+<!-- Row 2: Procurement Intelligence & PO Adjustment Table -->
+<div class="bg-container-base rounded-xl p-5 md:p-6 shadow-sm flex flex-col gap-space-md">
+<!-- Section Header with Filters and Search -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[22px] text-text-secondary">balance</span>
+<h2 class="font-headline-md text-headline-md text-text-primary font-bold">
+              Rekomendasi Penyesuaian Kuantitas Pesanan ke Vendor
+            </h2>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+            Algoritma membandingkan rata-rata konsumsi nyata barista terhadap pesanan bulanan untuk menjaga FEFO.
+          </p>
+</div>
+<!-- Filter tabs & Search Input -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+<!-- Filters -->
+<div class="inline-flex p-1 bg-container-elevated rounded-lg self-start sm:self-auto" id="filterTabs">
+<button class="filter-tab px-3 py-1.5 rounded-md font-label-sm text-label-sm font-semibold bg-primary-container text-canvas-base shadow-sm transition-all" data-filter="all">
+              Semua Bahan (5)
+            </button>
+<button class="filter-tab px-3 py-1.5 rounded-md font-label-sm text-label-sm font-medium text-text-secondary hover:text-text-primary transition-all" data-filter="adjust">
+              Perlu Disesuaikan (2)
+            </button>
+<button class="filter-tab px-3 py-1.5 rounded-md font-label-sm text-label-sm font-medium text-text-secondary hover:text-text-primary transition-all" data-filter="ideal">
+              Ideal (3)
+            </button>
+</div>
+<!-- Search Bar -->
+<div class="relative w-full sm:w-60">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-[18px] text-text-subtle">search</span>
+<input class="w-full pl-9 pr-3 py-2 bg-canvas-base rounded-lg font-body-sm text-body-sm text-text-primary placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-status-warning-text transition-all" id="procurementSearch" placeholder="Cari bahan atau vendor..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Data Table Wrapper -->
+<div class="w-full overflow-x-auto rounded-xl bg-canvas-base">
+<table class="w-full text-left border-collapse min-w-[900px]">
+<thead>
+<tr class="bg-container-elevated text-text-secondary font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3.5 px-4 font-semibold">Bahan Baku &amp; Vendor</th>
+<th class="py-3.5 px-3 font-semibold">Kategori</th>
+<th class="py-3.5 px-3 font-semibold text-right">Pembelian / Bulan</th>
+<th class="py-3.5 px-4 font-semibold">Pemakaian Bar (Konsumsi Nyata)</th>
+<th class="py-3.5 px-3 font-semibold text-right">Rasio Waste &amp; Rugi</th>
+<th class="py-3.5 px-4 font-semibold">Rekomendasi AI Kafe &amp; Aksi PO</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted/60 font-body-sm text-body-sm text-text-primary" id="procurementTableBody">
+<!-- Item 1: Fresh Milk Diamond -->
+<tr class="item-row hover:bg-container-base/60 transition-colors" data-status="adjust">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-container-elevated flex items-center justify-center text-text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">local_cafe</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg font-bold text-text-primary truncate">Fresh Milk Diamond 1L</span>
+<span class="font-body-sm text-body-sm text-text-subtle flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">storefront</span> PT Sukanda Djaya (SKU: DIA-102)
+                    </span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-container-elevated text-text-secondary font-medium">
+                  Dairy Fresh
+                </span>
+</td>
+<td class="py-3.5 px-3 text-right font-mono font-bold text-text-primary">
+                120 Liter
+              </td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1 max-w-[200px]">
+<div class="flex justify-between font-label-sm text-label-sm text-text-secondary">
+<span class="font-mono font-medium">105 Liter</span>
+<span class="font-semibold text-status-warning-text">87.5% terserap</span>
+</div>
+<div class="w-full h-2 rounded-full bg-container-elevated overflow-hidden">
+<div class="h-full bg-status-warning-text rounded-full" style="width: 87.5%;"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono font-semibold text-status-warning-text">12.5% waste</span>
+<span class="font-body-sm text-body-sm text-status-critical-text font-medium">(Rp 84.000)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap items-center gap-2">
+<span class="bg-status-warning-bg text-status-warning-text font-medium text-xs px-2.5 py-1 rounded-full inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> Turunkan Volume (-15%)
+                  </span>
+<button class="px-2.5 py-1 bg-container-elevated hover:bg-primary-container hover:text-canvas-base text-text-primary font-label-sm text-label-sm rounded-md transition-all cursor-pointer" onclick="applyPoAdjustment(this, 'Fresh Milk Diamond 1L', '100 Liter')">
+                    Terapkan PO 100L
+                  </button>
+</div>
+</td>
+</tr>
+<!-- Item 2: Croissant Butter -->
+<tr class="item-row hover:bg-container-base/60 transition-colors" data-status="adjust">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-container-elevated flex items-center justify-center text-text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">bakery_dining</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg font-bold text-text-primary truncate">Croissant Butter Artisan</span>
+<span class="font-body-sm text-body-sm text-text-subtle flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">storefront</span> Maison Bakehouse (SKU: CRO-004)
+                    </span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-container-elevated text-text-secondary font-medium">
+                  Pastry / Bakery
+                </span>
+</td>
+<td class="py-3.5 px-3 text-right font-mono font-bold text-text-primary">
+                80 pcs
+              </td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1 max-w-[200px]">
+<div class="flex justify-between font-label-sm text-label-sm text-text-secondary">
+<span class="font-mono font-medium">65 pcs</span>
+<span class="font-semibold text-status-critical-text">81.3% terserap</span>
+</div>
+<div class="w-full h-2 rounded-full bg-container-elevated overflow-hidden">
+<div class="h-full bg-status-critical-text rounded-full" style="width: 81.3%;"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono font-semibold text-status-critical-text">18.7% waste</span>
+<span class="font-body-sm text-body-sm text-status-critical-text font-medium">(Rp 72.000)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-wrap items-center gap-2">
+<span class="bg-status-critical-bg text-status-critical-text font-medium text-xs px-2.5 py-1 rounded-full inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> Batasi PO: Expired Cepat
+                  </span>
+<button class="px-2.5 py-1 bg-container-elevated hover:bg-primary-container hover:text-canvas-base text-text-primary font-label-sm text-label-sm rounded-md transition-all cursor-pointer" onclick="applyPoAdjustment(this, 'Croissant Butter', '65 pcs')">
+                    Atur PO 65 pcs
+                  </button>
+</div>
+</td>
+</tr>
+<!-- Item 3: House Espresso Blend -->
+<tr class="item-row hover:bg-container-base/60 transition-colors" data-status="ideal">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-container-elevated flex items-center justify-center text-text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">drive_file_rename_outline</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg font-bold text-text-primary truncate">House Espresso Blend (Flores &amp; Gayo)</span>
+<span class="font-body-sm text-body-sm text-text-subtle flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">storefront</span> Tanamera Roastery (SKU: BLN-881)
+                    </span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-container-elevated text-text-secondary font-medium">
+                  Coffee Beans
+                </span>
+</td>
+<td class="py-3.5 px-3 text-right font-mono font-bold text-text-primary">
+                25 kg
+              </td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1 max-w-[200px]">
+<div class="flex justify-between font-label-sm text-label-sm text-text-secondary">
+<span class="font-mono font-medium">24.8 kg</span>
+<span class="font-semibold text-status-safe-text">99.2% terserap</span>
+</div>
+<div class="w-full h-2 rounded-full bg-container-elevated overflow-hidden">
+<div class="h-full bg-status-safe-text rounded-full" style="width: 99.2%;"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono font-medium text-text-subtle">0.8% waste</span>
+<span class="font-body-sm text-body-sm text-text-subtle">(Rp 18.000)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="bg-status-safe-bg text-status-safe-text font-medium text-xs px-2.5 py-1 rounded-full inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Kuantitas Sangat Ideal
+                  </span>
+<span class="font-label-sm text-label-sm text-text-subtle">Pertahankan 25 kg</span>
+</div>
+</td>
+</tr>
+<!-- Item 4: Monin Caramel Syrup -->
+<tr class="item-row hover:bg-container-base/60 transition-colors" data-status="ideal">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-container-elevated flex items-center justify-center text-text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">liquor</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg font-bold text-text-primary truncate">Monin Caramel Syrup 700ml</span>
+<span class="font-body-sm text-body-sm text-text-subtle flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">storefront</span> PT Toffin Indonesia (SKU: SYR-901)
+                    </span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-container-elevated text-text-secondary font-medium">
+                  Flavor Syrup
+                </span>
+</td>
+<td class="py-3.5 px-3 text-right font-mono font-bold text-text-primary">
+                10 Botol
+              </td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1 max-w-[200px]">
+<div class="flex justify-between font-label-sm text-label-sm text-text-secondary">
+<span class="font-mono font-medium">9.8 Botol</span>
+<span class="font-semibold text-status-safe-text">97.9% terserap</span>
+</div>
+<div class="w-full h-2 rounded-full bg-container-elevated overflow-hidden">
+<div class="h-full bg-status-safe-text rounded-full" style="width: 97.9%;"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono font-medium text-text-subtle">2.1% waste</span>
+<span class="font-body-sm text-body-sm text-text-subtle">(Rp 14.000)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="bg-status-safe-bg text-status-safe-text font-medium text-xs px-2.5 py-1 rounded-full inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Kuantitas Sangat Ideal
+                  </span>
+<span class="font-label-sm text-label-sm text-text-subtle">Pertahankan 10 Botol</span>
+</div>
+</td>
+</tr>
+<!-- Item 5: Oatside Barista Blend -->
+<tr class="item-row hover:bg-container-base/60 transition-colors" data-status="ideal">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-container-elevated flex items-center justify-center text-text-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">eco</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg font-bold text-text-primary truncate">Oatside Barista Blend 1L</span>
+<span class="font-body-sm text-body-sm text-text-subtle flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">storefront</span> PT Sumber Kopi Sejahtera (SKU: OAT-330)
+                    </span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-container-elevated text-text-secondary font-medium">
+                  Plant-Based Milk
+                </span>
+</td>
+<td class="py-3.5 px-3 text-right font-mono font-bold text-text-primary">
+                60 Liter
+              </td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-1 max-w-[200px]">
+<div class="flex justify-between font-label-sm text-label-sm text-text-secondary">
+<span class="font-mono font-medium">57.5 Liter</span>
+<span class="font-semibold text-status-safe-text">95.8% terserap</span>
+</div>
+<div class="w-full h-2 rounded-full bg-container-elevated overflow-hidden">
+<div class="h-full bg-status-safe-text rounded-full" style="width: 95.8%;"></div>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3 text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono font-medium text-text-subtle">4.2% waste</span>
+<span class="font-body-sm text-body-sm text-text-subtle">(Rp 24.000)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<span class="bg-status-safe-bg text-status-safe-text font-medium text-xs px-2.5 py-1 rounded-full inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Kuantitas Sangat Ideal
+                  </span>
+<span class="font-label-sm text-label-sm text-text-subtle">Pertahankan 60 Liter</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Live Feedback Notification Banner for actions -->
+<div class="hidden p-3 rounded-lg bg-status-safe-bg text-status-safe-text font-body-sm text-body-sm flex items-center justify-between transition-all" id="actionToast">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+<span id="actionToastMsg">Rekomendasi kuantitas pesanan berhasil diterapkan ke draf PO bulan depan.</span>
+</div>
+<button class="text-status-safe-text hover:opacity-75" onclick="document.getElementById('actionToast').classList.add('hidden')">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+<!-- Row 3: Actionable Procurement Insight Box -->
+<div class="rounded-xl bg-container-elevated/70 p-4 md:p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<!-- Left Content -->
+<div class="flex items-start gap-3.5 max-w-2xl">
+<div class="w-10 h-10 rounded-full bg-status-warning-bg flex items-center justify-center text-status-warning-text shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[22px]">lightbulb</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg font-bold text-text-primary">Estimasi Penghematan Modal Operasional:</span>
+<span class="font-mono font-bold text-status-safe-text bg-status-safe-bg px-2 py-0.5 rounded text-xs">+Rp 1.150.000 / bln</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+            Mengikuti rekomendasi pemangkasan order Fresh Milk Diamond (-15%) dan Croissant Butter (-15 pcs) bulan depan dapat menekan penumpukan modal mati serta mengurangi risiko pemusnahan barang kedaluwarsa mendekati 0%.
+          </p>
+</div>
+</div>
+<!-- Right Action CTA Buttons -->
+<div class="flex flex-wrap items-center gap-2.5 shrink-0 self-start md:self-auto">
+<button class="flex items-center gap-2 px-3.5 py-2.5 rounded-lg bg-canvas-base hover:bg-container-elevated text-text-primary font-label-md text-label-md font-semibold transition-colors cursor-pointer shadow-sm" id="btnExportPDF">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">picture_as_pdf</span>
+<span>Export PO (.PDF)</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary-container hover:bg-text-secondary text-canvas-base font-label-md text-label-md font-semibold transition-colors cursor-pointer shadow-sm" id="btnSendWA">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Kirim PO ke Vendor via WA</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Interactive PO Plan Modal (Hidden by default) -->
+<div class="fixed inset-0 z-50 bg-on-background/40 backdrop-blur-sm hidden flex items-center justify-center p-4" id="poModal">
+<div class="bg-container-base rounded-2xl max-w-lg w-full p-6 shadow-xl flex flex-col gap-4">
+<div class="flex items-center justify-between pb-3">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-canvas-base flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">playlist_add_check</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-text-primary">Buat Rencana PO Baru</h3>
+</div>
+<button class="w-8 h-8 rounded-full bg-container-elevated hover:bg-canvas-base flex items-center justify-center text-text-subtle" id="closePoModal">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-3 font-body-sm text-body-sm text-text-secondary">
+<p>Sistem AI BeanFlow akan mengompilasi kuantitas yang telah disesuaikan (FEFO auto-balance) ke dalam Purchase Order bulan berikutnya.</p>
+<div class="p-3 bg-canvas-base rounded-lg flex flex-col gap-2">
+<div class="flex justify-between">
+<span class="font-medium text-text-primary">Fresh Milk Diamond:</span>
+<span class="font-mono font-bold text-primary-container">100 Liter (Sudah disesuaikan)</span>
+</div>
+<div class="flex justify-between">
+<span class="font-medium text-text-primary">Croissant Butter Artisan:</span>
+<span class="font-mono font-bold text-primary-container">65 pcs (Sudah disesuaikan)</span>
+</div>
+<div class="flex justify-between">
+<span class="font-medium text-text-primary">Bahan Ideal (3 items):</span>
+<span class="font-mono font-bold text-status-safe-text">Sesuai kuota reguler</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<input checked="" class="w-4 h-4 accent-primary-container rounded cursor-pointer" id="notifyBarista" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-text-primary cursor-pointer" for="notifyBarista">Kirim salinan jadwal kedatangan ke Head Barista</label>
+</div>
+</div>
+<div class="flex justify-end gap-2.5 pt-3">
+<button class="px-4 py-2 rounded-lg bg-container-elevated text-text-primary font-label-md text-label-md" id="cancelPoModal">Batal</button>
+<button class="px-4 py-2 rounded-lg bg-primary-container text-canvas-base font-label-md text-label-md font-semibold hover:bg-text-secondary" id="confirmPoModal">Simpan Draf &amp; Terbitkan PO</button>
+</div>
+</div>
+</div>
+<!-- Client-side Interactions -->
+<script>
+    // Tab Filtering
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const tableRows = document.querySelectorAll('.item-row');
+
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach(t => {
+          t.classList.remove('bg-primary-container', 'text-canvas-base', 'shadow-sm');
+          t.classList.add('text-text-secondary');
+        });
+        tab.classList.add('bg-primary-container', 'text-canvas-base', 'shadow-sm');
+        tab.classList.remove('text-text-secondary');
+
+        const filter = tab.getAttribute('data-filter');
+        tableRows.forEach(row => {
+          const status = row.getAttribute('data-status');
+          if (filter === 'all' || status === filter) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Instant Search
+    const searchInput = document.getElementById('procurementSearch');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        tableRows.forEach(row => {
+          const rowText = row.innerText.toLowerCase();
+          if (rowText.includes(query)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // Quick Apply PO adjustments
+    function applyPoAdjustment(button, itemName, newQty) {
+      button.innerText = 'Diterapkan ✓';
+      button.classList.remove('bg-container-elevated', 'hover:bg-primary-container', 'text-text-primary');
+      button.classList.add('bg-status-safe-bg', 'text-status-safe-text', 'font-semibold');
+      button.disabled = true;
+
+      const toast = document.getElementById('actionToast');
+      const toastMsg = document.getElementById('actionToastMsg');
+      if (toast && toastMsg) {
+        toastMsg.innerText = `Kuantitas PO untuk ${itemName} berhasil diubah ke ${newQty} untuk pengadaan berikutnya.`;
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 5000);
+      }
+    }
+
+    // Modal Handling
+    const btnCreatePO = document.getElementById('btnCreatePO');
+    const poModal = document.getElementById('poModal');
+    const closePoModal = document.getElementById('closePoModal');
+    const cancelPoModal = document.getElementById('cancelPoModal');
+    const confirmPoModal = document.getElementById('confirmPoModal');
+
+    if (btnCreatePO && poModal) {
+      btnCreatePO.addEventListener('click', () => poModal.classList.remove('hidden'));
+    }
+    if (closePoModal && poModal) {
+      closePoModal.addEventListener('click', () => poModal.classList.add('hidden'));
+    }
+    if (cancelPoModal && poModal) {
+      cancelPoModal.addEventListener('click', () => poModal.classList.add('hidden'));
+    }
+    if (confirmPoModal && poModal) {
+      confirmPoModal.addEventListener('click', () => {
+        poModal.classList.add('hidden');
+        const toast = document.getElementById('actionToast');
+        const toastMsg = document.getElementById('actionToastMsg');
+        if (toast && toastMsg) {
+          toastMsg.innerText = 'Draft Purchase Order baru berhasil diterbitkan dan siap diverifikasi.';
+          toast.classList.remove('hidden');
+          setTimeout(() => {
+            toast.classList.add('hidden');
+          }, 4500);
+        }
+      });
+    }
+
+    // WhatsApp Action trigger
+    const btnSendWA = document.getElementById('btnSendWA');
+    if (btnSendWA) {
+      btnSendWA.addEventListener('click', () => {
+        const toast = document.getElementById('actionToast');
+        const toastMsg = document.getElementById('actionToastMsg');
+        if (toast && toastMsg) {
+          toastMsg.innerText = 'Membuka integrasi WhatsApp Web untuk vendor PT Sukanda Djaya & Maison Bakehouse...';
+          toast.classList.remove('hidden');
+          setTimeout(() => {
+            toast.classList.add('hidden');
+          }, 4000);
+        }
+      });
+    }
+
+    // Export PDF trigger
+    const btnExportPDF = document.getElementById('btnExportPDF');
+    if (btnExportPDF) {
+      btnExportPDF.addEventListener('click', () => {
+        const toast = document.getElementById('actionToast');
+        const toastMsg = document.getElementById('actionToastMsg');
+        if (toast && toastMsg) {
+          toastMsg.innerText = 'Mengunduh Laporan_Evaluasi_Pengadaan_BeanFlow.pdf...';
+          toast.classList.remove('hidden');
+          setTimeout(() => {
+            toast.classList.add('hidden');
+          }, 4000);
+        }
+      });
+    }
+  </script>
+</div></main></div></body></html>
