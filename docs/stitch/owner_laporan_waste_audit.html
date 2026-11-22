@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"status-warning-border":"#FED7AA","surface":"#fcf9f4","on-secondary":"#ffffff","surface-container-lowest":"#ffffff","on-background":"#1c1c19","primary-fixed-dim":"#edbd97","status-critical-text":"#8C3D2B","border-muted":"#EDE4DC","status-safe-border":"#6EE7B7","text-secondary":"#5C3A21","on-error-container":"#93000a","on-surface-variant":"#50453d","text-subtle":"#9C8474","tertiary-container":"#5f1c0d","on-primary-container":"#bf926f","container-base":"#F5EFEB","canvas-base":"#FAF7F2","status-warning-bg":"#FFF7ED","on-tertiary-fixed-variant":"#792f1e","text-primary":"#241408","surface-tint":"#7b5638","surface-bright":"#fcf9f4","tertiary-fixed-dim":"#ffb4a3","surface-dim":"#dcdad5","surface-container-highest":"#e5e2dd","error-container":"#ffdad6","status-critical-bg":"#FDF2F0","tertiary":"#410700","status-critical-border":"#F8C6BF","primary-fixed":"#ffdcc2","on-primary-fixed":"#2e1500","on-secondary-container":"#784102","primary":"#311701","on-secondary-fixed-variant":"#6d3a00","on-secondary-fixed":"#2e1500","outline-variant":"#d4c3b9","surface-container-high":"#ebe8e3","surface-container":"#f0ede9","status-safe-bg":"#ECFDF5","on-error":"#ffffff","secondary-container":"#feb06b","background":"#fcf9f4","on-tertiary":"#ffffff","tertiary-fixed":"#ffdad2","outline":"#82746b","status-safe-text":"#065F46","error":"#ba1a1a","inverse-primary":"#edbd97","on-primary":"#ffffff","on-tertiary-container":"#e2806a","status-warning-text":"#C88242","on-tertiary-fixed":"#3d0600","surface-variant":"#e5e2dd","surface-container-low":"#f6f3ee","inverse-surface":"#31302d","primary-container":"#4a2c11","on-surface":"#1c1c19","secondary-fixed":"#ffdcc2","secondary":"#8b5013","container-elevated":"#EDE4DC","inverse-on-surface":"#f3f0eb","secondary-fixed-dim":"#ffb77a","on-primary-fixed-variant":"#613f23"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin-lg":"3rem","space-lg":"1.5rem","space-md":"1rem","space-sm":"0.5rem","gutter-md":"1.5rem","margin":"1rem","space-xl":"2rem","margin-md":"2rem","space-xs":"0.25rem","gutter":"1rem"},"fontFamily":{"label-lg":["Inter"],"body-md":["Inter"],"display-lg":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"display-lg-mobile":["Inter"],"headline-sm":["Inter"],"label-md":["Inter"],"label-sm":["Inter"],"body-sm":["Inter"],"body-lg":["Inter"]},"fontSize":{"label-lg":["14px",{"lineHeight":"20px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"display-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"display-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}]}}}}</script></head><body class="bg-canvas-base text-text-primary antialiased font-body-md text-body-md"><aside class="fixed left-0 top-0 h-full w-[260px] bg-container-base border-r border-border-muted z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="p-space-md border-b border-border-muted flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-canvas-base shadow-sm"><span class="material-symbols-outlined text-[22px]">coffee</span></div><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm font-bold text-text-primary tracking-tight">BeanFlow</span><span class="bg-primary-container text-canvas-base font-label-sm text-label-sm px-1.5 py-0.5 rounded-full">FEFO</span></div><span class="font-label-sm text-label-sm text-text-subtle leading-tight">Specialty Coffee Inventory</span></div></div><div class="p-space-sm flex flex-col gap-space-md"><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-space-xs font-label-sm text-label-sm text-text-subtle uppercase tracking-wider font-semibold">Ringkasan Eksekutif</span><nav class="flex flex-col gap-space-xs" data-active-classes="bg-container-elevated text-primary-container font-semibold"><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors group" data-path="dasbor-finansial-aset" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">analytics</span><span class="font-body-md text-body-md">Dasbor Finansial &amp; Aset</span></div><div class="w-1.5 h-1.5 rounded-full bg-primary-container"></div></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors" data-path="laporan-analitik-waste" href="#"><span class="material-symbols-outlined text-[20px]">pie_chart</span><span class="font-body-md text-body-md">Laporan Analitik &amp; Waste</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors" data-path="evaluasi-pembelian" href="#"><span class="material-symbols-outlined text-[20px]">shopping_bag</span><span class="font-body-md text-body-md">Evaluasi Pembelian</span></a></nav></div><div class="flex flex-col gap-space-xs"><span class="px-space-sm py-space-xs font-label-sm text-label-sm text-text-subtle uppercase tracking-wider font-semibold">Audit &amp; Monitoring (View Only)</span><nav class="flex flex-col gap-space-xs" data-active-classes="bg-container-elevated text-primary-container font-semibold"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors" data-path="monitoring-kedaluwarsa" href="#"><span class="material-symbols-outlined text-[20px]">hourglass_bottom</span><span class="font-body-md text-body-md">Monitoring Kedaluwarsa</span></a><a class="flex items-center justify-between px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors" data-path="katalog-master-bahan" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-body-md text-body-md">Katalog Master Bahan</span></div><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-container-elevated text-text-secondary font-medium">View</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-text-secondary hover:bg-container-elevated hover:text-text-primary transition-colors" data-path="log-pemusnahan-waste" href="#"><span class="material-symbols-outlined text-[20px]">delete_sweep</span><span class="font-body-md text-body-md">Log Pemusnahan &amp; Waste</span></a></nav></div></div></div><div class="p-space-sm border-t border-border-muted"><div class="p-space-sm bg-container-elevated rounded-xl border border-border-muted flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-md text-label-md font-semibold text-text-primary">Owner / Eksekutif</span><span class="material-symbols-outlined text-[16px] text-text-subtle">security</span></div><span class="font-body-sm text-body-sm text-text-secondary">Semua Outlet - Pusat</span><div class="flex items-center gap-1.5 mt-0.5"><div class="w-1.5 h-1.5 rounded-full bg-status-safe-text"></div><span class="font-label-sm text-label-sm text-status-safe-text font-medium">Akses Penuh Finansial</span></div></div></div></aside><div class="pl-[260px]"><header class="fixed top-0 left-[260px] right-0 h-16 bg-container-base/80 backdrop-blur-xl border-b border-border-muted z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-text-secondary text-[20px]">admin_panel_settings</span><span class="font-headline-sm text-headline-sm text-text-primary font-semibold tracking-tight">Owner Executive | Finansial &amp; Analitik Kedai</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-status-safe-bg border border-status-safe-border px-2.5 py-1 rounded-full"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-safe-text opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-status-safe-text"></span></span><span class="font-label-sm text-label-sm text-status-safe-text font-medium">Sistem Sinkron</span></div><div class="px-2.5 py-1 rounded-full bg-status-warning-bg border border-status-warning-border text-status-warning-text font-label-sm text-label-sm font-semibold">Owner / Pengelola</div><div class="flex items-center gap-space-xs pl-space-xs border-l border-border-muted cursor-pointer"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col text-left"><span class="font-label-md text-label-md font-semibold text-text-primary leading-tight">Hendrawan Kusuma</span><span class="font-label-sm text-label-sm text-text-subtle leading-tight">Owner</span></div><span class="material-symbols-outlined text-text-subtle text-[18px]">expand_more</span></div></div></header><main class="relative pt-16 bg-canvas-base min-h-screen"><div class="flex flex-col w-full">
+<!-- Main Workspace Canvas -->
+<div class="px-space-lg py-space-lg max-w-[1400px] w-full mx-auto flex flex-col gap-space-lg">
+<!-- Canvas Header Toolbar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Title & Kicker Group -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-container-elevated text-text-secondary font-label-sm text-label-sm border border-border-muted tracking-wider uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-status-critical-text"></span>
+            Audit &amp; Keuangan Owner • Laporan Resmi SPV
+          </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-safe-bg text-status-safe-text border border-status-safe-border font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+            SOP Terverifikasi
+          </span>
+</div>
+<div class="flex items-center gap-space-sm mt-0.5">
+<div class="w-10 h-10 rounded-xl bg-status-critical-bg border border-status-critical-border flex items-center justify-center text-status-critical-text shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">trending_down</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight font-bold">Laporan Audit Waste &amp; Biaya</h1>
+<p class="font-body-sm text-body-sm text-text-secondary">Transparansi data bahan baku yang rusak, basi, dan dibuang resmi oleh supervisor outlet.</p>
+</div>
+</div>
+</div>
+<!-- Filter & Action Controls -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Date Range Filter -->
+<div class="relative">
+<button class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-container-base border border-border-muted hover:border-status-warning-text/60 text-text-primary font-label-md text-label-md transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-subtle">calendar_today</span>
+<span>Bulan Ini (Oktober 2026)</span>
+<span class="material-symbols-outlined text-[16px] text-text-subtle">expand_more</span>
+</button>
+</div>
+<!-- Category Dropdown Filter -->
+<div class="relative">
+<button class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-container-base border border-border-muted hover:border-status-warning-text/60 text-text-primary font-label-md text-label-md transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-subtle">filter_alt</span>
+<span>Semua Kategori</span>
+<span class="material-symbols-outlined text-[16px] text-text-subtle">expand_more</span>
+</button>
+</div>
+<!-- Export Financial Report Button -->
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-container-elevated hover:bg-[#E2D8CF] text-text-primary border border-border-muted font-label-md text-label-md font-semibold transition-all shadow-sm active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">download</span>
+<span>Unduh Laporan Keuangan</span>
+</button>
+</div>
+</div>
+<!-- Row 1: Three Executive Audit Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Card 1: Total Kerugian Finansial -->
+<div class="bg-container-base border border-border-muted rounded-xl p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-status-critical-border transition-colors">
+<div class="flex items-center justify-between gap-2 mb-2">
+<span class="font-label-sm text-label-sm text-text-subtle uppercase tracking-wider font-semibold">Total Kerugian Finansial</span>
+<div class="w-8 h-8 rounded-lg bg-status-critical-bg border border-status-critical-border flex items-center justify-center text-status-critical-text">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 my-1">
+<span class="font-headline-lg text-[28px] leading-8 font-bold text-status-critical-text tracking-tight font-mono">Rp 1.840.000</span>
+<div class="flex items-center gap-1.5 text-status-safe-text">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="font-body-sm text-body-sm font-medium">0.89% dari HPP kafe (Aman • Tolok ukur &lt;1.5%)</span>
+</div>
+</div>
+<div class="pt-3 mt-3 border-t border-border-muted/80 flex items-center justify-between text-text-subtle font-body-sm text-body-sm">
+<span>Target Maks: Rp 3.100.000</span>
+<span class="font-semibold text-text-secondary">Efisien -40.6%</span>
+</div>
+</div>
+<!-- Card 2: Volume Bahan Terbuang -->
+<div class="bg-container-base border border-border-muted rounded-xl p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-status-warning-border transition-colors">
+<div class="flex items-center justify-between gap-2 mb-2">
+<span class="font-label-sm text-label-sm text-text-subtle uppercase tracking-wider font-semibold">Volume Bahan Terbuang</span>
+<div class="w-8 h-8 rounded-lg bg-status-warning-bg border border-status-warning-border flex items-center justify-center text-status-warning-text">
+<span class="material-symbols-outlined text-[18px]">scale</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 my-1">
+<span class="font-headline-lg text-[26px] leading-8 font-bold text-text-primary tracking-tight">14.500 ml <span class="font-body-md text-text-subtle font-normal">&amp;</span> 3.200 gr</span>
+<div class="flex items-center gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[16px] text-text-subtle">inventory</span>
+<span class="font-body-sm text-body-sm">Akumulasi fisik limbah dari 4 kategori bahan</span>
+</div>
+</div>
+<div class="pt-3 mt-3 border-t border-border-muted/80 flex items-center justify-between text-text-subtle font-body-sm text-body-sm">
+<span>Dominan: Dairy Liquid</span>
+<span class="font-semibold text-text-secondary">78% dari total literase</span>
+</div>
+</div>
+<!-- Card 3: Insiden Pemusnahan Resmi -->
+<div class="bg-container-base border border-border-muted rounded-xl p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-status-safe-border transition-colors">
+<div class="flex items-center justify-between gap-2 mb-2">
+<span class="font-label-sm text-label-sm text-text-subtle uppercase tracking-wider font-semibold">Insiden Pemusnahan Resmi</span>
+<div class="w-8 h-8 rounded-lg bg-status-safe-bg border border-status-safe-border flex items-center justify-center text-status-safe-text">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 my-1">
+<span class="font-headline-lg text-[28px] leading-8 font-bold text-text-primary tracking-tight">12 Tiket Disetujui</span>
+<div class="flex items-center gap-1 text-status-safe-text font-medium">
+<span class="material-symbols-outlined text-[16px]">done_all</span>
+<span class="font-body-sm text-body-sm">100% diverifikasi fisik oleh SPV Sari</span>
+</div>
+</div>
+<div class="pt-3 mt-3 border-t border-border-muted/80 flex items-center justify-between text-text-subtle font-body-sm text-body-sm">
+<span>Sinkronisasi Pembukuan:</span>
+<span class="font-semibold text-status-safe-text">Terekonsiliasi Jurnal</span>
+</div>
+</div>
+</div>
+<!-- Row 2: Two-Column Audit Breakdown Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Kategori Bahan & Visual Proporsi (Col 5) -->
+<div class="lg:col-span-5 bg-container-base border border-border-muted rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<!-- Card Header -->
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-bold tracking-tight">Distribusi Kerugian per Kategori</h2>
+<p class="font-body-sm text-body-sm text-text-subtle">Proporsi nominal kerugian dari total Rp 1.840.000</p>
+</div>
+<span class="material-symbols-outlined text-text-subtle text-[20px]">pie_chart</span>
+</div>
+<!-- Segmented Stacked Progress Bar Visual -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="w-full h-3 rounded-full overflow-hidden flex bg-container-elevated p-0.5">
+<div class="h-full rounded-l-full bg-status-critical-text transition-all" style="width: 62%" title="Dairy: 62%"></div>
+<div class="h-full bg-status-warning-text transition-all" style="width: 23%" title="Bakery: 23%"></div>
+<div class="h-full bg-[#B08968] transition-all" style="width: 10%" title="Syrup: 10%"></div>
+<div class="h-full rounded-r-full bg-text-subtle transition-all" style="width: 5%" title="Beans: 5%"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-text-subtle">
+<span>0%</span>
+<span>Total 100% Write-off</span>
+</div>
+</div>
+<!-- Detailed Breakdown Rows -->
+<div class="flex flex-col gap-space-sm pt-1">
+<!-- Item 1: Dairy (Susu) -->
+<div class="p-space-sm rounded-lg bg-canvas-base border border-border-muted flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-status-critical-text"></span>
+<span class="font-label-lg text-label-lg font-semibold text-text-primary">Dairy &amp; Susu Segar</span>
+<span class="px-2 py-0.5 rounded-full bg-status-critical-bg text-status-critical-text border border-status-critical-border font-label-sm text-label-sm font-semibold">Paling Kritis</span>
+</div>
+<span class="font-label-lg text-label-lg font-bold font-mono text-status-critical-text">Rp 1.140.000</span>
+</div>
+<div class="w-full bg-container-elevated h-1.5 rounded-full overflow-hidden">
+<div class="bg-status-critical-text h-full rounded-full" style="width: 62%"></div>
+</div>
+<div class="flex items-center justify-between text-text-secondary font-body-sm text-body-sm">
+<span>62.0% dari total limbah</span>
+<span class="font-mono text-text-subtle">Vol: 11.500 ml</span>
+</div>
+</div>
+<!-- Item 2: Bakery (Kue) -->
+<div class="p-space-sm rounded-lg bg-canvas-base border border-border-muted flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-status-warning-text"></span>
+<span class="font-label-lg text-label-lg font-semibold text-text-primary">Pastry &amp; Bakery</span>
+</div>
+<span class="font-label-lg text-label-lg font-semibold font-mono text-status-warning-text">Rp 423.000</span>
+</div>
+<div class="w-full bg-container-elevated h-1.5 rounded-full overflow-hidden">
+<div class="bg-status-warning-text h-full rounded-full" style="width: 23%"></div>
+</div>
+<div class="flex items-center justify-between text-text-secondary font-body-sm text-body-sm">
+<span>23.0% dari total limbah</span>
+<span class="font-mono text-text-subtle">Vol: 22 pcs</span>
+</div>
+</div>
+<!-- Item 3: Syrup & Flavouring -->
+<div class="p-space-sm rounded-lg bg-canvas-base border border-border-muted flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#B08968]"></span>
+<span class="font-label-lg text-label-lg font-semibold text-text-primary">Syrup &amp; Flavouring</span>
+</div>
+<span class="font-label-lg text-label-lg font-medium font-mono text-text-secondary">Rp 184.000</span>
+</div>
+<div class="w-full bg-container-elevated h-1.5 rounded-full overflow-hidden">
+<div class="bg-[#B08968] h-full rounded-full" style="width: 10%"></div>
+</div>
+<div class="flex items-center justify-between text-text-secondary font-body-sm text-body-sm">
+<span>10.0% dari total limbah</span>
+<span class="font-mono text-text-subtle">Vol: 1.200 ml</span>
+</div>
+</div>
+<!-- Item 4: Coffee Beans -->
+<div class="p-space-sm rounded-lg bg-canvas-base border border-border-muted flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-text-subtle"></span>
+<span class="font-label-lg text-label-lg font-semibold text-text-primary">Specialty Coffee Beans</span>
+</div>
+<span class="font-label-lg text-label-lg font-medium font-mono text-text-subtle">Rp 93.000</span>
+</div>
+<div class="w-full bg-container-elevated h-1.5 rounded-full overflow-hidden">
+<div class="bg-text-subtle h-full rounded-full" style="width: 5%"></div>
+</div>
+<div class="flex items-center justify-between text-text-secondary font-body-sm text-body-sm">
+<span>5.0% dari total limbah</span>
+<span class="font-mono text-text-subtle">Vol: 350 gr (Purging/Dial-in)</span>
+</div>
+</div>
+</div>
+<!-- Actionable Insight Note Box -->
+<div class="bg-canvas-base p-space-md rounded-lg border border-border-muted flex items-start gap-space-sm">
+<div class="w-7 h-7 rounded-md bg-status-warning-bg border border-status-warning-border flex items-center justify-center text-status-warning-text flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md font-bold text-text-primary">Rekomendasi Kontrol Owner</span>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+<strong class="text-status-critical-text font-semibold">62% kerugian berpusat pada Dairy</strong> (Fresh Milk Diamond &amp; Oat Milk). Dianjurkan mengkalibrasi ulang chiller bar ke suhu konsisten 3.5°C dan menurunkan batch size restock per 3 hari untuk menekan usia simpan terbuka.
+            </p>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Riwayat Transaksi Pemusnahan Resmi (Col 7) -->
+<div class="lg:col-span-7 bg-container-base border border-border-muted rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<!-- Table Card Header & Search -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-text-primary font-bold tracking-tight">Riwayat Pemusnahan Bahan Resmi</h2>
+<span class="px-2 py-0.5 rounded-full bg-container-elevated text-text-secondary font-label-sm text-label-sm font-semibold border border-border-muted">12 Transaksi</span>
+</div>
+<!-- Mini Search Bar inside Table -->
+<div class="relative w-full sm:w-60">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-text-subtle text-[18px]">search</span>
+<input class="w-full pl-8 pr-3 py-1.5 rounded-lg bg-canvas-base border border-border-muted text-text-primary font-body-sm text-body-sm focus:outline-none focus:border-status-warning-text transition-colors" placeholder="Cari bahan / kode batch..." type="text"/>
+</div>
+</div>
+<!-- Table Container -->
+<div class="rounded-lg overflow-hidden border border-border-muted">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-container-elevated text-text-secondary border-b border-border-muted">
+<th class="py-2.5 px-3 font-label-sm text-label-sm uppercase tracking-wider font-semibold">Tanggal</th>
+<th class="py-2.5 px-3 font-label-sm text-label-sm uppercase tracking-wider font-semibold">Bahan &amp; Batch</th>
+<th class="py-2.5 px-3 font-label-sm text-label-sm uppercase tracking-wider font-semibold text-right">Qty</th>
+<th class="py-2.5 px-3 font-label-sm text-label-sm uppercase tracking-wider font-semibold text-right">Kerugian</th>
+<th class="py-2.5 px-3 font-label-sm text-label-sm uppercase tracking-wider font-semibold">Alasan</th>
+<th class="py-2.5 px-3 font-label-sm text-label-sm uppercase tracking-wider font-semibold">Verifikator</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted font-body-sm text-body-sm">
+<!-- Row 1 -->
+<tr class="bg-canvas-base hover:bg-container-elevated/40 transition-colors">
+<td class="py-3 px-3 font-mono text-text-subtle whitespace-nowrap">24 Okt</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-text-primary">Fresh Milk Diamond</span>
+<span class="font-mono text-[11px] text-text-subtle">#BCH-2610-01 • Exp: 23 Okt</span>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono text-text-primary whitespace-nowrap">2.500 ml</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-status-critical-text whitespace-nowrap">Rp 45.000</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-critical-bg text-status-critical-text border border-status-critical-border font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-critical-text"></span>
+                      Bau Asam
+                    </span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5">
+<div class="w-6 h-6 rounded-full bg-primary-container text-canvas-base flex items-center justify-center font-label-sm text-[10px] font-bold">SR</div>
+<span class="font-label-md text-label-md text-text-primary">SPV Sari</span>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-container-base hover:bg-container-elevated/40 transition-colors">
+<td class="py-3 px-3 font-mono text-text-subtle whitespace-nowrap">21 Okt</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-text-primary">Butter Croissant Artisan</span>
+<span class="font-mono text-[11px] text-text-subtle">#BCH-2610-08 • Pastry Bar</span>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono text-text-primary whitespace-nowrap">6 pcs</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-status-critical-text whitespace-nowrap">Rp 96.000</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-warning-bg text-status-warning-text border border-status-warning-border font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning-text"></span>
+                      Kedaluwarsa
+                    </span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5">
+<div class="w-6 h-6 rounded-full bg-primary-container text-canvas-base flex items-center justify-center font-label-sm text-[10px] font-bold">SR</div>
+<span class="font-label-md text-label-md text-text-primary">SPV Sari</span>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="bg-canvas-base hover:bg-container-elevated/40 transition-colors">
+<td class="py-3 px-3 font-mono text-text-subtle whitespace-nowrap">18 Okt</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-text-primary">Monin Madagascar Vanilla</span>
+<span class="font-mono text-[11px] text-text-subtle">#BCH-2609-03 • Botol Kaca</span>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono text-text-primary whitespace-nowrap">350 ml</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-status-critical-text whitespace-nowrap">Rp 52.500</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-container-elevated text-text-secondary border border-border-muted font-label-sm text-label-sm font-medium">
+                      Kemasan Retak
+                    </span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5">
+<div class="w-6 h-6 rounded-full bg-primary-container text-canvas-base flex items-center justify-center font-label-sm text-[10px] font-bold">SR</div>
+<span class="font-label-md text-label-md text-text-primary">SPV Sari</span>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-container-base hover:bg-container-elevated/40 transition-colors">
+<td class="py-3 px-3 font-mono text-text-subtle whitespace-nowrap">15 Okt</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-text-primary">Oatside Barista Blend</span>
+<span class="font-mono text-[11px] text-text-subtle">#BCH-2610-05 • Chiller 2</span>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono text-text-primary whitespace-nowrap">1.000 ml</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-status-critical-text whitespace-nowrap">Rp 38.000</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-warning-bg text-status-warning-text border border-status-warning-border font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning-text"></span>
+                      Kedaluwarsa
+                    </span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5">
+<div class="w-6 h-6 rounded-full bg-primary-container text-canvas-base flex items-center justify-center font-label-sm text-[10px] font-bold">SR</div>
+<span class="font-label-md text-label-md text-text-primary">SPV Sari</span>
+</div>
+</td>
+</tr>
+<!-- Row 5 (Extra audit row for financial completeness) -->
+<tr class="bg-canvas-base hover:bg-container-elevated/40 transition-colors">
+<td class="py-3 px-3 font-mono text-text-subtle whitespace-nowrap">11 Okt</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-text-primary">House Blend Espresso Beans</span>
+<span class="font-mono text-[11px] text-text-subtle">#BCH-2609-22 • Roastery Lot 14</span>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono text-text-primary whitespace-nowrap">350 gr</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-status-critical-text whitespace-nowrap">Rp 93.000</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-container-elevated text-text-secondary border border-border-muted font-label-sm text-label-sm font-medium">
+                      Purge Kalibrasi
+                    </span>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5">
+<div class="w-6 h-6 rounded-full bg-primary-container text-canvas-base flex items-center justify-center font-label-sm text-[10px] font-bold">SR</div>
+<span class="font-label-md text-label-md text-text-primary">SPV Sari</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Table Footer / Pagination Info & CSV Export -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-sm pt-1">
+<span class="font-body-sm text-body-sm text-text-subtle">
+            Menampilkan <strong class="text-text-primary font-semibold">5 dari 12 tiket</strong> pemusnahan resmi terverifikasi
+          </span>
+<div class="flex items-center gap-space-md">
+<button class="inline-flex items-center gap-1 text-text-secondary hover:text-text-primary font-label-sm text-label-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Ekspor Format CSV</span>
+</button>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 rounded border border-border-muted bg-canvas-base flex items-center justify-center text-text-subtle opacity-50 cursor-not-allowed" disabled="" type="button">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+</button>
+<button class="w-7 h-7 rounded border border-border-muted bg-primary-container text-canvas-base font-mono text-label-sm flex items-center justify-center font-semibold" type="button">
+                1
+              </button>
+<button class="w-7 h-7 rounded border border-border-muted bg-canvas-base hover:bg-container-elevated text-text-primary font-mono text-label-sm flex items-center justify-center transition-colors" type="button">
+                2
+              </button>
+<button class="w-7 h-7 rounded border border-border-muted bg-canvas-base hover:bg-container-elevated text-text-primary flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Sign-off & Audit Integrity Strip -->
+<div class="bg-container-base border border-border-muted rounded-xl p-space-md flex flex-col md:flex-row items-center justify-between gap-space-sm shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-status-safe-bg border border-status-safe-border flex items-center justify-center text-status-safe-text flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-text-primary">Audit Integritas Data &amp; HPP Kafe</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Seluruh tiket write-off telah diverifikasi fisik di outlet dan terekonsiliasi ke sistem pembukuan BeanFlow HPP Kafe.</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs text-text-subtle font-mono text-label-sm flex-shrink-0">
+<span class="material-symbols-outlined text-[15px]">lock</span>
+<span>ID Audit: AUD-202610-BF09 • Hash: #4A9C88</span>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

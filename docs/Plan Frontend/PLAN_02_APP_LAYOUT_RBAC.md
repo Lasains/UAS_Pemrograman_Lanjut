@@ -11,11 +11,17 @@
 
 ## 1. RINGKASAN ARSITEKTUR LAYOUT & MATRIKS HAK AKSES MENU
 
-### 1.1 Konsep Shell Layout Aplikasi
-Aplikasi Sistem Inventaris & Pemantauan Kedaluwarsa Kafe menggunakan arsitektur **Application Shell Pattern** satu pintu yang membungkus seluruh halaman terautentikasi. Struktur shell terdiri dari:
-1. **Sidebar Navigasi Kiri (Fixed 260px)**: Navigasi vertikal terisolasi yang hanya menampilkan menu sesuai izin peran (*role*) user yang aktif.
+### 1.1 Konsep Shell Layout Aplikasi (Universal Single App Shell)
+Aplikasi Sistem Inventaris & Pemantauan Kedaluwarsa Kafe menggunakan arsitektur **Universal Application Shell Pattern** satu pintu yang membungkus seluruh halaman terautentikasi. **TIDAK ADA shell terpisah per role**; sistem hanya menggunakan satu komponen layout utama (`AppLayout.tsx`) yang mengevaluasi `auth.user.role` untuk merender menu dan header secara dinamis.
+
+> [!IMPORTANT]
+> **ATURAN BAKU PENGEMBANGAN UI (IN-SHELL CONTENT RULE)**:  
+> Seluruh halaman modul berikutnya (Dasbor Barista, Monitoring Stok, Master Bahan, Approval Waste, dan Analitik Owner) **TIDAK BOLEH MEMBUAT ULANG SIDEBAR ATAU HEADER**. Seluruh halaman tersebut hanya merender konten isi di dalam slot kanvas utama (`<slot />` / `children`).
+
+Struktur shell terdiri dari:
+1. **Sidebar Navigasi Kiri (Fixed 260px)**: Navigasi vertikal terisolasi yang adaptif menampilkan menu sesuai izin peran (*role*) user yang aktif.
 2. **Top Header Bar (Sticky 64px / `h-16`)**: Area informasi status sistem, breadcrumb judul halaman, penanda peran (*Role Capsule Badge*), dan menu profil pengguna.
-3. **Dynamic Main Content Canvas (`bg-surface-canvas`)**: Area render halaman utama Inertia dengan latar kanvas susu hangat (`#FAF7F2`), scrolling independen, dan padding konsisten.
+3. **Dynamic Main Content Canvas (`bg-surface-canvas` `#FAF7F2`)**: Area render halaman utama Inertia dengan latar kanvas susu hangat, scrolling independen, dan padding konsisten.
 
 ```mermaid
 flowchart TD
@@ -73,35 +79,44 @@ Sistem memetakan setiap menu ke dalam kelompok navigasi (*navigation group*) yan
 
 ---
 
-## 2. STITCH-READY SCREEN SPECIFICATION (GOOGLE STITCH PROMPT)
+## 2. SPESIFIKASI MOCKUP STITCH UI & STRUKTUR SHELL LAYOUT
 
-Spesifikasi berikut dirancang agar siap dimasukkan ke tool **Google Stitch** (`generate_screen_from_text`) untuk menghasilkan mockup kanvas antarmuka shell layout.
+Mockup visual antarmuka shell layout telah diunduh dari proyek Google Stitch (ID: `3585613475449128159`) dan disimpan secara lokal di direktori `docs/stitch/`:
 
-### 2.1 Identitas Layar
-* **Screen Title**: Specialty Coffee SaaS Shell Layout with RBAC Navigation
-* **Device Target**: Responsive Desktop (1440x900) & POS Bar Tablet (1024x768)
-* **Design Philosophy**: Minimalist, Clear Visual Hierarchy, Touch-friendly (Barista ergonomis).
+| Role Pengguna | Screen ID Stitch | File HTML Mockup | File Screenshot Mockup |
+| :--- | :--- | :--- | :--- |
+| **Owner** | `da7d8f739e8241d4a9d7b82ac0bac667` | [owner_app_shell.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_app_shell.html) | [owner_app_shell.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_app_shell.png) |
+| **Supervisor** | `8a31c179b67d4697b73830bf444b0241` | [supervisor_app_shell.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/supervisor_app_shell.html) | [supervisor_app_shell.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/supervisor_app_shell.png) |
+| **Barista** | `3668a1580cd8426e8f120554e37cde0f` | [barista_app_shell.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_app_shell.html) | [barista_app_shell.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_app_shell.png) |
 
-### 2.2 Tata Letak Desktop & Komposisi
-* **Sidebar Kiri (Fixed Desktop)**:
-  - Lebar: `w-64` (260px), tinggi penuh `h-screen`, `bg-surface-container border-r border-surface-border flex flex-col justify-between`.
-  - **Header Sidebar**: Logo modern specialty coffee monogram cangkir & daun kopi berwarna `text-brand-primary` (`#4A2C11`), teks merk `"BeanFlow"`, dan sub-label `"Specialty Inventory"`.
-  - **Navigasi Tengah (Scrollable)**: Navigasi dikelompokkan dengan *Group Header* berukuran `text-xs font-semibold text-content-subtle uppercase tracking-wider px-3 mb-2 mt-4`.
-  - **Item Navigasi**:
-    * **State Aktif**: `bg-surface-container-high text-brand-primary font-semibold rounded-lg flex items-center gap-3 px-3.5 py-2.5 transition-colors shadow-xs`.
-    * **State Inaktif**: `text-content-medium hover:bg-surface-container-high hover:text-content-high rounded-lg flex items-center gap-3 px-3.5 py-2.5 transition-colors font-medium text-sm`.
-  - **Footer Sidebar**: Kartu informasi shift kafe aktif (*"Shift Pagi: 07:00 - 15:00"*) bernuansa parchment `bg-surface-container-high text-content-medium` dan tombol bantuan/dokumentasi cepat.
+### 2.1 Dekonstruksi DOM Mockup Stitch ke Komponen React
+Ketiga file shell di atas mengimplementasikan layout grid responsif yang terbagi menjadi:
 
-* **Top Header Bar (Sticky Desktop & Mobile)**:
-  - Tinggi: `h-16` (64px), posisi `sticky top-0 z-30`, `bg-surface-container/95 backdrop-blur-sm border-b border-surface-border px-6 flex items-center justify-between`.
-  - **Sisi Kiri**:
-    * Tombol hamburger drawer (khusus tablet/mobile: `lg:hidden`).
-    * Breadcrumb / Judul Kontekstual Halaman Aktif (`text-base font-semibold text-content-high`).
-  - **Sisi Kanan**:
-    * **Status Koneksi Online**: Indikator lampu hijau berkedip halus (*pulse green dot*) dengan label `"Sistem Sinkron"`.
-    * **Role Capsule Badge**:
-      - Barista: `bg-emerald-50 text-emerald-800 border-emerald-300` (*"Barista Shift"*)
-      - Supervisor: `bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]` (*"Supervisor Gudang"*)
+1. **Sidebar Kiri Fixed (`<aside class="w-64 bg-[#F5EFEB] border-r border-[#EDE4DC] flex flex-col justify-between h-screen fixed top-0 left-0 z-40">`)**:
+   - **Header Monogram Logo**: 
+     - Logo cangkir biji kopi (`w-9 h-9 rounded-xl bg-[#4A2C11] flex items-center justify-center text-[#EDE4DC]`)
+     - Label merek: `"BeanFlow"` (`text-lg font-extrabold tracking-tight text-[#241408]`) dengan subteks `"FEFO Specialty Bar"` (`text-[11px] text-[#9C8474] font-medium tracking-wide`).
+   - **Daftar Menu Sesuai Peran (RBAC Active Links)**:
+     - Group Header: `text-[10px] font-bold uppercase tracking-wider text-[#9C8474] px-3 mb-2 mt-4`
+     - Menu Aktif: `bg-[#EDE4DC] text-[#4A2C11] font-bold rounded-xl flex items-center gap-3 px-3.5 py-2.5 shadow-xs border border-[#4A2C11]/10`
+     - Menu Standby: `text-[#5C3A21] hover:bg-[#EDE4DC]/60 hover:text-[#241408] rounded-xl flex items-center gap-3 px-3.5 py-2.5 font-medium text-sm transition-all`
+   - **Footer Sidebar Context Card**:
+     - Menampilkan status shift operasional: `"Shift Pagi: 07.00 - 15.00 WIB"` dengan avatar inisial barista/supervisor/owner.
+
+2. **Top Header Bar Sticky (`<header class="h-16 sticky top-0 z-30 bg-[#FAF7F2]/90 backdrop-blur-md border-b border-[#EDE4DC] px-6 flex items-center justify-between">`)**:
+   - **Left Kicker & Title Area**:
+     - Tombol Hamburger Drawer mobile (`lg:hidden p-2 rounded-lg text-[#4A2C11] hover:bg-[#EDE4DC]`)
+     - Breadcrumb dinamis (`text-xs font-semibold uppercase tracking-wider text-[#9C8474]`) dan Page Title (`text-base font-bold text-[#241408]`).
+   - **Right Live Status & User Profile Area**:
+     - **Status Koneksi Live Dot**: `<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>` + label `"Sistem FEFO Aktif"` (`text-xs font-medium text-[#5C3A21]`).
+     - **Role Capsule Badge**:
+       * Barista: `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">Barista On-Duty</span>`
+       * Supervisor: `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-[#C88242] border border-amber-200">Supervisor Kafe</span>`
+       * Owner: `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-900 border border-indigo-200">Owner / Pemilik</span>`
+     - **User Dropdown Avatar**: Lingkaran avatar inisial nama dengan border `#EDE4DC` dan popover menu profil/logout.
+
+3. **In-Shell Content View (`<main class="lg:pl-64 min-h-screen bg-[#FAF7F2] p-6 lg:p-8">`)**:
+   - Wadah kanvas utama tempat seluruh halaman konten modul di-render melalui `<slot />` / `children`.
       - Owner: `bg-[#EDE4DC] text-content-high border-surface-border` (*"Owner Kafe"*)
     * **User Profile Dropdown**: Avatar inisial lingkaran dengan outline halus, nama pengguna, dan menu dropdown (Pengaturan Akun, Panduan SOP, dan Logout berwarna terakota `text-brand-tertiary`).
 
@@ -122,31 +137,31 @@ Spesifikasi berikut dirancang agar siap dimasukkan ke tool **Google Stitch** (`g
 
 ### 2.4 Teks Prompt Siap Pakai untuk Google Stitch
 
+> [!NOTE]
+> Ini adalah satu-satunya prompt untuk menghasilkan kerangka dasar antarmuka (Universal App Shell). Semua prompt modul fitur lain (`PLAN_03` s/d `PLAN_07`) dirancang sebagai **In-Shell Content View** yang hanya mengisi area `<slot />` utama.
+
 #### Prompt Bahasa Indonesia (Terstruktur & Deskriptif)
 ```text
-Buatkan desain antarmuka Web App Layout Shell untuk aplikasi manajemen kafe modern "BeanFlow Inventory" berbasis Tailwind CSS dan shadcn/ui bernuansa palet kafe artisan.
+Buatkan desain antarmuka Web App Layout Shell tunggal (Universal Shell) untuk aplikasi inventaris kafe "BeanFlow Inventory" berbasis Tailwind CSS dan palet warm artisan specialty coffee.
 
 Layout terbagi menjadi:
-1. Fixed Left Sidebar (lebar 260px, latar belakang oat latte #F5EFEB, border-r parchment #EDE4DC):
-   - Bagian atas: Logo cangkir kopi monogram warna espresso #4A2C11 dengan tulisan brand "BeanFlow" dan label "Specialty Coffee Inventory".
-   - Navigasi tengah: Terdapat judul kelompok "OPERASIONAL BAR" dan item menu:
-     * "Dasbor Barista" (status aktif: latar parchment #EDE4DC, teks espresso #4A2C11, ikon Coffee).
-     * "Catat Pemakaian (FEFO)" (ikon Flame, teks moka #5C3A21).
-     * "Penerimaan Batch" (ikon PackagePlus, teks moka #5C3A21).
-     * "Lapor Bahan Rusak" (ikon AlertTriangle, teks moka #5C3A21).
-   - Bagian bawah sidebar: Kotak info status shift kafe "Shift Pagi: 07.00 - 15.00" dan avatar singkat user.
+1. Fixed Left Sidebar (lebar 260px, latar oat latte #F5EFEB, border-r unbleached parchment #EDE4DC):
+   - Header: Monogram cangkir espresso #4A2C11, judul brand "BeanFlow", dan sub-label "Specialty Coffee Inventory".
+   - Navigasi: Menu dinamis RBAC dengan active item berlatar #EDE4DC teks espresso #4A2C11, inactive item teks mocha #5C3A21.
+   - Footer: Kotak info shift kafe aktif "Shift Pagi: 07.00 - 15.00" dan avatar mini.
 
-2. Sticky Top Header (tinggi 64px, latar belakang oat latte semi-transparan dengan border-b #EDE4DC):
-   - Kiri: Judul halaman aktif "Dasbor Operasional Barista" (warna #241408).
-   - Kanan: Indikator titik hijau berkedip "Online Sinkron", kapsul role badge bertuliskan "Barista Shift" (latar emerald botani border emerald-300), serta avatar profil user dengan panah dropdown.
+2. Sticky Top Header (tinggi 64px, latar oat latte semi-transparan #F5EFEB dengan border-b #EDE4DC):
+   - Kiri: Judul halaman aktif "Barista Operations" (teks #241408).
+   - Kanan: Indikator status titik hijau berkedip "Sistem Sinkron", kapsul role badge adaptif ("Barista Shift" / "Supervisor Gudang" / "Owner Kafe"), serta avatar profil user dengan dropdown arrow.
 
-3. Area Konten Utama (Main Canvas): Latar belakang hangat kanvas susu #FAF7F2 dengan padding luas, menampilkan kartu selamat datang ringkas dan notifikasi banner sukses bernuansa botani hijau segar.
-Desain clean, warm specialty coffee artisan, kontras tinggi, modern, dan sangat rapi.
+3. Main Canvas (Dynamic Viewport): Latar belakang hangat kanvas susu #FAF7F2 dengan padding p-8. Di tengah kanvas terdapat kotak dashed border tipis dengan label jelas: "<slot /> Area Konten Halaman Dinamis" yang menandakan seluruh modul halaman lain akan dimuat di dalam area ini.
+
+Desain sangat bersih, estetika warm coffee shop (espresso, caramel, oat milk), tipografi tajam, dan tanpa elemen dekoratif berlebih.
 ```
 
 #### English Prompt (High-Fidelity for Stitch AI)
 ```text
-A modern specialty coffee inventory SaaS app shell layout called "BeanFlow". Features a 260px fixed left sidebar with warm oat latte background (#F5EFEB) and right border unbleached parchment (#EDE4DC). Sidebar top displays a deep roasted espresso (#4A2C11) coffee leaf logo with typography "BeanFlow - Specialty Inventory". Sidebar body has clean navigation items with Lucide-style coffee icons: active item has a parchment background (#EDE4DC), deep espresso (#4A2C11) text, and active indicator; inactive items are muted mocha (#5C3A21). Navigation groups include "BAR OPERATIONS" and "INVENTORY MANAGEMENT". The top header is 64px tall, oat latte, sticky, featuring a breadcrumb page title "Barista Operations", a live pulsing green status dot "System Live", a rounded-full role badge ("Barista Shift"), and a circular user profile dropdown. The main content background is warm steamed milk canvas (#FAF7F2) with a soft flash alert banner at the top. Polished, warm artisan coffee aesthetic, high contrast, clean typography.
+A unified specialty coffee inventory SaaS app shell layout called "BeanFlow". Features a 260px fixed left sidebar with warm oat latte background (#F5EFEB) and right border unbleached parchment (#EDE4DC). Sidebar top displays a deep roasted espresso (#4A2C11) coffee leaf logo with typography "BeanFlow - Specialty Inventory". Sidebar body has clean navigation items with Lucide-style coffee icons: active item has a parchment background (#EDE4DC), deep espresso (#4A2C11) text, and active indicator; inactive items are muted mocha (#5C3A21). Navigation groups include "BAR OPERATIONS" and "INVENTORY MANAGEMENT". The top header is 64px tall, oat latte, sticky, featuring a breadcrumb page title "Barista Operations", a live pulsing green status dot "System Live", a rounded-full role badge ("Barista Shift"), and a circular user profile dropdown. The main content background is warm steamed milk canvas (#FAF7F2) containing a clean dashed container labeled "<slot /> Dynamic Content Viewport" to represent the slot for all child pages. Polished, warm artisan coffee aesthetic, high contrast, clean typography.
 ```
 
 ---

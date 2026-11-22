@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog Master Bahan Baku In-Shell Content - BeanFlow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              espresso: '#4A2C11',
+              espressoHover: '#38220C',
+              amber: '#C88242',
+              amberHover: '#B26F32',
+              terracotta: '#8C3D2B',
+            },
+            surface: {
+              canvas: '#FAF7F2',
+              oat: '#F5EFEB',
+              oatElevated: '#EDE4DC',
+              border: '#EDE4DC',
+            },
+            content: {
+              high: '#241408',
+              medium: '#5C3A21',
+              subtle: '#9C8474',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom subtle scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F5EFEB;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #C88242;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #4A2C11;
+    }
+  </style>
+</head>
+<body class="bg-[#FAF7F2] text-[#241408] font-sans antialiased min-h-screen overflow-x-hidden selection:bg-[#C88242] selection:text-white">
+
+  <!-- MAIN IN-SHELL CONTENT CONTAINER (NO SIDEBAR, NO TOP HEADER) -->
+  <main class="w-full min-h-screen flex flex-row relative bg-[#FAF7F2]">
+    
+    <!-- LEFT / MAIN WORKSPACE AREA (Expands and adapts next to the 480px drawer) -->
+    <div class="flex-1 min-w-0 p-6 lg:p-8 flex flex-col gap-6 max-w-[calc(100%-480px)] transition-all">
+      
+      <!-- 1. Header Halaman & Kategori Filter -->
+      <section class="flex flex-col gap-5">
+        <!-- Title & Subtitle + Action Button Row -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-[#4A2C11] text-[#FAF7F2] flex items-center justify-center shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+              </div>
+              <h1 class="text-2xl font-bold tracking-tight text-[#241408]">Katalog Master Bahan Baku</h1>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EDE4DC] text-[#5C3A21] border border-[#EDE4DC]">
+                Supervisor Database
+              </span>
+            </div>
+            <p class="text-sm text-[#5C3A21] mt-1">
+              Atur ambang batas peringatan stok minimum, masa simpan hari kritis, dan relasi multi-batch untuk seluruh persediaan kafe.
+            </p>
+          </div>
+
+          <!-- Primary Action Button (Triggers Drawer) -->
+          <div class="flex items-center gap-3">
+            <button class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#4A2C11] text-[#FAF7F2] font-semibold text-sm hover:bg-[#38220C] shadow-sm transition-all duration-200 active:scale-[0.98] ring-2 ring-[#4A2C11]/20">
+              <svg class="w-4 h-4 text-[#C88242]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+              </svg>
+              <span>+ Tambah Bahan Baku</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Quick Bar (Summary Stats) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+          <div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-xs font-medium text-[#9C8474]">Total Master Bahan</p>
+              <p class="text-xl font-bold text-[#241408] font-mono mt-0.5">12 <span class="text-xs font-normal text-[#5C3A21]">SKU Aktif</span></p>
+            </div>
+            <div class="w-9 h-9 rounded-lg bg-[#EDE4DC] flex items-center justify-center text-[#4A2C11]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-xs font-medium text-[#9C8474]">Batch Berjalan (FEFO)</p>
+              <p class="text-xl font-bold text-[#241408] font-mono mt-0.5">27 <span class="text-xs font-normal text-[#5C3A21]">Lot Fisik</span></p>
+            </div>
+            <div class="w-9 h-9 rounded-lg bg-[#ECFDF5] border border-emerald-200 flex items-center justify-center text-emerald-800">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="bg-[#F5EFEB] border border-[#FED7AA] rounded-xl p-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-xs font-medium text-[#C88242]">Di Bawah Min. Stok</p>
+              <p class="text-xl font-bold text-[#C88242] font-mono mt-0.5">2 <span class="text-xs font-normal text-[#5C3A21]">Perlu Order</span></p>
+            </div>
+            <div class="w-9 h-9 rounded-lg bg-[#FFF7ED] border border-[#FED7AA] flex items-center justify-center text-[#C88242]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-xs font-medium text-[#9C8474]">Kategori Terdaftar</p>
+              <p class="text-xl font-bold text-[#241408] font-mono mt-0.5">4 <span class="text-xs font-normal text-[#5C3A21]">Grup Bar</span></p>
+            </div>
+            <div class="w-9 h-9 rounded-lg bg-[#EDE4DC] flex items-center justify-center text-[#5C3A21]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Row: Category Pills & Search Bar -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-1">
+          <!-- Kategori Pills -->
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Pill Aktif: Espresso #4A2C11 -->
+            <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#4A2C11] text-[#FAF7F2] shadow-sm transition-colors flex items-center gap-1.5">
+              <span>Semua</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-white/20 text-white">12</span>
+            </button>
+            <button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#F5EFEB] text-[#5C3A21] border border-[#EDE4DC] hover:bg-[#EDE4DC] transition-colors flex items-center gap-1.5">
+              <span>Susu &amp; Dairy</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-[#EDE4DC] text-[#4A2C11] font-semibold">4</span>
+            </button>
+            <button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#F5EFEB] text-[#5C3A21] border border-[#EDE4DC] hover:bg-[#EDE4DC] transition-colors flex items-center gap-1.5">
+              <span>Biji Kopi</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-[#EDE4DC] text-[#4A2C11] font-semibold">3</span>
+            </button>
+            <button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#F5EFEB] text-[#5C3A21] border border-[#EDE4DC] hover:bg-[#EDE4DC] transition-colors flex items-center gap-1.5">
+              <span>Sirup &amp; Rasa</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-[#EDE4DC] text-[#4A2C11] font-semibold">3</span>
+            </button>
+            <button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#F5EFEB] text-[#5C3A21] border border-[#EDE4DC] hover:bg-[#EDE4DC] transition-colors flex items-center gap-1.5">
+              <span>Kemasan</span>
+              <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-[#EDE4DC] text-[#4A2C11] font-semibold">2</span>
+            </button>
+          </div>
+
+          <!-- Search Input Bar -->
+          <div class="relative w-full md:w-80">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#9C8474]">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </span>
+            <input 
+              type="text" 
+              placeholder="Cari nama bahan, kode SKU..." 
+              value="Fresh Milk"
+              class="w-full pl-9 pr-8 py-2 rounded-xl text-xs bg-[#F5EFEB] border border-[#EDE4DC] text-[#241408] placeholder-[#9C8474] focus:outline-none focus:ring-2 focus:ring-[#C88242] focus:border-transparent transition-all shadow-inner"
+            />
+            <button class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-[#9C8474] hover:text-[#241408]">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Tabel Data Master Bahan (di dalam kontainer oat latte #F5EFEB, border halus #EDE4DC) -->
+      <section class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-2xl shadow-sm overflow-hidden flex flex-col">
+        <!-- Table Control Toolbar -->
+        <div class="px-5 py-3.5 bg-[#EDE4DC]/50 border-b border-[#EDE4DC] flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold text-[#4A2C11]">Menampilkan 7 dari 12 Bahan Terdaftar</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#C88242]"></span>
+            <span class="text-xs text-[#5C3A21]">Urutan: Kategori &amp; Nama (A-Z)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="px-2.5 py-1 text-xs font-medium text-[#5C3A21] hover:text-[#241408] rounded-md hover:bg-[#EDE4DC] transition-colors flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              Filter Stok Kritis
+            </button>
+            <button class="px-2.5 py-1 text-xs font-medium text-[#5C3A21] hover:text-[#241408] rounded-md hover:bg-[#EDE4DC] transition-colors flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+              Export CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Table Viewport with Horizontal Scroll for Safety -->
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-left text-xs border-collapse min-w-[920px]">
+            <thead>
+              <tr class="border-b border-[#EDE4DC] bg-[#F5EFEB] text-[#5C3A21] uppercase tracking-wider text-[11px] font-semibold">
+                <th class="py-3 px-4">Nama Bahan Baku</th>
+                <th class="py-3 px-3">Kategori</th>
+                <th class="py-3 px-3">Satuan</th>
+                <th class="py-3 px-4 text-right">Total Stok Gabungan</th>
+                <th class="py-3 px-4 text-right">Batas Min. Restock</th>
+                <th class="py-3 px-3 text-center">Warning Expired</th>
+                <th class="py-3 px-3 text-center">Batch Aktif</th>
+                <th class="py-3 px-4 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#EDE4DC] text-[#241408] font-normal">
+              
+              <!-- Row 1: Fresh Milk Diamond 1L (Selected / In Focus) -->
+              <tr class="hover:bg-[#FAF7F2] transition-colors bg-[#FAF7F2]/60">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-100/70 border border-emerald-200 flex items-center justify-center text-emerald-800 font-bold text-xs">
+                      🥛
+                    </div>
+                    <div>
+                      <div class="font-semibold text-sm text-[#241408] flex items-center gap-1.5">
+                        Fresh Milk Diamond 1L
+                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#4A2C11] text-[#FAF7F2]">
+                          High Flow
+                        </span>
+                      </div>
+                      <span class="text-[11px] font-mono text-[#9C8474]">SKU-DRY-001 • Chiller Utama Depan</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.8 rounded-full text-[11px] font-medium bg-[#ECFDF5] text-emerald-800 border border-emerald-200">
+                    Dairy
+                  </span>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[#EDE4DC] text-[#4A2C11]">
+                    ml
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-bold text-sm text-[#241408]">4.200</span>
+                  <span class="text-[11px] text-[#5C3A21] ml-0.5">ml</span>
+                  <div class="w-24 ml-auto mt-1 h-1.5 bg-[#EDE4DC] rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-600 rounded-full" style="width: 85%;"></div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-medium text-[#5C3A21]">2.000</span>
+                  <span class="text-[11px] text-[#9C8474] ml-0.5">ml</span>
+                  <p class="text-[10px] text-emerald-700 font-medium">Stok Aman (210%)</p>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+                    <svg class="w-3 h-3 text-[#C88242]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    3 Hari
+                  </span>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-[#EDE4DC] text-[#4A2C11]">
+                    4 Lot
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="inline-flex items-center gap-1">
+                    <button class="p-1.5 rounded-lg text-[#5C3A21] hover:text-[#4A2C11] hover:bg-[#EDE4DC] transition-colors" title="Edit Master Bahan">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <button class="p-1.5 rounded-lg text-[#9C8474] hover:text-[#8C3D2B] hover:bg-[#FDF2F0] transition-colors" title="Riwayat Batch">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 2: Oatside Oat Milk Barista 1L -->
+              <tr class="hover:bg-[#FAF7F2] transition-colors">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-[#EDE4DC] border border-[#EDE4DC] flex items-center justify-center text-[#5C3A21] font-bold text-xs">
+                      🌾
+                    </div>
+                    <div>
+                      <div class="font-semibold text-sm text-[#241408]">Oatside Oat Milk Barista 1L</div>
+                      <span class="text-[11px] font-mono text-[#9C8474]">SKU-DRY-002 • Speed Rail Bar Barista</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.8 rounded-full text-[11px] font-medium bg-[#ECFDF5] text-emerald-800 border border-emerald-200">
+                    Dairy
+                  </span>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[#EDE4DC] text-[#4A2C11]">
+                    ml
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-bold text-sm text-[#241408]">3.000</span>
+                  <span class="text-[11px] text-[#5C3A21] ml-0.5">ml</span>
+                  <div class="w-24 ml-auto mt-1 h-1.5 bg-[#EDE4DC] rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-600 rounded-full" style="width: 70%;"></div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-medium text-[#5C3A21]">1.500</span>
+                  <span class="text-[11px] text-[#9C8474] ml-0.5">ml</span>
+                  <p class="text-[10px] text-emerald-700 font-medium">Stok Aman (200%)</p>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+                    <svg class="w-3 h-3 text-[#C88242]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    3 Hari
+                  </span>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-[#EDE4DC] text-[#4A2C11]">
+                    3 Lot
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="inline-flex items-center gap-1">
+                    <button class="p-1.5 rounded-lg text-[#5C3A21] hover:text-[#4A2C11] hover:bg-[#EDE4DC] transition-colors" title="Edit Master Bahan">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <button class="p-1.5 rounded-lg text-[#9C8474] hover:text-[#8C3D2B] hover:bg-[#FDF2F0] transition-colors" title="Riwayat Batch">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 3: Espresso Blend House 1kg (Beans) -->
+              <tr class="hover:bg-[#FAF7F2] transition-colors">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-[#4A2C11]/10 border border-[#4A2C11]/20 flex items-center justify-center text-[#4A2C11] font-bold text-xs">
+                      ☕
+                    </div>
+                    <div>
+                      <div class="font-semibold text-sm text-[#241408]">Espresso Blend House 1kg</div>
+                      <span class="text-[11px] font-mono text-[#9C8474]">SKU-BNS-001 • Hopper Grinder Utama</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.8 rounded-full text-[11px] font-medium bg-[#4A2C11]/10 text-[#4A2C11] border border-[#4A2C11]/20">
+                    Beans
+                  </span>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[#EDE4DC] text-[#4A2C11]">
+                    gram
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-bold text-sm text-[#241408]">5.400</span>
+                  <span class="text-[11px] text-[#5C3A21] ml-0.5">gr</span>
+                  <div class="w-24 ml-auto mt-1 h-1.5 bg-[#EDE4DC] rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-600 rounded-full" style="width: 90%;"></div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-medium text-[#5C3A21]">3.000</span>
+                  <span class="text-[11px] text-[#9C8474] ml-0.5">gr</span>
+                  <p class="text-[10px] text-emerald-700 font-medium">Optimal (180%)</p>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#EDE4DC] text-[#4A2C11]">
+                    <svg class="w-3 h-3 text-[#4A2C11]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    7 Hari
+                  </span>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-[#EDE4DC] text-[#4A2C11]">
+                    5 Lot
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="inline-flex items-center gap-1">
+                    <button class="p-1.5 rounded-lg text-[#5C3A21] hover:text-[#4A2C11] hover:bg-[#EDE4DC] transition-colors" title="Edit Master Bahan">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <button class="p-1.5 rounded-lg text-[#9C8474] hover:text-[#8C3D2B] hover:bg-[#FDF2F0] transition-colors" title="Riwayat Batch">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 4: Single Origin Ethiopia Yirgacheffe 500g (Beans - Under Min Stock) -->
+              <tr class="hover:bg-[#FAF7F2] transition-colors bg-[#FFF7ED]/30">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-[#FED7AA]/50 border border-[#FED7AA] flex items-center justify-center text-[#C88242] font-bold text-xs">
+                      ✨
+                    </div>
+                    <div>
+                      <div class="font-semibold text-sm text-[#241408] flex items-center gap-1.5">
+                        SO Ethiopia Yirgacheffe
+                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#C88242] text-white">
+                          Restock Segera
+                        </span>
+                      </div>
+                      <span class="text-[11px] font-mono text-[#9C8474]">SKU-BNS-002 • Manual Brew Shelf</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.8 rounded-full text-[11px] font-medium bg-[#4A2C11]/10 text-[#4A2C11] border border-[#4A2C11]/20">
+                    Beans
+                  </span>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[#EDE4DC] text-[#4A2C11]">
+                    gram
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-bold text-sm text-[#C88242]">850</span>
+                  <span class="text-[11px] text-[#C88242] ml-0.5">gr</span>
+                  <div class="w-24 ml-auto mt-1 h-1.5 bg-[#EDE4DC] rounded-full overflow-hidden">
+                    <div class="h-full bg-[#C88242] rounded-full" style="width: 42%;"></div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-medium text-[#5C3A21]">1.000</span>
+                  <span class="text-[11px] text-[#9C8474] ml-0.5">gr</span>
+                  <p class="text-[10px] text-[#C88242] font-semibold">⚠️ Kritis Min. Stok (85%)</p>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#EDE4DC] text-[#4A2C11]">
+                    <svg class="w-3 h-3 text-[#4A2C11]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    7 Hari
+                  </span>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-[#FED7AA] text-[#C88242]">
+                    1 Lot
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="inline-flex items-center gap-1">
+                    <button class="p-1.5 rounded-lg text-[#5C3A21] hover:text-[#4A2C11] hover:bg-[#EDE4DC] transition-colors" title="Edit Master Bahan">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <button class="p-1.5 rounded-lg text-[#9C8474] hover:text-[#8C3D2B] hover:bg-[#FDF2F0] transition-colors" title="Riwayat Batch">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 5: Monin Caramel Syrup 700ml (Syrup) -->
+              <tr class="hover:bg-[#FAF7F2] transition-colors">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-[#C88242]/10 border border-[#C88242]/25 flex items-center justify-center text-[#C88242] font-bold text-xs">
+                      🍯
+                    </div>
+                    <div>
+                      <div class="font-semibold text-sm text-[#241408]">Monin Caramel Syrup 700ml</div>
+                      <span class="text-[11px] font-mono text-[#9C8474]">SKU-SYR-001 • Rak Botol Bar Tengah</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.8 rounded-full text-[11px] font-medium bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+                    Syrup
+                  </span>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[#EDE4DC] text-[#4A2C11]">
+                    ml
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-bold text-sm text-[#241408]">3.200</span>
+                  <span class="text-[11px] text-[#5C3A21] ml-0.5">ml</span>
+                  <div class="w-24 ml-auto mt-1 h-1.5 bg-[#EDE4DC] rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-600 rounded-full" style="width: 78%;"></div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-medium text-[#5C3A21]">1.400</span>
+                  <span class="text-[11px] text-[#9C8474] ml-0.5">ml</span>
+                  <p class="text-[10px] text-emerald-700 font-medium">Aman (228%)</p>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+                    <svg class="w-3 h-3 text-[#C88242]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    3 Hari
+                  </span>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-[#EDE4DC] text-[#4A2C11]">
+                    5 Botol
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="inline-flex items-center gap-1">
+                    <button class="p-1.5 rounded-lg text-[#5C3A21] hover:text-[#4A2C11] hover:bg-[#EDE4DC] transition-colors" title="Edit Master Bahan">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <button class="p-1.5 rounded-lg text-[#9C8474] hover:text-[#8C3D2B] hover:bg-[#FDF2F0] transition-colors" title="Riwayat Batch">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 6: Monin Vanilla Syrup 700ml (Syrup) -->
+              <tr class="hover:bg-[#FAF7F2] transition-colors">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-[#C88242]/10 border border-[#C88242]/25 flex items-center justify-center text-[#C88242] font-bold text-xs">
+                      🌼
+                    </div>
+                    <div>
+                      <div class="font-semibold text-sm text-[#241408]">Monin Vanilla Syrup 700ml</div>
+                      <span class="text-[11px] font-mono text-[#9C8474]">SKU-SYR-002 • Rak Botol Bar Tengah</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.8 rounded-full text-[11px] font-medium bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+                    Syrup
+                  </span>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[#EDE4DC] text-[#4A2C11]">
+                    ml
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-bold text-sm text-[#241408]">2.100</span>
+                  <span class="text-[11px] text-[#5C3A21] ml-0.5">ml</span>
+                  <div class="w-24 ml-auto mt-1 h-1.5 bg-[#EDE4DC] rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-600 rounded-full" style="width: 60%;"></div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-medium text-[#5C3A21]">1.400</span>
+                  <span class="text-[11px] text-[#9C8474] ml-0.5">ml</span>
+                  <p class="text-[10px] text-emerald-700 font-medium">Aman (150%)</p>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+                    <svg class="w-3 h-3 text-[#C88242]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    3 Hari
+                  </span>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-[#EDE4DC] text-[#4A2C11]">
+                    3 Botol
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="inline-flex items-center gap-1">
+                    <button class="p-1.5 rounded-lg text-[#5C3A21] hover:text-[#4A2C11] hover:bg-[#EDE4DC] transition-colors" title="Edit Master Bahan">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <button class="p-1.5 rounded-lg text-[#9C8474] hover:text-[#8C3D2B] hover:bg-[#FDF2F0] transition-colors" title="Riwayat Batch">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 7: Paper Hot Cup 8oz (Packaging) -->
+              <tr class="hover:bg-[#FAF7F2] transition-colors">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-[#EDE4DC] border border-[#EDE4DC] flex items-center justify-center text-[#5C3A21] font-bold text-xs">
+                      📦
+                    </div>
+                    <div>
+                      <div class="font-semibold text-sm text-[#241408]">Paper Hot Cup 8oz Kraft</div>
+                      <span class="text-[11px] font-mono text-[#9C8474]">SKU-PKG-001 • Gudang Kering Rak B2</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.8 rounded-full text-[11px] font-medium bg-[#EDE4DC] text-[#5C3A21] border border-[#EDE4DC]">
+                    Kemasan
+                  </span>
+                </td>
+                <td class="py-3.5 px-3">
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-mono font-medium bg-[#EDE4DC] text-[#4A2C11]">
+                    pcs
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-bold text-sm text-[#241408]">1.450</span>
+                  <span class="text-[11px] text-[#5C3A21] ml-0.5">pcs</span>
+                  <div class="w-24 ml-auto mt-1 h-1.5 bg-[#EDE4DC] rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-600 rounded-full" style="width: 72%;"></div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <span class="font-mono font-medium text-[#5C3A21]">500</span>
+                  <span class="text-[11px] text-[#9C8474] ml-0.5">pcs</span>
+                  <p class="text-[10px] text-emerald-700 font-medium">Aman (290%)</p>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#EDE4DC] text-[#5C3A21]">
+                    <svg class="w-3 h-3 text-[#5C3A21]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    30 Hari
+                  </span>
+                </td>
+                <td class="py-3.5 px-3 text-center">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-[#EDE4DC] text-[#4A2C11]">
+                    3 Karton
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <div class="inline-flex items-center gap-1">
+                    <button class="p-1.5 rounded-lg text-[#5C3A21] hover:text-[#4A2C11] hover:bg-[#EDE4DC] transition-colors" title="Edit Master Bahan">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <button class="p-1.5 rounded-lg text-[#9C8474] hover:text-[#8C3D2B] hover:bg-[#FDF2F0] transition-colors" title="Riwayat Batch">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Footer / Pagination -->
+        <div class="px-5 py-3.5 bg-[#EDE4DC]/40 border-t border-[#EDE4DC] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#5C3A21]">
+          <span>Menampilkan <strong>1 - 7</strong> dari <strong>12</strong> bahan baku terdaftar</span>
+          <div class="inline-flex items-center gap-1.5">
+            <button class="px-3 py-1.5 rounded-lg border border-[#EDE4DC] bg-[#FAF7F2] text-[#9C8474] cursor-not-allowed">
+              Sebelumnya
+            </button>
+            <button class="px-3 py-1.5 rounded-lg bg-[#4A2C11] text-[#FAF7F2] font-semibold">
+              1
+            </button>
+            <button class="px-3 py-1.5 rounded-lg border border-[#EDE4DC] bg-[#FAF7F2] text-[#241408] hover:bg-[#EDE4DC]">
+              2
+            </button>
+            <button class="px-3 py-1.5 rounded-lg border border-[#EDE4DC] bg-[#FAF7F2] text-[#241408] hover:bg-[#EDE4DC]">
+              Selanjutnya
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sub-panel: Quick Guide for Supervisor -->
+      <section class="p-4 rounded-xl bg-[#EDE4DC]/40 border border-[#EDE4DC] flex items-start gap-3">
+        <div class="w-5 h-5 rounded-full bg-[#C88242] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+          i
+        </div>
+        <div class="text-xs text-[#5C3A21] leading-relaxed">
+          <strong class="text-[#241408]">Kebijakan Ambang FEFO:</strong> Penentuan <em>Warning Days</em> akan mengontrol kapan batch bahan mulai berubah warna menjadi kuning (Segera Pakai) pada antarmuka Dasbor Barista. Pastikan bahan dengan masa simpan pendek (seperti Fresh Milk) diset ke 3 hari.
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 3. SLIDE-OVER DRAWER AKTIF DI SISI KANAN (Lebar 480px, Latar #F5EFEB, Border Kiri #EDE4DC) -->
+    <aside class="w-[480px] shrink-0 bg-[#F5EFEB] border-l border-[#EDE4DC] shadow-2xl flex flex-col justify-between sticky top-0 h-screen overflow-y-auto custom-scrollbar z-30">
+      
+      <!-- Drawer Content Container -->
+      <div class="p-6 flex flex-col gap-6">
+        
+        <!-- Drawer Header -->
+        <div class="flex items-start justify-between pb-4 border-b border-[#EDE4DC]">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-[#4A2C11] text-[#FAF7F2] flex items-center justify-center shadow-sm">
+              <svg class="w-5 h-5 text-[#C88242]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-lg font-bold text-[#241408]">Tambah Bahan Baku Baru</h2>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#C88242] text-white uppercase tracking-wider">
+                  Draft
+                </span>
+              </div>
+              <p class="text-xs text-[#5C3A21] mt-0.5">Input master data bahan untuk otorisasi restock dan rotasi FEFO.</p>
+            </div>
+          </div>
+          
+          <button class="w-8 h-8 rounded-lg bg-[#EDE4DC] text-[#5C3A21] hover:text-[#241408] hover:bg-[#EDE4DC]/80 flex items-center justify-center transition-colors" title="Tutup Panel">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Form Elements -->
+        <form class="flex flex-col gap-4.5 space-y-4 text-xs">
+          
+          <!-- Input 1: Nama Bahan Baku -->
+          <div>
+            <label class="block font-semibold text-[#241408] mb-1.5 flex items-center justify-between">
+              <span>Nama Bahan Baku <span class="text-[#8C3D2B]">*</span></span>
+              <span class="text-[10px] font-normal text-[#9C8474]">Wajib sesuai label kemasan</span>
+            </label>
+            <input 
+              type="text" 
+              placeholder="Contoh: Greenfield UHT Full Cream 1L" 
+              value="Greenfields UHT Skim Milk 1L"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] border border-[#EDE4DC] text-[#241408] font-medium text-xs placeholder-[#9C8474] focus:outline-none focus:ring-2 focus:ring-[#4A2C11] focus:border-transparent transition-all shadow-inner"
+            />
+            <p class="text-[10px] text-[#9C8474] mt-1">Sistem otomatis meregenerasi SKU unik: <span class="font-mono text-[#5C3A21]">SKU-DRY-004</span></p>
+          </div>
+
+          <!-- Input 2: Dropdown Kategori -->
+          <div>
+            <label class="block font-semibold text-[#241408] mb-1.5">
+              Kategori Bahan <span class="text-[#8C3D2B]">*</span>
+            </label>
+            <div class="relative">
+              <select class="w-full appearance-none px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] border border-[#EDE4DC] text-[#241408] font-medium text-xs focus:outline-none focus:ring-2 focus:ring-[#4A2C11] focus:border-transparent transition-all cursor-pointer">
+                <option value="dairy" selected>🥛 Susu &amp; Olahan Susu (Dairy)</option>
+                <option value="beans">☕ Biji Kopi Sangrai (Roasted Beans)</option>
+                <option value="syrup">🍯 Sirup Perisa &amp; Rasa (Flavors)</option>
+                <option value="packaging">📦 Kemasan &amp; Cup (Packaging)</option>
+                <option value="powder">🍵 Bubuk Teh &amp; Matcha (Tea &amp; Powder)</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[#5C3A21]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input 3: Segmented Button Satuan (ml / gram / pcs) -->
+          <div>
+            <label class="block font-semibold text-[#241408] mb-1.5">
+              Satuan Pengukuran Standar (Unit) <span class="text-[#8C3D2B]">*</span>
+            </label>
+            <div class="grid grid-cols-3 gap-2 p-1 bg-[#EDE4DC] rounded-xl border border-[#EDE4DC]">
+              <!-- Segment 1: ml (Selected) -->
+              <button type="button" class="py-2 px-3 rounded-lg text-xs font-bold bg-[#4A2C11] text-[#FAF7F2] shadow-sm flex items-center justify-center gap-1.5 transition-all">
+                <span>ml</span>
+                <span class="text-[10px] font-normal text-[#FAF7F2]/80">(Mililiter)</span>
+              </button>
+              <!-- Segment 2: gram -->
+              <button type="button" class="py-2 px-3 rounded-lg text-xs font-medium text-[#5C3A21] hover:bg-[#FAF7F2]/60 hover:text-[#241408] flex items-center justify-center gap-1.5 transition-all">
+                <span>gram</span>
+                <span class="text-[10px] font-normal text-[#9C8474]">(Gr)</span>
+              </button>
+              <!-- Segment 3: pcs -->
+              <button type="button" class="py-2 px-3 rounded-lg text-xs font-medium text-[#5C3A21] hover:bg-[#FAF7F2]/60 hover:text-[#241408] flex items-center justify-center gap-1.5 transition-all">
+                <span>pcs</span>
+                <span class="text-[10px] font-normal text-[#9C8474]">(Buah)</span>
+              </button>
+            </div>
+            <p class="text-[10px] text-[#9C8474] mt-1.5">Satuan ini akan digunakan di seluruh modul pemakaian bar dan kalkulasi HPP.</p>
+          </div>
+
+          <!-- Grid: Stok Minimum & Warning Days -->
+          <div class="grid grid-cols-2 gap-3.5 pt-1">
+            <!-- Input 4: Stok Minimum Restock -->
+            <div>
+              <label class="block font-semibold text-[#241408] mb-1.5">
+                Stok Minimum <span class="text-[#8C3D2B]">*</span>
+              </label>
+              <div class="relative">
+                <input 
+                  type="number" 
+                  value="2000" 
+                  class="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] border border-[#EDE4DC] text-[#241408] font-mono font-bold text-xs focus:outline-none focus:ring-2 focus:ring-[#4A2C11] focus:border-transparent transition-all"
+                />
+                <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-[#5C3A21] font-mono text-xs">
+                  ml
+                </span>
+              </div>
+              <p class="text-[10px] text-[#9C8474] mt-1">Lampu peringatan restock menyala jika saldo &lt; ambang ini.</p>
+            </div>
+
+            <!-- Input 5: Hari Peringatan Kedaluwarsa (Warning Days) -->
+            <div>
+              <label class="block font-semibold text-[#241408] mb-1.5">
+                Peringatan Expired <span class="text-[#8C3D2B]">*</span>
+              </label>
+              <div class="relative">
+                <input 
+                  type="number" 
+                  value="3" 
+                  class="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] border border-[#EDE4DC] text-[#241408] font-mono font-bold text-xs focus:outline-none focus:ring-2 focus:ring-[#4A2C11] focus:border-transparent transition-all"
+                />
+                <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-[#5C3A21] text-xs">
+                  Hari
+                </span>
+              </div>
+              <p class="text-[10px] text-[#9C8474] mt-1">Lampu kuning (🟡 Segera Pakai) mulai aktif.</p>
+            </div>
+          </div>
+
+          <!-- Secondary Box: Preview Standar Barista -->
+          <div class="p-3.5 rounded-xl bg-[#EDE4DC]/50 border border-[#EDE4DC] flex flex-col gap-2">
+            <span class="text-[11px] font-bold text-[#4A2C11] flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-[#C88242]" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Estimasi Peringatan Barista di Bar:
+            </span>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                🟢 &gt; 3 Hari: Aman
+              </span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+                🟡 3 Hari: Segera Pakai
+              </span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-[#FDF2F0] text-[#8C3D2B] border border-[#F8C6BF]">
+                🔴 Hari H: Basi
+              </span>
+            </div>
+          </div>
+
+          <!-- Lokasi Penyimpanan Fisik (Optional) -->
+          <div>
+            <label class="block font-semibold text-[#241408] mb-1.5">
+              Lokasi Penempatan Fisik di Bar / Gudang
+            </label>
+            <input 
+              type="text" 
+              placeholder="Contoh: Chiller Bawah Bar Utama (Sisi Kiri Depan)" 
+              value="Chiller Belakang Barista (Penyimpanan Cadangan)"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] border border-[#EDE4DC] text-[#241408] text-xs placeholder-[#9C8474] focus:outline-none focus:ring-2 focus:ring-[#4A2C11] focus:border-transparent transition-all"
+            />
+          </div>
+
+        </form>
+
+      </div>
+
+      <!-- Drawer Footer Actions -->
+      <div class="p-6 bg-[#EDE4DC]/50 border-t border-[#EDE4DC] flex items-center justify-between gap-3">
+        <button type="button" class="px-4 py-2.5 rounded-xl border border-[#EDE4DC] bg-[#FAF7F2] text-[#5C3A21] font-semibold text-xs hover:bg-[#EDE4DC] hover:text-[#241408] transition-colors">
+          Batal
+        </button>
+        <button type="button" class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#4A2C11] text-[#FAF7F2] font-bold text-xs hover:bg-[#38220C] shadow-md transition-all active:scale-[0.98]">
+          <svg class="w-4 h-4 text-[#C88242]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>Simpan Master Bahan</span>
+        </button>
+      </div>
+
+    </aside>
+
+  </main>
+
+</body>
+</html>

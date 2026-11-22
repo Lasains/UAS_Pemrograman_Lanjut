@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dasbor Operasional Barista FEFO</title>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              primary: '#4A2C11',
+              secondary: '#C88242',
+              tertiary: '#8C3D2B',
+            },
+            surface: {
+              canvas: '#FAF7F2',
+              container: '#F5EFEB',
+              high: '#EDE4DC',
+              border: '#EDE4DC',
+            },
+            content: {
+              high: '#241408',
+              medium: '#5C3A21',
+              subtle: '#9C8474',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Custom scrollbar matching coffee palette */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #EDE4DC;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #C88242;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4A2C11;
+    }
+  </style>
+</head>
+<body class="bg-[#FAF7F2] text-[#241408] font-sans antialiased min-h-screen selection:bg-[#C88242]/20 selection:text-[#4A2C11]">
+<!-- Main In-Shell Canvas Viewport (No outer sidebar/drawer) -->
+<main class="w-full min-h-screen p-6 lg:p-8">
+<div class="max-w-7xl mx-auto space-y-6">
+<!-- 1. HEADER TOOLBAR -->
+<header class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-2 border-b border-[#EDE4DC]">
+<!-- Sisi Kiri: Judul & Subjudul -->
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-[#EDE4DC] flex items-center justify-center text-[#4A2C11] flex-shrink-0 shadow-xs">
+<i class="w-6 h-6" data-lucide="layout-dashboard"></i>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-2xl font-bold tracking-tight text-[#241408]">Dasbor Operasional Barista</h1>
+<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-bold bg-[#4A2C11] text-white">LIVE</span>
+</div>
+<p class="text-xs sm:text-sm text-[#5C3A21] mt-0.5">
+              Ringkasan status bar real-time, alert shift aktif, dan kesehatan inventaris meja racik.
+            </p>
+</div>
+</div>
+<!-- Sisi Kanan: Indikator Shift & Jam Real-Time -->
+<div class="flex flex-wrap items-center gap-2.5">
+<!-- Status Stasiun Aktif -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F5EFEB] border border-[#EDE4DC] text-xs font-semibold text-[#241408]">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Bar Utama (Station A)</span>
+<span class="text-[#9C8474] font-normal">• Optimal</span>
+</div>
+<!-- Shift Badge -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F5EFEB] border border-[#EDE4DC] text-xs font-medium text-[#5C3A21]">
+<i class="w-4 h-4 text-[#C88242]" data-lucide="clock"></i>
+<span>Shift Pagi: <strong class="text-[#241408]">07:00 - 15:00 WIB</strong></span>
+</div>
+<!-- Jam & Kalender Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#4A2C11] text-[#FAF7F2] text-xs font-mono font-semibold shadow-xs">
+<i class="w-3.5 h-3.5 text-[#C88242]" data-lucide="calendar"></i>
+<span>Jum, 25 Okt 2024</span>
+<span class="text-[#EDE4DC]/50 mx-0.5">|</span>
+<span class="text-[#FED7AA]">10:42 WIB</span>
+</div>
+</div>
+</header>
+<!-- 2. ROW 1: KEY DAILY BARISTA PERFORMANCE & OPERATIONAL METRICS -->
+<section aria-label="Metrik Operasional Harian" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1: Kepatuhan FEFO Shift -->
+<article class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-5 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-[#5C3A21]">
+<span class="text-xs font-bold uppercase tracking-wider">Kepatuhan FEFO Shift</span>
+<div class="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700">
+<i class="w-4 h-4" data-lucide="shield-check"></i>
+</div>
+</div>
+<div class="mt-3">
+<div class="text-3xl font-extrabold text-[#059669] font-mono tracking-tight">94.8%</div>
+<p class="text-xs text-[#5C3A21] mt-1 font-medium">Target &gt; 90% (18 dari 19 seduhan patuh)</p>
+</div>
+<div class="mt-3 pt-2.5 border-t border-[#EDE4DC] flex items-center justify-between text-[11px] text-[#9C8474]">
+<span class="flex items-center gap-1 text-emerald-700 font-semibold">
+<i class="w-3 h-3" data-lucide="trending-up"></i> +2.3% vs kemarin
+            </span>
+<span>Audit: Aman</span>
+</div>
+</article>
+<!-- Card 2: Volume Konsumsi Bar Hari Ini -->
+<article class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-5 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-[#5C3A21]">
+<span class="text-xs font-bold uppercase tracking-wider">Volume Konsumsi Bar</span>
+<div class="w-7 h-7 rounded-lg bg-[#C88242]/15 flex items-center justify-center text-[#C88242]">
+<i class="w-4 h-4" data-lucide="coffee"></i>
+</div>
+</div>
+<div class="mt-3">
+<div class="text-xl font-extrabold text-[#241408] font-mono tracking-tight">4.250 ml <span class="text-sm font-sans font-normal text-[#5C3A21]">&amp;</span> 1.280 gr</div>
+<p class="text-xs text-[#5C3A21] mt-1 font-medium">Est. 68 porsi minuman disajikan</p>
+</div>
+<div class="mt-3 pt-2.5 border-t border-[#EDE4DC] flex items-center justify-between text-[11px] text-[#9C8474]">
+<span>Peak hour: 08:30 - 10:00</span>
+<span class="font-mono text-[#5C3A21]">Ratio 1:18 OK</span>
+</div>
+</article>
+<!-- Card 3: Batch Kritis Perlu Perhatian -->
+<article class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-5 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-[#5C3A21]">
+<span class="text-xs font-bold uppercase tracking-wider">Batch Kritis Shift</span>
+<div class="w-7 h-7 rounded-lg bg-[#FDF2F0] border border-[#F8C6BF] flex items-center justify-center text-[#8C3D2B]">
+<i class="w-4 h-4" data-lucide="alert-triangle"></i>
+</div>
+</div>
+<div class="mt-3">
+<div class="text-3xl font-extrabold text-[#C88242] font-mono tracking-tight">2 Batch</div>
+<p class="text-xs text-[#8C3D2B] mt-1 font-semibold">Fresh Milk &amp; Croissant (&lt; 24 jam)</p>
+</div>
+<div class="mt-3 pt-2.5 border-t border-[#EDE4DC] flex items-center justify-between text-[11px] text-[#9C8474]">
+<span class="text-[#8C3D2B] font-semibold">Wajib habiskan dulu</span>
+<span class="font-mono">Chiller &amp; Display</span>
+</div>
+</article>
+<!-- Card 4: Status Ketersediaan Bar -->
+<article class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-5 shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-[#5C3A21]">
+<span class="text-xs font-bold uppercase tracking-wider">Status Ketersediaan Bar</span>
+<div class="w-7 h-7 rounded-lg bg-[#4A2C11]/10 flex items-center justify-center text-[#4A2C11]">
+<i class="w-4 h-4" data-lucide="package-check"></i>
+</div>
+</div>
+<div class="mt-3">
+<div class="text-3xl font-extrabold text-[#4A2C11] font-mono tracking-tight">98.2% <span class="text-base font-bold font-sans text-emerald-700">Siap</span></div>
+<p class="text-xs text-[#5C3A21] mt-1 font-medium">Semua 14 SKU utama di atas par-level</p>
+</div>
+<div class="mt-3 pt-2.5 border-t border-[#EDE4DC] flex items-center justify-between text-[11px] text-[#9C8474]">
+<span>Siaga rush hour siang</span>
+<span class="text-emerald-700 font-semibold">Ready</span>
+</div>
+</article>
+</section>
+<!-- 3. ROW 2: ACTIVE SHIFT ALERTS & LIVE STATION HEALTH (SPLIT 50/50) -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- KARTU KIRI: Peringatan Aktif & Prioritas FEFO Shift Ini -->
+<div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-6 shadow-xs flex flex-col justify-between space-y-5">
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-[#EDE4DC]">
+<div class="flex items-center gap-2">
+<i class="w-5 h-5 text-[#8C3D2B]" data-lucide="bell-ring"></i>
+<h2 class="text-lg font-bold text-[#241408]">Peringatan Aktif &amp; Prioritas FEFO Shift Ini</h2>
+</div>
+<span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#8C3D2B] text-white">2 Perlu Tindakan</span>
+</div>
+<div class="space-y-3.5 mt-4">
+<!-- Alert 1: Urgent Terracotta -->
+<div class="bg-[#FDF2F0] border-2 border-[#F8C6BF] rounded-xl p-4 shadow-2xs">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#8C3D2B]/10 border border-[#F8C6BF] text-[#8C3D2B] flex items-center justify-center flex-shrink-0 mt-0.5 animate-pulse">
+<i class="w-5 h-5" data-lucide="alert-octagon"></i>
+</div>
+<div class="flex-1">
+<div class="flex flex-wrap items-center justify-between gap-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-[#8C3D2B] text-white">
+                        URGENT FEFO
+                      </span>
+<span class="text-xs font-bold text-[#8C3D2B] font-mono">Exp: Besok (26 Okt)</span>
+</div>
+<h3 class="text-sm font-bold text-[#8C3D2B] mt-1">
+                      Habiskan Segera: Fresh Milk Diamond Batch #BCH-01
+                    </h3>
+<p class="text-xs text-[#5C3A21] mt-1 leading-relaxed">
+                      Sisa <strong>1.000 ml</strong> di chiller kanan stasiun espresso. Expired besok (26 Okt). Jangan buka batch baru sebelum ini kosong.
+                    </p>
+<div class="mt-2.5 flex items-center gap-2 text-[11px] text-[#5C3A21] font-semibold bg-white/60 px-2.5 py-1 rounded-md border border-[#F8C6BF]/60 w-fit">
+<i class="w-3.5 h-3.5 text-[#8C3D2B]" data-lucide="map-pin"></i>
+<span>Lokasi: Chiller Depan Bar • Rak Bawah</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Alert 2: Amber Warning -->
+<div class="bg-[#FFF7ED] border-2 border-[#FED7AA] rounded-xl p-4 shadow-2xs">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#C88242]/20 border border-[#FED7AA] text-[#C88242] flex items-center justify-center flex-shrink-0 mt-0.5">
+<i class="w-5 h-5" data-lucide="hourglass"></i>
+</div>
+<div class="flex-1">
+<div class="flex flex-wrap items-center justify-between gap-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-[#C88242] text-white">
+                        SHELF LIFE WARN
+                      </span>
+<span class="text-xs font-bold text-[#C88242] font-mono">Sisa 6 Jam Optimal</span>
+</div>
+<h3 class="text-sm font-bold text-[#241408] mt-1">
+                      Peringatan Masa Simpan: Croissant Butter Artisan
+                    </h3>
+<p class="text-xs text-[#5C3A21] mt-1 leading-relaxed">
+                      Sisa <strong>4 pcs</strong> di showcase pastry, batas konsumsi optimal 6 jam tersisa. Tawarkan promo bundling kopi pagi jika belum terjual hingga 12:00.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Info Note Terjadwal -->
+<div class="bg-[#EDE4DC]/50 border border-[#EDE4DC] rounded-xl p-3.5 flex items-start gap-3">
+<div class="w-7 h-7 rounded-lg bg-[#4A2C11]/10 text-[#4A2C11] flex items-center justify-center flex-shrink-0 mt-0.5">
+<i class="w-4 h-4" data-lucide="info"></i>
+</div>
+<div class="text-xs text-[#5C3A21] leading-relaxed">
+<strong class="text-[#241408]">Rotasi Chiller Terjadwal:</strong> Pastikan batch <strong>#BCH-02</strong> dimajukan ke rak depan saat pergantian shift pukul 15:00 WIB untuk briefing barista sore.
+                </div>
+</div>
+</div>
+</div>
+<div class="pt-2 border-t border-[#EDE4DC] flex items-center justify-between text-xs text-[#9C8474]">
+<span>Diperbarui otomatis tiap 60 detik</span>
+<span class="flex items-center gap-1 text-[#5C3A21] font-medium">
+<i class="w-3 h-3 text-[#C88242]" data-lucide="refresh-cw"></i> Sinkronisasi FEFO Cloud Aktif
+            </span>
+</div>
+</div>
+<!-- KARTU KANAN: Ringkasan Kesehatan Inventaris Meja Bar (Live Station Health) -->
+<div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-6 shadow-xs flex flex-col justify-between space-y-4">
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-[#EDE4DC]">
+<div class="flex items-center gap-2">
+<i class="w-5 h-5 text-[#4A2C11]" data-lucide="gauge"></i>
+<h2 class="text-lg font-bold text-[#241408]">Ringkasan Kesehatan Inventaris Meja Bar</h2>
+</div>
+<span class="text-xs text-[#5C3A21] font-semibold">5 Bahan Utama Siap Pakai</span>
+</div>
+<!-- List of Bar Inventories -->
+<div class="divide-y divide-[#EDE4DC] mt-2">
+<!-- Item 1: Fresh Milk Diamond -->
+<div class="py-3 first:pt-1 last:pb-0 space-y-1.5">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="text-sm font-bold text-[#241408]">Fresh Milk Diamond 1L</h3>
+<p class="text-xs text-[#5C3A21]">Chiller Utama • <span class="font-mono font-semibold">4.200 ml</span> (3 batch aktif) • Prioritas: <span class="font-mono text-[#8C3D2B] font-bold">#BCH-01</span></p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#FDF2F0] text-[#8C3D2B] border border-[#F8C6BF] whitespace-nowrap animate-pulse">
+<span class="w-1.5 h-1.5 rounded-full bg-[#8C3D2B]"></span>
+                    Merah: Kritis 1 Hari
+                  </span>
+</div>
+<div class="w-full bg-[#EDE4DC] h-1.5 rounded-full overflow-hidden">
+<div class="bg-red-500 h-full rounded-full" style="width: 25%"></div>
+</div>
+</div>
+<!-- Item 2: Oatside Oat Milk -->
+<div class="py-3 space-y-1.5">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="text-sm font-bold text-[#241408]">Oatside Oat Milk 1L</h3>
+<p class="text-xs text-[#5C3A21]">Chiller Utama • <span class="font-mono font-semibold">3.000 ml</span> (3 batch) • Prioritas: <span class="font-mono text-[#C88242] font-bold">#BCH-04</span> (Exp: 2 Nov)</p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA] whitespace-nowrap">
+<span class="w-1.5 h-1.5 rounded-full bg-[#C88242]"></span>
+                    Kuning: Warning 7 Hari
+                  </span>
+</div>
+<div class="w-full bg-[#EDE4DC] h-1.5 rounded-full overflow-hidden">
+<div class="bg-[#C88242] h-full rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<!-- Item 3: House Espresso Blend -->
+<div class="py-3 space-y-1.5">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="text-sm font-bold text-[#241408]">House Espresso Blend</h3>
+<p class="text-xs text-[#5C3A21]">Hopper Grinder 1 &amp; 2 • <span class="font-mono font-semibold">5.400 gr</span> • Roast: 12 Okt (13 hari)</p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-300 whitespace-nowrap">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    Hijau: Peak Degassing / Optimal
+                  </span>
+</div>
+<div class="w-full bg-[#EDE4DC] h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-full rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- Item 4: Monin Caramel Syrup -->
+<div class="py-3 space-y-1.5">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="text-sm font-bold text-[#241408]">Monin Caramel Syrup</h3>
+<p class="text-xs text-[#5C3A21]">Rak Sirup Bar • <span class="font-mono font-semibold">3.200 ml</span> (4 btl) • Lot #SY-0920</p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-300 whitespace-nowrap">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    Hijau: Aman 45 Hari
+                  </span>
+</div>
+<div class="w-full bg-[#EDE4DC] h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-full rounded-full" style="width: 75%"></div>
+</div>
+</div>
+<!-- Item 5: Cup Hot 8oz & Lid -->
+<div class="py-3 last:pb-0 space-y-1.5">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="text-sm font-bold text-[#241408]">Cup Hot 8oz &amp; Lid</h3>
+<p class="text-xs text-[#5C3A21]">Dry Station Bar • <span class="font-mono font-semibold">350 pcs</span> di dispenser stasiun</p>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-300 whitespace-nowrap">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    Hijau: Stok Cukup
+                  </span>
+</div>
+<div class="w-full bg-[#EDE4DC] h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-full rounded-full" style="width: 90%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-2 border-t border-[#EDE4DC] flex items-center justify-between text-xs text-[#9C8474]">
+<span>Ambang par-level otomatis terpantau</span>
+<span class="text-[#5C3A21] font-semibold">Semua Sensor Bar Online</span>
+</div>
+</div>
+</section>
+<!-- 4. ROW 3: RINGKASAN AKTIVITAS TERKINI SHIFT PAGI (AUDIT MINI-FEED) -->
+<section aria-label="Aktivitas Terkini Shift" class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-6 shadow-xs">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[#EDE4DC]">
+<div class="flex items-center gap-2">
+<i class="w-5 h-5 text-[#4A2C11]" data-lucide="history"></i>
+<h2 class="text-lg font-bold text-[#241408]">Ringkasan Aktivitas Terkini Shift Pagi</h2>
+</div>
+<div class="flex items-center gap-2 text-xs text-[#5C3A21]">
+<span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+<span>Logging Real-Time • 4 Transaksi Terakhir</span>
+</div>
+</div>
+<div class="overflow-x-auto mt-2">
+<table class="w-full text-left text-xs">
+<thead>
+<tr class="text-[#9C8474] font-semibold border-b border-[#EDE4DC] uppercase tracking-wider text-[11px]">
+<th class="py-3 px-3">Waktu</th>
+<th class="py-3 px-3">Bahan / SKU</th>
+<th class="py-3 px-3">Jumlah &amp; Tujuan</th>
+<th class="py-3 px-3">Lot / Batch ID</th>
+<th class="py-3 px-3">Barista</th>
+<th class="py-3 px-3 text-right">Kepatuhan FEFO</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#EDE4DC]/70 font-medium text-[#241408]">
+<!-- Transaksi 1 -->
+<tr class="hover:bg-[#FAF7F2] transition-colors">
+<td class="py-3 px-3 font-mono text-[#5C3A21]">10:38 WIB</td>
+<td class="py-3 px-3 font-semibold">Fresh Milk Diamond 1L</td>
+<td class="py-3 px-3">250 ml <span class="text-[#9C8474]">(2x Caffe Latte)</span></td>
+<td class="py-3 px-3 font-mono text-[#8C3D2B]">#BCH-01</td>
+<td class="py-3 px-3 text-[#5C3A21]">Rian Ardiansyah</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
+<i class="w-3 h-3" data-lucide="check"></i> Patuh FEFO
+                  </span>
+</td>
+</tr>
+<!-- Transaksi 2 -->
+<tr class="hover:bg-[#FAF7F2] transition-colors">
+<td class="py-3 px-3 font-mono text-[#5C3A21]">10:24 WIB</td>
+<td class="py-3 px-3 font-semibold">House Espresso Blend</td>
+<td class="py-3 px-3">180 gr <span class="text-[#9C8474]">(Isi Hopper 1)</span></td>
+<td class="py-3 px-3 font-mono text-[#4A2C11]">#EB-2024-09</td>
+<td class="py-3 px-3 text-[#5C3A21]">Rian Ardiansyah</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
+<i class="w-3 h-3" data-lucide="check"></i> Patuh FEFO
+                  </span>
+</td>
+</tr>
+<!-- Transaksi 3 (Deviasi Tercatat) -->
+<tr class="hover:bg-[#FAF7F2] transition-colors bg-[#FFF7ED]/30">
+<td class="py-3 px-3 font-mono text-[#5C3A21]">09:50 WIB</td>
+<td class="py-3 px-3 font-semibold">Oatside Barista Blend</td>
+<td class="py-3 px-3">200 ml <span class="text-[#9C8474]">(Oat Latte Iced)</span></td>
+<td class="py-3 px-3 font-mono text-[#C88242]">#BCH-04</td>
+<td class="py-3 px-3 text-[#5C3A21]">Dimas Pratama</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+<i class="w-3 h-3" data-lucide="alert-circle"></i> Deviasi Teralasan
+                  </span>
+</td>
+</tr>
+<!-- Transaksi 4 -->
+<tr class="hover:bg-[#FAF7F2] transition-colors">
+<td class="py-3 px-3 font-mono text-[#5C3A21]">09:15 WIB</td>
+<td class="py-3 px-3 font-semibold">Monin Caramel Syrup</td>
+<td class="py-3 px-3">40 ml <span class="text-[#9C8474]">(Caramel Macchiato)</span></td>
+<td class="py-3 px-3 font-mono text-[#4A2C11]">#SY-0920</td>
+<td class="py-3 px-3 text-[#5C3A21]">Rian Ardiansyah</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
+<i class="w-3 h-3" data-lucide="check"></i> Patuh FEFO
+                  </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-4 pt-3 border-t border-[#EDE4DC] flex flex-wrap items-center justify-between text-xs text-[#5C3A21] gap-2">
+<span>Kepatuhan shift dicatat secara otomatis ke server audit pusat</span>
+<div class="flex items-center gap-4">
+<span class="text-[#9C8474]">Supervisor on Duty: <strong class="text-[#241408]">Siti Rahma</strong></span>
+<span class="inline-flex items-center gap-1 text-emerald-700 font-semibold">
+<i class="w-3.5 h-3.5" data-lucide="check-circle"></i> Standar HACCP Terpenuhi
+            </span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body></html>

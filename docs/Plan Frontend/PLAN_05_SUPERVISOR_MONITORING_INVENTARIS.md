@@ -54,122 +54,60 @@ if ($daysUntilExpiry < 3) {
 
 ---
 
-## 2. STITCH-READY SCREEN SPECIFICATION (GOOGLE STITCH PROMPT)
+## 2. SPESIFIKASI MOCKUP STITCH UI & BLUEPRINT 2 HALAMAN SUPERVISOR INVENTARIS
 
-Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch untuk menghasilkan purwarupa visual antarmuka monitoring inventaris.
+Seluruh mockup visual monitoring inventaris & audit kepatuhan FEFO supervisor telah diunduh dari proyek Google Stitch (ID: `3585613475449128159`), tersimpan lokal di direktori `docs/stitch/`:
 
-### 2.1 Identitas Modul Layar
-* **Screen Title**: Specialty Coffee Inventory Early Warning & Batch Monitoring Hub
-* **Target Viewport**: Desktop (1440x900) & Supervisor POS Tablet (1024x768)
-* **Design Philosophy**: Glanceable, High-Contrast Indicators, Warm Steamed Milk Canvas (`bg-surface-canvas` `#FAF7F2`), Containers `#F5EFEB` & `#EDE4DC`, Espresso `#4A2C11`, Amber `#C88242`, Terracotta `#8C3D2B`, High Traffic-Light Alertness.
-
----
-
-### 2.2 Rincian Dua Layar Visual
-
-#### Layar 1: Tabel Utama Monitoring Inventaris (`Pages/Inventory/Index.tsx`)
-1. **Header Metrik Status Cepat (4 Kartu Ringkasan Atas)**:
-   - **Kartu 1 (Total Batch Aktif)**: Ikon `Boxes`, angka tebal `text-content-high` (misal: *38 Batch*), label *Total Batch Berjalan* `text-content-medium`.
-   - **Kartu 2 (Batch Aman 🟢)**: Border hijau botani tipis, latar `bg-emerald-50`, teks hijau botani (misal: *28 Batch*), label *Masa Simpan > 7 Hari*.
-   - **Kartu 3 (Peringatan Segera Pakai 🟡)**: Border amber tipis, latar `bg-[#FFF7ED] border-[#FED7AA]`, angka amber `text-[#C88242]` (misal: *7 Batch*), label *Kedaluwarsa 3-7 Hari*.
-   - **Kartu 4 (Kritis / Basi 🔴)**: Border terracotta tipis, latar `bg-[#FDF2F0] border-[#F8C6BF]`, angka merah terakota tebal `text-[#8C3D2B]` (misal: *3 Batch*), label *Kritis (< 3 Hari / Basi)*.
-2. **Toolbar Pencarian & Filter Cepat**:
-   - **Search Bar**: Input pencarian bahan atau kode batch (`bg-surface-canvas border-surface-border text-content-high`).
-   - **Filter Tabs Status Lampu Lalu Lintas**:
-     * `[Semua Batch (38)]`
-     * `[🟢 Aman (28)]`
-     * `[🟡 Segera Pakai (7)]`
-     * `[🔴 Kritis (3)]`
-   - **Tombol Utama Espresso**: `[+ Restock Batch Baru]` (`bg-brand-primary hover:bg-brand-primary-hover text-white font-medium shadow-sm flex items-center gap-2`).
-3. **Tabel Hierarki Bahan & Batch (Expandable Table)**:
-   - **Baris Induk (Bahan Baku)**:
-     * Tombol Chevron panah (`ChevronRight` / `ChevronDown`) untuk membuka daftar batch fisik di bawahnya.
-     * Nama Bahan (misal: *Fresh Milk Diamond 1L*), Kategori (Badge *Dairy*).
-     * Total Saldo Stok Fisik saat ini (misal: *4.200 ml*).
-     * Status Stok Minimum: Jika di bawah ambang, muncul badge terakota `[Restock Segera]`.
-     * Urgensi Terdekat: Badge batch yang paling mendesak dari bahan tersebut.
-   - **Sub-Tabel Anak (Daftar Batch Fisik Saat Baris Diexpand)**:
-     * Latar belakang baris: `bg-surface-container-high/60` (atau `bg-[#FDF2F0]/80` jika batch berstatus kritis).
-     * Kode Batch (misal: `#BM-20261025`).
-     * Tanggal Penerimaan (misal: *25 Okt 2026*).
-     * Tanggal Kedaluwarsa (misal: *03 Nov 2026*).
-     * Sisa Stok / Stok Awal (misal: *1.000 / 2.000 ml* dengan visual *progress bar* stok tipis).
-     * Badge Status Kedaluwarsa (`ExpiryBadge`):
-       - 🟢 Aman: `bg-emerald-50 text-emerald-800 border-emerald-300` (*"12 hari lagi"*).
-       - 🟡 Segera Pakai: `bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]` (*"4 hari lagi"*).
-       - 🔴 Kritis: `bg-[#FDF2F0] text-[#8C3D2B] border-[#F8C6BF] animate-pulse font-semibold` (*"BESOK"* atau *"Kedaluwarsa!"*).
-     * Kolom Aksi Cepat: Tombol pintas `[Pakai]` atau `[Lapor Rusak]`.
+| Halaman Supervisor | Screen ID Stitch | File HTML Mockup | File Screenshot Mockup |
+| :--- | :--- | :--- | :--- |
+| **Monitoring Inventaris & Kedaluwarsa** | `ad27ee7c173644a9b0e4bf96a820437d` | [supervisor_monitoring_inventaris.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/supervisor_monitoring_inventaris.html) | [supervisor_monitoring_inventaris.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/supervisor_monitoring_inventaris.png) |
+| **Riwayat Audit & Kepatuhan FEFO** | `ad99b93ea1504c949462308c40045938` | [supervisor_riwayat_audit_fefo.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/supervisor_riwayat_audit_fefo.html) | [supervisor_riwayat_audit_fefo.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/supervisor_riwayat_audit_fefo.png) |
 
 ---
 
-#### Layar 2: Modal Form Penerimaan Batch Baru (`Pages/Inventory/RestockModal.tsx`)
-1. **Kontainer Dialog**:
-   - Modal pop-up oat latte bersih terpusat (`max-w-lg bg-surface-container rounded-xl shadow-xl border border-surface-border p-6`).
-   - Judul: *"Penerimaan Batch Bahan Baku Baru (Restock)"* (`text-content-high`).
-   - Subjudul: *"Catat faktur masuk dari pemasok untuk pemantauan masa kedaluwarsa presisi."* (`text-content-medium`).
-2. **Elemen Form Input**:
-   - **Pilih Bahan Baku (`ingredient_id`)**: Select dropdown dinamis lengkap dengan satuan unit (misal: *Fresh Milk Diamond 1L (ml)*).
-   - **Kode Batch (`batch_code`)**:
-     * Input teks dengan tombol bantu `[Generate Otomatis]` (`text-brand-secondary hover:underline`).
-     * Format otomatis: `BATCH-YYYYMMDD-[KODE]` (contoh: `BM-20261031-001`).
-   - **Tanggal Terima (`received_date`)**: Datepicker kalender, otomatis terisi tanggal hari ini.
-   - **Tanggal Kedaluwarsa (`expiry_date`)**:
-     * Datepicker kalender dengan validasi proteksi `min={received_date}`.
-     * Indikator preview instan: *"Masa simpan batch ini: 14 hari kedepan (Status: 🟢 Aman)"*.
-   - **Kuantitas Masuk (`initial_stock`)**:
-     * Input angka besar dengan suffix unit bahan (misal: `[ 5000 ] ml`).
-   - **Harga Beli Satuan (`cost_per_unit`)**:
-     * Input angka berformat rupiah (misal: `Rp 24.000` per kemasan/unit).
-3. **Kalkulator Nilai Total Faktur (Live Calculator Banner)**:
-   - Box ringkasan parchment di bawah form:
-     > *"Estimasi Nilai Belanja Batch: **Rp 120.000** (5 x Rp 24.000)"* (`border-surface-border bg-surface-container-high`).
-4. **Footer Aksi**:
-   - Tombol Batal (`variant="outline"` border-surface-border text-content-medium).
-   - Tombol Espresso: `[Simpan & Terbitkan Batch]` (`bg-brand-primary hover:bg-brand-primary-hover text-white`).
+### 2.1 Halaman A: Monitoring Inventaris & Kedaluwarsa (`Pages/Inventory/Index.tsx`)
+**Route**: `inventory.index`  
+**Mockup Acuan**: [supervisor_monitoring_inventaris.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/supervisor_monitoring_inventaris.html)
+
+#### Komponen Kanvas & Hierarki Tampilan:
+1. **Empat Kartu Ringkasan Metrik Status Cepat (`QuickExpiryStats.tsx`)**:
+   - `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4`:
+     - **Total Batch Aktif**: `bg-[#F5EFEB] border border-[#EDE4DC] p-4.5 rounded-xl` (misal: *38 Batch Berjalan*).
+     - **🟢 Batch Aman**: `bg-emerald-50 border border-emerald-200 text-emerald-800` (Masa simpan > 7 hari, misal: *28 Batch*).
+     - **🟡 Peringatan Segera Pakai**: `bg-[#FFF7ED] border border-[#FED7AA] text-[#C88242]` (Kedaluwarsa 3–7 hari, misal: *7 Batch*).
+     - **🔴 Kritis / Expired**: `bg-[#FDF2F0] border border-[#F8C6BF] text-[#8C3D2B]` (Kedaluwarsa < 3 hari, misal: *3 Batch*).
+2. **Toolbar Filter & Segmented Traffic-Light Tabs (`ExpiryFilterTabs.tsx`)**:
+   - Filter Tabs: `[Semua Batch (38)]`, `[🟢 Aman (28)]`, `[🟡 Segera Pakai (7)]`, `[🔴 Kritis (3)]`. Tab aktif berlatar `#4A2C11` dengan teks putih.
+   - Tombol Aksi Restock: `[+ Restock Batch Baru]` (`bg-[#4A2C11] text-white`) yang mengarahkan ke form penerimaan batch.
+3. **Tabel Expandable Batch Inventaris Chiller (`ExpandableBatchTable.tsx`)**:
+   - Tabel di dalam kontainer `bg-[#F5EFEB] rounded-2xl border border-[#EDE4DC] overflow-hidden`:
+     - **Baris Induk (Bahan Baku)**: Tombol panah Chevron expand, nama bahan (misal: *Fresh Milk Diamond • SKU: DIA-102*), kategori, total saldo stok di bar (misal: *4.500 ml*), batch terdekat expired, dan status urgensi lampu lalu lintas.
+     - **Sub-Baris Anak (Detail Batch Fisik di Rak Chiller)**:
+       * Menampilkan setiap nomor batch fisik (misal: `BCH-20241026-A3F2`).
+       * Tanggal kedaluwarsa & countdown sisa hari (misal: `Exp: 26 Okt 2024 • 1 Hari Tersisa`).
+       * Lokasi fisik penyimpanan (misal: `Lokasi: Chiller Bar Utama (03.5°C)`).
+       * Sisa kuantitas per batch (misal: `2.500 ml`).
+       * Rekomendasi aksi: `[Pakai Lebih Dulu]` atau `[Buat Tiket Waste]` jika sudah lewat tanggal aman.
 
 ---
 
-### 2.3 Teks Prompt Siap Pakai untuk Google Stitch
+### 2.2 Halaman B: Riwayat Audit & Kepatuhan FEFO (`Pages/Audit/FefoLog.tsx`)
+**Route**: `audit.fefo`  
+**Mockup Acuan**: [supervisor_riwayat_audit_fefo.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/supervisor_riwayat_audit_fefo.html)
 
-#### Prompt Bahasa Indonesia (Terstruktur & Deskriptif)
-```text
-Buatkan 2 antarmuka layar manajemen inventaris untuk modul "Monitoring Inventaris & Early Warning Kedaluwarsa" pada aplikasi kafe "BeanFlow" bernuansa hangat artisan coffee:
-
-Layar 1 (Tabel Utama Monitoring Inventaris):
-Latar belakang bersih kanvas susu #FAF7F2. Di bagian atas terdapat 4 kartu metrik statistik ringkas berlatar oat latte #F5EFEB:
-- Kartu 1: Total Batch Aktif (38 Batch).
-- Kartu 2: Batch Aman beraksen hijau botani (28 Batch, sisa > 7 hari).
-- Kartu 3: Peringatan Segera Pakai beraksen amber karamel #C88242 (7 Batch, sisa 3-7 hari).
-- Kartu 4: Kritis / Basi beraksen terracotta cherry #8C3D2B (3 Batch, sisa < 3 hari).
-Di bawah kartu terdapat toolbar pencarian, filter tab status berbentuk pills ("Semua Batch", "🟢 Aman", "🟡 Segera Pakai", "🔴 Kritis"), dan tombol espresso utama "+ Restock Batch Baru" (#4A2C11).
-Tabel inventaris hierarki berborder #EDE4DC: baris induk bahan (Fresh Milk Diamond 1L, Espresso Beans House) memiliki ikon chevron untuk membuka daftar batch fisik di bawahnya. Sub-tabel batch menampilkan: Kode Batch (#BM-20261025), Tanggal Masuk, Tanggal Expired, Progress Bar sisa stok (1.000 / 2.000 ml), dan Badge Lampu Lalu Lintas:
-- Badge Hijau: "Aman (12 hari lagi)"
-- Badge Kuning Amber: "Segera Pakai (4 hari lagi)" (#FFF7ED / #C88242)
-- Badge Terracotta Berkedip: "Kritis (Besok!)" (#FDF2F0 / #8C3D2B) dengan highlight baris kemerahan lembut.
-
-Layar 2 (Modal Form Restock Batch Baru):
-Dialog pop-up oat latte #F5EFEB terpusat (rounded-xl, border #EDE4DC). Berisi:
-- Dropdown pilih bahan baku kafe.
-- Input kode batch faktur dengan tombol kecil aksen karamel "Otomatis".
-- Baris tanggal bersebelahan: Tanggal Terima (hari ini) dan Tanggal Expired (kalender).
-- Input kuantitas masuk angka besar dengan satuan ml/gram.
-- Input harga beli satuan rupiah.
-- Banner ringkasan kalkulasi otomatis berlatar parchment #EDE4DC: "Total Nilai Belanja: Rp 120.000".
-- Tombol batal dan tombol espresso #4A2C11 "Simpan & Terbitkan Batch".
-Desain minimalis modern SaaS kafe, kontras tinggi, sangat rapi.
-```
-
-#### English Prompt (High-Fidelity for Stitch AI)
-```text
-A high-fidelity 2-screen UI set for a specialty coffee inventory monitoring system named "BeanFlow" with warm artisan coffee aesthetics:
-1. Screen 1 (Inventory Expiry Monitoring Table): Warm steamed milk canvas (#FAF7F2) background. Top section features 4 summary metric cards on oat latte (#F5EFEB): Total Active Batches (38), Safe Batches in soft emerald tint (>7 days, 28), Warning Batches in warm caramel amber (#C88242, 3-7 days, 7), and Critical Batches in terracotta cherry (#8C3D2B, <3 days / expired, 3). Below is a search bar, segmented status filter tabs ("All", "Safe", "Warning", "Critical"), and a deep roasted espresso action button "+ Restock New Batch" (#4A2C11). An expandable data table where parent ingredient rows can be clicked to reveal child batch sub-rows with parchment borders (#EDE4DC). Batch rows show: Batch Code (#BM-20261025), Inbound Date, Expiry Date, Stock Progress Bar (1,000 / 2,000 ml), and Traffic-Light Badges:
-- Green Badge: "Safe (12d left)"
-- Amber Caramel Badge: "Use Soon (4d left)"
-- Terracotta Pulsing Badge: "Critical (Tomorrow!)" with subtle terracotta #FDF2F0 row tint.
-2. Screen 2 (Inbound Restock Batch Modal): Centered warm oat latte modal (#F5EFEB, rounded-xl, shadow-xl, border #EDE4DC). Contains fields: ingredient selector, batch number with "Auto-generate" button in amber #C88242, two-column dates (Received Date and Expiry Date with datepicker), quantity input with unit badge, unit cost in Rupiah, and a parchment summary card calculating "Total Inbound Value: Rp 120,000". Deep espresso primary submit button (#4A2C11). Clean typography, high contrast, polished SaaS layout.
-```
-
----
+#### Komponen Kanvas & Fitur Audit:
+1. **Header & Filter Audit**:
+   - Judul: `"Buku Log Riwayat Audit & Kepatuhan SOP FEFO"`.
+   - Filter Barista (`All` atau filter per nama barista), Filter Status (`Semua`, `Hanya Patuh`, `Hanya Deviasi`), dan Range Periode Bulan.
+2. **Tiga Kartu KPI Kepatuhan SOP (`FefoKpiCards.tsx`)**:
+   - `grid grid-cols-1 md:grid-cols-3 gap-4`:
+     - **Total Transaksi Pemakaian**: Akumulasi frekuensi pemotongan stok bulan ini.
+     - **Rasio Kepatuhan FEFO**: Persentase kepatuhan (misal: `94.2% Patuh Standar FEFO`).
+     - **Total Kejadian Deviasi**: Jumlah insiden pengambilan batch di luar urutan (misal: `8 Insiden Deviasi Terverifikasi`).
+3. **Grafik Recharts Rasio Kepatuhan (`FefoComplianceDonut.tsx`)**:
+   - Diagram Donat Recharts menampilkan proporsi transaksi Patuh FEFO (Hijau botani `#059669`) vs Deviasi FEFO (Amber karamel `#C88242`).
+4. **Tabel Riwayat Audit Transaksional (`FefoAuditLogTable.tsx`)**:
+   - Kolom: Waktu & Jam Transaksi, Nama Barista On-Duty, Bahan Baku & Kode Batch Terpilih, Kuantitas Pemakaian, Status Kepatuhan (`✓ Patuh FEFO` / `⚠ Deviasi FEFO`), dan Alasan Deviasi Fisik yang dicatat langsung oleh barista.
 
 ## 3. ARSITEKTUR TEKNIS FRONTEND (REACT + INERTIA)
 

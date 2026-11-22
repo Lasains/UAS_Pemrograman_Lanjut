@@ -1,10 +1,12 @@
 # RENCANA SPESIFIKASI DESAIN FRONTEND (PLAN 07)
-## Modul 07: Dasbor Analitik & Finansial Eksekutif (Khusus Persona Owner)
+## Modul 07: Halaman Eksekutif & Finansial Owner (3 Halaman Tersendiri)
 **Target File Implementasi**:  
-- `resources/js/Pages/Dashboard/OwnerDashboard.tsx`  
-- `resources/js/Components/MetricCard.tsx`  
-- `resources/js/Components/Charts/UsageVsWasteChart.tsx`  
-- `resources/js/Components/Dashboard/TopWasteTable.tsx`  
+- `resources/js/Pages/Dashboard/OwnerDashboard.tsx` — Halaman A: Dasbor Analitik & Finansial Eksekutif  
+- `resources/js/Pages/Reports/WasteReport.tsx` — Halaman B: Laporan Waste & Biaya Limbah  
+- `resources/js/Pages/Reports/InventoryValuation.tsx` — Halaman C: Evaluasi Pembelian & Valuasi Aset  
+- `resources/js/Components/MetricCard.tsx` — Komponen kartu metrik KPI  
+- `resources/js/Components/Charts/UsageVsWasteChart.tsx` — Grafik Recharts komparasi biaya  
+- `resources/js/Components/Dashboard/TopWasteTable.tsx` — Tabel ranking bahan paling boros  
 **Referensi Kontrak**: [Desain.md](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/Desain.md), [PRD.md](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/PRD.md), dan [inventory.d.ts](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/resources/js/types/inventory.d.ts)
 
 ---
@@ -62,120 +64,90 @@ flowchart TD
 
 ---
 
-## 2. STITCH-READY SCREEN SPECIFICATION (GOOGLE STITCH PROMPT)
+## 2. SPESIFIKASI MOCKUP STITCH UI & BLUEPRINT 3 HALAMAN EKSEKUTIF OWNER
 
-Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch untuk menghasilkan purwarupa visual dasbor analitik eksekutif.
+Seluruh mockup visual antarmuka eksekutif & finansial Owner telah diunduh dari proyek Google Stitch (ID: `3585613475449128159`), tersimpan lokal di direktori `docs/stitch/`:
 
-### 2.1 Identitas Modul Layar
-* **Screen Title**: Executive Specialty Coffee Inventory & Financial Analytics Dashboard
-* **Target Viewport**: Desktop (1440x900) & iPad Pro / Tablet Owner (1024x768)
-* **Visual Tone**: Warm Modern Artisan SaaS, Canvas `#FAF7F2`, Containers `#F5EFEB` & `#EDE4DC`, Emerald Harvest (Aset & Terpakai), Terracotta Cherry `#8C3D2B` (Kerugian & Kritis), Deep Espresso `#241408` Bold Typography.
-
----
-
-### 2.2 Rincian Tiga Blok Antarmuka Dasbor
-
-#### Blok 1: Toolbar Header & 3 Executive Metric Cards
-1. **Header Dasbor & Filter Rentang Waktu**:
-   - Judul: `text-2xl font-bold tracking-tight text-content-high` (*"Dasbor Analitik & Finansial"*).
-   - Subjudul: `text-sm text-content-medium` (*"Ringkasan nilai aset bahan, evaluasi masa kedaluwarsa, dan efisiensi modal kafe"*).
-   - Filter Bar Kanan:
-     * Select Dropdown Bulan (Januari – Desember, default bulan aktif).
-     * Select Dropdown Tahun (2026).
-     * Tombol Sekunder: `[Unduh Laporan Finansial]` dengan ikon `Download` (`border-surface-border bg-surface-container-high text-content-high`).
-2. **Grid 3 Kartu Metrik Utama (`grid grid-cols-1 md:grid-cols-3 gap-6`)**:
-   - **Kartu 1 (Total Nilai Aset Bahan Baku)**:
-     * Container: `bg-surface-container p-6 rounded-xl border border-surface-border shadow-sm flex flex-col justify-between`.
-     * Baris Atas: Label `text-xs font-semibold uppercase tracking-wider text-content-subtle` (*Total Nilai Aset Persediaan*) dan ikon koin/dompet `Wallet` berlatar `p-2 bg-emerald-50 text-emerald-800 rounded-lg`.
-     * Nilai Utama: `text-3xl font-bold tracking-tight text-content-high font-mono` (misal: `Rp 48.250.000`).
-     * Baris Bawah: Badge hijau halus (*"Aktif di 38 Batch Gudang & Bar"*).
-   - **Kartu 2 (Nilai Bahan Kritis < 3 Hari)**:
-     * Container: `bg-surface-container p-6 rounded-xl border border-[#F8C6BF] shadow-sm flex flex-col justify-between relative overflow-hidden`.
-     * Aksen: Garis batas atas terracotta tipis (`border-t-4 border-[#8C3D2B]`).
-     * Baris Atas: Label (*Modal Bahan Kritis*) dan ikon `AlertOctagon` berlatar `p-2 bg-[#FDF2F0] text-[#8C3D2B] rounded-lg`.
-     * Nilai Utama: `text-3xl font-bold tracking-tight text-[#8C3D2B] font-mono` (misal: `Rp 1.450.000`).
-     * Baris Bawah: Keterangan urgensi (*"Beresiko basi dalam 3 hari ke depan"*).
-   - **Kartu 3 (Total Beban Kerugian Limbah Bulan Ini)**:
-     * Container: `bg-surface-container p-6 rounded-xl border border-surface-border shadow-sm flex flex-col justify-between`.
-     * Baris Atas: Label (*Total Kerugian Bahan Rusak*) dan ikon `TrendingDown` berlatar `p-2 bg-[#FDF2F0] text-[#8C3D2B] rounded-lg`.
-     * Nilai Utama: `text-3xl font-bold tracking-tight text-[#8C3D2B] font-mono` (misal: `Rp 420.500`).
-     * Baris Bawah: Rasio pemborosan (*"0.87% dari total perputaran bahan bulan ini"*).
+| Halaman Eksekutif Owner | Screen ID Stitch | File HTML Mockup | File Screenshot Mockup |
+| :--- | :--- | :--- | :--- |
+| **Dasbor Finansial & Analitik Eksekutif** | `796e463a5c104a1b993c49db3e203834` | [owner_dasbor_finansial_analitik.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_dasbor_finansial_analitik.html) | [owner_dasbor_finansial_analitik.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_dasbor_finansial_analitik.png) |
+| **Evaluasi Pembelian & Valuasi Aset** | `9b57f48422ab4267a65c489cc6cd1e3e` | [owner_evaluasi_pembelian.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_evaluasi_pembelian.html) | [owner_evaluasi_pembelian.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_evaluasi_pembelian.png) |
+| **Laporan Audit Waste & Biaya Limbah** | `2b3fa0e1b622411b8b06ed729e95306a` | [owner_laporan_waste_audit.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_laporan_waste_audit.html) | [owner_laporan_waste_audit.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_laporan_waste_audit.png) |
 
 ---
 
-#### Blok 2: Grafik Batang Komparasi Bulanan (Recharts)
-- Grid layout: 60% lebar layar desktop (`lg:col-span-3`).
-- Container: `bg-surface-container p-6 rounded-xl border border-surface-border shadow-sm`.
-- Header Grafik:
-  * Judul: `text-base font-semibold text-content-high` (*"Komparasi Biaya Bahan: Terpakai vs Terbuang Sia-sia"*).
-  * Legend Interaktif:
-    * Kotak Hijau Emerald Harvest: *"Nilai Bahan Terpakai Efektif (COGS)"*
-    * Kotak Terracotta Cherry: *"Nilai Bahan Terbuang Sia-sia (Waste Loss)"*
-- Visual Grafik Batang Ganda (*Dual Bar Chart*):
-  * Sumbu X: Nama-nama bulan (Jan, Feb, Mar, Apr, Mei, Jun, ...).
-  * Sumbu Y: Nominal Rupiah (Rp 0, Rp 10Jt, Rp 20Jt, Rp 30Jt, Rp 40Jt).
-  * Batang Hijau Harvest (`fill="#059669"`, radius atas `rounded-t-sm`).
-  * Batang Terracotta Cherry (`fill="#8C3D2B"`, radius atas `rounded-t-sm`).
-  * Tooltip Melayang Interaktif (*Floating Custom Tooltip*):
-    - Background oat latte `bg-surface-container`, border parchment `border-surface-border`, shadow-lg, padding 12px.
-    - Menampilkan nama bulan, nominal bahan terpakai, nominal bahan rusak, dan indikator persentase efisiensi (misal: *"Efisiensi Pemakaian: 98.4%"*).
+### 2.1 Halaman A: Dasbor Analitik & Finansial Eksekutif (`Pages/Dashboard/OwnerDashboard.tsx`)
+**Route**: `dashboard.owner`  
+**Mockup Acuan**: [owner_dasbor_finansial_analitik.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_dasbor_finansial_analitik.html)
+
+#### Komponen Kanvas & Hierarki Tampilan:
+1. **Header Dasbor & Filter Periode (`DashboardHeader.tsx`)**:
+   - Judul: `"Dasbor Analitik & Finansial Eksekutif"` (`text-2xl md:text-3xl font-extrabold tracking-tight text-[#241408]`).
+   - Subjudul: *"Pemantauan real-time valuasi aset persediaan gudang, proyeksi resiko bahan kritis, dan pengendalian rasio limbah (shrinkage) kafe secara terpusat."*
+   - Kicker Kanan: Dropdown Pilihan Periode Bulan & Tombol Cetak / Ekspor Laporan.
+2. **Tiga Kartu Metrik KPI Finansial Utama (`ExecutiveMetricCards.tsx`)**:
+   - `grid grid-cols-1 md:grid-cols-3 gap-5`:
+     - **Kartu 1 (Total Nilai Aset Persediaan Gudang)**:
+       - Wadah: `bg-[#F5EFEB] p-6 rounded-2xl border border-[#EDE4DC] shadow-sm`
+       - Nilai Rupiah: `text-3xl font-extrabold tracking-tight text-[#241408] font-mono` (misal: `Rp 48.250.000`)
+       - Badge status: `[Aktif di 38 Batch Gudang & Bar]` (`bg-emerald-50 text-emerald-800 border-emerald-200`)
+     - **Kartu 2 (Modal Bahan Kritis < 3 Hari)**:
+       - Wadah: `bg-[#F5EFEB] p-6 rounded-2xl border border-[#F8C6BF] border-t-4 border-t-[#8C3D2B] shadow-sm`
+       - Nilai Rupiah: `text-3xl font-extrabold tracking-tight text-[#8C3D2B] font-mono` (misal: `Rp 1.450.000`)
+       - Subteks: *"Akumulasi modal bahan beresiko basi dalam < 3 hari ke depan"*
+     - **Kartu 3 (Total Kerugian Limbah / Waste Bulan Ini)**:
+       - Wadah: `bg-[#F5EFEB] p-6 rounded-2xl border border-[#EDE4DC] shadow-sm`
+       - Nilai Rupiah: `text-3xl font-extrabold tracking-tight text-[#8C3D2B] font-mono` (misal: `Rp 420.500`)
+       - Subteks: *"Rasio pemborosan 0.87% dari total perputaran bahan bulan ini"*
+3. **Komparasi Finansial 2 Kolom Berdampingan (`grid grid-cols-1 lg:grid-cols-12 gap-6`)**:
+   - **Kolom Kiri 7-Grid: Grafik Recharts Biaya Terpakai vs Terbuang (`UsageVsWasteChart.tsx`)**:
+     - Diagram Batang Ganda Recharts:
+       - Batang Hijau Harvest (`#059669`): Nilai bahan terpakai efektif dalam penjualan minuman.
+       - Batang Terracotta Cherry (`#8C3D2B`): Nilai bahan rusak/basi yang dibuang.
+       - Garis ambang batas toleransi waste bulanan (Line dashed amber `#C88242`).
+   - **Kolom Kanan 5-Grid: Tabel 5 Bahan Paling Boros (`TopWasteRanking.tsx`)**:
+     - Daftar ranking bahan penyumbang kerugian terbesar (Fresh Milk Diamond 1L, Croissant Butter, Monin Caramel, Oatside 1L, Anchor Whipping Cream).
+     - Menampilkan volume terbuang, nominal kerugian rupiah, dan persentase progress bar terakota tipis.
+     - Callout Rekomendasi Pintar BeanFlow di bagian bawah kartu: *"Kurangi order mingguan Fresh Milk Diamond sebesar 10% untuk mempercepat rotasi stok."*
 
 ---
 
-#### Blok 3: Peringkat 5 Bahan Paling Boros (Top 5 Waste Ingredients)
-- Grid layout: 40% lebar layar desktop (`lg:col-span-2`).
-- Container: `bg-surface-container p-6 rounded-xl border border-surface-border shadow-sm`.
-- Header:
-  * Judul: `text-base font-semibold text-content-high` (*"5 Bahan Penyumbang Kerugian Terbesar"*).
-  * Subjudul: `text-xs text-content-subtle` (*"Evaluasi kuantitas restock dan durasi simpan bahan berikut"*).
-- Tabel Sederhana Bersih:
-  * Kolom: Nomor urut (1-5), Nama Bahan & Kategori, Kuantitas Dibuang, dan Total Kerugian Rupiah.
-  * Setiap baris memiliki **Visual Progress Bar Tipis** di bawah nominal rupiah yang menggambarkan persentase kontribusi bahan tersebut terhadap total kerugian (misal: *Fresh Milk Diamond 1L* menyumbang 52% dari seluruh kerugian kafe) menggunakan aksen terracotta `#8C3D2B`.
+### 2.2 Halaman B: Laporan Audit Waste & Biaya Limbah (`Pages/Reports/WasteReport.tsx`)
+**Route**: `reports.waste`  
+**Mockup Acuan**: [owner_laporan_waste_audit.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_laporan_waste_audit.html)
+
+#### Komponen Kanvas & Fitur Audit:
+1. **Header Kanvas & Toolbar Ekspor**:
+   - Judul: `"Laporan Audit Waste & Biaya Limbah"`.
+   - Tombol Aksi: `[Ekspor CSV]` (memicu download data tabular) dan `[Cetak PDF]` (memicu `window.print()` dengan styling print-friendly `@media print`).
+2. **Ringkasan Metrik Audit Pemusnahan (`WasteAuditStats.tsx`)**:
+   - Total Rupiah Kerugian Limbah (misal: `Rp 1.840.000`).
+   - Total Volume Bahan Terbuang (misal: `14.500 ml & 3.200 gram`).
+   - Total Tiket Pemusnahan yang Disetujui SPV (misal: `12 Tiket Resmi`).
+3. **Distribusi Kerugian per Kategori Bahan (`WasteDistributionChart.tsx`)**:
+   - Visualisasi persentase kerugian per kategori: Dairy (62%), Bakery (23%), Syrup (10%), Beans (5%).
+4. **Tabel Riwayat Resmi Pemusnahan Bahan (`OfficialDisposalLogTable.tsx`)**:
+   - Kolom: Tanggal Pemusnahan, Nama Bahan & Nomor Batch Fisik, Kuantitas Dibuang, Beban Kerugian Rupiah (`financial_loss`), Alasan Kerusakan, Barista Pelapor, dan Supervisor yang Menyetujui.
 
 ---
 
-### 2.3 Teks Prompt Siap Pakai untuk Google Stitch
+### 2.3 Halaman C: Evaluasi Pembelian & Valuasi Aset (`Pages/Reports/InventoryValuation.tsx`)
+**Route**: `reports.inventory`  
+**Mockup Acuan**: [owner_evaluasi_pembelian.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/owner_evaluasi_pembelian.html)
 
-#### Prompt Bahasa Indonesia (Terstruktur & Deskriptif)
-```text
-Buatkan desain antarmuka layar dasbor eksekutif untuk modul "Dasbor Analitik & Finansial Kafe" pada aplikasi "BeanFlow" khusus persona Owner bernuansa hangat artisan coffee:
-
-Latar belakang kanvas susu hangat #FAF7F2.
-Bagian Header:
-- Judul halaman tebal "Dasbor Analitik & Finansial Eksekutif" (#241408) dan subjudul penjelasan (#5C3A21).
-- Toolbar kanan: dropdown pilihan bulan ("Oktober 2026") dan tombol outline perkamen dengan ikon download "Unduh Laporan Keuangan".
-
-Bagian Atas (3 Kartu Metrik Eksekutif berlatar oat latte #F5EFEB, border #EDE4DC):
-- Kartu 1: Total Nilai Aset Bahan Baku (Angka besar monospaced "Rp 48.250.000", ikon dompet hijau botani, label persediaan aktif di 38 batch).
-- Kartu 2: Modal Bahan Kritis Berisiko (Border atas terracotta tipis #8C3D2B, angka monospaced "Rp 1.450.000" warna terracotta #8C3D2B, ikon peringatan, label "Expired dalam < 3 hari").
-- Kartu 3: Beban Kerugian Limbah Bulan Ini (Angka monospaced "Rp 420.500" warna terracotta #8C3D2B, ikon tren turun, label rasio limbah 0.87%).
-
-Bagian Bawah (Layout 2 Kolom Berdampingan):
-1. Kolom Kiri (60% lebar): Card grafik batang ganda Recharts "Komparasi Biaya: Terpakai vs Limbah Terbuang". Batang hijau harvest (#059669) untuk bahan terpakai dan batang terracotta cherry (#8C3D2B) untuk bahan basi per bulan (Januari - Oktober). Terdapat legenda warna yang rapi dan garis grid latar belakang yang sangat halus.
-2. Kolom Kanan (40% lebar): Card tabel "5 Bahan Paling Boros Bulan Ini". Daftar 5 baris:
-   - Rank 1: Fresh Milk Diamond 1L (Terbuang 6.000 ml • Rugi Rp 144.000 • progress bar terracotta #8C3D2B 34%)
-   - Rank 2: Croissant Butter Pastry (Terbuang 8 pcs • Rugi Rp 120.000 • progress bar terracotta 28%)
-   - Rank 3: Sirup Karamel Monin (Terbuang 400 ml • Rugi Rp 68.000 • progress bar terracotta 16%)
-   - Rank 4: Oat Milk Oatside (Terbuang 1.500 ml • Rugi Rp 52.500 • progress bar terracotta 12%)
-   - Rank 5: Whipping Cream Anchor (Terbuang 500 ml • Rugi Rp 36.000 • progress bar terracotta 10%)
-Tampilan sangat bersih, bernuansa kafe mewah, tipografi tajam, kontras tinggi, elegan ala dashboard SaaS finansial modern.
-```
-
-#### English Prompt (High-Fidelity for Stitch AI)
-```text
-An executive financial analytics dashboard for a specialty coffee inventory system named "BeanFlow", tailored for the cafe Owner persona with warm coffee aesthetics:
-Warm steamed milk canvas (#FAF7F2) background. Top header features the page title "Executive Financial & Inventory Analytics" (#241408) with month-picker dropdown and an "Export PDF Report" button on parchment container.
-Top row features 3 bold executive metric cards on oat latte (#F5EFEB, border #EDE4DC):
-1. "Total Inventory Asset Value" with bold monospaced rupiah amount "Rp 48,250,000", botanical emerald wallet icon badge, and active batch counter.
-2. "At-Risk Critical Asset Value" with subtle top terracotta border (#8C3D2B), terracotta monospace "Rp 1,450,000" (#8C3D2B), alert icon, subtext "Expiring in < 3 days".
-3. "Total Waste Loss This Month" with terracotta monospace "Rp 420,500" (#8C3D2B), trending down icon, and waste efficiency ratio subtext (0.87%).
-
-Bottom section features a 2-column responsive layout:
-- Left Column (60% width): Recharts dual-bar comparison chart "Monthly Usage vs. Waste Loss". Emerald bars (#059669) for effectively consumed ingredients vs terracotta cherry bars (#8C3D2B) for wasted/spoiled stock across Jan - Oct, with clean legends and subtle parchment gridlines.
-- Right Column (40% width): Clean card listing "Top 5 Wasted Ingredients". Shows 5 ranked rows (e.g. Fresh Milk Diamond, Butter Croissant, Caramel Syrup) with quantity wasted, rupiah loss amount, and a slim terracotta progress bar (#8C3D2B) showing percentage of total loss. High contrast, warm coffee typography, polished financial SaaS aesthetic.
-```
-
----
+#### Komponen Kanvas & Analisis Pengadaan:
+1. **Header Kanvas & Total Modal Berjalan**:
+   - Judul: `"Evaluasi Pembelian & Valuasi Aset"`.
+   - Ringkasan Aset Gudang: `Total Nilai Modal Gudang: Rp 48.250.000` (tersebar di 38 batch aktif).
+2. **Tiga Kartu Metrik Efisiensi Pengadaan (`ProcurementHealthCards.tsx`)**:
+   - **Tingkat Efisiensi Modal Stok**: `96.2% Terpakai Optimal` (Hijau emerald).
+   - **Rasio Bahan Terbuang**: `3.8% Terbuang Basi` (Target kafe < 5%).
+   - **Bahan Terdeteksi Over-Stock**: `2 Bahan Berisiko` (Peringatan segera atur ulang kuantitas PO).
+3. **Tabel Rekomendasi Penyesuaian Pesanan Vendor (`ProcurementRecommendationTable.tsx`)**:
+   - Kolom: Nama Bahan Baku, Kategori, Rata-rata Pembelian/Bulan, Pemakaian Riil Meja Bar, Rasio Waste %, dan Rekomendasi Pintar:
+     - 🟢 `[✓ Kuantitas Sangat Ideal]`: Porsi pemesanan sudah selaras dengan konsumsi pelanggan.
+     - 🟡 `[⚠ Turunkan Volume Order (-15%)]`: Pembelian berlebih, bahan sering menumpuk di chiller.
+     - 🔴 `[🔴 Batasi PO: Risiko Expired Cepat]`: Sisa stok sering melewati tanggal aman sebelum habis.
 
 ## 3. ARSITEKTUR TEKNIS FRONTEND (REACT + RECHARTS + INERTIA)
 
@@ -183,12 +155,19 @@ Bottom section features a 2-column responsive layout:
 ```text
 resources/js/
 ├── Pages/
-│   └── Dashboard/
-│       └── OwnerDashboard.tsx          # Halaman utama dasbor analitik Owner
+│   ├── Dashboard/
+│   │   └── OwnerDashboard.tsx          # Halaman A: Dasbor analitik & finansial Owner
+│   └── Reports/
+│       ├── WasteReport.tsx             # Halaman B: Laporan audit waste & biaya limbah
+│       └── InventoryValuation.tsx      # Halaman C: Evaluasi pembelian & valuasi aset
 ├── Components/
 │   ├── MetricCard.tsx                  # Komponen kartu metrik eksekutif serbaguna
 │   ├── Dashboard/
 │   │   └── TopWasteTable.tsx           # Komponen tabel 5 bahan paling boros
+│   ├── Reports/
+│   │   ├── WasteAuditTable.tsx         # Tabel log audit pemusnahan resmi
+│   │   ├── CategoryLossBreakdown.tsx   # Distribusi bar persentase kerugian per kategori
+│   │   └── ProcurementRecommendationTable.tsx # Tabel evaluasi order & anti over-purchasing
 │   └── Charts/
 │       └── UsageVsWasteChart.tsx       # Komponen grafik Recharts batang ganda
 └── types/
@@ -456,3 +435,5 @@ export function TopWasteTable({ items }: Props) {
 3. **Langkah 3**: Buat komponen tabel ranking `TopWasteTable.tsx`.
 4. **Langkah 4**: Gabungkan seluruh komponen ke dalam halaman [`resources/js/Pages/Dashboard/OwnerDashboard.tsx`](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/resources/js/Pages/Dashboard/OwnerDashboard.tsx).
 5. **Langkah 5**: Buat kueri agregasi finansial di `DashboardController.php` pada backend Laravel dengan relasi `StockUsage` dan `WasteLog`.
+
+---

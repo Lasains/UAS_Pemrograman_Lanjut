@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Kategori Bahan - In-Shell Content View - BeanFlow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#4A2C11',
+              'primary-hover': '#38210c',
+              secondary: '#C88242',
+              'secondary-hover': '#b57335',
+              tertiary: '#8C3D2B',
+              'tertiary-hover': '#753222',
+            },
+            surface: {
+              canvas: '#FAF7F2',
+              container: '#F5EFEB',
+              'container-high': '#EDE4DC',
+              border: '#EDE4DC',
+            },
+            content: {
+              high: '#241408',
+              medium: '#5C3A21',
+              subtle: '#9C8474',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF7F2;
+      color: #241408;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #FAF7F2;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #EDE4DC;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #C88242;
+    }
+  </style>
+</head>
+<body class="bg-[#FAF7F2] text-[#241408] min-h-screen p-6 sm:p-8 lg:p-10">
+
+  <!-- IN-SHELL WORKSPACE CONTAINER (No Outer Shell / Navigation Header / Sidebar) -->
+  <div class="max-w-[1360px] mx-auto space-y-7">
+
+    <!-- CANVAS HEADER TOOLBAR -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-[#EDE4DC]">
+      <div class="flex items-start gap-3.5">
+        <div class="w-12 h-12 rounded-xl bg-[#EDE4DC] flex items-center justify-center text-[#4A2C11] shadow-sm flex-shrink-0 mt-0.5">
+          <!-- Lucide Layers Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h1 class="text-2xl font-bold tracking-tight text-[#241408]">Manajemen Kategori Bahan</h1>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EDE4DC] text-[#4A2C11] border border-[#dcd1c5]">
+              Taksonomi Master
+            </span>
+          </div>
+          <p class="text-sm text-[#5C3A21] mt-0.5">
+            Kelola taksonomi kelompok bahan baku, hierarki penyimpanan, dan penandaan warna inventaris kafe.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Toolbar Badges & Fast Action Info -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#F5EFEB] border border-[#EDE4DC] text-xs font-medium text-[#5C3A21]">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>5 Kategori Aktif • 14 SKU Terkatalog</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-xs text-[#9C8474]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+          </svg>
+          <span>Otoritas Supervisor Shift</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- TWO-COLUMN WORKSPACE LAYOUT (35% Left / 65% Right) -->
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
+
+      <!-- ========================================== -->
+      <!-- LEFT COLUMN (35% -> lg:col-span-4 / col-span-5) -->
+      <!-- ========================================== -->
+      <section class="lg:col-span-5 xl:col-span-4">
+        <div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-6 shadow-sm sticky top-6">
+          <div class="flex items-center justify-between pb-4 border-b border-[#EDE4DC]">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#4A2C11]"></span>
+              <h2 class="font-bold text-base text-[#241408]">Tambah Kategori Baru</h2>
+            </div>
+            <span class="text-xs font-medium px-2 py-0.5 rounded-md bg-[#EDE4DC] text-[#5C3A21]">Form Baru</span>
+          </div>
+
+          <form class="mt-5 space-y-4" onsubmit="event.preventDefault();">
+            <!-- Field: Nama Kategori -->
+            <div>
+              <label class="block text-xs font-semibold text-[#5C3A21] uppercase tracking-wider mb-1.5">
+                Nama Kategori <span class="text-[#8C3D2B]">*</span>
+              </label>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  value="Susu Nabati (Plant-Based)" 
+                  class="w-full bg-[#FAF7F2] border border-[#EDE4DC] focus:border-[#C88242] focus:ring-2 focus:ring-[#C88242]/20 rounded-lg px-3.5 py-2.5 text-sm font-medium text-[#241408] transition-all outline-none"
+                  placeholder="Contoh: Susu Nabati / Plant-Based"
+                >
+                <div class="absolute right-3 top-3 text-[#9C8474]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Field: Slug URL (Auto-Generated / Disabled with Lock) -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="block text-xs font-semibold text-[#5C3A21] uppercase tracking-wider">
+                  Slug URL (Otomatis)
+                </label>
+                <span class="text-[11px] text-[#9C8474] flex items-center gap-1 font-mono">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  Terkunci
+                </span>
+              </div>
+              <div class="flex items-center bg-[#EDE4DC]/60 border border-[#EDE4DC] rounded-lg px-3 py-2 text-sm text-[#5C3A21] font-mono cursor-not-allowed">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#9C8474] mr-2 flex-shrink-0">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span class="text-xs text-[#5C3A21] truncate">susu-nabati-plant-based</span>
+              </div>
+            </div>
+
+            <!-- Field: Aksen Warna Badge (4 Color Swatches) -->
+            <div>
+              <label class="block text-xs font-semibold text-[#5C3A21] uppercase tracking-wider mb-2">
+                Aksen Warna Badge & Tag
+              </label>
+              <div class="grid grid-cols-2 gap-2.5">
+                
+                <!-- Swatch 1: Teal / Emerald (Active) -->
+                <label class="relative flex items-center gap-2 p-2 rounded-lg border-2 border-emerald-600 bg-[#FAF7F2] cursor-pointer shadow-xs transition-all">
+                  <input type="radio" name="badge_color" value="teal" checked class="sr-only">
+                  <span class="w-4 h-4 rounded-full bg-emerald-500 border border-emerald-600 flex items-center justify-center">
+                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                  </span>
+                  <div class="flex flex-col">
+                    <span class="text-xs font-semibold text-emerald-800">Teal Botanical</span>
+                    <span class="text-[10px] text-emerald-600 font-mono">#059669</span>
+                  </div>
+                </label>
+
+                <!-- Swatch 2: Karamel Amber -->
+                <label class="relative flex items-center gap-2 p-2 rounded-lg border border-[#EDE4DC] hover:border-[#C88242] bg-[#FAF7F2] cursor-pointer transition-all">
+                  <input type="radio" name="badge_color" value="amber" class="sr-only">
+                  <span class="w-4 h-4 rounded-full bg-[#C88242] border border-[#a86529]"></span>
+                  <div class="flex flex-col">
+                    <span class="text-xs font-medium text-[#241408]">Amber Karamel</span>
+                    <span class="text-[10px] text-[#9C8474] font-mono">#C88242</span>
+                  </div>
+                </label>
+
+                <!-- Swatch 3: Terracotta -->
+                <label class="relative flex items-center gap-2 p-2 rounded-lg border border-[#EDE4DC] hover:border-[#8C3D2B] bg-[#FAF7F2] cursor-pointer transition-all">
+                  <input type="radio" name="badge_color" value="terracotta" class="sr-only">
+                  <span class="w-4 h-4 rounded-full bg-[#8C3D2B] border border-[#6b2c1d]"></span>
+                  <div class="flex flex-col">
+                    <span class="text-xs font-medium text-[#241408]">Terracotta Cherry</span>
+                    <span class="text-[10px] text-[#9C8474] font-mono">#8C3D2B</span>
+                  </div>
+                </label>
+
+                <!-- Swatch 4: Soft Purple / Lavender -->
+                <label class="relative flex items-center gap-2 p-2 rounded-lg border border-[#EDE4DC] hover:border-purple-500 bg-[#FAF7F2] cursor-pointer transition-all">
+                  <input type="radio" name="badge_color" value="purple" class="sr-only">
+                  <span class="w-4 h-4 rounded-full bg-purple-500 border border-purple-600"></span>
+                  <div class="flex flex-col">
+                    <span class="text-xs font-medium text-[#241408]">Soft Lavender</span>
+                    <span class="text-[10px] text-[#9C8474] font-mono">#A855F7</span>
+                  </div>
+                </label>
+
+              </div>
+            </div>
+
+            <!-- Field: Deskripsi -->
+            <div>
+              <label class="block text-xs font-semibold text-[#5C3A21] uppercase tracking-wider mb-1.5">
+                Deskripsi & Ketentuan Penyimpanan
+              </label>
+              <textarea 
+                rows="3" 
+                class="w-full bg-[#FAF7F2] border border-[#EDE4DC] focus:border-[#C88242] focus:ring-2 focus:ring-[#C88242]/20 rounded-lg p-3 text-sm text-[#241408] placeholder-[#9C8474] transition-all outline-none resize-none"
+                placeholder="Keterangan kelompok bahan, suhu standar simpan (chiller 2-4°C atau dry storage), dan SOP rotasi..."
+              >Produk susu berbasis nabati (Oat, Almond, Soy) untuk racikan non-dairy latte. Simpan di Chiller Bar Utama (02-04°C) dengan batas simpan buka karton maksimal 5 hari.</textarea>
+            </div>
+
+            <!-- Submit Button (Full-Width Espresso Dark #4A2C11, Height 48px, Rounded-xl) -->
+            <button 
+              type="submit" 
+              class="w-full h-12 bg-[#4A2C11] hover:bg-[#38210c] text-white font-bold text-sm rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 mt-2 active:scale-[0.99]"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Simpan Kategori</span>
+            </button>
+            <p class="text-center text-[11px] text-[#9C8474] pt-1">
+              Data kategori akan langsung sinkron ke formulir Restock & Master Bahan
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- RIGHT COLUMN (65% -> lg:col-span-8 / col-span-7) -->
+      <!-- ========================================== -->
+      <section class="lg:col-span-7 xl:col-span-8 space-y-4">
+        
+        <!-- Section Sub-header & Filter / Search -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F5EFEB] border border-[#EDE4DC] p-3.5 rounded-xl">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-sm text-[#241408]">Daftar Kategori Aktif</span>
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-[#EDE4DC] text-[#4A2C11]">5 Kelompok</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="relative w-full sm:w-56">
+              <input 
+                type="text" 
+                placeholder="Cari kategori..." 
+                class="w-full bg-[#FAF7F2] border border-[#EDE4DC] text-xs rounded-lg pl-8 pr-3 py-1.5 text-[#241408] placeholder-[#9C8474] outline-none focus:border-[#C88242]"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-2.5 top-2.5 text-[#9C8474]">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <button class="px-2.5 py-1.5 rounded-lg border border-[#EDE4DC] bg-[#FAF7F2] hover:bg-[#EDE4DC] text-[#5C3A21] text-xs font-medium flex items-center gap-1 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+              </svg>
+              <span>Filter</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2-COLUMNS CATEGORY CARD GRID (5 Cards) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <!-- CARD 1: Dairy (Teal Pill) -->
+          <div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-5 shadow-xs flex flex-col justify-between hover:border-[#C88242]/40 transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                  Dairy
+                </span>
+                <span class="text-[11px] font-mono text-[#9C8474]">slug: /dairy</span>
+              </div>
+              <h3 class="text-base font-bold text-[#241408] group-hover:text-[#4A2C11] transition-colors">Susu & Produk Susu</h3>
+              <p class="text-xs text-[#5C3A21] mt-1.5 leading-relaxed">
+                Fresh Milk pasteurisasi, susu UHT, krimer kental manis, dan heavy cream untuk minuman latte & frappe.
+              </p>
+            </div>
+
+            <div class="mt-4 pt-3.5 border-t border-[#EDE4DC] flex items-center justify-between">
+              <div class="flex items-center gap-1.5 text-xs text-[#5C3A21] font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#C88242]">
+                  <path d="m7.5 4.27 9 5.15"></path>
+                  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+                </svg>
+                <span><strong>4</strong> Bahan Baku • <strong>14</strong> Batch Berjalan</span>
+              </div>
+              <button class="px-2.5 py-1 text-xs font-medium rounded-lg text-[#5C3A21] hover:text-[#241408] hover:bg-[#EDE4DC] transition-colors flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                Ubah Kategori
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 2: Beans (Amber Pill) -->
+          <div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-5 shadow-xs flex flex-col justify-between hover:border-[#C88242]/40 transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#C88242]"></span>
+                  Beans
+                </span>
+                <span class="text-[11px] font-mono text-[#9C8474]">slug: /beans</span>
+              </div>
+              <h3 class="text-base font-bold text-[#241408] group-hover:text-[#4A2C11] transition-colors">Biji Kopi (Coffee Beans)</h3>
+              <p class="text-xs text-[#5C3A21] mt-1.5 leading-relaxed">
+                House Blend espresso roast, single origin beans untuk filter manual brew (V60 & Aeropress).
+              </p>
+            </div>
+
+            <div class="mt-4 pt-3.5 border-t border-[#EDE4DC] flex items-center justify-between">
+              <div class="flex items-center gap-1.5 text-xs text-[#5C3A21] font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#C88242]">
+                  <path d="m7.5 4.27 9 5.15"></path>
+                  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+                </svg>
+                <span><strong>3</strong> Bahan Baku • <strong>8</strong> Batch Berjalan</span>
+              </div>
+              <button class="px-2.5 py-1 text-xs font-medium rounded-lg text-[#5C3A21] hover:text-[#241408] hover:bg-[#EDE4DC] transition-colors flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                Ubah Kategori
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 3: Syrup (Purple Pill) -->
+          <div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-5 shadow-xs flex flex-col justify-between hover:border-[#C88242]/40 transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                  Syrup
+                </span>
+                <span class="text-[11px] font-mono text-[#9C8474]">slug: /syrup</span>
+              </div>
+              <h3 class="text-base font-bold text-[#241408] group-hover:text-[#4A2C11] transition-colors">Sirup & Perisa Rasa</h3>
+              <p class="text-xs text-[#5C3A21] mt-1.5 leading-relaxed">
+                Sirup Karamel, Vanila Madagascar, Hazelnut, serta perisa buah untuk mocktail segar.
+              </p>
+            </div>
+
+            <div class="mt-4 pt-3.5 border-t border-[#EDE4DC] flex items-center justify-between">
+              <div class="flex items-center gap-1.5 text-xs text-[#5C3A21] font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#C88242]">
+                  <path d="m7.5 4.27 9 5.15"></path>
+                  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+                </svg>
+                <span><strong>3</strong> Bahan Baku • <strong>6</strong> Batch Berjalan</span>
+              </div>
+              <button class="px-2.5 py-1 text-xs font-medium rounded-lg text-[#5C3A21] hover:text-[#241408] hover:bg-[#EDE4DC] transition-colors flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                Ubah Kategori
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 4: Bakery (Terracotta Pill) -->
+          <div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-5 shadow-xs flex flex-col justify-between hover:border-[#C88242]/40 transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FDF2F0] text-[#8C3D2B] border border-[#F8C6BF]">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#8C3D2B]"></span>
+                  Bakery
+                </span>
+                <span class="text-[11px] font-mono text-[#9C8474]">slug: /bakery</span>
+              </div>
+              <h3 class="text-base font-bold text-[#241408] group-hover:text-[#4A2C11] transition-colors">Pastry & Roti Olahan</h3>
+              <p class="text-xs text-[#5C3A21] mt-1.5 leading-relaxed">
+                Croissant mentega artisan, sourdough, cinnamon roll, dan adonan beku pastry showcase.
+              </p>
+            </div>
+
+            <div class="mt-4 pt-3.5 border-t border-[#EDE4DC] flex items-center justify-between">
+              <div class="flex items-center gap-1.5 text-xs text-[#5C3A21] font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#C88242]">
+                  <path d="m7.5 4.27 9 5.15"></path>
+                  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+                </svg>
+                <span><strong>2</strong> Bahan Baku • <strong>4</strong> Batch Berjalan</span>
+              </div>
+              <button class="px-2.5 py-1 text-xs font-medium rounded-lg text-[#5C3A21] hover:text-[#241408] hover:bg-[#EDE4DC] transition-colors flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                Ubah Kategori
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 5: Packaging (Parchment Pill) - Span 2 on tablets or balanced -->
+          <div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl p-5 shadow-xs flex flex-col justify-between hover:border-[#C88242]/40 transition-all group md:col-span-2">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#EDE4DC] text-[#4A2C11] border border-[#dcd1c5]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#4A2C11]"></span>
+                    Packaging
+                  </span>
+                  <span class="text-[11px] font-mono text-[#9C8474]">slug: /packaging</span>
+                </div>
+                <h3 class="text-base font-bold text-[#241408] group-hover:text-[#4A2C11] transition-colors">Kemasan, Cup & Sedotan</h3>
+                <p class="text-xs text-[#5C3A21] mt-1 leading-relaxed max-w-xl">
+                  Hot paper cup 8oz/12oz, cold PLA cup transparent, paper straw biodegradable, lid sealer, dan karton take-away.
+                </p>
+              </div>
+
+              <!-- Extra mini badge for storage type -->
+              <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#EDE4DC]/80 text-[#5C3A21] text-xs font-medium self-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+                <span>Gudang Kering (Dry Storage)</span>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3.5 border-t border-[#EDE4DC] flex items-center justify-between">
+              <div class="flex items-center gap-1.5 text-xs text-[#5C3A21] font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#C88242]">
+                  <path d="m7.5 4.27 9 5.15"></path>
+                  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+                </svg>
+                <span><strong>2</strong> Bahan Baku • <strong>6</strong> Batch Berjalan</span>
+              </div>
+              <button class="px-2.5 py-1 text-xs font-medium rounded-lg text-[#5C3A21] hover:text-[#241408] hover:bg-[#EDE4DC] transition-colors flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+                Ubah Kategori
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Quick Guidelines / SOP Box at bottom -->
+        <div class="bg-[#EDE4DC]/50 border border-[#EDE4DC] rounded-xl p-4 flex items-start gap-3 text-xs text-[#5C3A21]">
+          <div class="w-6 h-6 rounded-md bg-[#EDE4DC] text-[#4A2C11] flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+          <div>
+            <strong class="font-semibold text-[#241408]">Aturan Hierarki Taksonomi Kafe:</strong>
+            Setiap penambahan atau pengubahan nama kategori akan langsung memengaruhi pengelompokan pada tabel <em>Monitoring Kedaluwarsa</em> dan modul <em>Penerimaan Batch</em>. Kategori yang masih memiliki batch aktif tidak dapat dihapus secara permanen untuk menjaga integritas data audit pembukuan.
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>

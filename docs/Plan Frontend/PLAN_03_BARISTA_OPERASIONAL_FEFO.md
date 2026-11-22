@@ -1,9 +1,11 @@
 # RENCANA SPESIFIKASI DESAIN FRONTEND (PLAN 03)
-## Modul 03: Dasbor Operasional Barista & Form Pemakaian Stok Berbasis FEFO Interaktif
+## Modul 03: Halaman Operasional Bar Barista (4 Halaman Tersendiri)
 **Target File Implementasi**:  
-- `resources/js/Pages/Barista/Dashboard.tsx`  
-- `resources/js/Pages/Usage/CreateUsageModal.tsx`  
-- `resources/js/Components/SmartWarningDialog.tsx`  
+- `resources/js/Pages/Barista/Dashboard.tsx` — Dasbor ringkasan bar barista  
+- `resources/js/Pages/Usage/Index.tsx` — Catat Pemakaian & Riwayat FEFO  
+- `resources/js/Pages/Batches/Create.tsx` — Penerimaan Batch Baru  
+- `resources/js/Pages/Waste/Create.tsx` — Lapor Bahan Rusak & Status Tiket  
+- `resources/js/Components/SmartWarningDialog.tsx` — Komponen bersama deviasi FEFO  
 **Referensi Kontrak**: [Desain.md](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/Desain.md), [PRD.md](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/PRD.md), dan [inventory.d.ts](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/resources/js/types/inventory.d.ts)
 
 ---
@@ -24,142 +26,208 @@ Barista bertugas meracik minuman di stasiun espresso pada jam sibuk (*rush hour*
 
 ```mermaid
 flowchart TD
-    Start([Barista Klik '+ Catat Pemakaian']) --> SelectIngredient[Pilih Bahan Baku: misal Fresh Milk]
-    SelectIngredient --> FetchBatches{Ambil Batch Aktif Stok > 0}
+    Start([Barista Klik '+ Catat Pemakaian' atau 'Pakai Bahan Ini']) --> OpenDrawer[Buka Slide-Over Drawer Pemakaian di Sisi Kanan]
+    OpenDrawer --> FetchBatches{Ambil Batch Aktif Stok > 0 & Urutkan FEFO ASC}
     
     FetchBatches -->|Tidak Ada Batch| EmptyState[Tampilkan Peringatan: Stok Kosong / Perlu Restock]
-    FetchBatches -->|Ada Batch| OrderFEFO[Urutkan Berdasarkan expiry_date Terdekat ASC]
+    FetchBatches --> RecommendTop["Tandai Batch Teratas:<br/>[★ REKOMENDASI FEFO]<br/>(Otomatis Terpilih / Checked Default)"]
     
-    OrderFEFO --> RecommendTop["Tandai Batch #0:<br/>[★ REKOMENDASI FEFO]<br/>(Otomatis Terpilih / Checked Default)"]
+    RecommendTop --> BaristaChoice{Pilihan Batch oleh Barista}
     
-    RecommendTop --> BaristaAction{Pilihan Batch oleh Barista}
+    BaristaChoice -->|Pilih Batch #0 FEFO| ModeNormal[is_fefo_compliant = true<br/>deviation_reason = null<br/>(Form Deviasi Tersembunyi)]
+    BaristaChoice -->|Pilih Batch Lain| ModeDeviasi["Inline Warning Terbuka di Drawer:<br/>Warna Amber #C88242<br/>Field Alasan Deviasi Terbuka Otomatis (Wajib >= 5 char)"]
     
-    BaristaAction -->|Tetap Memilih Batch #0| FormNormal[is_fefo_compliant = true<br/>deviation_reason = null]
-    
-    BaristaAction -->|Memilih Batch Lain #1, #2, dst.| TriggerWarning[Picu Smart Warning Dialog]
-    
-    TriggerWarning --> WarningModal["Modal Peringatan Deviasi FEFO:<br/>Terdapat batch lebih mendekati basi!<br/>Wajib Isi Kotak: Alasan Deviasi (min 5 char)"]
-    
-    WarningModal --> UserChoice{Keputusan Barista}
-    UserChoice -->|Batal / Kembali| RevertBatch[Kembalikan Pilihan ke Batch #0 FEFO]
-    UserChoice -->|Isi Alasan & Tetap Gunakan| SetDeviated[is_fefo_compliant = false<br/>deviation_reason = Teks Alasan]
-    
-    FormNormal --> InputQty[Input Kuantitas Pemakaian misal 250 ml]
-    SetDeviated --> InputQty
-    RevertBatch --> FormNormal
+    ModeNormal --> InputQty[Input Kuantitas Pemakaian: misal 250 ml]
+    ModeDeviasi --> InputReason[Isi Alasan Deviasi] --> InputQty
     
     InputQty --> SubmitCheck{Kuantitas <= current_stock?}
     SubmitCheck -->|Lebih Besar| ErrorQty[Error: Kuantitas Melebihi Sisa Stok Batch]
     SubmitCheck -->|Valid| SubmitPost[Kirim POST /usage via Inertia useForm]
-    SubmitPost --> SuccessBanner[Potong Stok & Munculkan Flash Message Sukses]
+    SubmitPost --> CloseDrawer[Tutup Drawer & Tampilkan Flash Message Sukses]
 ```
 
 ---
 
-## 2. STITCH-READY SCREEN SPECIFICATION (GOOGLE STITCH PROMPT)
+## 2. SPESIFIKASI MOCKUP STITCH UI & BLUEPRINT 4 HALAMAN BARISTA
 
-Spesifikasi berikut dirancang agar siap dimasukkan ke Google Stitch guna menghasilkan purwarupa visual 3 layar interaktif operasional bar.
+Seluruh mockup visual antarmuka kerja Barista telah selesai dibuat dan diunduh dari proyek Google Stitch (ID: `3585613475449128159`), tersimpan lokal di direktori `docs/stitch/`:
 
-### 2.1 Identitas Modul Layar
-* **Judul Modul**: Barista Operational Console & Interactive FEFO Usage Engine
-* **Target Viewport**: Responsive POS Bar Tablet (1024x768 / iPad) & Desktop Stasiun Barista
-* **Aksen Desain**: Emerald Green (Utama), Slate Neutral (Dasbor), Amber (Peringatan Deviasi).
-
----
-
-### 2.2 Rincian Tiga Layar Visual
-
-#### Layar 1: Dasbor Operasional Barista (`Pages/Barista/Dashboard.tsx`)
-1. **Header Stasiun Barista**:
-   - Sambutan shift aktif: *"Halo, Bayu (Barista) • Shift Pagi Bar"* lengkap dengan indikator jam operasional dan status sinkronisasi online.
-2. **Kartu Aksi Cepat (Quick Action Cards - 3 Kolom)**:
-   - **Tombol Hijau Emerald**: `[+ Catat Pemakaian Bahan]` (Ikon `Flame` / `Coffee`, ukuran besar, tinggi min 64px, efek hover elevasi).
-   - **Tombol Biru Slate**: `[+ Penerimaan Restock Baru]` (Ikon `PackagePlus`, membuka modal input batch baru).
-   - **Tombol Kuning/Merah Lembut**: `[! Lapor Bahan Rusak/Basi]` (Ikon `AlertTriangle`, membuka modal pengajuan waste).
-3. **Grid Bahan Paling Sering Digunakan di Bar (Quick Bar Ingredients)**:
-   - Kartu-kartu bahan cepat (*Fresh Milk Diamond 1L*, *Espresso Blend House 1kg*, *Karamel Sirup Monin 700ml*, *Oat Milk Oatside 1L*).
-   - Setiap kartu menampilkan:
-     * Nama bahan dan kategori.
-     * Sisa stok gabungan saat ini (contoh: *"4.200 ml"* atau *"8.500 gram"*).
-     * Indikator Lampu Lalu Lintas Kedaluwarsa Terdekat:
-       - 🟢 Hijau: *"Batch terdekat aman (14 hari lagi)"*
-       - 🟡 Kuning: *"Batch B-02 expired dalam 4 hari!"*
-       - 🔴 Merah: *"Segera pakai! Batch B-01 expired BESOK"*
-     * Tombol aksi instan: `[Pakai Bahan Ini]` yang langsung membuka Modal Pemakaian dengan bahan otomatis terpilih.
+| Halaman Barista | Screen ID Stitch | File HTML Mockup | File Screenshot Mockup |
+| :--- | :--- | :--- | :--- |
+| **Dasbor Operasional Barista** | `ba7f0f7359a44246b578995efb06bc63` | [barista_dasbor_operasional.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_dasbor_operasional.html) | [barista_dasbor_operasional.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_dasbor_operasional.png) |
+| **Catat Pemakaian Bahan FEFO** | `ec5b573afea8418ab17d86a9ea4a8ed8` | [barista_catat_pemakaian_fefo.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_catat_pemakaian_fefo.html) | [barista_catat_pemakaian_fefo.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_catat_pemakaian_fefo.png) |
+| **Penerimaan Batch Baru** | `17b9448dbc244fff84caa5c85867a957` | [barista_penerimaan_batch.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_penerimaan_batch.html) | [barista_penerimaan_batch.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_penerimaan_batch.png) |
+| **Lapor Bahan Rusak/Basi** | `7409d85472024dfab7bfb8d5ca61f2e6` | [barista_lapor_bahan_rusak.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_lapor_bahan_rusak.html) | [barista_lapor_bahan_rusak.png](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_lapor_bahan_rusak.png) |
 
 ---
 
-#### Layar 2: Modal Form Pemakaian Bahan FEFO (`Pages/Usage/CreateUsageModal.tsx`)
-1. **Dialog Container**:
-   - Modal pop-up lebar sedang (`max-w-xl bg-surface-container rounded-xl shadow-xl border border-surface-border p-6`).
-   - Judul: *"Catat Pemakaian Bahan Baku (FEFO)"* (`text-content-high`).
-   - Subjudul: *"Pastikan fisik bahan yang diambil sesuai urutan kedaluwarsa terdekat."* (`text-content-medium`).
-2. **Dropdown Pemilih Bahan (`Select`)**:
-   - Pilihan nama bahan baku (dilengkapi sisa stok total dan satuan).
-3. **RadioGroup Kartu Batch Interaktif (FEFO Batch Cards)**:
-   - Menampilkan daftar batch aktif dari bahan yang dipilih:
-     * **Kartu Batch Teratas (FEFO Recommended)**:
-       - Border tebal `border-brand-primary bg-surface-container-high ring-1 ring-brand-primary`.
-       - Badge kapsul mencolok: `[★ REKOMENDASI FEFO - Prioritas Pakai]` warna deep espresso (`bg-brand-primary text-surface-canvas font-semibold`).
-       - Kode batch, tanggal kedaluwarsa, dan sisa stok fisik (contoh: *"Batch #BM-20261025 • Exp: 03 Nov 2026 (3 hari lagi) • Sisa: 1.000 ml"*).
-     * **Kartu Batch Lainnya**:
-       - Border normal `border-surface-border bg-surface-canvas hover:border-brand-secondary`.
-       - Menampilkan kode batch dan tanggal kedaluwarsa yang lebih lama (contoh: *"Batch #BM-20261028 • Exp: 12 Nov 2026 (12 hari lagi) • Sisa: 2.000 ml"*).
-4. **Input Kuantitas Pemakaian**:
-   - Field input angka besar (`h-12 text-lg font-semibold bg-surface-canvas border-surface-border text-content-high`) dengan suffix satuan di dalam kotak (contoh: `[ 250 ] ml`).
-   - Keterangan pembantu: *"Sisa stok setelah pemakaian: 750 ml"*.
-5. **Catatan Operasional (Opsional)**:
-   - Textarea singkat untuk keterangan racikan menu (contoh: *"Untuk 8 cup Iced Latte shift pagi"*).
-6. **Footer Aksi**:
-   - Tombol Batal (`text-content-medium hover:bg-surface-container-high`).
-   - Tombol Submit Espresso: `[Konfirmasi & Kurangi Stok]` (`bg-brand-primary hover:bg-brand-primary-hover text-white`).
+### 2.1 Halaman A: Dasbor Operasional Barista (`Pages/Barista/Dashboard.tsx`)
+**Route**: `dashboard.barista`  
+**Mockup Acuan**: [barista_dasbor_operasional.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_dasbor_operasional.html)
+
+#### Struktur Kanvas & Komponen Utama:
+1. **Header Dasbor & Status Shift**:
+   - Judul Halaman: `"Dasbor Operasional Barista"` (`text-2xl font-bold tracking-tight text-[#241408]`)
+   - Badge Status Shift: `"Shift Pagi Aktif • Bar Utama"` (`bg-emerald-50 text-emerald-800 border-emerald-200`)
+   - Jam Operasional Real-time (`font-mono text-sm font-semibold text-[#5C3A21]`).
+2. **Banner Peringatan Aktif & Prioritas FEFO (`UrgentFefoBanner.tsx`)**:
+   - Wadah kontainer berlatar terracotta lembut: `bg-[#FDF2F0] border border-[#F8C6BF] rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4`.
+   - Menyorot batch bahan paling mendesak yang harus segera dihabiskan shift ini (misal: *Fresh Milk Diamond Batch #BCH-20241026-A3F2 sisa 2.500 ml kedaluwarsa BESOK*).
+   - Tombol Aksi Cepat: `[Pakai Batch Prioritas Ini]` (`bg-[#8C3D2B] hover:bg-[#733122] text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm`) yang mengarahkan ke halaman Catat Pemakaian dengan batch tersebut telah terisi otomatis.
+3. **Tiga Kartu Sentuh Aksi Cepat (`QuickActionStrip.tsx`)**:
+   - `grid grid-cols-1 sm:grid-cols-3 gap-4`:
+     - **Tombol 1 (Espresso)**: `Link` ke `route('usage.create')` berlatar `bg-[#4A2C11] text-white hover:bg-[#241408] p-4 rounded-xl flex items-center gap-3.5 shadow-sm font-bold text-sm`.
+     - **Tombol 2 (Parchment)**: `Link` ke `route('batches.create')` berlatar `bg-[#EDE4DC] text-[#241408] border border-[#EDE4DC] hover:bg-[#EDE4DC]/80 p-4 rounded-xl flex items-center gap-3.5 font-bold text-sm`.
+     - **Tombol 3 (Amber)**: `Link` ke `route('waste.create')` berlatar `bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA] hover:bg-[#FEEBC8] p-4 rounded-xl flex items-center gap-3.5 font-bold text-sm`.
+4. **Ringkasan Kesehatan Inventaris Meja Bar (`BarHealthGrid.tsx`)**:
+   - `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4`:
+   - Kartu bahan utama (Fresh Milk 1L, Oatside 1L, Espresso Blend, Monin Syrup, Cup 8oz).
+   - Menampilkan total sisa stok bar, countdown hari kedaluwarsa batch terdekat, dan indikator lampu lalu lintas (🟢 Aman > 7 hari, 🟡 Peringatan 3–7 hari, 🔴 Kritis < 3 hari).
+5. **Ringkasan Aktivitas Terkini Shift Pagi (`ShiftActivityTimeline.tsx`)**:
+   - Log kronologis 5 transaksi terakhir barista saat ini (pemakaian bahan dan penerimaan batch).
 
 ---
 
-#### Layar 3: Pop-up AlertDialog Smart Warning Deviasi FEFO (`Components/SmartWarningDialog.tsx`)
-1. **Pemicu Dialog**:
-   - Terbuka otomatis saat barista mengklik radio card batch yang bukan nomor 1 (batch dengan kedaluwarsa lebih lama).
-2. **Visual Warning Box**:
-   - Header warna amber/kuning karamel hangat (`bg-[#FFF7ED] border border-[#FED7AA] rounded-lg p-4 flex gap-3 items-start`).
-   - Ikon segitiga peringatan `AlertTriangle` warna karamel `text-[#C88242]`.
-   - Judul peringatan: `text-[#5C3A21] font-semibold` (*"Peringatan Deviasi FEFO"*).
-   - Teks penjelasan komparasi:
-     > *"Anda memilih batch **#BM-20261028** (Exp: 12 Nov 2026), padahal terdapat batch **#BM-20261025** yang kedaluwarsa lebih cepat (**3 hari lagi**)."*
-3. **Kotak Input Wajib: Alasan Deviasi**:
-   - Label: *"Alasan tidak menggunakan batch kedaluwarsa terdekat (Wajib diisi):"*
-   - Textarea dengan placeholder: *"Contoh: Kemasan batch ini sudah terlanjur terbuka di chiller bar..."*
-   - Indikator validasi: Penanda panjang karakter `(Karakter: 0/5 minimal)` berwarna terakota (`text-brand-tertiary`) jika belum 5 karakter.
-4. **Tombol Keputusan**:
-   - Tombol Abu-abu Netral: `[Batal & Gunakan Rekomendasi FEFO]` (Mengembalikan pilihan ke batch #1).
-   - Tombol Amber Tegas: `[Tetap Gunakan Batch Ini]` (`bg-brand-secondary hover:bg-brand-secondary-hover text-white`, hanya aktif jika alasan >= 5 karakter).
+### 2.2 Halaman B: Catat Pemakaian Bahan FEFO (`Pages/Usage/Index.tsx`)
+**Route**: `usage.create` | `usage.index`  
+**Mockup Acuan**: [barista_catat_pemakaian_fefo.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_catat_pemakaian_fefo.html)  
+**Layout Model**: **Split Workspace 2-Kolom (60% Form Input : 40% Live History Stream)**
+
+#### Kolom Kiri: Form Interaktif Pemakaian FEFO (`lg:col-span-7 space-y-6 bg-[#F5EFEB] p-6 rounded-2xl border border-[#EDE4DC]`):
+1. **Pilih Bahan Baku (`IngredientSelect.tsx`)**:
+   - Input combobox dengan live filter kategori (`Dairy`, `Coffee Beans`, `Syrup`, dll.).
+   - Menampilkan saldo total stok fisik di chiller bar (misal: *Total stok: 8.700 ml dari 3 batch aktif*).
+2. **Daftar Kartu Radio Batch Terurut FEFO (`FefoBatchSelector.tsx`)**:
+   - Batch diurutkan secara kaku dari `expiry_date` terdekat (ASC).
+   - **Batch #0 (Teratas)**:
+     - Terpilih secara default (`checked`).
+     - Memiliki border tebal `#4A2C11`, latar `#F5EFEB`, dan kapsul gelap tebal `[★ REKOMENDASI FEFO]`.
+     - Ditandai lokasi penyimpanan fisiknya (misal: *"Karton Depan Chiller Utama"*).
+   - **Batch Lainnya (Bukan #0)**:
+     - Kartu berlatar putih dengan border tipis `#EDE4DC`.
+     - Jika barista mengklik batch ini, sistem mendeteksi **Deviasi FEFO**.
+3. **Smart Warning Inline Deviasi FEFO (`DeviationWarningCard.tsx`)**:
+   - Otomatis muncul secara mulus di bawah kartu batch jika barista memilih batch fisik selain batch rekomendasi #0.
+   - Kotak peringatan bernuansa amber: `bg-[#FFF7ED] border border-[#FED7AA] p-4 rounded-xl space-y-3`.
+   - Pesan peringatan: *"Perhatian: Anda memilih batch yang kedaluwarsanya lebih lama. Mohon konfirmasi alasan fisik."*
+   - Field input wajib: `deviation_reason` (Textarea minimal 5 karakter, misal: *"Karton depan chiller sudah terbuka segelnya oleh shift sebelumnya"*).
+4. **Input Kuantitas Pemakaian & Presets (`UsageQuantityInput.tsx`)**:
+   - Input angka besar tebal (`text-xl font-bold font-mono`).
+   - Tombol preset cepat sentuh: `[+200 ml]`, `[+500 ml]`, `[+1.000 ml]` (1 kotak), `[Habiskan Sisa Batch]`.
+   - Real-time sisa stok preview setelah pengurangan.
+5. **Tombol Submit Pemakaian**:
+   - Tombol full-width espresso pekat: `[Catat Pemakaian Sekarang]` (`bg-[#4A2C11] text-white hover:bg-[#241408] py-3.5 rounded-xl font-bold text-sm shadow-md`).
+
+#### Kolom Kanan: Log Pemakaian Hari Ini (`lg:col-span-5 bg-[#F5EFEB] p-6 rounded-2xl border border-[#EDE4DC]`):
+- **Daftar Transaksi Sesi Aktif (`TodayUsageList.tsx`)**:
+  - Menampilkan riwayat pemakaian shift hari ini.
+  - Setiap baris dilengkapi status kepatuhan:
+    - Patuh FEFO: Badge hijau `✓ FEFO Patuh` (`bg-emerald-50 text-emerald-800 border-emerald-200`).
+    - Deviasi: Badge amber `⚠ Deviasi` (`bg-amber-50 text-amber-800 border-amber-200`) dengan tooltip alasan deviasi.
+
+---
+
+### 2.3 Halaman C: Penerimaan Batch Baru (`Pages/Batches/Create.tsx`)
+**Route**: `batches.create`  
+**Mockup Acuan**: [barista_penerimaan_batch.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_penerimaan_batch.html)  
+**Layout Model**: **Split Workspace 2-Kolom (60% Form Input Penerimaan : 40% 5 Batch Terakhir Masuk)**
+
+#### Kolom Kiri: Form Penerimaan Batch Baru (`lg:col-span-7 bg-[#F5EFEB] p-6 rounded-2xl border border-[#EDE4DC] space-y-5`):
+1. **Pilih Bahan Baku Masuk**: Combobox bahan baku dengan kategori dan SKU vendor.
+2. **Nomor Batch / Lot Supplier**: Input teks kode batch (misal: `BCH-20241028-MK01`) atau tombol generate otomatis.
+3. **Tanggal Kedaluwarsa & Kalkulator Umur Simpan**:
+   - Date picker `expiry_date`.
+   - Preview dinamis badge lampu lalu lintas umur simpan (misal: `🟢 Aman: 14 hari simpan`).
+4. **Jumlah Stok Masuk & Biaya Satuan**:
+   - `initial_stock` (angka + satuan unit otomatis: `ml`, `gram`, `pcs`).
+   - `cost_per_unit` (harga beli per satuan unit dalam Rupiah).
+   - Kalkulasi otomatis total nilai batch: `initial_stock * cost_per_unit` (misal: *"Total Nilai Aset Masuk: Rp 125.000"*).
+5. **Tombol Simpan**: `[Simpan & Masukkan Batch ke Inventaris]` (`bg-[#4A2C11] text-white`).
+
+#### Kolom Kanan: 5 Batch Terakhir Diterima (`lg:col-span-5 bg-[#F5EFEB] p-6 rounded-2xl border border-[#EDE4DC]`):
+- Tabel riwayat penerimaan batch terakhir: Kode Batch, Bahan, Qty Masuk, Tanggal Penerimaan, dan Status Umur Simpan.
+
+---
+
+### 2.4 Halaman D: Lapor Bahan Rusak / Basi (`Pages/Waste/Create.tsx`)
+**Route**: `waste.create`  
+**Mockup Acuan**: [barista_lapor_bahan_rusak.html](file:///home/lasains/ssd2/matkul/pemograman%20lanjut/projek/docs/stitch/barista_lapor_bahan_rusak.html)  
+**Layout Model**: **Split Workspace 2-Kolom (50% Form Pelaporan : 50% Status Tiket Saya)**
+
+#### Kolom Kiri: Form Pelaporan Bahan Rusak (`lg:col-span-6 bg-[#F5EFEB] p-6 rounded-2xl border border-[#EDE4DC] space-y-5`):
+1. **Pilih Batch Rusak**: Dropdown batch aktif yang tersedia di bar. Setelah dipilih, muncul kartu mini: kode batch, sisa stok, dan tanggal kedaluwarsa.
+2. **Kuantitas Rusak (`waste_quantity`)**: Validasi otomatis `waste_quantity <= current_stock`.
+3. **Alasan Kerusakan (`reason`)**:
+   - Dropdown pilihan terstandarisasi: `Kadaluwarsa di Rak`, `Kemasan Rusak / Bocor`, `Bau Asam / Rasa Berubah`, `Kontaminasi Fisik`, `Lainnya`.
+4. **Catatan Tambahan (`notes`)**: Textarea kondisi fisik bahan di lapangan.
+5. **Tombol Pengajuan Amber**: `[Kirim Laporan ke Supervisor]` (`bg-[#C88242] hover:bg-[#B37033] text-white font-bold py-3 rounded-xl shadow-sm`).
+   - Dilengkapi catatan transparan: *"Stok belum dipotong secara permanen hingga diverifikasi fisik oleh supervisor."*
+
+#### Kolom Kanan: Status Tiket Laporan Barista (`lg:col-span-6 bg-[#F5EFEB] p-6 rounded-2xl border border-[#EDE4DC]`):
+- Daftar tiket pengajuan barista login saat ini:
+  - 🟡 `pending`: *"Menunggu Verifikasi Supervisor"* (`bg-amber-50 text-amber-800 border-amber-200`)
+  - 🟢 `approved`: *"Disetujui & Stok Dihapus"* (`bg-emerald-50 text-emerald-800 border-emerald-200`)
+  - ⚪ `rejected`: *"Ditolak"* (`bg-stone-100 text-stone-700 border-stone-300`) dengan alasan penolakan supervisor.
+    * Batch diurutkan kronologis tanggal kedaluwarsa terdekat.
+    * Batch teratas otomatis terpilih dan diberi badge mencolok: `[★ REKOMENDASI FEFO]` berlatar espresso pekat `#4A2C11`.
+  - **Inline Warning Deviasi (Tanpa Modal Baru)**:
+    * Jika barista memilih batch di bawah rekomendasi teratas, secara otomatis di dalam drawer muncul kotak peringatan amber:
+      - Border `border-[#FED7AA] bg-[#FFF7ED] rounded-lg p-3.5 mt-3`.
+      - Ikon peringatan + teks: *"Deviasi FEFO Terdeteksi: Anda memilih batch yang lebih lama kedaluwarsa. Wajib isi alasan fisik pengambilan:"*
+      - Textarea alasan deviasi terintegrasi langsung di bawahnya (minimal 5 karakter).
+  - **Input Kuantitas Pemakaian**:
+    * Kotak input angka besar (`h-12 text-xl font-bold text-center bg-surface-canvas border-surface-border rounded-lg`).
+    * Indikator sisa stok real-time (contoh: *"Sisa setelah pakai: 750 ml"*).
+  - **Tombol Konfirmasi**:
+    * `[Konfirmasi & Kurangi Stok]` (`bg-brand-primary hover:bg-brand-primary-hover text-white w-full h-12 rounded-lg font-bold`).
 
 ---
 
 ### 2.3 Teks Prompt Siap Pakai untuk Google Stitch
 
-#### Prompt Bahasa Indonesia (Terstruktur untuk Stitch)
+#### Prompt Bahasa Indonesia (In-Shell Content View)
 ```text
-Buatkan 3 antarmuka layar operasional bar modern untuk modul "FEFO Inventory Barista" pada aplikasi kafe "BeanFlow" dengan tema warna warm artisan coffee:
+Buatkan desain antarmuka kerja dalam kanvas (In-Shell Content View) untuk Dasbor Operasional Barista FEFO pada aplikasi kafe "BeanFlow" bernuansa warm artisan coffee (espresso, karamel, oat milk):
 
-Layar 1 (Dasbor Barista):
-Latar belakang kanvas susu hangat #FAF7F2. Di atas terdapat bar sambutan shift barista dengan indikator online. Di bawahnya ada 3 kartu aksi cepat besar: tombol espresso "+ Catat Pemakaian Bahan" (#4A2C11), tombol kontainer parchment "+ Penerimaan Restock Baru" (#EDE4DC), dan tombol amber karamel "! Lapor Bahan Rusak" (#C88242). Di bawahnya terdapat grid 4 kartu "Bahan Cepat Bar" (Fresh Milk Diamond, Espresso Blend, Sirup Karamel, Oat Milk) lengkap dengan sisa stok ml/gram, badge lampu lalu lintas kedaluwarsa (Merah Terracotta #8C3D2B, Kuning Amber #C88242, Hijau Segar #059669), dan tombol "Pakai Cepat".
+PENTING: Jangan membuat sidebar kiri atau header atas. Desain ini adalah isi konten halaman di dalam slot utama (viewport kanvas susu hangat #FAF7F2).
 
-Layar 2 (Modal Form Pemakaian Bahan FEFO):
-Modal pop-up oat latte #F5EFEB terpusat (rounded-xl, border #EDE4DC, shadow-lg). Berisi dropdown pilih bahan, diikuti daftar pilihan batch kartu interaktif (RadioGroup):
-- Kartu batch teratas (Rekomendasi FEFO) memiliki border espresso tebal #4A2C11, latar parchment #EDE4DC, dan badge espresso pekat bertuliskan "[★ REKOMENDASI FEFO - Prioritas Pakai]".
-- Kartu batch kedua memiliki border parchment biasa dengan tanggal expired lebih lama.
-Di bawah daftar batch terdapat input kuantitas angka besar dengan label satuan "ml", teks sisa stok otomatis, dan tombol espresso #4A2C11 "Konfirmasi & Kurangi Stok".
+Elemen Konten yang Ditampilkan:
+1. Paling Atas: Banner Peringatan Kritis FEFO warna terracotta lembut (#FDF2F0 dengan border #F8C6BF). Teks tebal: "Prioritas Pakai: Fresh Milk Diamond Batch #B-01 expired BESOK (26 Okt)!" dilengkapi tombol terracotta "#8C3D2B" "Pakai Batch Ini".
+2. Tiga Tombol Aksi Cepat Barista (Tinggi 72px, touch-friendly):
+   - Tombol Espresso #4A2C11: "+ Catat Pemakaian Bahan" (ikon Flame/Coffee).
+   - Tombol Parchment #EDE4DC: "+ Penerimaan Batch Baru" (ikon PackagePlus).
+   - Tombol Amber #FFF7ED border #FED7AA: "! Lapor Bahan Rusak/Basi" (ikon AlertTriangle).
+3. Grid 4 Kartu Bahan Cepat Bar (Fresh Milk, Oat Milk, Espresso Blend, Sirup Karamel):
+   - Desain kartu oat latte #F5EFEB, border halus #EDE4DC, rounded-xl.
+   - Angka stok besar tebal "4.200 ml", badge lampu lalu lintas kedaluwarsa (Hijau Aman 14 Hari, Kuning Warning 4 Hari, Merah Kritis 1 Hari), dan tombol sentuh "Pakai Bahan".
+4. Di sisi kanan layar sedang aktif: Sebuah Slide-Over Action Drawer (lebar 480px, latar #F5EFEB) dengan judul "Catat Pemakaian FEFO":
+   - Menampilkan kartu batch teratas dengan badge emas/espresso "[★ REKOMENDASI FEFO]".
+   - Terdapat kotak peringatan amber deviasi FEFO yang terbuka secara inline dengan input alasan deviasi.
+   - Input kuantitas angka besar dan tombol espresso pekat "Konfirmasi & Kurangi Stok".
 
-Layar 3 (AlertDialog Smart Warning Deviasi FEFO):
-Modal dialog peringatan bernuansa karamel hangat (#FFF7ED) dengan border amber (#FED7AA). Menampilkan ikon segitiga peringatan, teks peringatan "Peringatan Deviasi FEFO: Ada batch yang kedaluwarsa lebih cepat!", kotak textarea wajib untuk mengisi "Alasan Deviasi" (dengan counter minimal 5 karakter), tombol batal "Kembali ke Rekomendasi FEFO", dan tombol amber karamel tegas "Tetap Gunakan Batch Ini".
+Desain sangat bersih, ergonomis untuk barista jam sibuk, kontras tinggi, elegan ala coffee shop modern.
 ```
 
 #### English Prompt (High-Fidelity for Stitch AI)
 ```text
-A high-fidelity 3-screen UI set for a specialty coffee inventory app named "BeanFlow", focusing on Barista FEFO Operations with warm coffee aesthetics:
-1. Screen 1 (Barista Dashboard): Warm steamed milk canvas (#FAF7F2) background. Top greeting banner "Shift Barista Console • Morning Shift". Three prominent quick-action touch buttons: deep espresso "#4A2C11" "+ Record Ingredient Usage", parchment "#EDE4DC" "+ Receive Restock", and amber caramel "#C88242" "! Report Spoiled Material". Below is a grid of 4 quick-bar ingredient cards (Fresh Milk, Espresso Beans, Caramel Syrup, Oat Milk) showing stock numbers, traffic-light expiry badges (Botanical Green Safe, Amber Caramel Warning, Terracotta Critical), and an instant "Use Now" button.
-2. Screen 2 (FEFO Stock Usage Modal): Warm oat latte modal dialog (#F5EFEB, rounded-xl, shadow-xl). Contains an ingredient selector, followed by an interactive RadioGroup of batch cards. The top card has an active deep espresso border (#4A2C11), parchment tint (#EDE4DC), and a bold capsule badge "[★ FEFO RECOMMENDATION - Use First]". The other batch card has a neutral parchment border with a later expiry date. Below is a large numeric quantity input with "ml" suffix, preview of remaining stock, and a full-width deep roasted espresso submit button.
-3. Screen 3 (Smart Warning Deviation Dialog): A prominent amber alert modal (#FFF7ED background, #FED7AA border). Warning triangle icon, headline "FEFO Deviation Warning: Older batch available!", comparison summary of dates, required textarea for "Reason for Deviation" with a 5-character validation counter, secondary button "Revert to FEFO", and a solid spun amber confirmation button "Confirm Non-FEFO Selection". Tailwind CSS styling, touch-friendly, high contrast.
+An in-shell content view for a Barista FEFO Operational Console in a specialty coffee inventory SaaS ("BeanFlow"), set in a warm artisan coffee aesthetic.
+IMPORTANT: Do not render an outer sidebar or top navigation bar. This design is strictly the interior workspace canvas (background #FAF7F2).
+
+Layout Components:
+1. Top Urgent FEFO Alert Strip: Soft terracotta banner (#FDF2F0 with #F8C6BF border). Text: "Urgent Shelf-Life Alert: Fresh Milk Diamond Batch #B-01 expires TOMORROW!" with a solid terracotta button "#8C3D2B" "Use Batch Now".
+2. Three Large Touch Action Cards (72px height, touch-friendly):
+   - Deep roasted espresso "#4A2C11": "+ Record Ingredient Usage"
+   - Unbleached parchment "#EDE4DC": "+ Receive Batch Restock"
+   - Warm spun amber "#FFF7ED" with border "#FED7AA": "! Report Spoiled Goods"
+3. Quick-Bar Ingredient Grid (4 columns: Fresh Milk, Oatside Oat Milk, House Espresso Beans, Monin Caramel):
+   - Warm oat latte cards (#F5EFEB, rounded-xl, #EDE4DC border).
+   - Large stock typography "4,200 ml", traffic-light expiry capsules (Green Safe >7d, Amber Warning 3-7d, Red Critical <3d), and an instant "Use Now" action button.
+4. Active Right Slide-Over Action Drawer (480px wide, #F5EFEB surface):
+   - Header "Record FEFO Usage".
+   - Batch cards ordered by earliest expiry with top card marked "[★ FEFO RECOMMENDATION]".
+   - An inline spun amber warning box displaying "FEFO Deviation Detected: Non-recommended batch chosen" with a required inline reason textarea.
+   - Large numeric quantity input and a full-width deep espresso submit button.
+High contrast, clean typography (Plus Jakarta Sans/Figtree), modern touch-ergonomic POS design.
 ```
 
 ---
@@ -171,14 +239,23 @@ A high-fidelity 3-screen UI set for a specialty coffee inventory app named "Bean
 resources/js/
 ├── Pages/
 │   ├── Barista/
-│   │   └── Dashboard.tsx               # Dasbor utama operasional barista
-│   └── Usage/
-│       └── CreateUsageModal.tsx        # Modal form pemakaian bahan FEFO
+│   │   └── Dashboard.tsx               # Halaman A: Dasbor ringkasan bar barista
+│   ├── Usage/
+│   │   └── Index.tsx                   # Halaman B: Catat Pemakaian & Riwayat FEFO
+│   ├── Batches/
+│   │   └── Create.tsx                  # Halaman C: Penerimaan Batch Baru dari Supplier
+│   └── Waste/
+│       └── Create.tsx                  # Halaman D: Lapor Bahan Rusak & Status Tiket Saya
 ├── Components/
-│   ├── SmartWarningDialog.tsx          # Pop-up dialog peringatan deviasi FEFO
 │   └── Barista/
-│       ├── QuickActionCards.tsx        # 3 Tombol aksi cepat bar
-│       └── PopularIngredientsGrid.tsx  # Grid bahan favorit bar
+│       ├── FefoAlertBanner.tsx         # Banner peringatan kedaluwarsa kritis (Halaman A)
+│       ├── QuickActionCards.tsx        # 3 Tombol aksi cepat bar (Halaman A)
+│       ├── QuickIngredientsGrid.tsx    # Grid kartu bahan favorit bar (Halaman A)
+│       ├── FefoBatchRadioGroup.tsx     # RadioGroup batch FEFO terurut (Halaman B)
+│       ├── DeviationInlineWarning.tsx  # Kotak amber deviasi FEFO inline (Halaman B)
+│       ├── LiveTotalCalculator.tsx     # Kalkulasi total nilai batch real-time (Halaman C)
+│       ├── MyWasteTicketsLog.tsx       # Tabel status tiket milik barista (Halaman D)
+│       └── SmartWarningDialog.tsx      # Dialog konfirmasi deviasi FEFO (komponen bersama)
 ```
 
 ---
@@ -466,3 +543,5 @@ export function SmartWarningDialog({
 2. **Langkah 2**: Buat modal form `CreateUsageModal.tsx` dengan RadioGroup batch dan validasi kuantitas stok.
 3. **Langkah 3**: Buat halaman `resources/js/Pages/Barista/Dashboard.tsx` yang memuat kartu aksi cepat dan grid bahan favorit bar.
 4. **Langkah 4**: Pastikan controller backend `StockUsageController.php` memvalidasi input di dalam transaksi database (`DB::transaction`) dan menyimpan kolom `is_fefo_compliant` serta `deviation_reason` dengan tepat.
+
+---
