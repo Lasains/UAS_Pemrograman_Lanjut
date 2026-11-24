@@ -682,8 +682,7 @@ Path: database/migrations/2026_01_01_000005_create_stock_usages_table.php
 Path: database/migrations/2026_01_01_000006_create_waste_logs_table.php
 [Kode: Buat tabel `waste_logs` dengan kolom: id, ingredient_batch_id(FK→ingredient_batches RESTRICT), reported_by(unsigned bigint FK→users.id RESTRICT), approved_by(unsigned bigint nullable FK→users.id SET NULL), waste_quantity(decimal 10,2), financial_loss(decimal 12,2 nullable), reason(varchar 500), status(ENUM pending/approved/rejected default pending), timestamps]
 [WAJIB tambahkan index: composite(status, reported_by) nama 'idx_waste_status_reporter']
-[PERHATIAN: reported_by dan approved_by menggunakan FK manual karena nama kolom tidak standar]
-
+[PERHATIAN: reported_by dan approved_by menggunakan FK manual karena nama kolom tidak standar
 SETELAH MEMBUAT SEMUA FILE:
 Jalankan perintah verifikasi berikut untuk memastikan migrasi valid sebelum dieksekusi:
 
