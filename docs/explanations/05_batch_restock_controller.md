@@ -323,4 +323,100 @@ FEFO dashboard kini menampilkan batch baru
 
 ---
 
+---
+
+### Fungsi: `show(IngredientBatch $batch)`
+
+#### Tujuan
+Menampilkan rincian lengkap dari satu batch tertentu beserta riwayat pemakaian stok dan riwayat laporan pemusnahannya.
+
+#### Input / Parameter
+* `$batch`: Instance model `IngredientBatch` yang di-resolve otomatis via Route Model Binding.
+
+#### Alur Logika Bisnis (Langkah demi Langkah)
+1. Memuat relasi (*eager load*): `ingredient.category`, `stockUsages.user`, `wasteLogs.reporter`, dan `wasteLogs.approver`.
+2. Menambahkan (*append*) atribut virtual accessor: `expiry_status`, `days_until_expiry`, dan `total_value`.
+3. Mengambil 10 riwayat pemakaian terbaru dan riwayat laporan pemusnahan yang terhubung dengan batch ini.
+4. Merender tampilan Inertia `Batches/Show` dengan membawa data batch, stockUsages, dan wasteLogs.
+
+#### Output / Return Value
+Instance `Inertia\Response` yang merender halaman detail batch di browser.
+
+#### Kaitan dengan Bagian Lain
+Menyajikan halaman audit trail lengkap bagi supervisor dan owner saat mengklik salah satu baris batch di tabel inventaris.
+
+---
+
+### Fungsi: `edit(IngredientBatch $batch)`
+
+#### Tujuan
+Menyiapkan formulir koreksi data batch untuk supervisor jika terdapat kesalahan pencatatan saat penerimaan awal.
+
+#### Input / Parameter
+* `$batch`: Instance model `IngredientBatch` yang ingin dikoreksi.
+
+#### Alur Logika Bisnis (Langkah demi Langkah)
+1. Memuat relasi kategori bahan (`ingredient.category`).
+2. Menghitung accessor `expiry_status` dan `days_until_expiry`.
+3. Mengambil seluruh master bahan untuk pilihan dropdown.
+4. Mengirim data ke antarmuka Inertia `Batches/Edit`.
+
+#### Output / Return Value
+Instance `Inertia\Response`.
+
+#### Kaitan dengan Bagian Lain
+Hanya dapat diakses oleh role Supervisor untuk mencegah barista mengubah data fisik tanpa izin.
+
+---
+
+### Fungsi: `update(UpdateBatchRequest $request, IngredientBatch $batch)`
+
+#### Tujuan
+Menyimpan hasil koreksi data batch yang telah divalidasi ke dalam database.
+
+#### Input / Parameter
+* `$request`: Instance `UpdateBatchRequest` berisi data koreksi yang sudah tervalidasi.
+* `$batch`: Batch yang akan diperbarui.
+
+#### Alur Logika Bisnis (Langkah demi Langkah)
+1. Membuka transaksi database `DB::transaction`.
+2. Menjalankan pembaruan data `$batch->update($request->validated())`.
+3. Jika berhasil, me-redirect user kembali ke `inventory.index` dengan pesan flash sukses.
+4. Jika terjadi galat, me-redirect kembali ke form dengan pesan error.
+
+#### Output / Return Value
+Instance `RedirectResponse`.
+
+#### Kaitan dengan Bagian Lain
+Memperbarui data fisik di tabel `ingredient_batches`, berdampak langsung pada kalkulasi total valuasi stok dan tanggal kedaluwarsa sistem.
+
+---
+
+## Penjelasan Per-Fungsi: `UpdateBatchRequest`
+
+---
+
+### Fungsi: `rules()`
+
+#### Tujuan
+Menentukan aturan validasi parsial (*sometimes*) saat supervisor mengoreksi data batch yang sudah ada.
+
+#### Input / Parameter
+Tidak ada (membaca data HTTP request).
+
+#### Alur Logika Bisnis (Langkah demi Langkah)
+1. Mengambil ID batch dari rute aktif `$this->route('batch')?->id`.
+2. Menerapkan aturan `sometimes` pada seluruh kolom agar pembaruan parsial diizinkan.
+3. Mengecualikan batch saat ini dari pengecekan unik kode batch via `Rule::unique()->ignore($batchId)`.
+4. Mengizinkan `current_stock` bernilai minimal 0 untuk penyesuaian stok opname fisik.
+5. Memvalidasi bahwa `expiry_date` tetap harus setelah `received_date`, namun tidak mewajibkan `after:today` agar batch historis tetap dapat dikoreksi.
+
+#### Output / Return Value
+Array berisi aturan validasi.
+
+#### Kaitan dengan Bagian Lain
+Menjaga konsistensi data sebelum masuk ke method `update()` di `IngredientBatchController`.
+
+---
+
 *Dokumen ini mendampingi spesifikasi teknis di [`PLAN_05_BATCH_RESTOCK_CONTROLLER.md`](../Plan%20Backend/PLAN_05_BATCH_RESTOCK_CONTROLLER.md). Untuk kode PHP lengkap, lihat dokumen teknis tersebut.*
