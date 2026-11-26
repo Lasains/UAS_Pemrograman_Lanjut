@@ -56,6 +56,17 @@ Form Request ini bertindak sebagai **"Satpam Formulir"**. Sebelum data pemakaian
 
 ---
 
+#### Fungsi: `prepareForValidation()`
+* **Tujuan**: Merapikan dan menstandarisasi data input sebelum aturan `rules()` dijalankan.
+* **Input / Parameter**: Data request mentah dari user.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Jika tanggal pemakaian (`usage_date`) dikosongkan oleh user, sistem otomatis mengisinya dengan tanggal hari ini (`today`).
+  2. Jika barista menyatakan patuh FEFO (`is_fefo_compliant = true`), sistem otomatis mengosongkan teks alasan deviasi (`deviation_reason = null`) agar tidak ada catatan alasan yang tersisa tanpa sengaja.
+* **Output / Return Value**: Memodifikasi payload request internal (*data merging*).
+* **Kaitan dengan Bagian Lain**: Menghilangkan kebutuhan logika pembersihan data manual di Controller.
+
+---
+
 ### Komponen 2: Action Class `DeductStockAction`
 
 Action Class ini adalah **"Jantung Eksekusi Bisnis"**. Seluruh aksi pengurangan stok dan pencatatan riwayat dipusatkan di sini agar kode rapi dan tidak berantakan di dalam Controller.

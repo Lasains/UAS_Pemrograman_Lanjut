@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IngredientBatchController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StockUsageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,6 +28,9 @@ Route::middleware('auth')->group(function () {
     // ─── Modul Inventaris & Batch Restock ───────────────────────────────────
     Route::get('/inventory', [IngredientBatchController::class, 'index'])->name('inventory.index');
     Route::resource('batches', IngredientBatchController::class);
+
+    // ─── Modul Pemakaian Stok & Algoritma FEFO ─────────────────────────────
+    Route::resource('stock-usages', StockUsageController::class)->only(['index', 'create', 'store', 'show']);
 });
 
 require __DIR__.'/auth.php';
