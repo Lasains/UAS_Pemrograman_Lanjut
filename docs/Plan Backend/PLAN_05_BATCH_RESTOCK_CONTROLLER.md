@@ -73,7 +73,7 @@ flowchart TD
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormR equest;
 use Illuminate\Validation\Rule;
 
 class StoreBatchRequest extends FormRequest
