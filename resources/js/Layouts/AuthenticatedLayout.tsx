@@ -31,9 +31,10 @@ interface NavItem {
     label: string;
     routeName: string;
     url: string;
+    tab?: 'usage' | 'batch' | 'waste';
     icon: typeof Coffee;
     roles: Role[];
-    activeMatch?: (path: string, userRole: Role) => boolean;
+    activeMatch?: (path: string, userRole: Role, search: string) => boolean;
 }
 
 interface NavGroup {
@@ -53,30 +54,42 @@ const NAVIGATION_GROUPS: NavGroup[] = [
                 url: '/dashboard/barista',
                 icon: Coffee,
                 roles: ['barista', 'supervisor'],
-                activeMatch: (path, role) =>
-                    path === '/dashboard/barista' ||
+                activeMatch: (path, role, search) =>
+                    (path === '/dashboard/barista' && !search.includes('tab=')) ||
                     (path === '/dashboard' && (role === 'barista' || role === 'supervisor')),
             },
             {
                 label: 'Catat Pemakaian (FEFO)',
-                routeName: 'usage.create',
-                url: '/usage/create',
+                routeName: 'dashboard.barista',
+                url: '/dashboard/barista?tab=usage',
+                tab: 'usage',
                 icon: Flame,
                 roles: ['barista', 'supervisor'],
+                activeMatch: (path, _role, search) =>
+                    path === '/dashboard/barista' &&
+                    new URLSearchParams(search).get('tab') === 'usage',
             },
             {
                 label: 'Penerimaan Batch',
-                routeName: 'batches.create',
-                url: '/batches/create',
+                routeName: 'dashboard.barista',
+                url: '/dashboard/barista?tab=batch',
+                tab: 'batch',
                 icon: PackagePlus,
                 roles: ['barista', 'supervisor'],
+                activeMatch: (path, _role, search) =>
+                    path === '/dashboard/barista' &&
+                    new URLSearchParams(search).get('tab') === 'batch',
             },
             {
                 label: 'Lapor Bahan Rusak',
-                routeName: 'waste.create',
-                url: '/waste/create',
+                routeName: 'dashboard.barista',
+                url: '/dashboard/barista?tab=waste',
+                tab: 'waste',
                 icon: AlertTriangle,
                 roles: ['barista', 'supervisor'],
+                activeMatch: (path, _role, search) =>
+                    path === '/dashboard/barista' &&
+                    new URLSearchParams(search).get('tab') === 'waste',
             },
         ],
     },
@@ -217,20 +230,29 @@ export default function AuthenticatedLayout({
 
     // Safe route resolution helper
     const resolveHref = (item: NavItem): string => {
+        let baseUrl = item.url;
         try {
             if (typeof route === 'function' && route().has(item.routeName)) {
-                return route(item.routeName);
+                baseUrl = route(item.routeName);
+                if (item.tab) {
+                    return `${baseUrl}?tab=${item.tab}`;
+                }
             }
         } catch (e) {}
-        return item.url;
+        return baseUrl;
     };
 
     // Safe active check
     const checkActive = (item: NavItem): boolean => {
-        const currentPath =
-            typeof window !== 'undefined' ? window.location.pathname : '';
+        const rawUrl =
+            page.url ||
+            (typeof window !== 'undefined'
+                ? `${window.location.pathname}${window.location.search}`
+                : '');
+        const [currentPath, queryString = ''] = rawUrl.split('?');
+        const currentSearch = queryString ? `?${queryString}` : '';
         if (item.activeMatch) {
-            return item.activeMatch(currentPath, user.role);
+            return item.activeMatch(currentPath, user.role, currentSearch);
         }
         try {
             if (
