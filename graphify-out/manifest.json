@@ -1,9 +1,9 @@
 {
   "app/Http/Controllers/Auth/AuthenticatedSessionController.php": {
-    "mtime": 1793323787.2098138,
-    "seen": 1793445295.134283,
-    "ast_hash": "3610c8a40a3e9aa506bfd722002669a0",
-    "semantic_hash": "3610c8a40a3e9aa506bfd722002669a0"
+    "mtime": 1795676495.0279837,
+    "seen": 1795676625.1389277,
+    "ast_hash": "8a7ee128c941af0a09da31ded278641d",
+    "semantic_hash": ""
   },
   "app/Http/Controllers/Auth/ConfirmablePasswordController.php": {
     "mtime": 1793323787.2092757,
@@ -66,10 +66,10 @@
     "semantic_hash": "402cad3af7f03bd48a93dc9b1ecd335a"
   },
   "app/Http/Middleware/HandleInertiaRequests.php": {
-    "mtime": 1793323787.2108839,
-    "seen": 1793445295.1343672,
-    "ast_hash": "cd2f6f26ba72b16aec6cc0fb652fbcd3",
-    "semantic_hash": "cd2f6f26ba72b16aec6cc0fb652fbcd3"
+    "mtime": 1795676503.1661727,
+    "seen": 1795676625.1390324,
+    "ast_hash": "bd78c1b929f26c081aedff65093649d1",
+    "semantic_hash": ""
   },
   "app/Http/Requests/Auth/LoginRequest.php": {
     "mtime": 1793323787.210596,
@@ -102,10 +102,10 @@
     "semantic_hash": "6db4e64ab2d4fa6230e6dad951a79530"
   },
   "bootstrap/app.php": {
-    "mtime": 1793323787.211966,
-    "seen": 1793445295.134403,
-    "ast_hash": "e7d274dc903ed7be5bfa9deb499e364d",
-    "semantic_hash": "e7d274dc903ed7be5bfa9deb499e364d"
+    "mtime": 1795676533.8468091,
+    "seen": 1795676625.139143,
+    "ast_hash": "ed95a2c875765e6ec79481f373ab56f2",
+    "semantic_hash": ""
   },
   "bootstrap/providers.php": {
     "mtime": 1793323787.214835,
@@ -444,10 +444,10 @@
     "semantic_hash": "3c6ce2e6d16444282b24a9aa63885563"
   },
   "routes/web.php": {
-    "mtime": 1795508331.743302,
-    "seen": 1795675262.6891913,
-    "ast_hash": "f1b87a997a10757ec6f579e585f0ab0e",
-    "semantic_hash": "f1b87a997a10757ec6f579e585f0ab0e"
+    "mtime": 1795676501.0261238,
+    "seen": 1795676625.1399434,
+    "ast_hash": "c809fbf8a10b93ddb67b2126eb991352",
+    "semantic_hash": ""
   },
   "tailwind.config.js": {
     "mtime": 1793916436.039676,
@@ -1221,6 +1221,24 @@
     "mtime": 1795674770.7820914,
     "seen": 1795675262.6897378,
     "ast_hash": "2218374414f6690447ee5b5834af5501",
+    "semantic_hash": ""
+  },
+  "app/Http/Middleware/RoleMiddleware.php": {
+    "mtime": 1795676490.9458854,
+    "seen": 1795676625.1390402,
+    "ast_hash": "a51558519fcbc371b8f15a838c6be057",
+    "semantic_hash": ""
+  },
+  "app/Policies/IngredientPolicy.php": {
+    "mtime": 1795676499.172081,
+    "seen": 1795676625.1391122,
+    "ast_hash": "b7c3f337a45f0dcb7d169c89f5350294",
+    "semantic_hash": ""
+  },
+  "app/Policies/WasteLogPolicy.php": {
+    "mtime": 1795676497.0180306,
+    "seen": 1795676625.1391187,
+    "ast_hash": "6d69e6419828f398dc2273ce6e22f149",
     "semantic_hash": ""
   }
 }

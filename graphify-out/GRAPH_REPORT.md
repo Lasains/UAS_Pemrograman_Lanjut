@@ -1,17 +1,17 @@
 # Graph Report - projek  (2026-11-26)
 
 ## Corpus Check
-- 161 files · ~588,448 words
+- 164 files · ~588,919 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 20 file(s) not represented in the graph (top: (none) 16, .example 1, .xml 1)
 
 ## Summary
-- 799 nodes · 1219 edges · 64 communities (38 shown, 26 thin omitted)
+- 829 nodes · 1270 edges · 78 communities (42 shown, 36 thin omitted)
 - Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 66 edges (avg confidence: 0.9)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3957196e`
+- Built from commit: `45898d4e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -38,11 +38,11 @@
 - Penjelasan: 4 Halaman Tersendiri untuk Barista BeanFlow
 - Penjelasan: 3 Halaman Eksekutif untuk Owner BeanFlow
 - Penjelasan: Halaman Operasional & Pengawasan Supervisor BeanFlow
-- IngredientBatch
+- Illuminate\Database\Seeder
 - psr-4
 - 2. Penjelasan Per Komponen Utama Hasil Sinkronisasi
 - Custom RoleMiddleware RBAC Guard
-- Barista/Dashboard.tsx
+- Penjelasan Modul 13: Dasbor Operasional Barista & Kesehatan Meja Bar
 - ExampleTest
 - index.d.ts
 - autoload-dev
@@ -65,19 +65,31 @@
 - AuthenticatedLayout
 - Penjelasan Modul 16: Pelaporan Bahan Rusak & Pemusnahan (Waste Write-Off)
 - Batches/Create.tsx
-- Waste/Create.tsx
+- IngredientBatch
+- WasteLog
+- StockUsage
+- WasteLogPolicy
+- global.d.ts
+- app.tsx
+- Login.tsx
+- dependencies
+- Barista/Dashboard.tsx
+- IngredientBatchSeeder.php
+- utils.ts
+- tailwind.config.js
+- scripts
 
 ## God Nodes (most connected - your core abstractions)
-1. `User` - 45 edges
+1. `User` - 57 edges
 2. `react` - 26 edges
 3. `@inertiajs/react` - 23 edges
 4. `Controller` - 20 edges
 5. `IngredientBatch` - 20 edges
 6. `TestCase` - 18 edges
 7. `AuthenticatedLayout()` - 16 edges
-8. `InputError()` - 15 edges
-9. `PrimaryButton()` - 15 edges
-10. `GuestLayout()` - 15 edges
+8. `Ingredient` - 15 edges
+9. `InputError()` - 15 edges
+10. `PrimaryButton()` - 15 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Token: `surface.canvas` (`#FAF7F2`) — Warm Steamed Milk & Porcelain` --references--> `AuthenticatedLayout()`  [INFERRED]
@@ -102,27 +114,27 @@
 - **Multi-Role RBAC Authorization & Dynamic Shell System** — docs_plan_frontend_plan_01_auth_login_one_click_demo_login, docs_plan_frontend_plan_02_app_layout_rbac_rbac_menu_matrix, docs_explanations_04_auth_rbac_middleware_role_middleware_routing, docs_explanations_08_dashboard_analytics_controller_three_perspective_lenses_analogy [INFERRED 0.85]
 - **Two-Tier Waste Write-Off & Loss Settlement Architecture** — docs_plan_frontend_plan_06_waste_approval_center_no_hard_delete_waste_policy, docs_plan_frontend_plan_06_waste_approval_center_two_tier_waste_approval, docs_explanations_07_waste_disposal_controller_waste_ticket_analogy, docs_explanations_07_waste_disposal_controller_financial_loss_calculation [INFERRED 0.95]
 
-## Communities (64 total, 26 thin omitted)
+## Communities (78 total, 36 thin omitted)
 
 ### Community 0 - "Illuminate\Http\Request"
-Cohesion: 0.07
-Nodes (12): AuthenticatedSessionController, ConfirmablePasswordController, EmailVerificationNotificationController, EmailVerificationPromptController, NewPasswordController, PasswordController, PasswordResetLinkController, RegisteredUserController (+4 more)
+Cohesion: 0.06
+Nodes (13): AuthenticatedSessionController, ConfirmablePasswordController, EmailVerificationNotificationController, EmailVerificationPromptController, NewPasswordController, PasswordController, PasswordResetLinkController, RegisteredUserController (+5 more)
 
 ### Community 1 - "User"
-Cohesion: 0.06
-Nodes (10): User, AuthenticationTest, EmailVerificationTest, PasswordConfirmationTest, PasswordResetTest, PasswordUpdateTest, RegistrationTest, ExampleTest (+2 more)
+Cohesion: 0.05
+Nodes (12): Ingredient, User, IngredientPolicy, AuthenticationTest, EmailVerificationTest, PasswordConfirmationTest, PasswordResetTest, PasswordUpdateTest (+4 more)
 
 ### Community 2 - "react"
-Cohesion: 0.10
-Nodes (27): @headlessui/react, @inertiajs/react, lucide-react, react, ApplicationLogo(), DangerButton(), DropDownContext, InputError() (+19 more)
+Cohesion: 0.12
+Nodes (22): @headlessui/react, @inertiajs/react, react, ApplicationLogo(), DangerButton(), DropDownContext, InputError(), InputLabel() (+14 more)
 
 ### Community 3 - "Eloquent Model: IngredientBatch"
 Cohesion: 0.05
 Nodes (45): Early Warning Traffic Light Expiration Logic, FEFO Core Business Rules Specification, FEFO Recommendation Badge UI Component, Smart Warning FEFO Deviation Modal UI, Tailwind Cafe Color Palette & Status Tokens, Backend Developer 1 Task Specification, FEFO Stock Deduction Engine Backend Task, Backend Developer 2 Task Specification (+37 more)
 
 ### Community 4 - "package.json"
-Cohesion: 0.05
-Nodes (30): dependencies, clsx, lucide-react, recharts, tailwind-merge, private, scripts, build (+22 more)
+Cohesion: 0.15
+Nodes (13): private, type, autoprefixer, concurrently, laravel-vite-plugin, postcss, recharts, @types/node (+5 more)
 
 ### Community 5 - "LoginRequest"
 Cohesion: 0.10
@@ -184,25 +196,25 @@ Nodes (13): Halaman A: Dasbor Analitik & Finansial Eksekutif (`Pages/Dashboard/O
 Cohesion: 0.14
 Nodes (13): 1. Modul Monitoring Inventaris & Kedaluwarsa (`Pages/Inventory/Index.tsx`), 2. Modul Master Bahan Baku (`Pages/Master/Ingredients/Index.tsx`), 3. Modul Manajemen Kategori (`Pages/Master/Categories/Index.tsx`), 4. Modul Approval Pemusnahan Limbah (`Pages/Waste/Index.tsx`), 5. Modul Riwayat Audit & Deviasi FEFO (`Pages/Audit/FefoLog.tsx`), Komponen: `CategoryCardGrid` & `CategoryFormCard`, Komponen: `ExpandableBatchRow`, Komponen: `ExpiryFilterTabs` (+5 more)
 
-### Community 22 - "IngredientBatch"
-Cohesion: 0.06
-Nodes (13): Category, Ingredient, IngredientBatch, StockUsage, WasteLog, CategorySeeder, DatabaseSeeder, IngredientBatchSeeder (+5 more)
+### Community 22 - "Illuminate\Database\Seeder"
+Cohesion: 0.20
+Nodes (5): Category, CategorySeeder, DatabaseSeeder, IngredientSeeder, UserSeeder
 
 ### Community 23 - "psr-4"
 Cohesion: 0.40
 Nodes (5): autoload, psr-4, App\\, Database\\Factories\\, Database\\Seeders\\
 
 ### Community 25 - "2. Penjelasan Per Komponen Utama Hasil Sinkronisasi"
-Cohesion: 0.25
-Nodes (7): 1. Analogi Dunia Nyata Kafe: Mengapa Plan Harus Disinkronkan dengan Mockup Stitch?, 2. Penjelasan Per Komponen Utama Hasil Sinkronisasi, Komponen: `DeviationWarningCard` (Peringatan Cerdas Deviasi FEFO), Komponen: `ExpandableBatchTable` (Tabel Monitoring Chiller Bertingkat), Komponen: `UsageVsWasteChart` & Visualisasi Recharts Owner, Komponen: `WasteMasterDetailWorkspace` (Pusat Approval Pemusnahan Bahan), PANDUAN PENJELASAN SINKRONISASI PLAN FRONTEND & MOCKUP STITCH (UNTUK PEMULA)
+Cohesion: 0.20
+Nodes (8): 1. Analogi Dunia Nyata Kafe: Mengapa Plan Harus Disinkronkan dengan Mockup Stitch?, 2. Penjelasan Per Komponen Utama Hasil Sinkronisasi, Komponen: `DeviationWarningCard` (Peringatan Cerdas Deviasi FEFO), Komponen: `ExpandableBatchTable` (Tabel Monitoring Chiller Bertingkat), Komponen: `FefoBatchSelector` (Pemilih Batch FEFO di Meja Bar), Komponen: `UsageVsWasteChart` & Visualisasi Recharts Owner, Komponen: `WasteMasterDetailWorkspace` (Pusat Approval Pemusnahan Bahan), PANDUAN PENJELASAN SINKRONISASI PLAN FRONTEND & MOCKUP STITCH (UNTUK PEMULA)
 
 ### Community 26 - "Custom RoleMiddleware RBAC Guard"
 Cohesion: 0.40
 Nodes (5): App Shell Layout & RBAC Sidebar Navigation Task, Custom RoleMiddleware RBAC Guard, Post-Login RoleRedirectService, RBAC Route Protection & Middleware Matrix, RBAC User Personas and Permissions Matrix
 
-### Community 27 - "Barista/Dashboard.tsx"
-Cohesion: 0.19
-Nodes (11): 1. Komponen: `BaristaDashboard()`, 2. Komponen: `Dashboard()`, 4. Logika Bisnis: Riwayat Audit & Lencana Kepatuhan FEFO, Panduan Pemula — Monitor Speedometer Barista di Stasiun Espresso, Penjelasan Modul 13: Dasbor Operasional Barista & Kesehatan Meja Bar, ActivityItem, BarHealthItem, BaristaDashboard() (+3 more)
+### Community 27 - "Penjelasan Modul 13: Dasbor Operasional Barista & Kesehatan Meja Bar"
+Cohesion: 0.31
+Nodes (7): 1. Komponen: `BaristaDashboard()`, 2. Komponen: `Dashboard()`, 4. Logika Bisnis: Riwayat Audit & Lencana Kepatuhan FEFO, Panduan Pemula — Monitor Speedometer Barista di Stasiun Espresso, Penjelasan Modul 13: Dasbor Operasional Barista & Kesehatan Meja Bar, BaristaDashboard(), Dashboard()
 
 ### Community 31 - "autoload-dev"
 Cohesion: 0.67
@@ -241,8 +253,8 @@ Cohesion: 0.33
 Nodes (5): 2. Fungsi: `handleSelectBatch(batch)`, 3. Fungsi: `handleQuickQty(qty)`, 4. Fungsi: `submit(e)` & Validasi Deviasi Smart Warning, Panduan Pemula — Menghabiskan Susu Sesuai Urutan Kedaluwarsa, Penjelasan Modul 14: Pencatatan Pemakaian Bahan & Smart Warning Deviasi FEFO
 
 ### Community 60 - "AuthenticatedLayout"
-Cohesion: 0.47
-Nodes (5): 1. Komponen Utama: `UsageIndex()`, 1. Komponen Utama: `WasteCreate()`, AuthenticatedLayout(), UsageIndex(), WasteCreate()
+Cohesion: 0.21
+Nodes (9): 1. Komponen Utama: `UsageIndex()`, 1. Komponen Utama: `WasteCreate()`, AuthenticatedLayout(), UsageIndex(), AVAILABLE_BATCHES, INITIAL_TICKETS, MockBatch, WasteCreate() (+1 more)
 
 ### Community 61 - "Penjelasan Modul 16: Pelaporan Bahan Rusak & Pemusnahan (Waste Write-Off)"
 Cohesion: 0.33
@@ -252,29 +264,45 @@ Nodes (5): 2. Logika Bisnis: Aturan Dilarang Hard Delete (*No Hard Delete Rule*)
 Cohesion: 0.33
 Nodes (4): INGREDIENTS_CATALOG, INITIAL_INTAKE_HISTORY, IntakeRecord, MockIngredient
 
-### Community 63 - "Waste/Create.tsx"
+### Community 68 - "global.d.ts"
+Cohesion: 0.29
+Nodes (3): @inertiajs/core, PageProps, Window
+
+### Community 71 - "Login.tsx"
 Cohesion: 0.33
-Nodes (4): AVAILABLE_BATCHES, INITIAL_TICKETS, MockBatch, WasteTicket
+Nodes (5): lucide-react, DEMO_ACCOUNTS, DemoAccount, Login(), LoginPageProps
+
+### Community 72 - "dependencies"
+Cohesion: 0.40
+Nodes (5): dependencies, clsx, lucide-react, recharts, tailwind-merge
+
+### Community 73 - "Barista/Dashboard.tsx"
+Cohesion: 0.40
+Nodes (4): ActivityItem, BarHealthItem, DEFAULT_ACTIVITIES, DEFAULT_HEALTH_ITEMS
+
+### Community 77 - "scripts"
+Cohesion: 0.67
+Nodes (3): scripts, build, dev
 
 ## Knowledge Gaps
 - **56 isolated node(s):** `@types/node`, `@types/react`, `@types/react-dom`, `autoprefixer`, `concurrently` (+51 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 382 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **26 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 394 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **36 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `BatchesCreate()` connect `Penjelasan Modul 15: Penerimaan Batch Baru (Restock Multi-Batch)` to `AuthenticatedLayout`, `Batches/Create.tsx`?**
-  _High betweenness centrality (0.207) - this node is a cross-community bridge._
+  _High betweenness centrality (0.210) - this node is a cross-community bridge._
 - **What connects `@types/node`, `@types/react`, `@types/react-dom` to the rest of the system?**
   _56 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Illuminate\Http\Request` be split into smaller, more focused modules?**
-  _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
-- **Why does `User` connect `User` to `Illuminate\Http\Request`, `LoginRequest`, `IngredientBatch`?**
-  _High betweenness centrality (0.194) - this node is a cross-community bridge._
+  _Cohesion score 0.061828952239911146 - nodes in this community are weakly interconnected._
+- **Why does `User` connect `User` to `Illuminate\Http\Request`, `WasteLog`, `StockUsage`, `WasteLogPolicy`, `Illuminate\Database\Eloquent\Relations\HasMany`, `LoginRequest`, `Illuminate\Database\Seeder`, `IngredientBatch`?**
+  _High betweenness centrality (0.209) - this node is a cross-community bridge._
 - **Should `User` be split into smaller, more focused modules?**
-  _Cohesion score 0.06352087114337568 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05285592497868713 - nodes in this community are weakly interconnected._
 - **Should `react` be split into smaller, more focused modules?**
-  _Cohesion score 0.10056497175141244 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11740041928721175 - nodes in this community are weakly interconnected._
 - **Should `Eloquent Model: IngredientBatch` be split into smaller, more focused modules?**
   _Cohesion score 0.04810360777058279 - nodes in this community are weakly interconnected._
