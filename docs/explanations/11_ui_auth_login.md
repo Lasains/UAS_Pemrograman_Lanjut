@@ -74,7 +74,7 @@
   1. Komputer mencatat peran yang sedang aktif dengan memanggil `setSelectedRole(account.role)`.
   2. Mengisi state data form secara instan dengan email akun demo dan password default seeder (`'password'`).
   3. Memunculkan teks konfirmasi umpan balik (*feedback toast*): `"Kredensial demo aktif: Barista (barista@kafe.com)"`.
-  4. Secara otomatis mengirimkan *payload* tersebut ke `route('login')` sehingga pengguna langsung masuk ke dalam aplikasi tanpa klik tombol kedua.
+  4. Secara otomatis mengirimkan *payload* tersebut ke `route('login')` menggunakan `router.post()` sehingga pengguna langsung masuk ke dalam aplikasi tanpa klik tombol kedua.
 * **Output / Return Value**: Mengirim request login instan ke backend Laravel.
 * **Kaitan dengan Bagian Lain**: Menggunakan data kredensial yang sama persis dengan yang dibuat oleh `UserSeeder.php` (`owner@kafe.com`, `supervisor@kafe.com`, `barista@kafe.com`).
 

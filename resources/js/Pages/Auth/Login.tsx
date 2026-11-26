@@ -1,5 +1,5 @@
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import {
     ArrowRight,
     BarChart3,
@@ -94,14 +94,17 @@ export default function Login({ status, canResetPassword }: LoginPageProps) {
         });
         setDemoFeedback(`Kredensial demo aktif: ${account.title} (${account.email})`);
 
-        post(route('login'), {
-            data: {
+        router.post(
+            route('login'),
+            {
                 email: account.email,
                 password: 'password',
                 remember: true,
             },
-            onFinish: () => reset('password'),
-        });
+            {
+                onFinish: () => reset('password'),
+            },
+        );
     };
 
     return (
