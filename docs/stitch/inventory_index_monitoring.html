@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[EXPORT MCP #2] Inventory/Index.tsx - Monitoring Inventaris & Kedaluwarsa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-[#FAF7F2] min-h-screen text-[#241408] p-6 lg:p-10 space-y-6">
+  <!-- BANNER PENANDA KHUSUS EXPORT MCP -->
+  <div class="bg-[#4A2C11] border-2 border-[#C88242] rounded-xl px-6 py-4 shadow-md flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="text-2xl">📌</span>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs uppercase tracking-widest font-bold px-2 py-0.5 rounded bg-[#C88242] text-white">Target Ekspor MCP #2</span>
+          <span class="text-xs font-mono text-[#FAF7F2]/80">resources/js/Pages/Inventory/Index.tsx</span>
+        </div>
+        <h1 class="text-base sm:text-lg font-bold text-[#FAF7F2] tracking-tight">
+          Halaman Monitoring Inventaris & Early Warning Kedaluwarsa (In-Shell Content)
+        </h1>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#241408] text-emerald-400 border border-emerald-500/40 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Komponen Halaman Penuh
+      </span>
+    </div>
+  </div>
+
+  <!-- CANVAS HEADER TOOLBAR -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#F5EFEB] p-5 rounded-xl border border-[#EDE4DC]">
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <div class="w-8 h-8 rounded-lg bg-[#EDE4DC] flex items-center justify-center text-[#4A2C11] font-bold">
+          ⏱
+        </div>
+        <h2 class="text-xl font-bold text-[#241408] tracking-tight">
+          Monitoring Inventaris & Kedaluwarsa
+        </h2>
+        <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-[#EDE4DC] text-[#4A2C11] font-bold">
+          Supervisor View
+        </span>
+      </div>
+      <p class="text-xs text-[#5C3A21]">
+        Pusat kendali masa simpan bahan baku kafe dan pencegahan kerugian bahan basi via panduan FEFO otomatis.
+      </p>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="relative">
+        <input
+          type="text"
+          value="Fresh Milk"
+          placeholder="Cari bahan atau batch..."
+          class="pl-4 pr-4 py-2 text-xs rounded-lg bg-white border border-[#EDE4DC] text-[#241408] font-medium w-56 focus:outline-none focus:ring-2 focus:ring-[#4A2C11]"
+        />
+      </div>
+      <button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#4A2C11] text-[#FAF7F2] text-xs font-bold shadow-sm hover:bg-[#38210D]">
+        <span class="text-[#C88242]">+</span>
+        <span>Restock Batch Baru</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ROW 1: EXPIRY URGENCY FILTER TABS & SUMMARY -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
+      <button class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#4A2C11] text-[#FAF7F2] shadow-xs flex items-center gap-1.5">
+        <span>Semua Bahan</span>
+        <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-white/20 font-mono">24</span>
+      </button>
+      <button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-300 flex items-center gap-1.5">
+        <span>🟢 Aman</span>
+        <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-emerald-200/50 font-mono font-bold">18</span>
+      </button>
+      <button class="px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA] flex items-center gap-1.5">
+        <span>🟡 Peringatan (3–7 Hari)</span>
+        <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-[#FED7AA]/50 font-mono font-bold">4</span>
+      </button>
+      <button class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#FDF2F0] text-[#8C3D2B] border border-[#F8C6BF] animate-pulse flex items-center gap-1.5">
+        <span>🔴 Kritis (&lt; 3 Hari)</span>
+        <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-[#F8C6BF]/50 font-mono">2</span>
+      </button>
+    </div>
+
+    <div class="text-xs text-[#5C3A21] flex items-center gap-1.5 bg-[#FAF7F2] px-3 py-1.5 rounded-lg border border-[#EDE4DC]">
+      <span>⚠️</span>
+      <span>Estimasi Nilai Bahan Kritis: <strong class="text-[#8C3D2B] font-bold">Rp 168.000</strong></span>
+    </div>
+  </div>
+
+  <!-- ROW 2: HIERARCHICAL INVENTORY TABLE -->
+  <div class="bg-[#F5EFEB] border border-[#EDE4DC] rounded-xl overflow-hidden shadow-xs">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-[#EDE4DC] text-[#241408] text-xs font-bold uppercase tracking-wider border-b border-[#E2D7CE]">
+            <th class="py-3 px-4">Bahan Baku</th>
+            <th class="py-3 px-4">Kategori</th>
+            <th class="py-3 px-4">Total Saldo Stok</th>
+            <th class="py-3 px-4">Batch Terdekat Expired</th>
+            <th class="py-3 px-4">Status Urgensi</th>
+            <th class="py-3 px-4 text-right">Rincian Batch</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#EDE4DC] text-xs">
+          <!-- Row 1 (Critical Expanded) -->
+          <tr class="bg-[#FDF7F6]">
+            <td class="py-3.5 px-4 font-bold text-[#241408]">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#8C3D2B] animate-ping"></span>
+                <span>Fresh Milk Diamond 1L</span>
+              </div>
+            </td>
+            <td class="py-3.5 px-4">
+              <span class="px-2 py-0.5 rounded-full bg-[#EDE4DC] text-[#5C3A21] font-medium">Dairy</span>
+            </td>
+            <td class="py-3.5 px-4 font-bold text-[#241408]">
+              4.500 ml <span class="font-normal text-[#9C8474]">(2 batch)</span>
+            </td>
+            <td class="py-3.5 px-4 text-[#8C3D2B] font-bold">26 Okt (Besok!)</td>
+            <td class="py-3.5 px-4">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#FDF2F0] text-[#8C3D2B] border border-[#F8C6BF] animate-pulse">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#8C3D2B]"></span>
+                <span>🔴 Kritis (1 hari)</span>
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-right font-semibold text-[#4A2C11]">
+              <button class="inline-flex items-center gap-1 text-[#4A2C11] hover:text-[#C88242]">
+                <span>Tutup</span> ▲
+              </button>
+            </td>
+          </tr>
+
+          <!-- Expanded Sub-Batches -->
+          <tr class="bg-[#FAF7F2] border-y border-[#EDE4DC]">
+            <td colspan="6" class="p-4 sm:px-6">
+              <div class="rounded-xl border border-[#EDE4DC] bg-white p-4 shadow-2xs space-y-3">
+                <div class="flex items-center justify-between">
+                  <p class="text-[11px] font-bold text-[#9C8474] uppercase tracking-wider">
+                    Daftar Batch Fisik Aktif — Prioritas Rotasi FEFO:
+                  </p>
+                  <span class="text-[10px] text-[#5C3A21] bg-[#EDE4DC] px-2 py-0.5 rounded font-mono">Chiller Rak Depan</span>
+                </div>
+                
+                <div class="space-y-2">
+                  <!-- Batch 1 FEFO -->
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 rounded-lg bg-[#FAF7F2] border border-[#EDE4DC]">
+                    <div class="flex items-center gap-3">
+                      <span class="font-mono text-xs font-bold text-[#4A2C11]">#BCH-20241026-A3F2</span>
+                      <span class="text-xs text-[#5C3A21]">Saldo: <strong class="text-[#241408]">2.500 ml</strong></span>
+                      <span class="text-xs text-[#9C8474]">• Chiller Depan Bar</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#4A2C11] text-[#FAF7F2]">
+                        <span class="text-[#C88242]">★</span> Rekomendasi FEFO
+                      </span>
+                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FDF2F0] text-[#8C3D2B] border border-[#F8C6BF]">
+                        🔴 Kritis (1 hr)
+                      </span>
+                      <button class="px-2.5 py-1 rounded bg-[#4A2C11] text-[#FAF7F2] text-xs font-semibold hover:bg-[#38210D]">Pakai di Bar</button>
+                      <button class="px-2.5 py-1 rounded bg-[#FDF2F0] text-[#8C3D2B] border border-[#F8C6BF] text-xs font-semibold">Lapor Basi</button>
+                    </div>
+                  </div>
+
+                  <!-- Batch 2 Backup -->
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 rounded-lg bg-[#FAF7F2] border border-[#EDE4DC]">
+                    <div class="flex items-center gap-3">
+                      <span class="font-mono text-xs font-bold text-[#5C3A21]">#BCH-20241015-B1C9</span>
+                      <span class="text-xs text-[#5C3A21]">Saldo: <strong class="text-[#241408]">2.000 ml</strong></span>
+                      <span class="text-xs text-[#9C8474]">• Gudang Chiller Belakang</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-300">
+                        🟢 Aman (7 hr)
+                      </span>
+                      <span class="text-[11px] text-[#9C8474] italic">Terkunci (Antrean Cadangan)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Row 2 -->
+          <tr class="hover:bg-[#EFE7DE]">
+            <td class="py-3.5 px-4 font-semibold text-[#241408]">Oatside Oat Milk Barista 1L</td>
+            <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full bg-[#EDE4DC] text-[#5C3A21]">Dairy</span></td>
+            <td class="py-3.5 px-4 font-bold text-[#241408]">6.000 ml <span class="font-normal text-[#9C8474]">(3 batch)</span></td>
+            <td class="py-3.5 px-4 text-[#5C3A21]">02 Nov (7 hari)</td>
+            <td class="py-3.5 px-4">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#FFF7ED] text-[#C88242] border border-[#FED7AA]">
+                🟡 Warning (7 hari)
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-right font-semibold text-[#4A2C11]"><button>Lihat Batch ▼</button></td>
+          </tr>
+
+          <!-- Row 3 -->
+          <tr class="hover:bg-[#EFE7DE]">
+            <td class="py-3.5 px-4 font-semibold text-[#241408]">House Blend Espresso (Flores & Gayo)</td>
+            <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded-full bg-[#EDE4DC] text-[#5C3A21]">Beans</span></td>
+            <td class="py-3.5 px-4 font-bold text-[#241408]">12.5 kg <span class="font-normal text-[#9C8474]">(5 bag)</span></td>
+            <td class="py-3.5 px-4 text-[#5C3A21]">28 Nov (33 hari)</td>
+            <td class="py-3.5 px-4">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-300">
+                🟢 Aman
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-right font-semibold text-[#4A2C11]"><button>Lihat Batch ▼</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Table Footer -->
+    <div class="p-4 bg-[#EDE4DC] border-t border-[#E2D7CE] flex flex-col sm:flex-row items-center justify-between text-xs text-[#5C3A21] gap-2">
+      <span>Menampilkan <strong>4 dari 24</strong> bahan baku terdaftar</span>
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          Sistem Sinkron Chiller IoT & Terminal Bar
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

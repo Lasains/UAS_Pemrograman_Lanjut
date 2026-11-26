@@ -31,6 +31,8 @@ Dokumen ini merupakan **Design Contract** resmi untuk seluruh tim pengembang (kh
 | **Badge Status: KRITIS 🔴** | `bg-[#FDF2F0] text-[#8C3D2B] border-[#F8C6BF]` | `#FDF2F0` / `#8C3D2B` | Terracotta & Roasted Coffee Cherry | Sisa masa simpan < 3 hari / Sudah Basi (Alert Kritis) |
 | **Badge Rekomendasi FEFO ★** | `bg-brand-primary text-surface-canvas font-semibold` | `#4A2C11` | Espresso Bean Signature | Batch prioritas utama pemakaian pertama (*First Expired, First Out*) |
 
+> **Catatan Token Google Stitch**: Desain Stitch menggunakan palet harmonis turunan kopi hangat (`#2B1810`, `#3E2316`, `#1C0F0A`, `#FED0A3`, `#E5A65E`) yang selaras secara estetika dengan token `brand` dan `surface` di atas.
+
 ### 1.3 Tipografi & Hierarki Skala Teks
 Menggunakan font sans-serif modern (Figtree / font default Tailwind):
 * **Display / Metrik Utama**: `text-2xl` sampai `text-3xl font-bold tracking-tight text-content-high` (contoh: Nilai Rupiah Aset).
