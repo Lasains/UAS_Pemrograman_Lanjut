@@ -239,7 +239,7 @@ export default function Index({
     };
 
     return (
-        <AppLayout title="Monitoring Inventaris & Kedaluwarsa - BeanFlow">
+        <AppLayout>
             <Head title="Monitoring Masa Simpan Bahan Baku" />
 
             <div className="space-y-6">
