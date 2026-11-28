@@ -1,10 +1,8 @@
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, router, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import {
     ArrowRight,
-    BarChart3,
     CheckCircle2,
-    ClipboardCheck,
     Clock,
     Coffee,
     Eye,
@@ -23,92 +21,20 @@ interface LoginPageProps {
     canResetPassword?: boolean;
 }
 
-interface DemoAccount {
-    role: 'barista' | 'supervisor' | 'owner';
-    title: string;
-    email: string;
-    password: string;
-    badge: string;
-    desc: string;
-    icon: typeof Coffee;
-    badgeColor: string;
-    targetRoute: string;
-}
-
-const DEMO_ACCOUNTS: DemoAccount[] = [
-    {
-        role: 'barista',
-        title: 'Barista',
-        email: 'barista@kafe.com',
-        password: '@AnGgA123',
-        badge: 'Aktif',
-        desc: 'Akses Bar & FEFO',
-        icon: Coffee,
-        badgeColor: 'bg-emerald-50 text-emerald-800 border-emerald-300',
-        targetRoute: 'Operasional Bar & FEFO',
-    },
-    {
-        role: 'supervisor',
-        title: 'Supervisor',
-        email: 'supervisor@kafe.com',
-        password: 'password',
-        badge: 'Gudang',
-        desc: 'Audit & Approval',
-        icon: ClipboardCheck,
-        badgeColor: 'bg-[#FFF7ED] text-[#C88242] border-[#FED7AA]',
-        targetRoute: 'Gudang & Approval Waste',
-    },
-    {
-        role: 'owner',
-        title: 'Owner',
-        email: 'owner@kafe.com',
-        password: 'password',
-        badge: 'Keuangan',
-        desc: 'Laba Rugi & Aset',
-        icon: BarChart3,
-        badgeColor: 'bg-[#EDE4DC] text-content-high border-surface-border',
-        targetRoute: 'Eksekutif & Valuasi Aset',
-    },
-];
-
 export default function Login({ status, canResetPassword }: LoginPageProps) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: 'barista@kafe.com',
-        password: '@AnGgA123',
-        remember: true,
+        email: '',
+        password: '',
+        remember: false as boolean,
     });
 
     const [showPassword, setShowPassword] = useState(false);
-    const [demoFeedback, setDemoFeedback] = useState<string | null>(null);
-    const [selectedRole, setSelectedRole] = useState<string | null>('barista');
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('login'), {
             onFinish: () => reset('password'),
         });
-    };
-
-    const handleQuickLogin = (account: DemoAccount) => {
-        setSelectedRole(account.role);
-        setData({
-            email: account.email,
-            password: account.password,
-            remember: true,
-        });
-        setDemoFeedback(`Kredensial demo aktif: ${account.title} (${account.email})`);
-
-        router.post(
-            route('login'),
-            {
-                email: account.email,
-                password: account.password,
-                remember: true,
-            },
-            {
-                onFinish: () => reset('password'),
-            },
-        );
     };
 
     return (
@@ -255,7 +181,7 @@ export default function Login({ status, canResetPassword }: LoginPageProps) {
                             </div>
                         </div>
 
-                        {/* RIGHT PANEL: Authentication Form & Quick-Demo Switcher (Warm Cream / Latte Finish) */}
+                        {/* RIGHT PANEL: Authentication Form (Warm Cream / Latte Finish) */}
                         <div className="flex w-full items-center justify-center bg-surface-canvas p-6 lg:w-7/12 lg:p-12">
                             <div className="w-full max-w-md space-y-6 rounded-2xl border border-surface-border bg-white p-6 shadow-sm sm:p-8">
                                 {/* Header Content */}
@@ -277,14 +203,6 @@ export default function Login({ status, canResetPassword }: LoginPageProps) {
                                 {status && (
                                     <div className="rounded-lg border border-emerald-300 bg-emerald-50 p-3 text-sm font-medium text-emerald-800">
                                         {status}
-                                    </div>
-                                )}
-
-                                {/* Feedback Toast for Role Auto-Fill */}
-                                {demoFeedback && (
-                                    <div className="flex items-center gap-2 rounded-lg border border-surface-border bg-surface-container p-3 text-xs font-medium text-content-high transition-all">
-                                        <CheckCircle2 className="h-4 w-4 shrink-0 text-brand-secondary" />
-                                        <span>{demoFeedback}</span>
                                     </div>
                                 )}
 
@@ -422,58 +340,6 @@ export default function Login({ status, canResetPassword }: LoginPageProps) {
                                         )}
                                     </button>
                                 </form>
-
-                                {/* Divider */}
-                                <div className="relative my-6 flex items-center justify-center">
-                                    <div className="w-full border-t border-surface-border" />
-                                    <span className="absolute rounded-full border border-surface-border bg-white px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-content-subtle shadow-xs">
-                                        Akun Demo Uji Coba (1-Klik)
-                                    </span>
-                                </div>
-
-                                {/* 1-Click Role Quick Buttons */}
-                                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
-                                    {DEMO_ACCOUNTS.map((account) => {
-                                        const IconComponent = account.icon;
-                                        const isSelected = selectedRole === account.role;
-
-                                        return (
-                                            <button
-                                                key={account.role}
-                                                type="button"
-                                                disabled={processing}
-                                                onClick={() => handleQuickLogin(account)}
-                                                className={`group flex flex-col justify-between rounded-xl border p-3 text-left shadow-xs transition-all active:scale-95 disabled:pointer-events-none disabled:opacity-60 ${
-                                                    isSelected
-                                                        ? 'border-brand-secondary bg-surface-container ring-1 ring-brand-secondary'
-                                                        : 'border-surface-border bg-surface-container/60 hover:bg-surface-container'
-                                                }`}
-                                            >
-                                                <div>
-                                                    <div className="mb-1.5 flex items-center justify-between">
-                                                        <IconComponent className="h-4 w-4 text-brand-secondary" />
-                                                        <span
-                                                            className={`rounded border px-1.5 py-0.5 text-[10px] font-semibold ${account.badgeColor}`}
-                                                        >
-                                                            {account.badge}
-                                                        </span>
-                                                    </div>
-                                                    <h3 className="text-sm font-bold text-content-high">
-                                                        {account.title}
-                                                    </h3>
-                                                    <p className="truncate text-[11px] text-content-subtle">
-                                                        {account.email}
-                                                    </p>
-                                                </div>
-                                                <div className="mt-2 flex items-center justify-between border-t border-surface-border pt-1.5">
-                                                    <span className="text-[10px] font-medium text-content-medium">
-                                                        {account.desc}
-                                                    </span>
-                                                </div>
-                                            </button>
-                                        );
-                                    })}
-                                </div>
 
                                 {/* Security & Trust Footer */}
                                 <div className="space-y-1 pt-2 text-center text-content-subtle">

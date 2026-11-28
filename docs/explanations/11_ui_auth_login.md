@@ -24,15 +24,15 @@
 
 ## 2. Komponen Utama: `Login({ status, canResetPassword })`
 
-* **Tujuan**: Menyediakan antarmuka pendaratan utama bagi seluruh staf kafe (Barista, Supervisor gudang, dan Owner). Menyajikan informasi sistem rotasi FEFO di sisi kiri serta form login kredensial dan kartu demo 1-klik di sisi kanan.
+* **Tujuan**: Menyediakan antarmuka pendaratan utama bagi seluruh staf kafe (Barista, Supervisor gudang, dan Owner). Menyajikan informasi sistem rotasi FEFO di sisi kiri serta form login kredensial di sisi kanan.
 * **Input / Parameter**:
   * `status` *(string opsional)*: Pesan notifikasi dari sesi Laravel (misal: "Sandi Anda telah berhasil direset").
   * `canResetPassword` *(boolean)*: Penanda apakah fitur pemulihan kata sandi aktif di sistem.
 * **Alur Logika Bisnis (Langkah demi Langkah)**:
-  1. Komputer menginisialisasi state form menggunakan helper `useForm` dari `@inertiajs/react` dengan nilai awal akun barista (`barista@kafe.com`).
+  1. Komputer menginisialisasi state form menggunakan helper `useForm` dari `@inertiajs/react` dengan nilai awal kosong (`email: ''`, `password: ''`, `remember: false`).
   2. Komputer menyusun dua panel utama:
      - **Panel Kiri (Visual & Edukasi FEFO)**: Menampilkan keunggulan sistem pemantauan kadaluwarsa (rotasi 99.2%, Rp 0 kerugian bahan basi, dan reminder batch fresh milk).
-     - **Panel Kanan (Formulir & Switcher Demo)**: Menampilkan input email, kata sandi, kotak centang "Ingat saya", serta tombol login cepat 1-klik.
+     - **Panel Kanan (Formulir Autentikasi)**: Menampilkan input email, kata sandi, kotak centang "Ingat sesi", dan tombol submit.
   3. Komputer memantau proses autentikasi. Jika form sedang diproses (`processing === true`), tombol dinonaktifkan dan ikon animasi pemuatan (*Loader2 spinner*) dimunculkan untuk mencegah klik ganda.
 * **Output / Return Value**: Antarmuka lengkap halaman login responsif (ramah tablet bar kafe maupun desktop).
 * **Kaitan dengan Bagian Lain**: Terhubung dengan rute Laravel `route('login')` yang diatur oleh `AuthenticatedSessionController.php`.
@@ -56,31 +56,7 @@
 
 ---
 
-## 4. Fungsi: `handleQuickLogin(account)`
-
-* **Tujuan**: Memungkinkan penguji sistem (dosen atau tim pengembang) untuk berganti peran (Barista, Supervisor, Owner) hanya dengan **1 kali klik**, tanpa perlu mengetik email dan kata sandi berulang kali.
-* **Input / Parameter**:
-  * `account: DemoAccount`: Objek konfigurasi akun demo yang dipilih:
-    ```typescript
-    {
-      role: 'barista' | 'supervisor' | 'owner',
-      title: 'Barista',
-      email: 'barista@kafe.com',
-      password: 'password',
-      // ...
-    }
-    ```
-* **Alur Logika Bisnis (Langkah demi Langkah)**:
-  1. Komputer mencatat peran yang sedang aktif dengan memanggil `setSelectedRole(account.role)`.
-  2. Mengisi state data form secara instan dengan email akun demo dan password default seeder (`'password'`).
-  3. Memunculkan teks konfirmasi umpan balik (*feedback toast*): `"Kredensial demo aktif: Barista (barista@kafe.com)"`.
-  4. Secara otomatis mengirimkan *payload* tersebut ke `route('login')` menggunakan `router.post()` sehingga pengguna langsung masuk ke dalam aplikasi tanpa klik tombol kedua.
-* **Output / Return Value**: Mengirim request login instan ke backend Laravel.
-* **Kaitan dengan Bagian Lain**: Menggunakan data kredensial yang sama persis dengan yang dibuat oleh `UserSeeder.php` (`owner@kafe.com`, `supervisor@kafe.com`, `barista@kafe.com`).
-
----
-
-## 5. Fungsi: `setShowPassword(!showPassword)`
+## 4. Fungsi: `setShowPassword(!showPassword)`
 
 * **Tujuan**: Fitur kenyamanan (*convenience feature*) untuk mengintip atau menyembunyikan karakter kata sandi di layar.
 * **Input / Parameter**: Membalikkan nilai boolean sebelumnya (dari `false` ke `true` atau sebaliknya).
