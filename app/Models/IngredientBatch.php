@@ -87,7 +87,7 @@ class IngredientBatch extends Model
      */
     public function scopeCriticalExpiry(Builder $query, int $days = 7): Builder
     {
-        return $query->where('expiry_date', '<=', Carbon::now()->addDays($days));
+        return $query->where('expiry_date', '<=', Carbon::today()->addDays($days)->endOfDay());
     }
 
     /**
@@ -100,17 +100,14 @@ class IngredientBatch extends Model
 
     /**
      * Accessor: Hitung sisa hari menuju / sejak tanggal kedaluwarsa.
+     * Bernilai negatif jika sudah melewati hari ini (Carbon 3 signed diff).
      */
     public function getDaysUntilExpiryAttribute(): int
     {
         $today = Carbon::today();
-        $expiry = Carbon::parse($this->expiry_date);
+        $expiry = Carbon::parse($this->expiry_date)->startOfDay();
 
-        if ($expiry->isPast()) {
-            return -1 * $today->diffInDays($expiry);
-        }
-
-        return $today->diffInDays($expiry);
+        return (int) $today->diffInDays($expiry, false);
     }
 
     /**
@@ -129,6 +126,14 @@ class IngredientBatch extends Model
         }
 
         return 'critical';
+    }
+
+    /**
+     * Accessor alias untuk kompatibilitas tipe frontend (urgency_status).
+     */
+    public function getUrgencyStatusAttribute(): string
+    {
+        return $this->expiry_status;
     }
 
     /**

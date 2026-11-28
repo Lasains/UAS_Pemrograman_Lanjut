@@ -16,76 +16,48 @@ use Inertia\Response;
 class IngredientBatchController extends Controller
 {
     /**
-     * Tampilkan daftar semua batch dengan filter opsional.
+     * Tampilkan daftar semua bahan & batch aktif untuk monitoring inventaris.
      */
-    public function index(Request $request): Response
+    public function index(Request $request): Response|RedirectResponse
     {
-        $query = IngredientBatch::query()
-            ->with(['ingredient.category']);
-
-        // Filter: Berdasarkan Bahan
-        if ($request->filled('ingredient_id')) {
-            $query->where('ingredient_id', $request->integer('ingredient_id'));
+        if ($request->user()?->role === 'barista') {
+            return redirect()->route('dashboard.barista');
         }
 
-        // Filter: Berdasarkan Status Batch
-        if ($request->filled('status')) {
-            $query->where('status', $request->string('status'));
-        }
+        $ingredients = Ingredient::with('category')
+            ->with(['batches' => function ($query) {
+                $query->active()->fefoOrder();
+            }])
+            ->orderBy('name')
+            ->get()
+            ->map(function (Ingredient $ingredient) {
+                $batches = $ingredient->batches->values()->map(function (IngredientBatch $batch, int $index) {
+                    $batch->append(['expiry_status', 'urgency_status', 'days_until_expiry', 'total_value']);
+                    $batch->setAttribute('is_fefo_recommended', $index === 0);
 
-        // Filter: Berdasarkan Kategori Expiry (traffic light)
-        if ($request->filled('expiry')) {
-            $expiry = $request->string('expiry');
-            $query = match ((string) $expiry) {
-                'critical' => $query->where('status', 'active')
-                                    ->criticalExpiry(3),
-                'warning'  => $query->where('status', 'active')
-                                    ->criticalExpiry(7)
-                                    ->where('expiry_date', '>', Carbon::now()->addDays(3)),
-                'safe'     => $query->where('status', 'active')
-                                    ->where('expiry_date', '>', Carbon::now()->addDays(7)),
-                default    => $query,
-            };
-        }
+                    return $batch;
+                });
 
-        // Filter: Pencarian Teks
-        if ($request->filled('search')) {
-            $search = $request->string('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('batch_code', 'like', "%{$search}%")
-                  ->orWhereHas('ingredient', fn($q) =>
-                        $q->where('name', 'like', "%{$search}%")
-                  );
+                $ingredient->setRelation('batches', $batches);
+                $ingredient->setAttribute('total_current_stock', (float) $batches->sum('current_stock'));
+
+                return $ingredient;
             });
-        }
 
-        // Default Sort: FEFO untuk batch aktif
-        $query->orderBy('expiry_date', 'asc')
-              ->orderBy('created_at', 'desc');
+        $activeBatches = IngredientBatch::active()->get()
+            ->map(fn (IngredientBatch $b) => $b->append(['expiry_status', 'total_value']));
 
-        // Paginate & append accessor ke setiap batch
-        $batches = $query->paginate(15)
-            ->withQueryString();
-
-        $batches->through(function (IngredientBatch $batch) {
-            return $batch->append(['expiry_status', 'days_until_expiry', 'total_value']);
-        });
-
-        // Summary statistik
-        $summary = [
-            'total_active'   => IngredientBatch::where('status', 'active')->count(),
-            'total_critical' => IngredientBatch::active()->criticalExpiry(3)->count(),
-            'total_warning'  => IngredientBatch::active()
-                                    ->criticalExpiry(7)
-                                    ->where('expiry_date', '>', Carbon::now()->addDays(3))
-                                    ->count(),
-            'total_expired'  => IngredientBatch::where('status', 'expired')->count(),
+        $summaryStats = [
+            'totalItems'          => $ingredients->count(),
+            'safeCount'           => $activeBatches->where('expiry_status', 'safe')->count(),
+            'warningCount'        => $activeBatches->where('expiry_status', 'warning')->count(),
+            'criticalCount'       => $activeBatches->where('expiry_status', 'critical')->count(),
+            'estimatedLossRupiah' => (float) $activeBatches->where('expiry_status', 'critical')->sum('total_value'),
         ];
 
-        $ingredients = Ingredient::orderBy('name')->get(['id', 'name', 'unit']);
-        $filters     = $request->only(['ingredient_id', 'status', 'expiry', 'search']);
+        $filters = $request->only(['ingredient_id', 'status', 'expiry', 'search']);
 
-        return Inertia::render('Batches/Index', compact('batches', 'ingredients', 'filters', 'summary'));
+        return Inertia::render('Inventory/Index', compact('ingredients', 'summaryStats', 'filters'));
     }
 
     /**
@@ -125,8 +97,12 @@ class IngredientBatchController extends Controller
                 ]);
             });
 
+            $redirectRoute = $request->user()?->role === 'barista'
+                ? 'dashboard.barista'
+                : 'inventory.index';
+
             return redirect()
-                ->route('inventory.index')
+                ->route($redirectRoute)
                 ->with('success', "Batch {$batchCode} berhasil ditambahkan ke inventaris.");
 
         } catch (\Illuminate\Database\UniqueConstraintViolationException $e) {

@@ -7,14 +7,13 @@
 /storage/pail
 /vendor
 .env
-.env.backup
-.env.production
+.env.*
+!.env.example
 .phpactor.json
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
-npm-debug.log
-yarn-error.log
+*.log
 /auth.json
 /.fleet
 /.idea
@@ -22,4 +21,17 @@ yarn-error.log
 /.vscode
 /.zed
 /.obsidian
-graphify-out/cache/
+/bootstrap/ssr
+
+# OS & Debug / Tooling
+.DS_Store
+Thumbs.db
+graphify-out/
+gambar-error/
+test-*.cjs
+playwright-report/
+test-results/
+docs/Plan Backend/
+docs/Plan Frontend/
+docs/Panduan/*
+!docs/Panduan/PANDUAN_GIT_DAN_SETUP.md

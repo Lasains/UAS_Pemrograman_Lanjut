@@ -59,8 +59,8 @@ const NAVIGATION_GROUPS: NavGroup[] = [
             },
             {
                 label: 'Catat Pemakaian (FEFO)',
-                routeName: 'usage.create',
-                url: '/usage/create',
+                routeName: 'stock-usages.index',
+                url: '/stock-usages',
                 icon: Flame,
                 roles: ['barista', 'supervisor'],
             },
@@ -73,8 +73,8 @@ const NAVIGATION_GROUPS: NavGroup[] = [
             },
             {
                 label: 'Lapor Bahan Rusak',
-                routeName: 'waste.create',
-                url: '/waste/create',
+                routeName: 'waste-logs.create',
+                url: '/waste-logs/create',
                 icon: AlertTriangle,
                 roles: ['barista', 'supervisor'],
             },
@@ -100,8 +100,8 @@ const NAVIGATION_GROUPS: NavGroup[] = [
             },
             {
                 label: 'Approval Center (Waste)',
-                routeName: 'waste.index',
-                url: '/waste/approvals',
+                routeName: 'waste-logs.index',
+                url: '/waste-logs',
                 icon: CheckSquare,
                 roles: ['supervisor'],
             },
@@ -122,8 +122,8 @@ const NAVIGATION_GROUPS: NavGroup[] = [
             },
             {
                 label: 'Laporan Finansial & Waste',
-                routeName: 'reports.waste',
-                url: '/reports/waste',
+                routeName: 'analytics.index',
+                url: '/analytics',
                 icon: TrendingDown,
                 roles: ['owner'],
             },

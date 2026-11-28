@@ -1,8 +1,8 @@
 import ExpiryBadge from '@/Components/ExpiryBadge';
 import AppLayout from '@/Layouts/AppLayout';
 import { cn } from '@/lib/utils';
-import { Ingredient, UrgencyStatus } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Ingredient, Role, UrgencyStatus } from '@/types';
+import { Head, Link, usePage } from '@inertiajs/react';
 import {
     AlertTriangle,
     Boxes,
@@ -11,6 +11,7 @@ import {
     Clock,
     Flame,
     PackagePlus,
+    Pencil,
     Plus,
     Search,
     ShieldAlert,
@@ -155,6 +156,8 @@ export default function Index({
     ingredients = DEFAULT_INGREDIENTS,
     summaryStats,
 }: InventoryIndexProps) {
+    const authUser = (usePage().props.auth as { user?: { role?: Role } })?.user;
+    const isSupervisor = authUser?.role === 'supervisor';
     const [searchQuery, setSearchQuery] = useState('');
     const [activeFilter, setActiveFilter] = useState<'all' | 'safe' | 'warning' | 'critical'>('all');
     const [expandedIds, setExpandedIds] = useState<number[]>([1]); // default expanded row 1 (Fresh Milk)
@@ -436,7 +439,7 @@ export default function Index({
                                                         )}
                                                     >
                                                         {nearest
-                                                            ? `${nearest.expiry_date} (${nearest.days_until_expiry} hari)`
+                                                            ? `${nearest.expiry_date.slice(0, 10)}(${nearest.days_until_expiry} hari)`
                                                             : '-'}
                                                     </td>
                                                     <td className="py-3.5 px-4">
@@ -512,7 +515,7 @@ export default function Index({
                                                                                             </strong>
                                                                                         </span>
                                                                                         <span className="text-[11px] text-[#9C8474]">
-                                                                                            • Exp: {batch.expiry_date}
+                                                                                            • Exp: {batch.expiry_date.slice(0, 10)}
                                                                                         </span>
                                                                                     </div>
 
@@ -535,7 +538,7 @@ export default function Index({
 
                                                                                         {/* Action Buttons */}
                                                                                         <Link
-                                                                                            href={`/usage/create?batch_id=${batch.id}`}
+                                                                                            href={route('stock-usages.index', { batch_id: batch.id })}
                                                                                             className="px-2.5 py-1 rounded-lg bg-[#4A2C11] text-[#FAF7F2] text-xs font-semibold hover:bg-[#38210D] transition flex items-center gap-1 shadow-2xs"
                                                                                         >
                                                                                             <Flame className="w-3 h-3 text-[#C88242]" />
@@ -543,12 +546,22 @@ export default function Index({
                                                                                         </Link>
 
                                                                                         <Link
-                                                                                            href={`/waste/create?batch_id=${batch.id}`}
+                                                                                            href={route('waste-logs.create', { batch_id: batch.id })}
                                                                                             className="px-2.5 py-1 rounded-lg bg-[#FDF2F0] text-[#8C3D2B] border border-[#F8C6BF] text-xs font-semibold hover:bg-[#FCE4E1] transition flex items-center gap-1"
                                                                                         >
                                                                                             <AlertTriangle className="w-3 h-3" />
                                                                                             <span>Lapor Basi</span>
                                                                                         </Link>
+
+                                                                                        {isSupervisor && (
+                                                                                            <Link
+                                                                                                href={route('batches.edit', batch.id)}
+                                                                                                className="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 text-xs font-semibold hover:bg-amber-100 transition flex items-center gap-1"
+                                                                                            >
+                                                                                                <Pencil className="w-3 h-3" />
+                                                                                                <span>Edit Batch</span>
+                                                                                            </Link>
+                                                                                        )}
                                                                                     </div>
                                                                                 </div>
                                                                             ))

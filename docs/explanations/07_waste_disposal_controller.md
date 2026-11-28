@@ -155,4 +155,26 @@ Supervisor Sari datang ke chiller untuk memeriksa fisik
 
 ---
 
+---
+
+## Implementasi Controller Penghubung Halaman (`WasteLogController`)
+
+### Fungsi: `WasteLogController::index()`
+* **Tujuan**: Menampilkan halaman daftar/monitoring laporan bahan rusak agar rute `/waste-logs` dapat diakses tanpa error.
+* **Input / Parameter**: Tidak ada parameter.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Memanggil `Inertia::render('Waste/Index')` untuk menampilkan halaman React daftar laporan waste.
+* **Output / Return Value**: Objek `Inertia\Response` yang memuat halaman `Waste/Index`.
+* **Kaitan dengan Bagian Lain**: Terhubung dengan rute `GET /waste-logs` (`waste-logs.index`) di `routes/web.php` dan komponen `resources/js/Pages/Waste/Index.tsx`.
+
+### Fungsi: `WasteLogController::create()`
+* **Tujuan**: Menampilkan halaman form pelaporan bahan rusak (*Lapor Bahan Rusak*) untuk Barista dan Supervisor.
+* **Input / Parameter**: Tidak ada parameter.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Memanggil `Inertia::render('Waste/Create')` untuk menampilkan form pelaporan write-off.
+* **Output / Return Value**: Objek `Inertia\Response` yang memuat halaman `Waste/Create`.
+* **Kaitan dengan Bagian Lain**: Dipanggil saat pengguna mengklik menu **Lapor Bahan Rusak** (`/waste-logs/create`, nama rute `waste-logs.create`) di `AuthenticatedLayout.tsx` dan `Barista/Dashboard.tsx`.
+
+---
+
 *Dokumen ini merupakan penjelasan ramah pemula pendamping spesifikasi teknis di [`PLAN_07_WASTE_DISPOSAL_CONTROLLER.md`](../Plan%20Backend/PLAN_07_WASTE_DISPOSAL_CONTROLLER.md).*

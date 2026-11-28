@@ -33,15 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $user = Auth::user();
-        $intendedRoute = match ($user->role) {
-            'owner' => route('dashboard.owner', absolute: false),
-            'supervisor' => route('inventory.index', absolute: false),
-            'barista' => route('dashboard.barista', absolute: false),
-            default => route('inventory.index', absolute: false),
-        };
-
-        return redirect()->intended($intendedRoute);
+        return redirect()->intended(route($request->user()->dashboardRoute(), absolute: false));
     }
 
     /**

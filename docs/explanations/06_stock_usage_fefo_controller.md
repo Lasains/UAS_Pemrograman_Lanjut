@@ -156,4 +156,18 @@ Pagi hari di Bar:
 
 ---
 
+---
+
+## Implementasi Controller Penghubung Halaman (`StockUsageController`)
+
+### Fungsi: `StockUsageController::index()`
+* **Tujuan**: Menampilkan halaman pencatatan pemakaian stok (FEFO) agar menu **Catat Pemakaian (FEFO)** di sidebar dan dasbor tidak menghasilkan error 404.
+* **Input / Parameter**: Tidak ada parameter.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Memanggil `Inertia::render('Usage/Index')` untuk menampilkan halaman React pencatatan pemakaian bahan.
+* **Output / Return Value**: Objek `Inertia\Response` yang memuat halaman `Usage/Index`.
+* **Kaitan dengan Bagian Lain**: Terhubung dengan rute `GET /stock-usages` (`stock-usages.index`) di `routes/web.php`, menu sidebar di `AuthenticatedLayout.tsx`, dan tombol aksi di `Barista/Dashboard.tsx`.
+
+---
+
 *Dokumen ini merupakan penjelasan ramah pemula pendamping spesifikasi teknis di [`PLAN_06_STOCK_USAGE_FEFO_CONTROLLER.md`](../Plan%20Backend/PLAN_06_STOCK_USAGE_FEFO_CONTROLLER.md).*

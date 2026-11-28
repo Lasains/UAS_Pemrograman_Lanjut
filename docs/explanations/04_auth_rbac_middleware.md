@@ -267,4 +267,52 @@ GET  /stock-usages               |   ✅   |     ✅     |   ✅
 
 ---
 
+## Pengarahan Otomatis Setelah Login & Perbaikan Sistem Auth
+
+Saat karyawan berhasil login, daftar akun baru, atau verifikasi email, sistem harus mengarahkan mereka ke "ruangan kerja" yang sesuai dengan jabatannya — bukan ke satu halaman yang sama.
+
+### Fungsi: `User::dashboardRoute()`
+* **Tujuan**: Menentukan nama rute halaman utama yang tepat berdasarkan jabatan (`role`) pengguna yang sedang login.
+* **Input / Parameter**: Tidak ada parameter (membaca properti `$this->role` dari user yang sedang aktif, misalnya `'barista'`, `'supervisor'`, atau `'owner'`).
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Membaca nilai `role` milik user.
+  2. Jika `'owner'` → kembalikan `'dashboard.owner'`.
+  3. Jika `'supervisor'` → kembalikan `'inventory.index'`.
+  4. Jika `'barista'` → kembalikan `'dashboard.barista'`.
+  5. Jika di luar daftar di atas → kembalikan `'inventory.index'` sebagai cadangan aman.
+* **Output / Return Value**: String nama rute Laravel (contoh: `'dashboard.barista'`).
+* **Kaitan dengan Bagian Lain**: Dipanggil oleh `AuthenticatedSessionController::store()` saat login berhasil dan oleh rute `/dashboard` di `routes/web.php` saat ada fitur bawaan Laravel (seperti registrasi atau verifikasi email) yang mengarah ke `/dashboard`.
+
+### Fungsi: `AuthenticatedSessionController::store(LoginRequest $request)`
+* **Tujuan**: Memproses permintaan login karyawan, membuat sesi login yang aman, lalu mengarahkan ke halaman kerja sesuai jabatan.
+* **Input / Parameter**: `$request` — Berisi `email`, `password`, dan opsi `remember` dari halaman `Auth/Login.tsx`.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Memvalidasi email dan password melalui `$request->authenticate()`.
+  2. Membuat ulang ID sesi (`regenerate()`) untuk mencegah serangan pembajakan sesi (*session fixation*).
+  3. Memanggil `$request->user()->dashboardRoute()` untuk mendapatkan rute tujuan sesuai jabatan, lalu melakukan redirect ke sana.
+* **Output / Return Value**: `RedirectResponse` menuju halaman dashboard sesuai role (atau URL tujuan sebelumnya jika ada).
+* **Kaitan dengan Bagian Lain**: Terhubung dengan form login di `resources/js/Pages/Auth/Login.tsx` dan `User::dashboardRoute()`.
+
+### Fungsi: `RegisteredUserController::store(Request $request)`
+* **Tujuan**: Mendaftarkan akun karyawan baru dengan role default `'barista'`, langsung meloginkannya, dan mengarahkannya ke `/dashboard`.
+* **Input / Parameter**: `$request` — Berisi `name`, `email`, `password`, dan `password_confirmation`.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. Memvalidasi seluruh input pendaftaran (nama wajib diisi, email unik, password memenuhi syarat & cocok dengan konfirmasi).
+  2. Menyimpan user baru ke tabel `users` dengan `'role' => 'barista'` secara eksplisit agar langsung terbaca di memori maupun database.
+  3. Memicu event `Registered` dan langsung meloginkan user tersebut.
+  4. Mengarahkan ke rute `dashboard` (yang otomatis meneruskan ke dashboard Barista).
+* **Output / Return Value**: `RedirectResponse` menuju rute `dashboard`.
+* **Kaitan dengan Bagian Lain**: Terhubung dengan `resources/js/Pages/Auth/Register.tsx` dan rute `/dashboard` di `routes/web.php`.
+
+### Fungsi: `DashboardController::barista()` dan `DashboardController::owner()`
+* **Tujuan**: Menyediakan controller penghubung agar rute `/dashboard/barista` dan `/dashboard/owner` bisa menampilkan halaman React masing-masing tanpa error *class not found*.
+* **Input / Parameter**: Tidak ada parameter.
+* **Alur Logika Bisnis (Langkah demi Langkah)**:
+  1. `barista()` merender komponen Inertia `Barista/Dashboard`.
+  2. `owner()` merender komponen Inertia `Dashboard`.
+* **Output / Return Value**: Objek `Inertia\Response` yang memuat halaman React terkait.
+* **Kaitan dengan Bagian Lain**: Dipanggil oleh `routes/web.php` saat user Barista atau Owner diarahkan setelah login.
+
+---
+
 *Dokumen ini mendampingi spesifikasi teknis di [`PLAN_04_AUTH_RBAC_MIDDLEWARE.md`](../Plan%20Backend/PLAN_04_AUTH_RBAC_MIDDLEWARE.md). Untuk kode PHP lengkap setiap file, lihat dokumen teknis tersebut.*

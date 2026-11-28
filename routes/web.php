@@ -7,6 +7,7 @@ use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockUsageController;
 use App\Http\Controllers\WasteLogController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,6 +15,9 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function (Request $request) {
+        return redirect()->route($request->user()->dashboardRoute());
+    })->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -26,6 +30,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/stock-usages', [StockUsageController::class, 'index'])
         ->name('stock-usages.index');
+    // Alias: /stock-usages/create redirect ke index (form terintegrasi di sana)
+    Route::get('/stock-usages/create', fn() => redirect()->route('stock-usages.index'))
+        ->name('stock-usages.create');
 
     Route::get('/dashboard/barista', [DashboardController::class, 'barista'])
         ->name('dashboard.barista');
@@ -53,12 +60,17 @@ Route::middleware(['auth'])->group(function () {
             ->name('batches.edit');
         Route::patch('/batches/{batch}', [IngredientBatchController::class, 'update'])
             ->name('batches.update');
+        Route::delete('/batches/{batch}', [IngredientBatchController::class, 'destroy'])
+            ->name('batches.destroy');
 
         Route::patch('/waste-logs/{wasteLog}/approve', [WasteLogController::class, 'approve'])
             ->name('waste-logs.approve');
         Route::patch('/waste-logs/{wasteLog}/reject', [WasteLogController::class, 'reject'])
             ->name('waste-logs.reject');
     });
+
+    Route::get('/batches/{batch}', [IngredientBatchController::class, 'show'])
+        ->name('batches.show');
 
     Route::middleware(['role:owner'])->group(function () {
         Route::get('/dashboard/owner', [DashboardController::class, 'owner'])

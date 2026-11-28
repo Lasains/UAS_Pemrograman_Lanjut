@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Owner
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'owner@kafe.com'],
             [
                 'name'     => 'Pak Budi (Owner)',
@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         );
 
         // Supervisor
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'supervisor@kafe.com'],
             [
                 'name'     => 'Ibu Sari (Supervisor)',
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
         );
 
         // Barista
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'barista@kafe.com'],
             [
                 'name'     => 'Andi (Barista)',

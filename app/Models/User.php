@@ -89,4 +89,17 @@ class User extends Authenticatable
     {
         return $this->role === 'barista';
     }
+
+    /**
+     * Menentukan nama route dashboard utama berdasarkan role pengguna.
+     */
+    public function dashboardRoute(): string
+    {
+        return match ($this->role) {
+            'owner' => 'dashboard.owner',
+            'supervisor' => 'inventory.index',
+            'barista' => 'dashboard.barista',
+            default => 'inventory.index',
+        };
+    }
 }

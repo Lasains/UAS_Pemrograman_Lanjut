@@ -45,6 +45,7 @@ export interface IngredientBatch {
     status: BatchStatus;
     days_until_expiry?: number;
     urgency_status?: UrgencyStatus;
+    expiry_status?: UrgencyStatus;
     is_fefo_recommended?: boolean;
     ingredient?: Ingredient;
     created_at?: string;

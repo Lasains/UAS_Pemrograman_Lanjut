@@ -27,6 +27,7 @@ interface DemoAccount {
     role: 'barista' | 'supervisor' | 'owner';
     title: string;
     email: string;
+    password: string;
     badge: string;
     desc: string;
     icon: typeof Coffee;
@@ -39,6 +40,7 @@ const DEMO_ACCOUNTS: DemoAccount[] = [
         role: 'barista',
         title: 'Barista',
         email: 'barista@kafe.com',
+        password: '@AnGgA123',
         badge: 'Aktif',
         desc: 'Akses Bar & FEFO',
         icon: Coffee,
@@ -49,6 +51,7 @@ const DEMO_ACCOUNTS: DemoAccount[] = [
         role: 'supervisor',
         title: 'Supervisor',
         email: 'supervisor@kafe.com',
+        password: 'password',
         badge: 'Gudang',
         desc: 'Audit & Approval',
         icon: ClipboardCheck,
@@ -59,6 +62,7 @@ const DEMO_ACCOUNTS: DemoAccount[] = [
         role: 'owner',
         title: 'Owner',
         email: 'owner@kafe.com',
+        password: 'password',
         badge: 'Keuangan',
         desc: 'Laba Rugi & Aset',
         icon: BarChart3,
@@ -70,7 +74,7 @@ const DEMO_ACCOUNTS: DemoAccount[] = [
 export default function Login({ status, canResetPassword }: LoginPageProps) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: 'barista@kafe.com',
-        password: 'password',
+        password: '@AnGgA123',
         remember: true,
     });
 
@@ -89,7 +93,7 @@ export default function Login({ status, canResetPassword }: LoginPageProps) {
         setSelectedRole(account.role);
         setData({
             email: account.email,
-            password: 'password',
+            password: account.password,
             remember: true,
         });
         setDemoFeedback(`Kredensial demo aktif: ${account.title} (${account.email})`);
@@ -98,7 +102,7 @@ export default function Login({ status, canResetPassword }: LoginPageProps) {
             route('login'),
             {
                 email: account.email,
-                password: 'password',
+                password: account.password,
                 remember: true,
             },
             {
